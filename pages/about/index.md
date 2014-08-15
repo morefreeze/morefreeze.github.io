@@ -1,6 +1,5 @@
 ---
 layout: page
-title: "Index"
 description: ""
 ---
 {% include JB/setup %}
@@ -8,3 +7,4 @@ description: ""
 ## About me
 
 I'm lazy. :)
+$$ \theta_i $$
