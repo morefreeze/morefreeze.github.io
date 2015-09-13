@@ -6,5 +6,4 @@ description: ""
 
 ## About me
 
-I'm lazy. :)
-$$ \theta_i $$
+[Resume](/pages/about/resume.md)
