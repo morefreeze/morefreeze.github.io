@@ -1,11 +1,9 @@
 ### Site info:
 title: MoreFreeze
 tagline: MoreFreeze's blog
-author :
-  name : More Freeze
-  email : morefreeze@gmail.com
-  github : morefreeze
-  twitter : morefreeze
+author : More Freeze
+github_username : morefreeze
+twitter_username : morefreeze
 email: morefreeze@gmail.com
 description: "morefreeze's blog" # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
 keywords: "Jekyll, theme, Freshman21"
@@ -14,12 +12,12 @@ locale: en_US
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
 aboutme: Hi, this is More Freeze. I am a backend engineer in Beijing. I am good at C++, PHP, Python deveploping. # these are shown on aboutme-sidebar.
-aboutme_photo: https://i.imgur.com/Mdc4szJl.jpg # your photo.
+aboutme_photo: 'http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200'
 
 
 ### Site setting:
 ShowContactInfo: "True" # Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown when ShowContactInfo == True
-default_column: "one" # blog style: two columns, if default_column != "two", you will see a one column blog.
+default_column: "two" # blog style: two columns, if default_column != "two", you will see a one column blog.
 default_locale: "en" # blog sidebar language set, only include: English(en) and Chinese (cn)
 
 locales:

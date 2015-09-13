@@ -14,8 +14,8 @@
 <meta property="og:site_name" content="MoreFreeze">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@">
-<meta name="twitter:creator" content="@">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="MoreFreeze">
 <meta name="twitter:description" content="morefreeze's blog">
 <meta name="twitter:url" content="/">
@@ -76,8 +76,6 @@
         
         
         
-        
-        
       </div>
     </nav>
 
@@ -86,110 +84,11 @@
 </header>
 
 
-  
+    
 
-  <div class="page-content">
-    <div class="wrapper">
-      <div class="home">
+  <div class="page-content col-sm-8">
+    <div class="home">
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/news/2015/03/31/2.0version.html">2.0 version</a>
-      </h1>
-      <meta itemprop="keywords" content="version,new features,google analytics,google search,back to top,read more" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#news">news</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#version" title="version">version </a>, 
-      
-      <a href="/tags/#new features" title="new features">new features </a>, 
-      
-      <a href="/tags/#google analytics" title="google analytics">google analytics </a>, 
-      
-      <a href="/tags/#google search" title="google search">google search </a>, 
-      
-      <a href="/tags/#back to top" title="back to top">back to top </a>, 
-      
-      <a href="/tags/#read more" title="read more">read more </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-03-31">
-      on Mar 31, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      <p>Today, I update the theme with some new features. Welcome to use freshman21 2.0 version(gh-pages branch).</p>
-
-<p><strong>gh-pages branch new features</strong> :</p>
-
-<ul>
-  <li>Google  search</li>
-  <li>Google analytics</li>
-  <li>Read more mode</li>
-  <li>Open Graph META Tags</li>
-  <li>Microdata(schema.org)</li>
-  <li>back to top button</li>
-  <li>font awesome icon</li>
-</ul>
-
-<p><strong>master branch new features</strong> :</p>
-
-<ul>
-  <li>Open Graph META Tags</li>
-  <li>Microdata(schema.org)</li>
-</ul>
-
-<p>The main difference between master and gh-pages: only one Javascript (Mathjax) be included in master branch.</p>
-
-<p>Master branch is a more purified html+css framework than gh-pages branch.</p>
-
-<p>Clone master branch:</p>
-
-<p><code> git clone https://github.com/yulijia/freshman21.git -b master --single-branch</code></p>
-
-<p>Clone gh-pages branch:</p>
-
-<p><code>git clone https://github.com/yulijia/freshman21.git -b gh-pages --single-branch</code></p>
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/03/03/hello-world.html">Hello world</a>
-      </h1>
-      <meta itemprop="keywords" content="test" />
-      <p class="post-meta">
-      Posted in
-      
-      
-      and tagged
-      
-      <a href="/tags/#test" title="test">test </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-03-03">
-      on Mar 3, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
-<p>say something here</p>
-
-    </article> <hr />
     
     
   
@@ -286,163 +185,6 @@
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/articles/howto/2014/12/19/freshman21-structure.html">Theme structure</a>
-      </h1>
-      <meta itemprop="keywords" content="structure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#structure" title="structure">structure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      <h2 id="the-structure-of-freshman21-theme">1.The structure of freshman21 theme</h2>
-
-<p>You can see the simplest way of adding a page is just to add an HTML ( or markdown ) file in the root directory with a suitable name for the page you want to create. For example, aahome.md is the homepage link, about.md is the about page.</p>
-
-<p>All sidebar boxes html files are in the <code>_include</code> directory, their name begin with upper case. You can chose which sidebar boxes appears in the main page on the <q>sidebar.html</q> in the <code>_includes</code> directory.</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">.
-<span class="p">|</span>-- a_home.md                 <span class="c"># home page link at navigation bar</span>
-<span class="p">|</span>-- b_about.md                <span class="c"># about link at navigation bar</span>
-<span class="p">|</span>-- c_archives.md             <span class="c"># archives link at navigation bar</span>
-<span class="p">|</span>-- _config.yml
-<span class="p">|</span>-- css
-<span class="p">|</span>   <span class="sb">`</span>-- main.scss
-<span class="p">|</span>-- d_categories.md           <span class="c"># categories link at navigation bar </span>
-<span class="p">|</span>-- e_tags.md                 <span class="c"># tags at main navigation bar</span>
-<span class="p">|</span>-- feed.xml                  <span class="c"># RSS at main navigation bar</span>
-<span class="p">|</span>-- f_guestbook.md            <span class="c"># guest book like at navigation bar</span>
-<span class="p">|</span>-- images
-<span class="p">|</span>   <span class="sb">`</span>-- favicon.ico           <span class="c"># here is your website favicon</span>
-<span class="p">|</span>-- _includes
-<span class="p">|</span>   <span class="p">|</span>-- Aboutme.html          <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- Archives.html         <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- Blogroll.html         <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- Categories.html       <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- comments.html         <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- Copyright_Notice.html <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- footer.html
-<span class="p">|</span>   <span class="p">|</span>-- header.html
-<span class="p">|</span>   <span class="p">|</span>-- head.html
-<span class="p">|</span>   <span class="p">|</span>-- page_pagination.html
-<span class="p">|</span>   <span class="p">|</span>-- post_pagination.html
-<span class="p">|</span>   <span class="p">|</span>-- Recent_Posts.html     <span class="c"># right column sidebar content</span>
-<span class="p">|</span>   <span class="p">|</span>-- sidebar.html          <span class="c"># you can set you own sidebar content in here</span>
-<span class="p">|</span>   <span class="sb">`</span>-- Tags.html             <span class="c"># right column sidebar content</span>
-<span class="p">|</span>-- index.html
-<span class="p">|</span>-- _layouts
-<span class="p">|</span>   <span class="p">|</span>-- default.html
-<span class="p">|</span>   <span class="p">|</span>-- page.html
-<span class="p">|</span>   <span class="sb">`</span>-- post.html
-<span class="p">|</span>-- LICENSE
-<span class="p">|</span>-- _posts
-<span class="p">|</span>   <span class="p">|</span>-- 2013-10-10-milu.md
-<span class="p">|</span>   <span class="p">|</span>-- 2014-12-13-simple-post.md
-<span class="p">|</span>   <span class="p">|</span>-- 2014-12-18-how-to-install.md
-<span class="p">|</span>   <span class="p">|</span>-- 2014-12-19-freshman21-structure.md
-<span class="p">|</span>   <span class="p">|</span>-- 2014-12-19-how-to-set-the-config-file.md
-<span class="p">|</span>   <span class="sb">`</span>-- 2015-03-31-readme.md
-<span class="p">|</span>-- README.md
-<span class="sb">`</span>-- _sass
-    <span class="p">|</span>-- _base.scss
-    <span class="p">|</span>-- _layout.scss
-    <span class="p">|</span>-- _syntax-highlighting-native.scss
-    <span class="sb">`</span>-- _syntax-highlighting.scss</code></pre></div>
-
-<h2 id="structure-with-named-folders-containing-index-html-files">2.Structure with Named folders containing index HTML files</h2>
-
-<p>There is nothing wrong with the above method, however some people like to keep their URLs free from things like filename extensions. To achieve clean URLs for pages using Jekyll, you simply need to create a folder for each top-level page you want, and then place an index.html file in each page’s folder. You can find the more detail at <a href="http://jekyllrb.com/docs/pages/" title="Creating pages">Jekyll documentation</a>. Here is my own blog structure with page-folders to contain each pages.</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">.
-├── _backup
-│   ├── en.tar.gz
-│   └── style.css
-├── categories                              <span class="c"># =&gt; http://yulijia.net/en/categories/ </span>
-│   └── index.md
-├── _config.yml
-├── css
-│   └── main.scss
-├── feed                                    <span class="c"># =&gt; http://yulijia.net/en/feed/index.xml</span>
-│   └── index.xml
-├── guestbook                               <span class="c"># =&gt; http://yulijia.net/en/guestbook/</span>
-│   └── index.md
-├── home.md
-├── _includes
-│   ├── Aboutme.html
-│   ├── Archives.html
-│   ├── Blogroll.html
-│   ├── Categories.html
-│   ├── comments.html
-│   ├── Copyright_Notice.html
-│   ├── footer.html
-│   ├── header.html
-│   ├── head.html
-│   ├── page_pagination.html
-│   ├── post_pagination.html
-│   ├── Recent_Posts.html
-│   ├── sidebar.html
-│   └── Tags.html
-├── index.html
-├── _layouts
-│   ├── default.html
-│   ├── page.html
-│   └── post.html
-├── _posts
-│   ├── 2011-07-22-hello-world.md
-│   ├── 2011-08-06-how-to-calculate-word-frequencies-with-r.md
-│   ├── 2011-08-18-should-draco-be-effective-against-virtually-all-viruses.md
-│   ├── 2011-10-21-why-viruses-produce-long-dsrna-but-not-endogenous-ones.md
-│   ├── 2012-03-22-100-things-bioinformatics-students-should-do-before-graduating.md
-│   ├── 2012-10-08-a-new-site.md
-│   ├── 2012-10-09-github-pages.md
-│   ├── 2012-10-22-a-conference-of-Genomics-and-Epigenomics.md
-│   ├── 2012-10-23-CSHL-Asia-interesting-talks-on-genomics-and-epigenomics.md
-│   └── 2013-01-30-how-to-get-RefSeq-gene-annotations-from-UCSCdatabase.md
-├── README.md
-├── _sass
-│   ├── _base.scss
-│   ├── _layout.scss
-│   └── _syntax-highlighting.scss
-└── tags
-    └── index.md</code></pre></div>
-
-<h2 id="how-to-change-the-highlight-style">3. How to change the highlight style?</h2>
-
-<p>This theme’s default highlighter is pygments.</p>
-
-<p>To change the highlight style, you should install <strong>pygments</strong>, and generate the css style which you wanted with code</p>
-
-<p><code>pygmentize -S default -f html &gt; freshman/_sass/_syntax-highlighting.scss</code></p>
-
-<p>Please make sure, add <code>.highlight {</code> at the head  and <code>}</code> at the end of file <q>_syntax-highlighting.scss</q>.</p>
-
-<p>See more,</p>
-
-<ol>
-  <li><a href="http://pygments.org/languages/">Pygments Supported languages</a></li>
-  <li><a href="http://stackoverflow.com/questions/9652490/do-i-need-to-generate-a-css-file-from-pygments-for-my-jekyll-blog-to-enable-col">Pygments online deme</a></li>
-</ol>
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/articles/2014/12/18/how-to-install.html">How to install this theme</a>
       </h1>
       <meta itemprop="keywords" content="sample-post" />
@@ -480,17 +222,316 @@
     
     
   
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/articles/2014/12/13/simple-post.html">Sample Post</a>
+      </h1>
+      <meta itemprop="keywords" content="sample-post" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#articles">articles</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
+      
+      
+      <time itemprop="datePublished" datetime="2014-12-13">
+      on Dec 13, 2014
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+      <ul id="markdown-toc">
+  <li><a href="#heading" id="markdown-toc-heading">Heading</a></li>
+  <li><a href="#body-text" id="markdown-toc-body-text">Body text</a></li>
+  <li><a href="#blockquotes" id="markdown-toc-blockquotes">Blockquotes</a></li>
+  <li><a href="#list-types" id="markdown-toc-list-types">List Types</a>    <ul>
+      <li><a href="#ordered-lists" id="markdown-toc-ordered-lists">Ordered Lists</a></li>
+      <li><a href="#unordered-lists" id="markdown-toc-unordered-lists">Unordered Lists</a></li>
+    </ul>
+  </li>
+  <li><a href="#tables" id="markdown-toc-tables">Tables</a></li>
+  <li><a href="#code-snippets" id="markdown-toc-code-snippets">Code Snippets</a>    <ul>
+      <li><a href="#highlight-with-line-number" id="markdown-toc-highlight-with-line-number">highlight with line number.</a></li>
+    </ul>
+  </li>
+  <li><a href="#latex" id="markdown-toc-latex"><script type="math/tex">\LaTeX</script></a></li>
+  <li><a href="#q-tag" id="markdown-toc-q-tag">&lt;q&gt; tag</a></li>
+</ul>
+
+<p>This is a sample post.</p>
+
+<p>Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.</p>
+
+<h2 id="heading">Heading</h2>
+
+<pre><code># Heading 1
+
+## Heading 2
+
+### Heading 3
+
+#### Heading 4
+</code></pre>
+
+<h2 id="body-text">Body text</h2>
+
+<p><strong>This is strong</strong>.</p>
+
+<p>This is figure</p>
+
+<p><img src="https://i.imgur.com/Mdc4szJl.jpg" alt="Elaphurus davidianus" title="Père David's deer" /></p>
+
+<p><em>This is emphasized</em>.</p>
+
+<p>53 = 125. Water is H<sub>2</sub>O.</p>
+
+<p>The New York Times <cite>(That’s a citation)</cite>.</p>
+
+<p><u>Underline</u>.</p>
+
+<p><del>HTML and CSS are our tools</del>.</p>
+
+<h2 id="blockquotes">Blockquotes</h2>
+
+<blockquote>
+  <p>Justification:
+This species is listed as Extinct in the Wild, as all populations are still under captive management. The captive population in China has increased in recent years, and the possibility remains that free-ranging populations can be established some time in the near future. When that happens, its Red List status will need to be reassessed.</p>
+</blockquote>
+
+<blockquote>
+  <p>I follow up the quest. Despite of day and night and death and hell.</p>
+  <center> -- Idylls of the King, Tennyson </center>
+</blockquote>
+
+<h2 id="list-types">List Types</h2>
+
+<h3 id="ordered-lists">Ordered Lists</h3>
+
+<ol>
+  <li>Item one
+    <ol>
+      <li>sub item one</li>
+      <li>sub item two</li>
+      <li>sub item three</li>
+    </ol>
+  </li>
+  <li>Item two</li>
+</ol>
+
+<h3 id="unordered-lists">Unordered Lists</h3>
+
+<ul>
+  <li>Item one</li>
+  <li>Item two</li>
+  <li>Item three</li>
+</ul>
+
+<h2 id="tables">Tables</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Header1</th>
+      <th style="text-align: center">Header2</th>
+      <th style="text-align: right">Header3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">cell1</td>
+      <td style="text-align: center">cell2</td>
+      <td style="text-align: right">cell3</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cell4</td>
+      <td style="text-align: center">cell5</td>
+      <td style="text-align: right">cell6</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cell7</td>
+      <td style="text-align: center">cell8</td>
+      <td style="text-align: right">cell9</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Kingdom</th>
+      <th style="text-align: center">Phylum</th>
+      <th style="text-align: center">Class</th>
+      <th style="text-align: center">Order</th>
+      <th style="text-align: center">Family</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">ANIMALIA</td>
+      <td style="text-align: center">CHORDATA</td>
+      <td style="text-align: center">MAMMALIA</td>
+      <td style="text-align: center">CETARTIODACTYLA</td>
+      <td style="text-align: center">CERVIDAE</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="code-snippets">Code Snippets</h2>
+
+<p>Syntax highlighting via Pygments</p>
+
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#container</span> <span class="p">{</span>
+  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
+  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">-240px</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
+  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<h4 id="highlight-with-line-number">highlight with line number.</h4>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="k">def</span> <span class="nf">foo</span>
+<span class="lineno">2</span>   <span class="nb">puts</span> <span class="s1">&#39;foo&#39;</span>
+<span class="lineno">3</span> <span class="k">end</span></code></pre></div>
+
+<h2 id="latex"><script type="math/tex">\LaTeX</script></h2>
+
+<p>you can use latex with <q>double $$ </q></p>
+
+<script type="math/tex; mode=display">e^{i\pi}+1=0</script>
+
+<h2 id="q-tag">&lt;q&gt; tag</h2>
+
+<p>here is a &lt;q&gt; q tag &lt;/q&gt;</p>
+
+<p>here is a <q> q tag </q></p>
+
+    </article> <hr />
+    
+    
+  
   </div>
 </div>
 
-    </div>
-  </div>
-  <section class="pager">
+    <section class="pager">
   
-  
-  <li class="next"><a href="/page2/" title="Older">Older &rarr;</a></li>
   
 </section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="//articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file" rel="bookmark">How to set the config.yml file</a>
+  </li>
+  
+  <li>
+  <a href="//articles/2014/12/18/how-to-install.html" title="How to install this theme" rel="bookmark">How to install this theme</a>
+  </li>
+  
+  <li>
+  <a href="//articles/2014/12/13/simple-post.html" title="Sample Post" rel="bookmark">Sample Post</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="Another Jekyll blog theme">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+
+</div>
 
 
 
@@ -502,7 +543,7 @@
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   
-  GitHub 
+  <a href="https://github.com/">Github</a>
   
   | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
 
