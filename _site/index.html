@@ -94,6 +94,65 @@
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/work/2015/09/23/machine-die-in-cloudera.html">记一次cloudera机器重装</a>
+      </h1>
+      <meta itemprop="keywords" content="crash,trap" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#work">work</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#crash" title="crash">crash </a>, 
+      
+      <a href="/tags/#trap" title="trap">trap </a>
+      
+      
+      <time itemprop="datePublished" datetime="2015-09-23">
+      on Sep 23, 2015
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+      
+<p>先上结论：<strong>线上机器千万别没事<code>yum update</code>以及同类的升级操作</strong></p>
+
+<p>上周五由于跑数据发现某个软件需要更新，需要<code>yum update</code>下，于是手贱把需要更新的都更新了，
+结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
+各方面素质差很多，同样的拉数据，别的机器不挂，它一会就挂了，娇贵得很。得出结论是只能重装。这台机器的角色还挺多，
+包括所有导入数据脚本，跑每天的统计，保存的数据结果，同时还有作为HDFS的NameNode和
+Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以再重跑就行了，于是决定重装。噩梦开始！</p>
+
+<p>重装完成……</p>
+
+<p>首先，发现cloudera的host管理这台机器处理故障状态，当然它上面其实啥东西都没，
+而且解除授权需要先把运行的停掉（但根本就没运行咋停？），从集群中移除需要先解除授权，
+所以为今之计只能先装上cloudera-agent，让cloudera发现它再说。然而公司的尿性网，
+其中的依赖cloudera-daemon有600M，中间下载又是断连，又是挂代理，搜了下国内还真没找到这个源，最终是下下来了，
+装上后，进行了个re-upgrade的操作，发现报错，研究一番后发现是版本装高了，是的，这一个月
+时间cloudera-agent这货升了3个小版本号，哦对了，cloudera-daemon也跟着升了3个小版本，
+因此还要重下，我当时就十万个草泥马跑过。</p>
+
+<p>又过了一天，经过以前同事提醒，想起来有台机器当时保存了yum下好的cache，赶紧找出来，
+用了一个小时就装了回去。后来又发现这台机器无法被server认出来，需要重新认证，
+找了半天，发现可以强制删除（之前我还在psql里强制删除这台机器，但因为外键限制没成功），
+然后就重新添加这台机器进集群，因为要重新分配角色，于是就把除了HDFS其它的Hive,Yarn等删了，
+重装分配了角色。发现HDFS的两个NameNode在安全模式，这时HDFS只读不写，找了半天没发现怎么修复这个问题，
+看来只能退出安全模式了，退出后机器重装的恶果终于显现了，HDFS块丢失，丢了近50%，
+后来又找到配置里的replication（冗余系数）为1，WTF，没有备份，丢就是丢了。</p>
+
+<p>好了不说了，我去导之前数据了。</p>
+
+
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/articles/howto/2014/12/19/how-to-set-the-config-file.html">How to set the config.yml file</a>
       </h1>
       <meta itemprop="keywords" content="configure" />
@@ -468,6 +527,10 @@ This species is listed as Extinct in the Wild, as all populations are still unde
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="//work/2015/09/23/machine-die-in-cloudera.html" title="记一次cloudera机器重装" rel="bookmark">记一次cloudera机器重装</a>
+  </li>
+  
+  <li>
   <a href="//articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file" rel="bookmark">How to set the config.yml file</a>
   </li>
   
@@ -489,6 +552,8 @@ This species is listed as Extinct in the Wild, as all populations are still unde
   
   <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
   
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
 </div>
 
 
@@ -498,6 +563,10 @@ This species is listed as Extinct in the Wild, as all populations are still unde
     <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
   
     <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
   
 </div>
 
@@ -513,6 +582,14 @@ This species is listed as Extinct in the Wild, as all populations are still unde
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
   
   
   
