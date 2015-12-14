@@ -22,8 +22,8 @@
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
-<link rel="icon" href="/images/favicon.ico">
-<link rel="stylesheet" href="/css/main.css">
+<link rel="icon" href="/blog/images/favicon.ico">
+<link rel="stylesheet" href="/blog/css/main.css">
 <link rel="canonical" href="/">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
 
@@ -43,7 +43,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/blog/">MoreFreeze</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -57,19 +57,19 @@
       <div class="trigger">
         
         
-        <a class="page-link" href="/">Home</a>
+        <a class="page-link" href="/blog/">Home</a>
         
         
         
-        <a class="page-link" href="/b_about.html">About Me</a>
+        <a class="page-link" href="/blog/b_about.html">About Me</a>
         
         
         
-        <a class="page-link" href="/archives/">Archives</a>
+        <a class="page-link" href="/blog/archives/">Archives</a>
         
         
         
-        <a class="page-link" href="/categories/">Categories</a>
+        <a class="page-link" href="/blog/categories/">Categories</a>
         
         
         
@@ -89,386 +89,6 @@
   <div class="page-content col-sm-8">
     <div class="home">
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/work/2015/09/23/machine-die-in-cloudera.html">记一次cloudera机器重装</a>
-      </h1>
-      <meta itemprop="keywords" content="crash,trap" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#work">work</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#crash" title="crash">crash </a>, 
-      
-      <a href="/tags/#trap" title="trap">trap </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-09-23">
-      on Sep 23, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
-<p>先上结论：<strong>线上机器千万别没事<code>yum update</code>以及同类的升级操作</strong></p>
-
-<p>上周五由于跑数据发现某个软件需要更新，需要<code>yum update</code>下，于是手贱把需要更新的都更新了，
-结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
-各方面素质差很多，同样的拉数据，别的机器不挂，它一会就挂了，娇贵得很。得出结论是只能重装。这台机器的角色还挺多，
-包括所有导入数据脚本，跑每天的统计，保存的数据结果，同时还有作为HDFS的NameNode和
-Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以再重跑就行了，于是决定重装。噩梦开始！</p>
-
-<p>重装完成……</p>
-
-<p>首先，发现cloudera的host管理这台机器处理故障状态，当然它上面其实啥东西都没，
-而且解除授权需要先把运行的停掉（但根本就没运行咋停？），从集群中移除需要先解除授权，
-所以为今之计只能先装上cloudera-agent，让cloudera发现它再说。然而公司的尿性网，
-其中的依赖cloudera-daemon有600M，中间下载又是断连，又是挂代理，搜了下国内还真没找到这个源，最终是下下来了，
-装上后，进行了个re-upgrade的操作，发现报错，研究一番后发现是版本装高了，是的，这一个月
-时间cloudera-agent这货升了3个小版本号，哦对了，cloudera-daemon也跟着升了3个小版本，
-因此还要重下，我当时就十万个草泥马跑过。</p>
-
-<p>又过了一天，经过以前同事提醒，想起来有台机器当时保存了yum下好的cache，赶紧找出来，
-用了一个小时就装了回去。后来又发现这台机器无法被server认出来，需要重新认证，
-找了半天，发现可以强制删除（之前我还在psql里强制删除这台机器，但因为外键限制没成功），
-然后就重新添加这台机器进集群，因为要重新分配角色，于是就把除了HDFS其它的Hive,Yarn等删了，
-重装分配了角色。发现HDFS的两个NameNode在安全模式，这时HDFS只读不写，找了半天没发现怎么修复这个问题，
-看来只能退出安全模式了，退出后机器重装的恶果终于显现了，HDFS块丢失，丢了近50%，
-后来又找到配置里的replication（冗余系数）为1，WTF，没有备份，丢就是丢了。</p>
-
-<p>好了不说了，我去导之前数据了。</p>
-
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/articles/howto/2014/12/19/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
-
-<p><strong>First part</strong> is the site info.</p>
-
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Freshman21</span> <span class="c1"># blog title</span>
-<span class="l-Scalar-Plain">tagline</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Another Jekyll theme, Freshman twenty-first</span> <span class="c1"># blog sub-titile</span>
-<span class="l-Scalar-Plain">author</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Lijia YU</span> <span class="c1"># author name</span>
-<span class="l-Scalar-Plain">email</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">yu@lijiayu.net</span> <span class="c1"># author email</span>
-<span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Freshman21</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">blog</span><span class="nv"> </span><span class="s">theme.&quot;</span> <span class="c1"># You can edit this line in _config.yml. It will appear in your document head meta and in </span>
-<span class="l-Scalar-Plain">your feed.xml site description</span>
-<span class="l-Scalar-Plain">keywords</span><span class="p-Indicator">:</span> <span class="s">&quot;Jekyll,</span><span class="nv"> </span><span class="s">theme,</span><span class="nv"> </span><span class="s">Freshman21&quot;</span> <span class="c1"># html meta keywords</span>
-<span class="l-Scalar-Plain">baseurl</span><span class="p-Indicator">:</span> <span class="s">&quot;/freshman21&quot;</span> <span class="c1"># the subpath of your site, e.g. /blog</span>
-<span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="s">&quot;http://yulijia.net/freshman21&quot;</span> <span class="c1"># the base hostname &amp; protocol for your site</span></code></pre></div>
-
-<p><strong>Part 2</strong>, Personal info and site tools info, twitter, github, aboutme and aboutme_photo only appears on the sidebar aboutme-box, you can <q>Hide</q> in two ways <sup><a href="#[1]">[1]</a></sup>:</p>
-
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">twitter_username</span><span class="p-Indicator">:</span> <span class="c1">#your twitter handle  </span>
-<span class="l-Scalar-Plain">github_username</span><span class="p-Indicator">:</span>  <span class="c1">#your github account</span>
-<span class="l-Scalar-Plain">disqus_shortname</span><span class="p-Indicator">:</span> <span class="c1">#disqus shortname</span>
-<span class="l-Scalar-Plain">favicon</span><span class="p-Indicator">:</span>     <span class="s">&quot;images/favicon.ico&quot;</span>
-<span class="l-Scalar-Plain">aboutme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Hi, this is Lijia Yu. I made the Freshman21 theme. Please enjoy it.</span> <span class="c1"># these are shown on aboutme-box(sidebar).</span>
-<span class="l-Scalar-Plain">aboutme_photo</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://i.imgur.com/15BT1.jpg</span> <span class="c1"># your personal photo.</span></code></pre></div>
-
-<p><strong>Part3</strong>, Site setting:</p>
-
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">ShowContactInfo</span><span class="p-Indicator">:</span> <span class="s">&quot;True&quot;</span> <span class="c1"># Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown where ShowContactInfo == True</span>
-<span class="l-Scalar-Plain">default_column</span><span class="p-Indicator">:</span> <span class="s">&quot;two&quot;</span> <span class="c1"># blog style: two columns, if default_column != &quot;two&quot;, you will see a one column blog.</span>
-<span class="l-Scalar-Plain">default_locale</span><span class="p-Indicator">:</span> <span class="s">&quot;en&quot;</span> <span class="c1"># blog sidebar language set, only include: English(en) and Chinese (cn)</span></code></pre></div>
-
-<p><strong>Part4</strong>, Blogroll info, only <em>name</em> tags can shown on the page.</p>
-
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">Blogroll</span><span class="p-Indicator">:</span>
-      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Freshman</span>
-        <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://yulijia.net/freshman</span>
-        <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Another Jekyll blog theme</span>
-      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">author&#39;s website</span>
-        <span class="l-Scalar-Plain">href</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://yulijia.net/</span>
-        <span class="l-Scalar-Plain">title</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Lijia Yu&#39;s website</span></code></pre></div>
-
-<p><strong>Part5</strong>, Build settings</p>
-
-<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="l-Scalar-Plain">markdown</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kramdown</span>
-<span class="l-Scalar-Plain">highlighter</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">pygments</span> <span class="c1"># highlight</span>
-<span class="l-Scalar-Plain">paginate</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>  <span class="c1"># how many post can seen in the main page</span></code></pre></div>
-
-<p>=====</p>
-
-<ul style="list-style-type:none;"> 
-<li id="[1]"> [1], you can set those info at <strong>Part3</strong> or just delete the <q>aboutme.html</q> at <q>sidebar.html</q> in <code>_include</code> folder. </li>
-</ul>
-
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;col-sm-2&quot;</span><span class="nt">&gt;</span>
-  <span class="c">&lt;!--{ % include Aboutme.html % }--&gt;</span>
-   { % include Copyright_Notice.html % }
-   { % include Recent_Posts.html % }
-   { % include Categories.html % }
-   { % include Tags.html % }
-   { % include Blogroll.html % }
-   { % include Archives.html % }
-<span class="nt">&lt;/div&gt;</span></code></pre></div>
-
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/articles/2014/12/18/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno">1</span> <span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="lineno">2</span> <span class="nv">$ </span>gem install sass
-<span class="lineno">3</span> <span class="nv">$ </span>gem install jekyll
-<span class="lineno">4</span> <span class="nv">$ </span>git clone https://github.com/yulijia/freshman21.git</code></pre></div>
-
-<p>Then, change the folder name to you own github page name, forexample</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>mv freshman thisisyouname.github.io</code></pre></div>
-
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/articles/2014/12/13/simple-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      <ul id="markdown-toc">
-  <li><a href="#heading" id="markdown-toc-heading">Heading</a></li>
-  <li><a href="#body-text" id="markdown-toc-body-text">Body text</a></li>
-  <li><a href="#blockquotes" id="markdown-toc-blockquotes">Blockquotes</a></li>
-  <li><a href="#list-types" id="markdown-toc-list-types">List Types</a>    <ul>
-      <li><a href="#ordered-lists" id="markdown-toc-ordered-lists">Ordered Lists</a></li>
-      <li><a href="#unordered-lists" id="markdown-toc-unordered-lists">Unordered Lists</a></li>
-    </ul>
-  </li>
-  <li><a href="#tables" id="markdown-toc-tables">Tables</a></li>
-  <li><a href="#code-snippets" id="markdown-toc-code-snippets">Code Snippets</a>    <ul>
-      <li><a href="#highlight-with-line-number" id="markdown-toc-highlight-with-line-number">highlight with line number.</a></li>
-    </ul>
-  </li>
-  <li><a href="#latex" id="markdown-toc-latex"><script type="math/tex">\LaTeX</script></a></li>
-  <li><a href="#q-tag" id="markdown-toc-q-tag">&lt;q&gt; tag</a></li>
-</ul>
-
-<p>This is a sample post.</p>
-
-<p>Below is just about everything you’ll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.</p>
-
-<h2 id="heading">Heading</h2>
-
-<pre><code># Heading 1
-
-## Heading 2
-
-### Heading 3
-
-#### Heading 4
-</code></pre>
-
-<h2 id="body-text">Body text</h2>
-
-<p><strong>This is strong</strong>.</p>
-
-<p>This is figure</p>
-
-<p><img src="https://i.imgur.com/Mdc4szJl.jpg" alt="Elaphurus davidianus" title="Père David's deer" /></p>
-
-<p><em>This is emphasized</em>.</p>
-
-<p>53 = 125. Water is H<sub>2</sub>O.</p>
-
-<p>The New York Times <cite>(That’s a citation)</cite>.</p>
-
-<p><u>Underline</u>.</p>
-
-<p><del>HTML and CSS are our tools</del>.</p>
-
-<h2 id="blockquotes">Blockquotes</h2>
-
-<blockquote>
-  <p>Justification:
-This species is listed as Extinct in the Wild, as all populations are still under captive management. The captive population in China has increased in recent years, and the possibility remains that free-ranging populations can be established some time in the near future. When that happens, its Red List status will need to be reassessed.</p>
-</blockquote>
-
-<blockquote>
-  <p>I follow up the quest. Despite of day and night and death and hell.</p>
-  <center> -- Idylls of the King, Tennyson </center>
-</blockquote>
-
-<h2 id="list-types">List Types</h2>
-
-<h3 id="ordered-lists">Ordered Lists</h3>
-
-<ol>
-  <li>Item one
-    <ol>
-      <li>sub item one</li>
-      <li>sub item two</li>
-      <li>sub item three</li>
-    </ol>
-  </li>
-  <li>Item two</li>
-</ol>
-
-<h3 id="unordered-lists">Unordered Lists</h3>
-
-<ul>
-  <li>Item one</li>
-  <li>Item two</li>
-  <li>Item three</li>
-</ul>
-
-<h2 id="tables">Tables</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Header1</th>
-      <th style="text-align: center">Header2</th>
-      <th style="text-align: right">Header3</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">cell1</td>
-      <td style="text-align: center">cell2</td>
-      <td style="text-align: right">cell3</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">cell4</td>
-      <td style="text-align: center">cell5</td>
-      <td style="text-align: right">cell6</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">cell7</td>
-      <td style="text-align: center">cell8</td>
-      <td style="text-align: right">cell9</td>
-    </tr>
-  </tbody>
-</table>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">Kingdom</th>
-      <th style="text-align: center">Phylum</th>
-      <th style="text-align: center">Class</th>
-      <th style="text-align: center">Order</th>
-      <th style="text-align: center">Family</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">ANIMALIA</td>
-      <td style="text-align: center">CHORDATA</td>
-      <td style="text-align: center">MAMMALIA</td>
-      <td style="text-align: center">CETARTIODACTYLA</td>
-      <td style="text-align: center">CERVIDAE</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="code-snippets">Code Snippets</h2>
-
-<p>Syntax highlighting via Pygments</p>
-
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nf">#container</span> <span class="p">{</span>
-  <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span>
-  <span class="k">margin</span><span class="o">:</span> <span class="m">0</span> <span class="m">-240px</span> <span class="m">0</span> <span class="m">0</span><span class="p">;</span>
-  <span class="k">width</span><span class="o">:</span> <span class="m">100%</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
-
-<h4 id="highlight-with-line-number">highlight with line number.</h4>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="lineno">1</span> <span class="k">def</span> <span class="nf">foo</span>
-<span class="lineno">2</span>   <span class="nb">puts</span> <span class="s1">&#39;foo&#39;</span>
-<span class="lineno">3</span> <span class="k">end</span></code></pre></div>
-
-<h2 id="latex"><script type="math/tex">\LaTeX</script></h2>
-
-<p>you can use latex with <q>double $$ </q></p>
-
-<script type="math/tex; mode=display">e^{i\pi}+1=0</script>
-
-<h2 id="q-tag">&lt;q&gt; tag</h2>
-
-<p>here is a &lt;q&gt; q tag &lt;/q&gt;</p>
-
-<p>here is a <q> q tag </q></p>
-
-    </article> <hr />
     
     
   
@@ -527,19 +147,23 @@ This species is listed as Extinct in the Wild, as all populations are still unde
   <h4>Recent Posts</h4>
   
   <li>
-  <a href="//work/2015/09/23/machine-die-in-cloudera.html" title="记一次cloudera机器重装" rel="bookmark">记一次cloudera机器重装</a>
+  <a href="/blog/2015/12/13/test.html" title="test" rel="bookmark">test</a>
   </li>
   
   <li>
-  <a href="//articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file" rel="bookmark">How to set the config.yml file</a>
+  <a href="/blog/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees" rel="bookmark">Solution of Minimum Height Trees</a>
   </li>
   
   <li>
-  <a href="//articles/2014/12/18/how-to-install.html" title="How to install this theme" rel="bookmark">How to install this theme</a>
+  <a href="/blog/2015/12/13/new-post.html" title="new post" rel="bookmark">new post</a>
   </li>
   
   <li>
-  <a href="//articles/2014/12/13/simple-post.html" title="Sample Post" rel="bookmark">Sample Post</a>
+  <a href="/blog/work/2015/09/23/machine-die-in-cloudera.html" title="记一次cloudera机器重装" rel="bookmark">记一次cloudera机器重装</a>
+  </li>
+  
+  <li>
+  <a href="/blog/articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file" rel="bookmark">How to set the config.yml file</a>
   </li>
   
 </div>
@@ -548,11 +172,11 @@ This species is listed as Extinct in the Wild, as all populations are still unde
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  <li><a href="/blog/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
-  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  <li><a href="/blog/categories/#howto" title="howto" rel="1">howto (1)</a></li>
   
-  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  <li><a href="/blog/categories/#work" title="work" rel="1">work (1)</a></li>
   
 </div>
 
@@ -560,13 +184,13 @@ This species is listed as Extinct in the Wild, as all populations are still unde
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+    <a href="/blog/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
   
-    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+    <a href="/blog/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
   
-    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+    <a href="/blog/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
   
-    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+    <a href="/blog/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
   
 </div>
 
@@ -587,7 +211,7 @@ This species is listed as Extinct in the Wild, as all populations are still unde
   
   
   
-  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  <li id="2015" > <a href="/blog/archives/#2015">2015</a></li>
   
   
   
@@ -595,7 +219,15 @@ This species is listed as Extinct in the Wild, as all populations are still unde
   
   
   
-  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/blog/archives/#2014">2014</a></li>
   
   
   
@@ -616,7 +248,7 @@ This species is listed as Extinct in the Wild, as all populations are still unde
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/blog/">MoreFreeze</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

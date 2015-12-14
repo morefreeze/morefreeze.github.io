@@ -2,7 +2,7 @@
 layout: post
 title: How to set the config.yml file
 modified: 2014-12-19
-categories: [articles, Howto]
+categories: [articles, howto]
 tags: 
   - configure
 comments: true
