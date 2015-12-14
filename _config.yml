@@ -8,7 +8,7 @@ email: morefreeze@gmail.com
 description: "morefreeze's blog" # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
 keywords: "Jekyll, theme, Freshman21"
 locale: en_US
-baseurl: /
+baseurl: 
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
