@@ -56,8 +56,10 @@ task :post do
     exit -1
   end
   filename = File.join(CONFIG['posts'], "#{date}-#{slug}.#{CONFIG['post_ext']}")
+  tm = Time.now.strftime("%Y%m%d%H%M%S")
   if File.exist?(filename)
-    abort("rake aborted!") if ask("#{filename} already exists. Do you want to overwrite?", ['y', 'n']) == 'n'
+    cp("#{filename}", "#{filename}.#{tm}")
+    puts "Origin file have been moved to #{filename}.#{tm}"
   end
   
   puts "Creating new post: #{filename}"
