@@ -10,10 +10,181 @@ tags: [leetcode, solution, dp, dfs, tree]
 I have trained my algorithm on [leetcode](http://leetcode.com/) a period of time.
 
 Today, I will explain my solution about [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/).
-My solution beat ~95% against others but it is hard to explain and what is I do.
+My solution beat ~95% against others but it is hard to explain what is I do.
+Please allow me to introduce the solution from easy to hard. If you only need the
+last solution, jump to [Solution 4](#solution4).
 
-My solution is very easy(but not to implement easily).
+List of Solutions:
 
+1. [Brute Force Solution](#solution1)
+1. [Cut Leaves Solution](#solution2)
+1. [Find Diameter Solution](#solution3)
+1. [DP-DFS Solution](#solution4)
+
+### <a name="solution1"></a>Brute Force Solution
+Brute force solution is very easy and direct. Enumerate every node of tree,
+find the longest path depends on problem description with DFS.
+{% highlight c++ %}
+// TLE
+class BruteForceSolution {
+    public:
+        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
+            VI ans;
+            int min_len(n);
+            if (n <= 0) return ans;
+            if (n == 2) {
+                ans.PB(0);
+                ans.PB(1);
+                return ans;
+            }
+            VI cnt(n);
+            VVI a(n);
+            REP (i, SZ(edges)) {
+                cnt[edges[i].first]++;
+                cnt[edges[i].second]++;
+                a[edges[i].first].PB(edges[i].second);
+                a[edges[i].second].PB(edges[i].first);
+            }
+            REP (i, n) {
+                if (cnt[i] == 0) return ans;
+                if (cnt[i] == 1) continue;
+                map<int,bool> vi;
+                vi[i] = true;
+                int len(0);
+                dfs(i, 0, vi, a, len);
+                if (len <= min_len) {
+                    if (len < min_len) ans.clear();
+                    min_len = len;
+                    ans.PB(i);
+                }
+            }
+            return ans;
+        }
+        void dfs(int cur, int depth, map<int,bool> &vi, VVI &a, int &len) {
+            len = max(len, depth);
+            REP (i, SZ(a[cur])) {
+                if (!EXIST(vi, a[cur][i])) {
+                    vi[ a[cur][i] ] = true;
+                    dfs(a[cur][i], depth+1, vi, a, len);
+                    vi[ a[cur][i] ] = false;
+                }
+            }
+        }
+};
+{% endhighlight %}
+---
+
+### <a name="solution2"></a>Cut Leaves Solution
+Cut leaves of current tree, repeat this process until there are one or two leaves left.
+{% highlight c++ %}
+// cut every leaf, again and again, until left one or two node
+class CutSolution {
+    public:
+        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
+            if (n == 1) {
+                VI ans;
+                ans.PB(0);
+                return ans;
+            }
+            vector<unordered_set<int> > a(n);
+            REP (i, SZ(edges)) {
+                a[edges[i].first].insert(edges[i].second);
+                a[edges[i].second].insert(edges[i].first);
+            }
+            VI ans1, ans2;
+            VI *p1(&ans1), *p2(&ans2);
+            REP (i, SZ(a)) {
+                if (SZ(a[i]) == 1) p1->PB(i);
+            }
+            while (1) {
+                for (auto i: *p1) {
+                    for (auto cur : a[i]) {
+                        a[ cur ].erase(i);
+                        if (SZ(a[ cur ]) == 1) p2->PB(cur);
+                    }
+                }
+                if (p2->empty()) return *p1;
+                p1->clear();
+                swap(p1, p2);
+            }
+        }
+};
+{% endhighlight %}
+---
+
+### <a name="solution3"></a>Find Diameter Solution
+Use two DFS to find the diameter and record the diameter path, then pick the middle node what answer is.
+{% highlight c++ %}
+// find diameter, then find center
+// slower than Solution
+class SolutionDiameter {
+    public:
+        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
+            VVI a(n);
+            REP (i, SZ(edges)) {
+                a[edges[i].first].PB(edges[i].second);
+                a[edges[i].second].PB(edges[i].first);
+            }
+            VI ret(n);
+            VI fa(n);
+            VI p;
+            int diameter(find_diameter(a, ret, fa, p));
+            VI ans;
+            int cur(p[1]);
+            REP (i, diameter/2) {
+                cur = fa[cur];
+            }
+            ans.PB(cur);
+            if (diameter%2 == 1) {
+                ans.PB(fa[cur]);
+            }
+            return ans;
+        }
+        // find diameter
+        // ret length from one point
+        // fa father of path
+        // p contain two endpoint
+        // return diameter length
+        int find_diameter(const VVI &a, VI &ret, VI &fa, VI &p) {
+            int diameter;
+            // pick random point to start, so we pick 0, use random can't speed up
+            int point(find_longest(0, a, ret, fa, diameter));
+            int point2(find_longest(point, a, ret, fa, diameter));
+            p.PB(point);
+            p.PB(point2);
+            return diameter;
+        }
+        // bfs find longest point
+        int find_longest(int start, const VVI &a, VI &ret, VI &fa, int &diameter) {
+            deque<int> q;
+            q.PB(start);
+            unordered_set<int> v;
+            v.insert(start);
+            ret[start] = 0;
+            while (!q.empty()) {
+                int cur(q.front());
+                REP (i, SZ(a[cur])) {
+                    if (!EXIST(v, a[cur][i])) {
+                        v.insert(a[cur][i]);
+                        q.PB(a[cur][i]);
+                        ret[a[cur][i]] = ret[cur] + 1;
+                        fa[a[cur][i]] = cur;
+                    }
+                }
+                // the last one of queue
+                if (SZ(q) == 1) {
+                    diameter = ret[q.front()];
+                    return q.front();
+                }
+                q.pop_front();
+            }
+            return start;
+        }
+};
+{% endhighlight %}
+---
+
+### <a name="solution4"></a>DP-DFS Solution
 *a[i]* convert *edges* to adjacency list of *i*
 
 *ret[i]* the LPL when *i* as root, so finally we find all smallest *ret*, that is the answer.
@@ -169,151 +340,6 @@ class Solution {
             return l0;
         }
 };
-
-// find diameter, then find center
-// slower than Solution
-class Solution2 {
-    public:
-        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
-            VVI a(n);
-            REP (i, SZ(edges)) {
-                a[edges[i].first].PB(edges[i].second);
-                a[edges[i].second].PB(edges[i].first);
-            }
-            VI ret(n);
-            VI fa(n);
-            VI p;
-            int diameter(find_diameter(a, ret, fa, p));
-            VI ans;
-            int cur(p[1]);
-            REP (i, diameter/2) {
-                cur = fa[cur];
-            }
-            ans.PB(cur);
-            if (diameter%2 == 1) {
-                ans.PB(fa[cur]);
-            }
-            return ans;
-        }
-        // find diameter
-        // ret length from one point
-        // fa father of path
-        // p contain two endpoint
-        // return diameter length
-        int find_diameter(const VVI &a, VI &ret, VI &fa, VI &p) {
-            int diameter;
-            // pick random point to start, so we pick 0, use random can't speed up
-            int point(find_longest(0, a, ret, fa, diameter));
-            int point2(find_longest(point, a, ret, fa, diameter));
-            p.PB(point);
-            p.PB(point2);
-            return diameter;
-        }
-        // bfs find longest point
-        int find_longest(int start, const VVI &a, VI &ret, VI &fa, int &diameter) {
-            deque<int> q;
-            q.PB(start);
-            unordered_set<int> v;
-            v.insert(start);
-            ret[start] = 0;
-            while (!q.empty()) {
-                int cur(q.front());
-                REP (i, SZ(a[cur])) {
-                    if (!EXIST(v, a[cur][i])) {
-                        v.insert(a[cur][i]);
-                        q.PB(a[cur][i]);
-                        ret[a[cur][i]] = ret[cur] + 1;
-                        fa[a[cur][i]] = cur;
-                    }
-                }
-                // the last one of queue
-                if (SZ(q) == 1) {
-                    diameter = ret[q.front()];
-                    return q.front();
-                }
-                q.pop_front();
-            }
-            return start;
-        }
-};
-
-// cut every leaf, again and again, until left one or two node
-class CutSolution {
-    public:
-        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
-            if (n == 1) {
-                VI ans;
-                ans.PB(0);
-                return ans;
-            }
-            vector<unordered_set<int> > a(n);
-            REP (i, SZ(edges)) {
-                a[edges[i].first].insert(edges[i].second);
-                a[edges[i].second].insert(edges[i].first);
-            }
-            VI ans1, ans2;
-            VI *p1(&ans1), *p2(&ans2);
-            REP (i, SZ(a)) {
-                if (SZ(a[i]) == 1) p1->PB(i);
-            }
-            while (1) {
-                for (auto i: *p1) {
-                    for (auto cur : a[i]) {
-                        a[ cur ].erase(i);
-                        if (SZ(a[ cur ]) == 1) p2->PB(cur);
-                    }
-                }
-                if (p2->empty()) return *p1;
-                p1->clear();
-                swap(p1, p2);
-            }
-        }
-};
-
-// TLE
-class BruteForceSolution {
-    public:
-        vector<int> findMinHeightTrees(int n, vector<PII>& edges) {
-            VI ans;
-            int min_len(n);
-            if (n <= 0) return ans;
-            if (n == 2) {
-                ans.PB(0);
-                ans.PB(1);
-                return ans;
-            }
-            VI cnt(n);
-            VVI a(n);
-            REP (i, SZ(edges)) {
-                cnt[edges[i].first]++;
-                cnt[edges[i].second]++;
-                a[edges[i].first].PB(edges[i].second);
-                a[edges[i].second].PB(edges[i].first);
-            }
-            REP (i, n) {
-                if (cnt[i] == 0) return ans;
-                if (cnt[i] == 1) continue;
-                map<int,bool> vi;
-                vi[i] = true;
-                int len(0);
-                dfs(i, 0, vi, a, len);
-                if (len <= min_len) {
-                    if (len < min_len) ans.clear();
-                    min_len = len;
-                    ans.PB(i);
-                }
-            }
-            return ans;
-        }
-        void dfs(int cur, int depth, map<int,bool> &vi, VVI &a, int &len) {
-            len = max(len, depth);
-            REP (i, SZ(a[cur])) {
-                if (!EXIST(vi, a[cur][i])) {
-                    vi[ a[cur][i] ] = true;
-                    dfs(a[cur][i], depth+1, vi, a, len);
-                    vi[ a[cur][i] ] = false;
-                }
-            }
-        }
-};
 {% endhighlight %}
+---
+
