@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "hbase split"
+title: "HBase Split"
 description: ""
 category: tech
 tags: [hadoop, HBase]
