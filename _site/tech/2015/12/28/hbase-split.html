@@ -144,10 +144,11 @@ split。什么时候自动进行split呢，这是根据Split Policy来决定的�
 (<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/ConstantSizeRegionSplitPolicy.html" title="ConstantSizeRegionSplitPolicy">ConstantSizeRegionSplitPolicy</a>)，之后改成根据一个公式(<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/IncreasingToUpperBoundRegionSplitPolicy.html" title="IncreasingToUpperBoundRegionSplitPolicy">IncreasingToUpperBoundRegionSplitPolicy</a>)
 来计算是否要split，这个公式如下：</p>
 
-<script type="math/tex; mode=display">Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.memstore.flush.size)</script>
+<script type="math/tex; mode=display">Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.max.filesize)</script>
 
 <p>R是一个表在同一个region server上的region数，<code>flush.size</code>为一个配置值，默认为128M，
-<code>file.size</code>也是配置值，表示超过这个值一定要被split了，默认为10G。</p>
+memstore的意思为memory store，表示在内存中的文件大小，当大小达到这个值时，会flush到磁盘，
+<code>filesize</code>也是配置值，表示超过这个值一定要被split了，默认为10G。</p>
 
 <p>确定要被split了，那哪里是切分点呢，这里要注意的是，切分点只是一个大概的中点，比如：
 一个region有key从”000”到”099”，中点应该是”050”（注意我这里故意加了前导的0保持key是等长），
@@ -185,7 +186,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
     <li class="previous"><a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">&larr; Older</a></li>
     
     
-    <li class="disabled"><a>Newer &rarr;</a>
+    <li class="next"><a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -261,6 +262,10 @@ var disqus_shortname ='';
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail" rel="bookmark">HBase Split detail</a>
+  </li>
+  
+  <li>
   <a href="/tech/2015/12/28/hbase-split.html" title="HBase Split" rel="bookmark">HBase Split</a>
   </li>
   
@@ -274,10 +279,6 @@ var disqus_shortname ='';
   
   <li>
   <a href="/articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file" rel="bookmark">How to set the config.yml file</a>
-  </li>
-  
-  <li>
-  <a href="/articles/2014/12/18/how-to-install.html" title="How to install this theme" rel="bookmark">How to install this theme</a>
   </li>
   
 </div>
@@ -294,7 +295,7 @@ var disqus_shortname ='';
   
   <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
   
-  <li><a href="/categories/#tech" title="tech" rel="1">tech (1)</a></li>
+  <li><a href="/categories/#tech" title="tech" rel="2">tech (2)</a></li>
   
 </div>
 
@@ -320,9 +321,9 @@ var disqus_shortname ='';
   
     <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
   
-    <a href="/tags/#Hadoop" title="Hadoop" rel="1">Hadoop</a> &nbsp;
+    <a href="/tags/#Hadoop" title="Hadoop" rel="2">Hadoop</a> &nbsp;
   
-    <a href="/tags/#HBase" title="HBase" rel="1">HBase</a> &nbsp;
+    <a href="/tags/#HBase" title="HBase" rel="2">HBase</a> &nbsp;
   
 </div>
 
@@ -338,6 +339,13 @@ var disqus_shortname ='';
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
   
   
   

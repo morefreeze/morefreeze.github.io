@@ -42,10 +42,11 @@ split。什么时候自动进行split呢，这是根据Split Policy来决定的�
 ([ConstantSizeRegionSplitPolicy][1])，之后改成根据一个公式([IncreasingToUpperBoundRegionSplitPolicy][2])
 来计算是否要split，这个公式如下：
 
-$$ Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.memstore.flush.size) $$
+$$ Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.max.filesize) $$
 
 R是一个表在同一个region server上的region数，`flush.size`为一个配置值，默认为128M，
-`file.size`也是配置值，表示超过这个值一定要被split了，默认为10G。
+memstore的意思为memory store，表示在内存中的文件大小，当大小达到这个值时，会flush到磁盘，
+`filesize`也是配置值，表示超过这个值一定要被split了，默认为10G。
 
 确定要被split了，那哪里是切分点呢，这里要注意的是，切分点只是一个大概的中点，比如：
 一个region有key从"000"到"099"，中点应该是"050"（注意我这里故意加了前导的0保持key是等长），
