@@ -35,4 +35,8 @@ Master就知道split完成
 1. 现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
 的数据重写到新文件，当新文件都重写完后，才会完全删掉父region
 
+且听下回
+---
+下回将会详细介绍辛勤劳动的compaction操作。
+
 [1]: http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/
