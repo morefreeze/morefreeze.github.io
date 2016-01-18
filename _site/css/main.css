@@ -105,7 +105,7 @@ a {
   color: #2583ad;
   text-decoration: none; }
   a:visited {
-    color: #0f3344; }
+    color: #18536e; }
   a:hover {
     color: #669900;
     text-decoration: underline; }
@@ -142,8 +142,8 @@ blockquote {
 pre, code {
   font-size: 13px;
   border-radius: 3px;
-  background-color: #29281e;
-  color: #eee; }
+  background-color: #e2e2e2;
+  color: #2e2e2e; }
 
 code {
   padding: 1px 5px; }
@@ -550,20 +550,20 @@ q:after {
     color: #a61717;
     background-color: #e3d2d2; }
   .highlight .g {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .k {
     color: #6ab825;
     font-weight: bold; }
   .highlight .l {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .n {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .o {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .x {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .p {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .cm {
     color: #999999;
     font-style: italic; }
@@ -580,7 +580,7 @@ q:after {
   .highlight .gd {
     color: #d22323; }
   .highlight .ge {
-    color: #d0d0d0;
+    color: #3d3d3d;
     font-style: italic; }
   .highlight .gr {
     color: #d22323; }
@@ -594,7 +594,7 @@ q:after {
   .highlight .gp {
     color: #aaaaaa; }
   .highlight .gs {
-    color: #d0d0d0;
+    color: #3d3d3d;
     font-weight: bold; }
   .highlight .gu {
     color: #ffffff;
@@ -619,7 +619,7 @@ q:after {
     color: #6ab825;
     font-weight: bold; }
   .highlight .ld {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .m {
     color: #3677a9; }
   .highlight .s {
@@ -636,20 +636,20 @@ q:after {
   .highlight .nd {
     color: #ffa500; }
   .highlight .ni {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .ne {
     color: #bbbbbb; }
   .highlight .nf {
     color: #447fcf; }
   .highlight .nl {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .nn {
     color: #447fcf;
     text-decoration: underline; }
   .highlight .nx {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .py {
-    color: #d0d0d0; }
+    color: #3d3d3d; }
   .highlight .nt {
     color: #6ab825;
     font-weight: bold; }
