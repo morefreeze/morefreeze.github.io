@@ -11,11 +11,10 @@ date: 2016-01-20 14:06
 
 I have tried `sed '1i'` but in Mac it need a newline after `i`, like:
 
-``shell
-sed -e '1i\
-Header' foo.txt
-``
+    sed -e '1i\
+    Header' foo.txt
 
-But Makefile couldn't input the newline, even if I have read 
-[this](https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html)
+But Makefile couldn't input the newline, even if I have read
+[this](https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html).
+If someone know please let [me](http://morefreeze.github.io/b_about.html) know.
 

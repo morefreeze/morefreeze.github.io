@@ -25,8 +25,8 @@ body {
     background-color: whitesmoke;
 }
 
-a { color: #0645ad; text-decoration: none; }
-a:visited { color: #0b0080; }
+a { color: #1a0dab; text-decoration: none; }
+a:visited { color: #660099; }
 a:hover { color: #06e; text-decoration: underline; }
 a:active { color: #faa700; }
 
