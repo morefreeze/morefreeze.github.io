@@ -18,7 +18,63 @@
 <div class="clearfix"></div>
 <div id="title">C++</div>
   <div id="content">
-  
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#data-structure">Data structure</a><ul>
+<li><a href="#heap">Heap</a><ul>
+<li><a href="#include">include</a></li>
+<li><a href="#small-root-heap">Small root heap</a></li>
+<li><a href="#custom-compare-function-1">Custom compare function 1</a></li>
+<li><a href="#custom-compare-function-2">Custom compare function 2</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="data-structure">Data structure</h1>
+<h2 id="heap">Heap</h2>
+<h3 id="include">include</h3>
+<div class="hlcode"><pre><span class="c">#include &lt;queue&gt;</span>
+</pre></div>
+
+
+<h3 id="small-root-heap">Small root heap</h3>
+<div class="hlcode"><pre><span class="nx">priority_queue</span><span class="o">&lt;</span><span class="nx">int</span><span class="p">,</span> <span class="nx">vector</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="nx">std</span><span class="p">::</span><span class="nl">greater</span><span class="o">&lt;</span><span class="nx">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="nx">h</span><span class="p">;</span>
+</pre></div>
+
+
+<h3 id="custom-compare-function-1">Custom compare function 1</h3>
+<div class="hlcode"><pre><span class="nx">struct</span> <span class="nx">Node</span><span class="p">{</span>
+    <span class="nx">int</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="nx">Node</span><span class="p">(</span><span class="nx">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">):</span>
+        <span class="nx">x</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">y</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="nx">bool</span> <span class="nx">operator</span><span class="o">&lt;</span><span class="p">(</span><span class="nx">const</span> <span class="nx">Node</span> <span class="o">&amp;</span><span class="nx">a</span><span class="p">,</span> <span class="nx">const</span> <span class="nx">Node</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">a.x</span> <span class="o">==</span> <span class="nx">b.x</span><span class="p">)</span> <span class="k">return</span> <span class="nx">a.y</span><span class="o">&gt;</span> <span class="nx">b.y</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">a.x</span> <span class="o">&gt;</span> <span class="nx">b.x</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// priority_queue&lt;Node&gt; q;</span>
+</pre></div>
+
+
+<h3 id="custom-compare-function-2">Custom compare function 2</h3>
+<div class="hlcode"><pre><span class="nx">struct</span> <span class="nx">Node</span><span class="p">{</span>
+    <span class="nx">int</span> <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span><span class="p">;</span>
+    <span class="nx">Node</span><span class="p">(</span><span class="nx">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">):</span>
+        <span class="nx">x</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">y</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span> <span class="p">{}</span>
+<span class="p">};</span>
+
+<span class="nx">struct</span> <span class="nx">cmp</span><span class="p">{</span>
+    <span class="nx">bool</span> <span class="nx">operator</span><span class="p">()</span> <span class="p">(</span><span class="nx">Node</span> <span class="o">&amp;</span><span class="nx">a</span><span class="p">,</span> <span class="nx">Node</span> <span class="o">&amp;</span><span class="nx">b</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">a.x</span> <span class="o">==</span> <span class="nx">b.x</span><span class="p">)</span> <span class="k">return</span> <span class="nx">a.y</span><span class="o">&gt;</span> <span class="nx">b.y</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nx">a.x</span><span class="o">&gt;</span> <span class="nx">b.x</span><span class="p">;</span><span class="nx">.</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// priority_queue&lt;Node, vecotr&lt;Node&gt;, cmp&gt; q;</span>
+</pre></div>
 </div>
 
         </div>

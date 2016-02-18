@@ -23,4 +23,4 @@ Then, change the folder name to you own github page name, forexample
 
  $ mv freshman thisisyouname.github.io
 
-{% endhighlight %} 
+{% endhighlight %}
