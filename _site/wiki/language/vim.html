@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+        <title>vim - Wiki</title>
+        <meta name="keywords" content="simiki, wiki"/>
+        <meta name="description" content=""/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/wiki/">Home</a>&nbsp;»&nbsp;<a href="/wiki/#language">language</a>&nbsp;»&nbsp;vim</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">vim</div>
+  <div id="content">
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#move-in-document">Move in document</a></li>
+<li><a href="#motion-in-document">Motion in document</a></li>
+<li><a href="#register">Register</a></li>
+</ul>
+</div>
+<h2 id="move-in-document">Move in document</h2>
+<ul>
+<li><code>gj</code> move down display line, if <code>:set wrap</code> and one line split into lines, this move will be downward to display instead of line number+1. Try it.</li>
+</ul>
+<h2 id="motion-in-document">Motion in document</h2>
+<ul>
+<li>
+<p>Use <code>d{motion}</code>, <code>y{motion}</code> and so on. <code>{motion}</code> can be following:</p>
+<ul>
+<li><code>iw</code> current <a href="#word" title="word is combined with alphabet, number, underscore, other non-spacing char. e.g.: `e.g.` which are four words.">word</a>(<code>:h word</code> see detail)</li>
+<li><code>aw</code> current word and a space</li>
+<li><code>iW</code> current <a href="#WORD" title="WORD is splited with space.">WORD</a></li>
+<li><code>aW</code> current WORD and a space</li>
+<li><code>is</code> current sentence</li>
+<li><code>as</code> current sentence and a space</li>
+<li><code>ip</code> current paragraph</li>
+<li><code>iP</code> current paragraph and a space</li>
+</ul>
+</li>
+<li>
+<p>Use these as memory shortcut:</p>
+<ul>
+<li><code>i</code>nside</li>
+<li><code>a</code>round</li>
+<li><code>w</code>ord</li>
+<li><code>s</code>entence</li>
+<li><code>p</code>aragraph</li>
+</ul>
+</li>
+</ul>
+<h2 id="register">Register</h2>
+<ul>
+<li>
+<p><code>"{register}"</code> use with register, following is some registers(<code>:h registers</code>):</p>
+<ul>
+<li><code>""</code> unnamed register, use <code>x</code>, <code>d</code> will cut content into this</li>
+<li><code>"_</code> black hole, like <code>/dev/null</code></li>
+<li><code>"+</code> system clipboard, like <code>ctrl-c</code>, then use <code>"+y</code> will paste content in vim</li>
+</ul>
+</li>
+<li>
+<p><code>q{register}q</code> will clear a register content</p>
+</li>
+</ul>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2016 MoreFreeze.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
