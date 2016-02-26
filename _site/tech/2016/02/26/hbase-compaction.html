@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="Tags">
-<title>Tags</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/tags/">
+<meta property="og:title" content="HBase Compaction">
+<title>HBase Compaction</title>
+<meta property="og:description" content="">
+<meta property="og:url" content="/tech/2016/02/26/hbase-compaction.html">
 <meta property="og:site_name" content="MoreFreeze">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="Tags">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/tags/">
+<meta name="twitter:title" content="HBase Compaction">
+<meta name="twitter:description" content="">
+<meta name="twitter:url" content="/tech/2016/02/26/hbase-compaction.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/tags/">
+<link rel="canonical" href="/tech/2016/02/26/hbase-compaction.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -95,131 +95,105 @@
     
 
   <div class="page-content col-sm-8">
-    <div class="post">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Tags</h1>
+    <h1 itemprop="name" class="post-title">HBase Compaction</h1>
+    <meta itemprop="keywords" content="HBase,Hadoop" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#HBase" title="HBase">HBase </a>, 
+    
+    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
+    
+    
+    <time itemprop="datePublished" datetime="2016-02-26">
+    on Feb 26, 2016
+    </time>
+    </p>
   </header>
 
-  <article class="post-content about"> 
-    <ul class="tags-box">
+  <article class="post-content" itemprop="articleBody">
+    
+<h2 id="merge">Merge</h2>
 
+<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
 
-<a href="#sample-post" title="sample-post" rel="2">sample-post<span class="size"> 2</span></a>
+<h2 id="compaction">Compaction</h2>
+<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生比较高的延迟，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
 
-<a href="#configure" title="configure" rel="1">configure<span class="size"> 1</span></a>
+<h2 id="minjor-compaction">Minjor Compaction</h2>
+<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
 
-<a href="#crash" title="crash" rel="1">crash<span class="size"> 1</span></a>
+<h2 id="major-compaction">Major Compaction</h2>
+<p>先来看哪个参数：
+- hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数
+- hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数
+- hbase.hstore.compaction.min.size HStore小于该值的将被compaction
+- hbase.hstore.compaction.max.size HStore大于该值的将被compaction</p>
 
-<a href="#trap" title="trap" rel="1">trap<span class="size"> 1</span></a>
+<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
 
-<a href="#leetcode" title="leetcode" rel="1">leetcode<span class="size"> 1</span></a>
+<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
 
-<a href="#solution" title="solution" rel="1">solution<span class="size"> 1</span></a>
-
-<a href="#dp" title="dp" rel="1">dp<span class="size"> 1</span></a>
-
-<a href="#dfs" title="dfs" rel="1">dfs<span class="size"> 1</span></a>
-
-<a href="#tree" title="tree" rel="1">tree<span class="size"> 1</span></a>
-
-<a href="#Hadoop" title="Hadoop" rel="3">Hadoop<span class="size"> 3</span></a>
-
-<a href="#HBase" title="HBase" rel="3">HBase<span class="size"> 3</span></a>
-
+<ul>
+  <li>hbase.store.compaction.ratio compaction的选择系数</li>
 </ul>
 
-<ul class="tags-box">
+<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
 
-<li id="sample-post">sample-post</li>
+<script type="math/tex; mode=display">b * ratio > a</script>
 
-<time datetime="2014-12-18">2014-12-18</time> &raquo;
-<a href="/articles/2014/12/18/how-to-install.html" title="How to install this theme">How to install this theme</a><br />
+<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
 
-<time datetime="2014-12-13">2014-12-13</time> &raquo;
-<a href="/articles/2014/12/13/simple-post.html" title="Sample Post">Sample Post</a><br />
+<h2 id="section">疑问</h2>
 
+<ol>
+  <li>这个方法难道不会产生无限循环的情况吗？</li>
+  <li><code>ratio</code>和前面4个的参数之间需要满足一定关系吗？</li>
+</ol>
 
-<li id="configure">configure</li>
-
-<time datetime="2014-12-19">2014-12-19</time> &raquo;
-<a href="/articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file">How to set the config.yml file</a><br />
-
-
-<li id="crash">crash</li>
-
-<time datetime="2015-09-23">2015-09-23</time> &raquo;
-<a href="/work/2015/09/23/machine-die-in-cloudera.html" title="记一次cloudera机器重装">记一次cloudera机器重装</a><br />
-
-
-<li id="trap">trap</li>
-
-<time datetime="2015-09-23">2015-09-23</time> &raquo;
-<a href="/work/2015/09/23/machine-die-in-cloudera.html" title="记一次cloudera机器重装">记一次cloudera机器重装</a><br />
-
-
-<li id="leetcode">leetcode</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="solution">solution</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="dp">dp</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="dfs">dfs</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="tree">tree</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="Hadoop">Hadoop</li>
-
-<time datetime="2016-02-26">2016-02-26</time> &raquo;
-<a href="/tech/2016/02/26/hbase-compaction.html" title="HBase Compaction">HBase Compaction</a><br />
-
-<time datetime="2016-01-10">2016-01-10</time> &raquo;
-<a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail">HBase Split detail</a><br />
-
-<time datetime="2015-12-28">2015-12-28</time> &raquo;
-<a href="/tech/2015/12/28/hbase-split.html" title="HBase Split">HBase Split</a><br />
-
-
-<li id="HBase">HBase</li>
-
-<time datetime="2016-02-26">2016-02-26</time> &raquo;
-<a href="/tech/2016/02/26/hbase-compaction.html" title="HBase Compaction">HBase Compaction</a><br />
-
-<time datetime="2016-01-10">2016-01-10</time> &raquo;
-<a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail">HBase Split detail</a><br />
-
-<time datetime="2015-12-28">2015-12-28</time> &raquo;
-<a href="/tech/2015/12/28/hbase-split.html" title="HBase Split">HBase Split</a><br />
-
-
-
-</ul>
 
   </article>
+  <hr />
+</div>
 
-  
 
-</div> 
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+<div id="disqus_thread"></div>
+
+<script type="text/javascript">
+
+  var disqus_developer = 1;
+
+var disqus_shortname ='';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 
     <section class="pager">
   
