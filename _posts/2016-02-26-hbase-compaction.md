@@ -14,7 +14,7 @@ Merge
 
 Compaction
 ---
-下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生比较高的延迟，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。
+下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。
 
 Minjor Compaction
 ---
@@ -22,7 +22,8 @@ Minjor Compaction
 
 Major Compaction
 ---
-先来看哪个参数：
+先来看几个参数：
+
 - hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数
 - hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数
 - hbase.hstore.compaction.min.size HStore小于该值的将被compaction
@@ -40,11 +41,7 @@ $$ b * ratio > a $$
 
 那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。
 
-疑问
----
-
-1. 这个方法难道不会产生无限循环的情况吗？
-1. `ratio`和前面4个的参数之间需要满足一定关系吗？
+值得注意的是`ratio`的值越大(>1)，越容易产生较大的文件（因为文件更容易被compaction）。
 
 [1]: https://issues.apache.org/jira/browse/HBASE-7403
 [2]: https://issues.apache.org/jira/browse/HBASE-7629
