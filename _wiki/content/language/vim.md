@@ -39,3 +39,20 @@ date: 2016-02-18 11:43
     - `"+` system clipboard, like `ctrl-c`, then use `"+y` will paste content in vim
 
 - `q{register}q` will clear a register content
+
+## Dance with Command
+
+1. `q:` open command window when normal mode, you can edit history of command or re-reun it while press `<CR>`
+1. `<c-f>` open command window when command mode
+1. If you need copy current word under cursor when command mode, press `<c-r><c-w>`. `<c-r><c-a>` for whole [WORD][2]
+1. Consider below situation:
+
+    You want to replace something with regex, but you may need construct regex many times, and then use `:s/regex/replace/g`
+
+    Here is solution:
+
+    1.  Use `/regex1` to match and see the result
+    2.  The result is not what I want, change it with `/regex2`
+    3.  You can use `q/` to find command history, repeat step 2-3 until perfect match
+    4.  `:%s//replace/g`. if pattern is omit it will use last match.
+

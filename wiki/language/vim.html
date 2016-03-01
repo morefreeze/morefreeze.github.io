@@ -22,6 +22,7 @@
 <li><a href="#move-in-document">Move in document</a></li>
 <li><a href="#motion-in-document">Motion in document</a></li>
 <li><a href="#register">Register</a></li>
+<li><a href="#dance-with-command">Dance with Command</a></li>
 </ul>
 </div>
 <h2 id="move-in-document">Move in document</h2>
@@ -68,6 +69,23 @@
 <p><code>q{register}q</code> will clear a register content</p>
 </li>
 </ul>
+<h2 id="dance-with-command">Dance with Command</h2>
+<ol>
+<li><code>q:</code> open command window when normal mode, you can edit history of command or re-reun it while press <code>&lt;CR&gt;</code></li>
+<li><code>&lt;c-f&gt;</code> open command window when command mode</li>
+<li>If you need copy current word under cursor when command mode, press <code>&lt;c-r&gt;&lt;c-w&gt;</code>. <code>&lt;c-r&gt;&lt;c-a&gt;</code> for whole <a href="#WORD" title="WORD is splited with space.">WORD</a></li>
+<li>
+<p>Consider below situation:</p>
+<p>You want to replace something with regex, but you may need construct regex many times, and then use <code>:s/regex/replace/g</code></p>
+<p>Here is solution:</p>
+<ol>
+<li>Use <code>/regex1</code> to match and see the result</li>
+<li>The result is not what I want, change it with <code>/regex2</code></li>
+<li>You can use <code>q/</code> to find command history, repeat step 2-3 until perfect match</li>
+<li><code>:%s//replace/g</code>. if pattern is omit it will use last match.</li>
+</ol>
+</li>
+</ol>
 </div>
 
         </div>
