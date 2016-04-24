@@ -1,0 +1,32 @@
+---
+title: "go"
+date: 2016-01-18 20:29
+---
+
+[TOC][]()
+
+# Syntax
+
+## Reflect
+
+    // StructToMap converts a struct into map[fieldName]=fieldValue.
+    // If field is array or slice then fieldValue is its length(don't care value).
+    // Each field of struct must be exported.
+    func StructToMap(in interface{}) map[string]string {
+        ret := make(map[string]string)
+        v := reflect.ValueOf(in)
+        typ := v.Type()
+        for i := 0; i < v.NumField(); i++ {
+            f := v.Field(i)
+            var s string
+            switch f.Type().Kind() {
+            case reflect.Slice, reflect.Array:
+                s = fmt.Sprintf("%d", f.Len())
+            default:
+                s = fmt.Sprintf("%v", f.Interface())
+            }
+            ret[typ.Field(i).Name] = s
+        }
+        return ret
+    }
+
