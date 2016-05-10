@@ -30,3 +30,20 @@ date: 2016-01-18 20:29
         return ret
     }
 
+## Receive signals and quit program gracefully
+
+	sc := make(chan os.Signal, 1)
+	quit := make(chan bool, 1)
+	signal.Notify(sc,
+		syscall.SIGHUP,
+		syscall.SIGINT,
+		syscall.SIGTERM,
+		syscall.SIGQUIT)
+
+	go func() {
+		sig := <-sc
+		fmt.Printf("Got signal [%d] to exit.\n", sig)
+		close(quit)
+	}()
+	<-quit
+
