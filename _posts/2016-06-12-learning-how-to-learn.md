@@ -41,8 +41,8 @@ you have learned.
 1. Testing yourself is a good way to check what you learn.
 1. Don't fill color whole page. That is, you should use your highlighting pen carefully.
 1. Make mistake is welcome, only if it won't occur in your exam.
-1. Three neuromodulators(神经递质) are: *acetylcholine*(乙酰胆碱), *dopamine*(多巴胺),
-*serotonin*(血清素).
+1. Three neuromodulators (神经递质) are: *acetylcholine* (乙酰胆碱), *dopamine* (多巴胺),
+*serotonin* (血清素).
 1. Acetylcholine helps you build your long term memory when you focus.
 1. Dopamine can affect your decision. It will fool your brain something wonderful
 has just happen. But you can give yourself some award to motivate to finish something.
@@ -56,10 +56,10 @@ Because you remember first concept once, you will remember next concept easily,
 as same as the third and so on.
 1. You should do some exercise but don't do it if it has been easy. This is ***overlearning***.
 1. You can move your focus to more difficult material. This is called ***Deliberate
-Practice***(刻意练习). Do you think of 10000 hours theory?
-1. If your spinball(This is a analogy of your mind) always go from same initial
+Practice*** (刻意练习). Do you think of 10000 hours theory?
+1. If your spinball (This is a analogy of your mind) always go from same initial
 place, you can't let your ball arrive more bottom where your solution is.
-This is ***Einstellung***(思维定势, from German word "Mindset").
+This is ***Einstellung*** (思维定势, from German word "Mindset").
 1. Learning new subject means learning not only the basic chunk, but also select
 and use different chunks. You may jump different chapters even different subject,
 that will lead you to new idea. This is ***interlearning***.
@@ -67,14 +67,14 @@ that will lead you to new idea. This is ***interlearning***.
 
 ## Week 3 Memory
 1. Chunking is related to habit. Habit can **save our energy**. Because when you
-going to zombie mode(habit), your brain won't focus on these instead of other
+going to zombie mode (habit), your brain won't focus on these instead of other
 key information.
 1. Make a habit need 4 steps:
     1. The cue. This is trigger that launches you into zombie mode.
     1. The routine. This is what you do when you receive a cue. It is useful or harmful.
     1. The reward. You can give yourself a little pleasure after you have done
     the routine. Finding ways to reward good study habits is important for escaping
-    procrastination(拖延症).
+    procrastination (拖延症).
     1. The brief. You should change your bad underlying brief.
 1. Quit wasting time and if you start you will feel better.
 1. Don't focus on product instead of ***process***.
@@ -82,14 +82,14 @@ key information.
 1. There are four categories of cue, these will trigger your routine:
     1. Location
     1. Time
-    1. How you feel(like smell)
+    1. How you feel (like smell)
     1. Reaction
 1. Choose a quiet spot and **without any internet access** will help you improve
 productive effects.
 1. Don't use your **willpower** to make a habit.
 1. You need rewiring your bad habit, like your brain will feel better when you
-move your focus on some painless thing(YouTube, text message). The key to rewiring
-is to **have a plan**. Developing a **ritual** can be helpful(like putting on a
+move your focus on some painless thing (YouTube, text message). The key to rewiring
+is to **have a plan**. Developing a **ritual** can be helpful (like putting on a
 study hat).
 1. You can give yourself some award:
     - an evening of mindless television
@@ -99,7 +99,7 @@ to find some classmate, friends on the internet or family to help you remember
 the values that, in moments of weakness.
 1. Try to write daily to-do in **evening before**.
 1. Mixing other tasks up with your learning seems make everything more enjoyable
-and prevent from you sitting too long.(like you can fill some table task after you
+and prevent from you sitting too long. (like you can fill some table task after you
 have done a hard problem)
 1. You can write down how long the task cost to help you improve your gauging.
 1. Set a little deadline everyday at same time. Like 5 p.m.
@@ -113,7 +113,7 @@ instead of several days.
 1. Also you can use ***index card*** to help building long-term memory. Write a brief
 text or only a sign on one side, and then write more information on the other hand.
 Testing yourself before sleep. Extend the period if you remember well.
-1. The *hippocampus*(海马体) hold your long-term memory.
+1. The *hippocampus* (海马体) hold your long-term memory.
 1. Memory Palace Technique is a particularly powerful way to grouping things you
 want to remember.
 1. (Memory Palace)It can hook the things you want to remember to the fix route 
@@ -146,11 +146,11 @@ before you prepare your test:
     1. [ ] Did you make a serious effort to understand the text?
     1. [ ] Did you work with classmates on home work problems? Or check your solutions.
     1. [ ] Did you attempt to outline every homework problem solution? Skip the
-    hard work(calculation).
+    hard work (calculation).
     1. [ ] Did you participate **actively** in home work group discussions?
     1. [ ] Did you find the answer in your teach or instructor?
     1. [ ] Did you get a reasonable night's **sleep** before the test?
 1. Hard start-jump to easy. You can skim all problems after get the test paper.
 Start from the hard problem, but if you stuck in 1 or 2 minutes, jump to the easy
 one, Because the diffuse mode will help you solve the hard one.
-1. Deep(Abdominal) breathe.
+1. Deep (Abdominal) breathe.
