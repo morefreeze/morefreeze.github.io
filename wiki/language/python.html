@@ -23,6 +23,10 @@
 <li><a href="#send-request-with-headers">Send request with headers</a></li>
 </ul>
 </li>
+<li><a href="#text-processing">Text Processing</a><ul>
+<li><a href="#merge-two-files-with-same-primary-key">Merge two files with same primary key</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <h1 id="network">Network</h1>
@@ -41,6 +45,64 @@
 
 
 <p>See <a href="https://docs.python.org/2/library/urllib2.html">doc</a></p>
+<h1 id="text-processing">Text Processing</h1>
+<h2 id="merge-two-files-with-same-primary-key">Merge two files with same primary key</h2>
+<div class="hlcode"><pre><span class="cp"># coding: utf-8</span>
+
+<span class="n">import</span> <span class="n">csv</span>
+<span class="n">import</span> <span class="n">os</span>
+<span class="n">import</span> <span class="n">sys</span>
+
+<span class="n">__doc__</span> <span class="o">=</span> <span class="err">&#39;&#39;&#39;</span>
+<span class="n">python</span> <span class="o">%</span><span class="n">s</span> <span class="n">left_file</span> <span class="n">left_idx</span> <span class="n">right_file</span> <span class="p">[</span><span class="n">right_idx</span><span class="p">]</span>
+<span class="n">It</span> <span class="n">will</span> <span class="n">join</span> <span class="n">right_file</span> <span class="n">to</span> <span class="n">left_file</span> <span class="n">on</span><span class="p">(</span><span class="n">left</span><span class="p">.</span><span class="n">idx</span><span class="o">=</span><span class="n">right</span><span class="p">.</span><span class="n">idx</span><span class="p">).</span>
+<span class="n">The</span> <span class="n">columns</span> <span class="n">of</span> <span class="n">right_file</span> <span class="n">will</span> <span class="n">be</span> <span class="n">paste</span> <span class="n">after</span> <span class="n">left_file</span><span class="p">.</span>
+<span class="n">The</span> <span class="n">index</span> <span class="n">of</span> <span class="n">both</span> <span class="n">must</span> <span class="n">be</span> <span class="n">unique</span> <span class="n">and</span> <span class="n">start</span> <span class="n">with</span> <span class="mf">0.</span>
+<span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="o">:</span>    <span class="n">left</span>     <span class="o">|</span>     <span class="n">right</span>
+      <span class="mi">1</span> <span class="n">A</span> <span class="n">B</span> <span class="n">C</span>     <span class="o">|</span>   <span class="mi">1</span> <span class="n">X</span> <span class="n">Y</span>
+      <span class="mi">2</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span>     <span class="o">|</span>   <span class="mi">3</span> <span class="n">Z</span> <span class="n">W</span>
+      <span class="mi">3</span> <span class="n">H</span> <span class="n">I</span> <span class="n">J</span>     <span class="o">|</span>   <span class="p">(</span><span class="n">EOF</span><span class="p">)</span>
+<span class="n">result</span> <span class="n">is</span><span class="o">:</span>
+              <span class="n">merged</span>
+      <span class="mi">1</span> <span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">X</span> <span class="n">Y</span>
+      <span class="mi">2</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span>
+      <span class="mi">3</span> <span class="n">H</span> <span class="n">I</span> <span class="n">J</span> <span class="n">Z</span> <span class="n">W</span>
+<span class="err">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="n">def</span> <span class="n">generate_outfile</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="err">&#39;</span><span class="n">_ext</span><span class="p">.</span><span class="n">csv</span><span class="err">&#39;</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="err">&#39;</span><span class="n">__main__</span><span class="err">&#39;</span><span class="o">:</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="o">:</span>
+    <span class="n">print</span> <span class="s">&quot;Usage: python %s left_file left_idx right_file [right_idx]&quot;</span> \
+        <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="cp"># d[left_idx] = left_row</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">left_file</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">left_idx</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">right_file</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">right_idx</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="kt">int</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">right_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="n">in</span> <span class="n">r</span><span class="o">:</span>
+        <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">right_idx</span><span class="o">:</span>
+            <span class="k">continue</span>
+        <span class="n">new_row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="o">:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="p">]</span>  <span class="err">#</span> <span class="n">Remove</span> <span class="n">right_idx</span><span class="p">.</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_row</span>
+
+<span class="n">out_file</span> <span class="o">=</span> <span class="n">generate_outfile</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="n">right_file</span><span class="p">)</span>
+<span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">out_f</span><span class="o">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_f</span><span class="p">)</span>
+    <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="n">in</span> <span class="n">r</span><span class="o">:</span>
+            <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">left_idx</span> <span class="n">and</span> <span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span> <span class="n">in</span> <span class="n">d</span><span class="o">:</span>
+                <span class="n">row</span> <span class="o">+=</span> <span class="n">d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]]</span>
+            <span class="n">w</span><span class="p">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
 </div>
 
         </div>
