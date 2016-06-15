@@ -86,6 +86,8 @@ See [doc](https://docs.python.org/2/library/urllib2.html)
 
 ## Sorting by key
 
+Find more examples [here](https://wiki.python.org/moin/HowTo/Sorting)
+
     student_tuples = [
         ('john', 'A', 15),
         ('jane', 'B', 12),
