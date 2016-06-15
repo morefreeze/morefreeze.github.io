@@ -130,9 +130,9 @@ automatically and detects some changes occur. The hook will failed when I forget
 
 <p>Here it is:</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>jekyll build
-./_gen_wiki.sh # My blog contains a wiki, so it need be generated.
-git diff --quiet --exit-code _site/ # Detect uncached changes.
+<div class="highlighter-rouge"><pre class="highlight"><code>./_gen_wiki.sh  # My blog contains a wiki, so it need be generated.
+jekyll build
+git diff --quiet --exit-code _site/  # Detect uncached changes.
 ret=$?
 exec 1&gt;&amp;2
 RED='\033[0;31m'

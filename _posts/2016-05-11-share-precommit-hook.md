@@ -18,9 +18,9 @@ automatically and detects some changes occur. The hook will failed when I forget
 
 Here it is:
 
+    ./_gen_wiki.sh  # My blog contains a wiki, so it need be generated.
     jekyll build
-    ./_gen_wiki.sh # My blog contains a wiki, so it need be generated.
-    git diff --quiet --exit-code _site/ # Detect uncached changes.
+    git diff --quiet --exit-code _site/  # Detect uncached changes.
     ret=$?
     exec 1>&2
     RED='\033[0;31m'
