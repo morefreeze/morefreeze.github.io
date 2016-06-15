@@ -1,5 +1,5 @@
 ---
-title: "vim"
+title: "Vim"
 date: 2016-02-18 11:43
 ---
 
