@@ -95,3 +95,61 @@ Find more examples [here](https://wiki.python.org/moin/HowTo/Sorting)
     ]
     sorted(student_tuples, key=lambda student: student[2])   # sort by age]
     # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+# Decorator
+
+## Referer [Python Decorator Library](https://wiki.python.org/moin/PythonDecoratorLibrary)
+
+## @wraps
+
+    from functools import wraps
+    # without @wraps, foo.__name__ will output 'wrapper'
+    def hello(fn):
+        @wraps(fn)
+        def wrapper():
+            print 'hello, %s' % (fn.__name__)
+            fn()
+            print 'bye, %s' % (fn.__name__)
+        return wrapper
+
+    print foo.__name__
+
+## Function memo
+
+    def memo(fn):
+        cache = {}
+        miss = object()
+
+        @wraps(fn)
+        def wrapper(*args):
+            result = cache.get(args, miss)
+            if result is miss:
+                result = fn(*args)
+                cache[args] = result
+            return result
+        return wrapper
+
+    @memo
+    def fib(n):
+        if n < 2:
+            return n
+        return fib(n-2) + fib(n-1)
+
+## Profiler
+
+    import cProfile, pstats, StringIO
+
+    def profiler(fn):
+        def wrapper(*args, **kwargs):
+            datafn = fn.__name__ + ".profile"
+            prof = cProfile.Profile()
+            retval = prof.runcall(fn, *args, **kwargs)
+            # prof.dump_stats(datafn)
+            s = StringIO.StringIO()
+            sortby = 'cumulative'
+            ps = pstats.Stats(prof, stream=s).sort_stats(sortby)
+            ps.print_stats()
+            print s.getvalue()
+            return retval
+        return wrapper
+

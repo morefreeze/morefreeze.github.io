@@ -31,6 +31,13 @@
 <li><a href="#sorting-by-key">Sorting by key</a></li>
 </ul>
 </li>
+<li><a href="#decorator">Decorator</a><ul>
+<li><a href="#referer-python-decorator-library">Referer Python Decorator Library</a></li>
+<li><a href="#wraps">@wraps</a></li>
+<li><a href="#function-memo">Function memo</a></li>
+<li><a href="#profiler">Profiler</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <h1 id="network">Network</h1>
@@ -119,6 +126,64 @@
 <span class="cp">]</span>
 <span class="nt">sorted</span><span class="o">(</span><span class="nt">student_tuples</span><span class="o">,</span> <span class="nt">key</span><span class="o">=</span><span class="nt">lambda</span> <span class="nt">student</span><span class="o">:</span> <span class="nt">student</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="o">)</span>   <span class="err">#</span> <span class="nt">sort</span> <span class="nt">by</span> <span class="nt">age</span><span class="o">]</span>
 <span class="err">#</span> <span class="cp">[</span><span class="p">(</span><span class="s1">&#39;dave&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;jane&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="cp">]</span>
+</pre></div>
+
+
+<h1 id="decorator">Decorator</h1>
+<h2 id="referer-python-decorator-library">Referer <a href="https://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a></h2>
+<h2 id="wraps">@wraps</h2>
+<div class="hlcode"><pre><span class="n">from</span> <span class="n">functools</span> <span class="n">import</span> <span class="n">wraps</span>
+<span class="cp"># without @wraps, foo.__name__ will output &#39;wrapper&#39;</span>
+<span class="n">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
+    <span class="err">@</span><span class="n">wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">def</span> <span class="n">wrapper</span><span class="p">()</span><span class="o">:</span>
+        <span class="n">print</span> <span class="err">&#39;</span><span class="n">hello</span><span class="p">,</span> <span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="p">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="n">fn</span><span class="p">()</span>
+        <span class="n">print</span> <span class="err">&#39;</span><span class="n">bye</span><span class="p">,</span> <span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="p">.</span><span class="n">__name__</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="n">print</span> <span class="n">foo</span><span class="p">.</span><span class="n">__name__</span>
+</pre></div>
+
+
+<h2 id="function-memo">Function memo</h2>
+<div class="hlcode"><pre><span class="n">def</span> <span class="n">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">miss</span> <span class="o">=</span> <span class="n">object</span><span class="p">()</span>
+
+    <span class="err">@</span><span class="n">wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="n">def</span> <span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cache</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">miss</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="n">is</span> <span class="n">miss</span><span class="o">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">cache</span><span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="err">@</span><span class="n">memo</span>
+<span class="n">def</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">:</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">:</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="profiler">Profiler</h2>
+<div class="hlcode"><pre><span class="n">import</span> <span class="n">cProfile</span><span class="p">,</span> <span class="n">pstats</span><span class="p">,</span> <span class="n">StringIO</span>
+
+<span class="n">def</span> <span class="n">profiler</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
+    <span class="n">def</span> <span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">:</span>
+        <span class="n">datafn</span> <span class="o">=</span> <span class="n">fn</span><span class="p">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot;.profile&quot;</span>
+        <span class="n">prof</span> <span class="o">=</span> <span class="n">cProfile</span><span class="p">.</span><span class="n">Profile</span><span class="p">()</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">prof</span><span class="p">.</span><span class="n">runcall</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="err">#</span> <span class="n">prof</span><span class="p">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="n">datafn</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">.</span><span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">sortby</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">cumulative</span><span class="err">&#39;</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="p">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">s</span><span class="p">).</span><span class="n">sort_stats</span><span class="p">(</span><span class="n">sortby</span><span class="p">)</span>
+        <span class="n">ps</span><span class="p">.</span><span class="n">print_stats</span><span class="p">()</span>
+        <span class="n">print</span> <span class="n">s</span><span class="p">.</span><span class="n">getvalue</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">retval</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
 </pre></div>
 </div>
 
