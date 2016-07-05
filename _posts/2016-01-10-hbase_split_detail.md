@@ -3,6 +3,7 @@ layout: post
 title: "HBase Split detail"
 description: ""
 category: tech
+comments: true
 tags: [Hadoop, HBase]
 ---
 {% include JB/setup %}

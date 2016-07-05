@@ -3,6 +3,7 @@ layout: post
 title: "\"Learning how to learn\" Notes"
 description: ""
 category: note
+comments: true
 tags: [note, learning]
 ---
 {% include JB/setup %}

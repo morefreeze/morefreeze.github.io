@@ -3,6 +3,7 @@ layout: post
 title: "记一次cloudera机器重装"
 description: ""
 category: work
+comments: true
 tags: [crash, trap]
 ---
 {% include JB/setup %}

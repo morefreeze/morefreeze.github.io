@@ -9,6 +9,7 @@ description: "morefreeze's blog" # You can edit this line in _config.yml. It wil
 keywords: "Jekyll, theme, Freshman21"
 locale: en_US
 baseurl: 
+absurl: "https://morefreeze.github.io"
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
@@ -61,3 +62,6 @@ Blogroll:
 markdown: kramdown
 highlighter: rouge
 paginate: 5
+
+layout: default
+comments: true

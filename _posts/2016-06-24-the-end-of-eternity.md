@@ -2,7 +2,8 @@
 layout: post
 title: "The End of Eternity"
 description: ""
-category: Book
+category: book
+comments: true
 tags: [Note, "Isaac Asimov", Sci-fi]
 ---
 {% include JB/setup %}

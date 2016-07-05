@@ -3,6 +3,7 @@ layout: post
 title: "LevelDB实现总结"
 description: "一个关于LevelDB实现的简短总结"
 category: tech
+comments: true
 tags: [algorithm, database]
 ---
 {% include JB/setup %}

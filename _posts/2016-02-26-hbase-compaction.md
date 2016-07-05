@@ -3,6 +3,7 @@ layout: post
 title: "HBase Compaction"
 description: ""
 category: tech
+comments: true
 tags: [HBase, Hadoop]
 ---
 {% include JB/setup %}

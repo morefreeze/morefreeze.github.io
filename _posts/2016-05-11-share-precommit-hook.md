@@ -3,6 +3,7 @@ layout: post
 title: "Share precommit hook"
 description: ""
 category: tech
+comments: true
 tags: [git]
 ---
 {% include JB/setup %}
