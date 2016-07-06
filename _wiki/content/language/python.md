@@ -153,3 +153,67 @@ Find more examples [here](https://wiki.python.org/moin/HowTo/Sorting)
             return retval
         return wrapper
 
+## Time it
+
+    # Use for time a function cost time.
+    # timeit(debug=True), or it will use self._debug if decorate a method of class.
+    # Usage: @timeit(True)
+    # class Foo:
+    #   _debug = True
+    #   @timeit()
+    #   def bar(baz):
+    def timeit(debug=False):
+        def real_decorator(fn):
+            @wraps(fn)
+            def wrapper(*args, **kwargs):
+                try:
+                    _debug = debug or args[0]._debug
+                except:
+                    _debug = False
+                start_time = time.time()
+                retval = fn(*args, **kwargs)
+                cost_time = time.time() - start_time
+                if _debug:
+                    print 'function = %s' % (fn.__name__)
+                    print '    arguments = {0} {1}'.format(args, kwargs)
+                    print '    cost = %.6f' % (cost_time)
+                return retval
+            return wrapper
+        return real_decorator
+
+## Log level
+
+    import inspect
+     
+    def advance_logger(loglevel):
+     
+        def get_line_number():
+            return inspect.currentframe().f_back.f_back.f_lineno
+     
+        def _basic_log(fn, result, *args, **kwargs):
+            print "function   = " + fn.__name__,
+            print "    arguments = {0} {1}".format(args, kwargs)
+            print "    return    = {0}".format(result)
+     
+        def info_log_decorator(fn):
+            @wraps(fn)
+            def wrapper(*args, **kwargs):
+                result = fn(*args, **kwargs)
+                _basic_log(fn, result, args, kwargs)
+            return wrapper
+     
+        def debug_log_decorator(fn):
+            @wraps(fn)
+            def wrapper(*args, **kwargs):
+                ts = time.time()
+                result = fn(*args, **kwargs)
+                te = time.time()
+                _basic_log(fn, result, args, kwargs)
+                print "    time      = %.6f sec" % (te-ts)
+                print "    called_from_line : " + str(get_line_number())
+            return wrapper
+     
+        if loglevel is "debug":
+            return debug_log_decorator
+        else:
+            return info_log_decorator
