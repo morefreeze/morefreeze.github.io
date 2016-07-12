@@ -56,3 +56,6 @@ date: 2016-02-18 11:43
     3.  You can use `q/` to find command history, repeat step 2-3 until perfect match
     4.  `:%s//replace/g`. if pattern is omit it will use last match.
 
+## Insert datetime
+
+    `strftime("%Y%m%d", localtime())`  # Notice anti-quote
