@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="HBase Compaction">
-<title>HBase Compaction</title>
+<meta property="og:title" content="Portal 2">
+<title>Portal 2</title>
 <meta property="og:description" content="">
-<meta property="og:url" content="/tech/2016/02/26/hbase-compaction.html">
+<meta property="og:url" content="/game/2016/07/14/portal-2.html">
 <meta property="og:site_name" content="MoreFreeze">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="HBase Compaction">
+<meta name="twitter:title" content="Portal 2">
 <meta name="twitter:description" content="">
-<meta name="twitter:url" content="/tech/2016/02/26/hbase-compaction.html">
+<meta name="twitter:url" content="/game/2016/07/14/portal-2.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/tech/2016/02/26/hbase-compaction.html">
+<link rel="canonical" href="/game/2016/07/14/portal-2.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -102,65 +102,47 @@
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">HBase Compaction</h1>
-    <meta itemprop="keywords" content="HBase,Hadoop" />
+    <h1 itemprop="name" class="post-title">Portal 2</h1>
+    <meta itemprop="keywords" content="game,puzzle,fps" />
     <p class="post-meta">
     Posted in
     
-    <a href="/categories/#tech">tech</a>&nbsp;
+    <a href="/categories/#game">game</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#HBase" title="HBase">HBase </a>, 
+    <a href="/tags/#game" title="game">game </a>, 
     
-    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
+    <a href="/tags/#puzzle" title="puzzle">puzzle </a>, 
+    
+    <a href="/tags/#fps" title="fps">fps </a>
     
     
-    <time itemprop="datePublished" datetime="2016-02-26">
-    on Feb 26, 2016
+    <time itemprop="datePublished" datetime="2016-07-14">
+    on Jul 14, 2016
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
     
-<h2 id="merge">Merge</h2>
+<p>赞！
+今天把Portal 2（传送枪2）通关了，感觉非常痛快，这作相比上作应该多了红蓝白三种液体，
+传送带和传送光波等（其实1很早玩的，而且出了许多MOD，所以有什么区别记不清楚了），
+而且这作对于操作要求少了许多，很少出现那种需要在传送过程中向另一处开枪的场景，
+基本都是先计划好，然后依次过关就行，另外，这作比较坑的是在室外场景时，
+那些点点灯光下的白墙，刚开始找了半天才看到……关于游戏难度感觉适中，
+总是能在要找攻略的时候突然灵光一闪，找到答案（还是那个室外场景，当时卡住了，
+第二天再开机很快就找到了），总体上感觉游戏体验做的很好，没有遇到特别难的，
+也没有特别白痴的。游戏难易梯度很明显，特别在后面，当你发现这关很简单时，
+有可能你就掉入了一个陷阱中，需要你仔细斟酌一番。最后的BOSS战是经典的三段式，
+有了时间限制就非常刺激</p>
 
-<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
+<p>双人合作难度也很适中，而且两人都需要对游戏有一定的熟悉程度，当然可以借助tab来从另一个人视角观看，
+双人对于配合要求也比较高，有些需要配合依次打开几个传送门还是很有趣的。</p>
 
-<h2 id="compaction">Compaction</h2>
-<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
-
-<h2 id="minjor-compaction">Minjor Compaction</h2>
-<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
-
-<h2 id="major-compaction">Major Compaction</h2>
-<p>先来看几个参数：</p>
-
-<ul>
-  <li>hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.min.size HStore小于该值的将被compaction</li>
-  <li>hbase.hstore.compaction.max.size HStore大于该值的将被compaction</li>
-</ul>
-
-<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
-
-<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
-
-<ul>
-  <li>hbase.store.compaction.ratio compaction的选择系数</li>
-</ul>
-
-<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
-
-<script type="math/tex; mode=display">b * ratio > a</script>
-
-<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
-
-<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
-
+<p>不过说缺点的话，应该是没有要收集的元素，所以通了一遍就没有理由再打第二遍了……</p>
 
   </article>
   <hr />
@@ -170,10 +152,10 @@
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/tech/2016/01/10/hbase_split_detail.html" title="HBase Split detail">&larr; Older</a></li>
+    <li class="previous"><a href="/book/2016/06/24/the-end-of-eternity.html" title="The End of Eternity">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/tech/2016/05/11/share-precommit-hook.html" title="Share precommit hook">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -190,8 +172,8 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/tech/2016/02/26/hbase-compaction.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/tech/2016/02/26/hbase-compaction.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/game/2016/07/14/portal-2.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/game/2016/07/14/portal-2.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

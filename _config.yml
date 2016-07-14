@@ -61,7 +61,7 @@ Blogroll:
 ### Build settings
 markdown: kramdown
 highlighter: rouge
-paginate: 5
+#paginate: 5
 
 layout: default
 comments: true
