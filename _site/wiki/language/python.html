@@ -29,6 +29,7 @@
 </li>
 <li><a href="#algorithm">Algorithm</a><ul>
 <li><a href="#sorting-by-key">Sorting by key</a></li>
+<li><a href="#sorting-by-value">Sorting by value</a></li>
 </ul>
 </li>
 <li><a href="#decorator">Decorator</a><ul>
@@ -128,6 +129,14 @@
 <span class="cp">]</span>
 <span class="nt">sorted</span><span class="o">(</span><span class="nt">student_tuples</span><span class="o">,</span> <span class="nt">key</span><span class="o">=</span><span class="nt">lambda</span> <span class="nt">student</span><span class="o">:</span> <span class="nt">student</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="o">)</span>   <span class="err">#</span> <span class="nt">sort</span> <span class="nt">by</span> <span class="nt">age</span><span class="o">]</span>
 <span class="err">#</span> <span class="cp">[</span><span class="p">(</span><span class="s1">&#39;dave&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;jane&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="cp">]</span>
+</pre></div>
+
+
+<h2 id="sorting-by-value">Sorting by value</h2>
+<div class="hlcode"><pre><span class="n">import</span> <span class="n">operator</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="o">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">sorted_x</span> <span class="o">=</span> <span class="n">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="p">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="cp"># sorted_x will be a list of tuples. dict(sorted_x) == x</span>
 </pre></div>
 
 

@@ -96,6 +96,13 @@ Find more examples [here](https://wiki.python.org/moin/HowTo/Sorting)
     sorted(student_tuples, key=lambda student: student[2])   # sort by age]
     # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 
+## Sorting by value
+
+    import operator
+    x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+    sorted_x = sorted(x.items(), key=operator.itemgetter(1))
+    # sorted_x will be a list of tuples. dict(sorted_x) == x
+
 # Decorator
 
 ## Referer [Python Decorator Library](https://wiki.python.org/moin/PythonDecoratorLibrary)
