@@ -56,7 +56,7 @@ locales:
 Blogroll:
     - name: MoreFreeze
       href: http://morefreeze.github.io
-      title: Another Jekyll blog theme
+      title: MoreFreeze's Sanctuary
 
 ### Build settings
 markdown: kramdown
