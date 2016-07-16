@@ -120,6 +120,12 @@ a {
     color: #DD1144;
     text-decoration: none; }
 
+a.anchor {
+  display: inline-block;
+  position: relative;
+  top: -99px;
+  visibility: hidden; }
+
 /**
  * Blockquotes
  */

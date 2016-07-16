@@ -24,7 +24,7 @@ layout: default
   </header>
 
   <article class="post-content" itemprop="articleBody">
-    {{ content }}
+      {{ content | replace: '<!--more-->', '<a class="anchor" id="read-more"></a>' }}
   </article>
   <hr />
 </div>
