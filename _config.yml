@@ -61,7 +61,8 @@ Blogroll:
 ### Build settings
 markdown: kramdown
 highlighter: rouge
-#paginate: 5
+gems: [jekyll-paginate]
+paginate: 5
 
 layout: default
 comments: true
