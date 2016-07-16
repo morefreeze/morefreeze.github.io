@@ -30,7 +30,17 @@ layout: default
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      {{ post.content }}
+        {{ post.excerpt }}
+        {% capture content_words %}
+          {{ post.content | number_of_words }}
+        {% endcapture %}
+        {% capture excerpt_words %}
+          {{ post.excerpt | number_of_words }}
+        {% endcapture %}
+
+        {% if content_words != excerpt_words  %}
+        <p><a href="{{ post.url }}/#read-more">Read more</a></p>
+        {% endif %}
     </article> <hr />
     
     {% endfor %}

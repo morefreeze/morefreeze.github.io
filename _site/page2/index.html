@@ -133,7 +133,7 @@
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      
+        
 <h2 id="merge">Merge</h2>
 
 <p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
@@ -171,6 +171,10 @@
 <p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
 
 
+        
+        
+
+        
     </article> <hr />
     
     
@@ -200,7 +204,7 @@
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      
+        
 <h2 id="split">split的具体过程</h2>
 <p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
 以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
@@ -234,6 +238,10 @@ Master就知道split完成</li>
 <p>下回将会详细介绍辛勤劳动的compaction操作。</p>
 
 
+        
+        
+
+        
     </article> <hr />
     
     
@@ -263,7 +271,7 @@ Master就知道split完成</li>
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      
+        
 <h2 id="split">split是什么？</h2>
 
 <p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
@@ -326,6 +334,10 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
 <p>下篇会继续深入HBase的split操作。</p>
 
 
+        
+        
+
+        
     </article> <hr />
     
     
@@ -361,7 +373,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      
+        
 <p>I have trained my algorithm on <a href="http://leetcode.com/">leetcode</a> a period of time.</p>
 
 <p>Today, I will explain my solution about <a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees</a>.
@@ -700,6 +712,10 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <hr />
 
 
+        
+        
+
+        
     </article> <hr />
     
     
@@ -729,7 +745,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
     </header>
 
     <article class="post-content" itemprop="articleBody">
-      
+        
 <p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
 
 <p>上周五由于跑数据发现某个软件需要更新，需要<code class="highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
@@ -759,6 +775,10 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 <p>好了不说了，我去导之前数据了。</p>
 
 
+        
+        
+
+        
     </article> <hr />
     
     

@@ -66,3 +66,6 @@ paginate: 5
 
 layout: default
 comments: true
+
+### Read More link
+excerpt_separator: <!--more-->
