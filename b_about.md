@@ -8,7 +8,7 @@ tags: ['personal']
 
 ## 基本信息
 - 毕业日期：2012.06
-- 联系方式：`bW9yZWZyZWV6ZUBnbWFpbC5jb20KMTg2MTIyOTU1NTMK`
+- 联系方式：`bW9yZWZyZWV6ZStibG9nQGdtYWlsLmNvbQoxODYxMjI5NTU1Mwo=`
 
 ## 工作经历
 - 2015.10-  在PingCAP任职软件开发，主要负责分布式数据库系统的实现与开发。目前全套系统趋于稳定并在github上开源，在Go及Rust语言社区获得较高关注。
