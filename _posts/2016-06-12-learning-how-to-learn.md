@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "<Learning how to learn> Notes"
+title: "Learning how to learn"
 description: ""
 category: note
 comments: true
