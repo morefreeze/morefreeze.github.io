@@ -9,6 +9,7 @@ tags: [git]
 {% include JB/setup %}
 
 Today I want to share a code snippet. It used for reminding me run `rake preview` before `git commit`.
+<!--more-->
 
 TL;DR. Because I use `jeklly` to generate my blog static pages, `jeklly` is a generator of static blog.
 I can write a markdown file (just like this one) and run `rake preview`, `jeklly` could help me

@@ -12,6 +12,7 @@ split的具体过程
 ---
 切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
 以下基本翻译自[这里][1]。
+<!--more-->
 
 1. region server决定开始split，在zk上创建新节点`/hbase/region-in-transition/parent-region-name:SPLITTING`
 1. Master通过监测这个节点得知父region（这时称要split的region为父，

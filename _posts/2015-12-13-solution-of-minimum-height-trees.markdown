@@ -13,7 +13,7 @@ I have trained my algorithm on [leetcode](http://leetcode.com/) a period of time
 Today, I will explain my solution about [Minimum Height Trees](https://leetcode.com/problems/minimum-height-trees/).
 My solution beat ~95% against others but it is hard to explain what is I do.
 Please allow me to introduce the solution from easy to hard. If you only need the
-last solution, jump to [Solution 4](#solution4).
+last solution, jump to <!--more-->[Solution 4](#solution4).
 
 List of Solutions:
 

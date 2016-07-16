@@ -10,6 +10,7 @@ tags: [algorithm, database]
 
 学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。
 参考链接是[这里](http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html)
+<!--more-->
 
 ## 概览
 1. LevelDB是一个KV**持久化**存储引擎，它的特性是写非常快，读相对写较慢

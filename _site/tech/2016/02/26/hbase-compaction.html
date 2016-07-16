@@ -9,15 +9,15 @@
 
 <meta property="og:title" content="HBase Compaction">
 <title>HBase Compaction</title>
-<meta property="og:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。Comp...">
+<meta property="og:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
 <meta property="og:url" content="/tech/2016/02/26/hbase-compaction.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="HBase Compaction">
-<meta name="twitter:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。Comp...">
+<meta name="twitter:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
 <meta name="twitter:url" content="/tech/2016/02/26/hbase-compaction.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -25,7 +25,7 @@
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="canonical" href="/tech/2016/02/26/hbase-compaction.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -43,7 +43,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -131,7 +131,8 @@
       
 <h2 id="merge">Merge</h2>
 
-<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
+<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。
+<a class="anchor" id="read-more"></a></p>
 
 <h2 id="compaction">Compaction</h2>
 <p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
@@ -270,7 +271,7 @@
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/note/2016/06/12/learning-how-to-learn.html" title="<Learning how to learn> Notes" rel="bookmark"><Learning how to learn> Notes</a>
   </li>
   
   <li>
@@ -440,7 +441,7 @@
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

@@ -9,15 +9,15 @@
 
 <meta property="og:title" content="LevelDB实现总结">
 <title>LevelDB实现总结</title>
-<meta property="og:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里概览  LevelDB是一个KV持久化存储引擎，它的特性是写非常快，读相对写较慢  LevelDB是基于LSM(Log Structured Merge)实现，它会顺序地记录各种写操作  LevelDB存储分为两...">
+<meta property="og:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
 <meta property="og:url" content="/tech/2016/05/22/LevelDB-Summarize.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="LevelDB实现总结">
-<meta name="twitter:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里概览  LevelDB是一个KV持久化存储引擎，它的特性是写非常快，读相对写较慢  LevelDB是基于LSM(Log Structured Merge)实现，它会顺序地记录各种写操作  LevelDB存储分为两...">
+<meta name="twitter:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
 <meta name="twitter:url" content="/tech/2016/05/22/LevelDB-Summarize.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -25,7 +25,7 @@
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="canonical" href="/tech/2016/05/22/LevelDB-Summarize.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -43,7 +43,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -130,7 +130,8 @@
   <article class="post-content" itemprop="articleBody">
       
 <p>学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。
-参考链接是<a href="http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html">这里</a></p>
+参考链接是<a href="http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html">这里</a>
+<a class="anchor" id="read-more"></a></p>
 
 <h2 id="section">概览</h2>
 <ol>
@@ -210,7 +211,7 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
     <li class="previous"><a href="/tech/2016/05/11/share-precommit-hook.html" title="Share precommit hook">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes">Newer &rarr;</a></li>
+    <li class="next"><a href="/note/2016/06/12/learning-how-to-learn.html" title="<Learning how to learn> Notes">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -303,7 +304,7 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/note/2016/06/12/learning-how-to-learn.html" title="<Learning how to learn> Notes" rel="bookmark"><Learning how to learn> Notes</a>
   </li>
   
   <li>
@@ -473,7 +474,7 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

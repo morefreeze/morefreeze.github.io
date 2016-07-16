@@ -11,6 +11,7 @@ comments: true
 The [config.yml file](https://github.com/yulijia/freshman21/blob/master/_config.yml) in the Freshman21 theme includes five parts. 
 
 **First part** is the site info.
+<!--more-->
 
 {% highlight YAML %}
 title: Freshman21 # blog title

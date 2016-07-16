@@ -9,15 +9,15 @@
 
 <meta property="og:title" content="HBase Split">
 <title>HBase Split</title>
-<meta property="og:description" content="split是什么？HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。split有...">
+<meta property="og:description" content="split是什么？HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。">
 <meta property="og:url" content="/tech/2015/12/28/hbase-split.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="HBase Split">
-<meta name="twitter:description" content="split是什么？HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。split有...">
+<meta name="twitter:description" content="split是什么？HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。">
 <meta name="twitter:url" content="/tech/2015/12/28/hbase-split.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -25,7 +25,7 @@
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="canonical" href="/tech/2015/12/28/hbase-split.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -43,7 +43,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -133,7 +133,8 @@
 
 <p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
 就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
-拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。</p>
+拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。
+<a class="anchor" id="read-more"></a></p>
 
 <h2 id="split-1">split有什么用？</h2>
 <p>split的主要作用就是让数据分布更均匀，让每个region都有数据可查，你说这样的决定吼不吼啊，
@@ -295,7 +296,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/note/2016/06/12/learning-how-to-learn.html" title="<Learning how to learn> Notes" rel="bookmark"><Learning how to learn> Notes</a>
   </li>
   
   <li>
@@ -465,7 +466,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

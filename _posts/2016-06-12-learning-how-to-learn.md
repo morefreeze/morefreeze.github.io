@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "\"Learning how to learn\" Notes"
+title: "<Learning how to learn> Notes"
 description: ""
 category: note
 comments: true
@@ -9,11 +9,12 @@ tags: [note, learning]
 {% include JB/setup %}
 
 Last month I have study a course on Coursera, it is called
-"[Learning how to learn](https://www.coursera.org/learn/learning-how-to-learn)".
+_[Learning how to learn](https://www.coursera.org/learn/learning-how-to-learn)_.
 It is a course that teach you how to learn efficiently. I made some notes about it
 and share here.
 (I just list each view point which I think is important, but I think I can figure out
 better way to show next time)
+<!--more-->
 
 ## Week 1 Two mode of your brain
 1. Your brain has two mode: focus mode, diffuse mode.

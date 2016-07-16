@@ -3,8 +3,8 @@ layout: post
 title: Sample Post
 excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
 categories: articles
-tags: [sample-post]
 comments: true
+tags: [sample-post]
 ---
 
 * Table of Contents
@@ -14,7 +14,7 @@ comments: true
 This is a sample post.
 
 Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
-
+<!--more-->
 
 
 

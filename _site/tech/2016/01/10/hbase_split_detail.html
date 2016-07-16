@@ -9,15 +9,15 @@
 
 <meta property="og:title" content="HBase Split detail">
 <title>HBase Split detail</title>
-<meta property="og:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。  region server决定开始split，在zk上创建新节点/hbase/region-in-transition/parent-region-name:SPL...">
+<meta property="og:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
 <meta property="og:url" content="/tech/2016/01/10/hbase_split_detail.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="HBase Split detail">
-<meta name="twitter:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。  region server决定开始split，在zk上创建新节点/hbase/region-in-transition/parent-region-name:SPL...">
+<meta name="twitter:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
 <meta name="twitter:url" content="/tech/2016/01/10/hbase_split_detail.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -25,7 +25,7 @@
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
 <link rel="canonical" href="/tech/2016/01/10/hbase_split_detail.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
@@ -43,7 +43,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -131,7 +131,8 @@
       
 <h2 id="split">split的具体过程</h2>
 <p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
-以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
+以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。
+<a class="anchor" id="read-more"></a></p>
 
 <ol>
   <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
@@ -266,7 +267,7 @@ Master就知道split完成</li>
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/note/2016/06/12/learning-how-to-learn.html" title="<Learning how to learn> Notes" rel="bookmark"><Learning how to learn> Notes</a>
   </li>
   
   <li>
@@ -436,7 +437,7 @@ Master就知道split完成</li>
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   
