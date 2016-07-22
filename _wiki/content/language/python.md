@@ -123,6 +123,7 @@ Find more examples [here](https://wiki.python.org/moin/HowTo/Sorting)
 
 ## Function memo
 
+    from functools import wraps
     def memo(fn):
         cache = {}
         miss = object()

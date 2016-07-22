@@ -158,7 +158,8 @@
 
 
 <h2 id="function-memo">Function memo</h2>
-<div class="hlcode"><pre><span class="n">def</span> <span class="n">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
+<div class="hlcode"><pre><span class="n">from</span> <span class="n">functools</span> <span class="n">import</span> <span class="n">wraps</span>
+<span class="n">def</span> <span class="n">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
     <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">miss</span> <span class="o">=</span> <span class="n">object</span><span class="p">()</span>
 
