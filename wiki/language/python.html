@@ -41,6 +41,10 @@
 <li><a href="#log-level">Log level</a></li>
 </ul>
 </li>
+<li><a href="#debug">Debug</a><ul>
+<li><a href="#measure-memory">Measure memory</a></li>
+</ul>
+</li>
 </ul>
 </div>
 <h1 id="network">Network</h1>
@@ -263,6 +267,44 @@
         <span class="k">return</span> <span class="nx">debug_log_decorator</span>
     <span class="k">else</span><span class="o">:</span>
         <span class="k">return</span> <span class="nx">info_log_decorator</span>
+</pre></div>
+
+
+<h1 id="debug">Debug</h1>
+<h2 id="measure-memory">Measure memory</h2>
+<p>This snippet is from <em>Python Cookbook(2nd edition)</em> chapter 8.2.
+Notich it only work on <strong>Linux</strong>.</p>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">_proc_status</span> <span class="o">=</span> <span class="s">&#39;/proc/</span><span class="si">%d</span><span class="s">/status&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+<span class="n">_scale</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;kB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s">&#39;mB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">,</span>
+          <span class="s">&#39;KB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s">&#39;MB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">}</span>
+<span class="k">def</span> <span class="nf">_VmB</span><span class="p">(</span><span class="n">VmKey</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; given a VmKey string, returns a number of bytes. &#39;&#39;&#39;</span>
+    <span class="c"># get pseudo file  /proc/&lt;pid&gt;/status</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">_proc_status</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;non-linux?</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c"># non-Linux?</span>
+    <span class="c"># get VmKey line e.g. &#39;VmRSS:  9999  kB\n ...&#39;</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">VmKey</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c"># split on runs of whitespace</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c"># invalid format?</span>
+    <span class="c"># convert Vm value to bytes</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">_scale</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+<span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Return virtual memory usage in bytes. &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmSize:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
+<span class="k">def</span> <span class="nf">resident</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Return resident memory usage in bytes. &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmRSS:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
+<span class="k">def</span> <span class="nf">stacksize</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39; Return stack size in bytes. &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmStk:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
 </pre></div>
 </div>
 
