@@ -49,224 +49,224 @@
 </div>
 <h1 id="network">Network</h1>
 <h2 id="send-request-with-headers">Send request with headers</h2>
-<div class="hlcode"><pre><span class="n">import</span> <span class="n">urllib2</span>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">urllib2</span>
 
 <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="err">&#39;</span><span class="n">Cookie</span><span class="err">&#39;</span><span class="o">:</span>       <span class="err">&#39;&#39;</span><span class="p">,</span>
-    <span class="err">&#39;</span><span class="n">Accept</span><span class="err">&#39;</span><span class="o">:</span>       <span class="err">&#39;&#39;</span><span class="p">,</span>
-    <span class="err">&#39;</span><span class="n">Referer</span><span class="err">&#39;</span><span class="o">:</span>      <span class="err">&#39;&#39;</span><span class="p">,</span>
-    <span class="err">&#39;</span><span class="n">User</span><span class="o">-</span><span class="n">Agent</span><span class="err">&#39;</span><span class="o">:</span>   <span class="err">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Cookie&#39;</span><span class="p">:</span>       <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Accept&#39;</span><span class="p">:</span>       <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;Referer&#39;</span><span class="p">:</span>      <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s">&#39;User-Agent&#39;</span><span class="p">:</span>   <span class="s">&#39;&#39;</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">urllib2</span><span class="p">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">urllib2</span><span class="p">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">r</span><span class="p">).</span><span class="n">read</span><span class="p">()</span>
+<span class="n">r</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 
 
 <p>See <a href="https://docs.python.org/2/library/urllib2.html">doc</a></p>
 <h1 id="text-processing">Text Processing</h1>
 <h2 id="merge-two-files-with-same-primary-key">Merge two files with same primary key</h2>
-<div class="hlcode"><pre><span class="cp"># coding: utf-8</span>
+<div class="hlcode"><pre><span class="c"># coding: utf-8</span>
 
-<span class="n">import</span> <span class="n">csv</span>
-<span class="n">import</span> <span class="n">os</span>
-<span class="n">import</span> <span class="n">sys</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="n">__doc__</span> <span class="o">=</span> <span class="err">&#39;&#39;&#39;</span>
-<span class="n">python</span> <span class="o">%</span><span class="n">s</span> <span class="n">left_file</span> <span class="n">left_idx</span> <span class="n">right_file</span> <span class="p">[</span><span class="n">right_idx</span><span class="p">]</span>
-<span class="n">It</span> <span class="n">will</span> <span class="n">join</span> <span class="n">right_file</span> <span class="n">to</span> <span class="n">left_file</span> <span class="n">on</span><span class="p">(</span><span class="n">left</span><span class="p">.</span><span class="n">idx</span><span class="o">=</span><span class="n">right</span><span class="p">.</span><span class="n">idx</span><span class="p">).</span>
-<span class="n">The</span> <span class="n">columns</span> <span class="n">of</span> <span class="n">right_file</span> <span class="n">will</span> <span class="n">be</span> <span class="n">paste</span> <span class="n">after</span> <span class="n">left_file</span><span class="p">.</span>
-<span class="n">The</span> <span class="n">index</span> <span class="n">of</span> <span class="n">both</span> <span class="n">must</span> <span class="n">be</span> <span class="n">unique</span> <span class="n">and</span> <span class="n">start</span> <span class="n">with</span> <span class="mf">0.</span>
-<span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="o">:</span>    <span class="n">left</span>     <span class="o">|</span>     <span class="n">right</span>
-      <span class="mi">1</span> <span class="n">A</span> <span class="n">B</span> <span class="n">C</span>     <span class="o">|</span>   <span class="mi">1</span> <span class="n">X</span> <span class="n">Y</span>
-      <span class="mi">2</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span>     <span class="o">|</span>   <span class="mi">3</span> <span class="n">Z</span> <span class="n">W</span>
-      <span class="mi">3</span> <span class="n">H</span> <span class="n">I</span> <span class="n">J</span>     <span class="o">|</span>   <span class="p">(</span><span class="n">EOF</span><span class="p">)</span>
-<span class="n">result</span> <span class="n">is</span><span class="o">:</span>
-              <span class="n">merged</span>
-      <span class="mi">1</span> <span class="n">A</span> <span class="n">B</span> <span class="n">C</span> <span class="n">X</span> <span class="n">Y</span>
-      <span class="mi">2</span> <span class="n">D</span> <span class="n">E</span> <span class="n">F</span>
-      <span class="mi">3</span> <span class="n">H</span> <span class="n">I</span> <span class="n">J</span> <span class="n">Z</span> <span class="n">W</span>
-<span class="err">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">__doc__</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">python </span><span class="si">%s</span><span class="s"> left_file left_idx right_file [right_idx]</span>
+<span class="s">It will join right_file to left_file on(left.idx=right.idx).</span>
+<span class="s">The columns of right_file will be paste after left_file.</span>
+<span class="s">The index of both must be unique and start with 0.</span>
+<span class="s">e.g.:    left     |     right</span>
+<span class="s">      1 A B C     |   1 X Y</span>
+<span class="s">      2 D E F     |   3 Z W</span>
+<span class="s">      3 H I J     |   (EOF)</span>
+<span class="s">result is:</span>
+<span class="s">              merged</span>
+<span class="s">      1 A B C X Y</span>
+<span class="s">      2 D E F</span>
+<span class="s">      3 H I J Z W</span>
+<span class="s">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 
-<span class="n">def</span> <span class="n">generate_outfile</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">)</span><span class="o">:</span>
-    <span class="k">return</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="err">&#39;</span><span class="n">_ext</span><span class="p">.</span><span class="n">csv</span><span class="err">&#39;</span>
+<span class="k">def</span> <span class="nf">generate_outfile</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">&#39;_ext.csv&#39;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="err">&#39;</span><span class="n">__main__</span><span class="err">&#39;</span><span class="o">:</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="o">:</span>
-    <span class="n">print</span> <span class="s">&quot;Usage: python %s left_file left_idx right_file [right_idx]&quot;</span> \
-        <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="cp"># d[left_idx] = left_row</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;Usage: python </span><span class="si">%s</span><span class="s"> left_file left_idx right_file [right_idx]&quot;</span> \
+        <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c"># d[left_idx] = left_row</span>
 <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">left_file</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">left_idx</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-<span class="n">right_file</span> <span class="o">=</span> <span class="n">str</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
-<span class="n">right_idx</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="kt">int</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">right_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">row</span> <span class="n">in</span> <span class="n">r</span><span class="o">:</span>
-        <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">right_idx</span><span class="o">:</span>
+<span class="n">left_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">left_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">right_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">right_idx</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">right_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">right_idx</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">new_row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="o">:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="p">]</span>  <span class="err">#</span> <span class="n">Remove</span> <span class="n">right_idx</span><span class="p">.</span>
+        <span class="n">new_row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>  <span class="c"># Remove right_idx.</span>
         <span class="n">d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_row</span>
 
 <span class="n">out_file</span> <span class="o">=</span> <span class="n">generate_outfile</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="n">right_file</span><span class="p">)</span>
-<span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">out_f</span><span class="o">:</span>
-    <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_f</span><span class="p">)</span>
-    <span class="n">with</span> <span class="n">open</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="n">as</span> <span class="n">f</span><span class="o">:</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="p">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">row</span> <span class="n">in</span> <span class="n">r</span><span class="o">:</span>
-            <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">left_idx</span> <span class="n">and</span> <span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span> <span class="n">in</span> <span class="n">d</span><span class="o">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_f</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">left_idx</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
                 <span class="n">row</span> <span class="o">+=</span> <span class="n">d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]]</span>
-            <span class="n">w</span><span class="p">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+            <span class="n">w</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
 </pre></div>
 
 
 <h1 id="algorithm">Algorithm</h1>
 <h2 id="sorting-by-key">Sorting by key</h2>
 <p>Find more examples <a href="https://wiki.python.org/moin/HowTo/Sorting">here</a></p>
-<div class="hlcode"><pre><span class="nt">student_tuples</span> <span class="o">=</span> <span class="cp">[</span>
-    <span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;jane&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-    <span class="p">(</span><span class="s1">&#39;dave&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
-<span class="cp">]</span>
-<span class="nt">sorted</span><span class="o">(</span><span class="nt">student_tuples</span><span class="o">,</span> <span class="nt">key</span><span class="o">=</span><span class="nt">lambda</span> <span class="nt">student</span><span class="o">:</span> <span class="nt">student</span><span class="cp">[</span><span class="mi">2</span><span class="cp">]</span><span class="o">)</span>   <span class="err">#</span> <span class="nt">sort</span> <span class="nt">by</span> <span class="nt">age</span><span class="o">]</span>
-<span class="err">#</span> <span class="cp">[</span><span class="p">(</span><span class="s1">&#39;dave&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;jane&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span><span class="cp">]</span>
+<div class="hlcode"><pre><span class="n">student_tuples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">&#39;john&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;jane&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;dave&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">student_tuples</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">student</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>   <span class="c"># sort by age]</span>
+<span class="c"># [(&#39;dave&#39;, &#39;B&#39;, 10), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;john&#39;, &#39;A&#39;, 15)]</span>
 </pre></div>
 
 
 <h2 id="sorting-by-value">Sorting by value</h2>
-<div class="hlcode"><pre><span class="n">import</span> <span class="n">operator</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="o">:</span> <span class="mi">0</span><span class="p">}</span>
-<span class="n">sorted_x</span> <span class="o">=</span> <span class="n">sorted</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="p">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="cp"># sorted_x will be a list of tuples. dict(sorted_x) == x</span>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">operator</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">sorted_x</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="c"># sorted_x will be a list of tuples. dict(sorted_x) == x</span>
 </pre></div>
 
 
 <h1 id="decorator">Decorator</h1>
 <h2 id="referer-python-decorator-library">Referer <a href="https://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a></h2>
 <h2 id="wraps">@wraps</h2>
-<div class="hlcode"><pre><span class="n">from</span> <span class="n">functools</span> <span class="n">import</span> <span class="n">wraps</span>
-<span class="cp"># without @wraps, foo.__name__ will output &#39;wrapper&#39;</span>
-<span class="n">def</span> <span class="n">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
-    <span class="err">@</span><span class="n">wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-    <span class="n">def</span> <span class="n">wrapper</span><span class="p">()</span><span class="o">:</span>
-        <span class="n">print</span> <span class="err">&#39;</span><span class="n">hello</span><span class="p">,</span> <span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="p">.</span><span class="n">__name__</span><span class="p">)</span>
+<div class="hlcode"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="c"># without @wraps, foo.__name__ will output &#39;wrapper&#39;</span>
+<span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+        <span class="k">print</span> <span class="s">&#39;hello, </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
         <span class="n">fn</span><span class="p">()</span>
-        <span class="n">print</span> <span class="err">&#39;</span><span class="n">bye</span><span class="p">,</span> <span class="o">%</span><span class="n">s</span><span class="err">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="p">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&#39;bye, </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 
-<span class="n">print</span> <span class="n">foo</span><span class="p">.</span><span class="n">__name__</span>
+<span class="k">print</span> <span class="n">foo</span><span class="o">.</span><span class="n">__name__</span>
 </pre></div>
 
 
 <h2 id="function-memo">Function memo</h2>
-<div class="hlcode"><pre><span class="n">from</span> <span class="n">functools</span> <span class="n">import</span> <span class="n">wraps</span>
-<span class="n">def</span> <span class="n">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
+<div class="hlcode"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="k">def</span> <span class="nf">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">miss</span> <span class="o">=</span> <span class="n">object</span><span class="p">()</span>
+    <span class="n">miss</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
 
-    <span class="err">@</span><span class="n">wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
-    <span class="n">def</span> <span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="o">:</span>
-        <span class="n">result</span> <span class="o">=</span> <span class="n">cache</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">miss</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">result</span> <span class="n">is</span> <span class="n">miss</span><span class="o">:</span>
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">miss</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">miss</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
             <span class="n">cache</span><span class="p">[</span><span class="n">args</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
         <span class="k">return</span> <span class="n">result</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 
-<span class="err">@</span><span class="n">memo</span>
-<span class="n">def</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">:</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="o">:</span>
+<span class="nd">@memo</span>
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">n</span>
     <span class="k">return</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
 <h2 id="profiler">Profiler</h2>
-<div class="hlcode"><pre><span class="n">import</span> <span class="n">cProfile</span><span class="p">,</span> <span class="n">pstats</span><span class="p">,</span> <span class="n">StringIO</span>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">cProfile</span><span class="o">,</span> <span class="nn">pstats</span><span class="o">,</span> <span class="nn">StringIO</span>
 
-<span class="n">def</span> <span class="n">profiler</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span><span class="o">:</span>
-    <span class="n">def</span> <span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">:</span>
-        <span class="n">datafn</span> <span class="o">=</span> <span class="n">fn</span><span class="p">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot;.profile&quot;</span>
-        <span class="n">prof</span> <span class="o">=</span> <span class="n">cProfile</span><span class="p">.</span><span class="n">Profile</span><span class="p">()</span>
-        <span class="n">retval</span> <span class="o">=</span> <span class="n">prof</span><span class="p">.</span><span class="n">runcall</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="err">#</span> <span class="n">prof</span><span class="p">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="n">datafn</span><span class="p">)</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">.</span><span class="n">StringIO</span><span class="p">()</span>
-        <span class="n">sortby</span> <span class="o">=</span> <span class="err">&#39;</span><span class="n">cumulative</span><span class="err">&#39;</span>
-        <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="p">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">s</span><span class="p">).</span><span class="n">sort_stats</span><span class="p">(</span><span class="n">sortby</span><span class="p">)</span>
-        <span class="n">ps</span><span class="p">.</span><span class="n">print_stats</span><span class="p">()</span>
-        <span class="n">print</span> <span class="n">s</span><span class="p">.</span><span class="n">getvalue</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">profiler</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">datafn</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot;.profile&quot;</span>
+        <span class="n">prof</span> <span class="o">=</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span>
+        <span class="n">retval</span> <span class="o">=</span> <span class="n">prof</span><span class="o">.</span><span class="n">runcall</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c"># prof.dump_stats(datafn)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
+        <span class="n">sortby</span> <span class="o">=</span> <span class="s">&#39;cumulative&#39;</span>
+        <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="n">sortby</span><span class="p">)</span>
+        <span class="n">ps</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+        <span class="k">print</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">retval</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 </pre></div>
 
 
 <h2 id="time-it">Time it</h2>
-<div class="hlcode"><pre><span class="err">#</span> <span class="nx">Use</span> <span class="k">for</span> <span class="nx">time</span> <span class="nx">a</span> <span class="kd">function</span> <span class="nx">cost</span> <span class="nx">time</span><span class="p">.</span>
-<span class="err">#</span> <span class="nx">timeit</span><span class="p">(</span><span class="nx">debug</span><span class="o">=</span><span class="nx">True</span><span class="p">),</span> <span class="nx">or</span> <span class="nx">it</span> <span class="nx">will</span> <span class="nx">use</span> <span class="nx">self</span><span class="p">.</span><span class="nx">_debug</span> <span class="k">if</span> <span class="nx">decorate</span> <span class="nx">a</span> <span class="nx">method</span> <span class="nx">of</span> <span class="kr">class</span><span class="p">.</span>
-<span class="err">#</span> <span class="nx">Usage</span><span class="o">:</span> <span class="err">@</span><span class="nx">timeit</span><span class="p">(</span><span class="nx">True</span><span class="p">)</span>
-<span class="err">#</span> <span class="kr">class</span> <span class="nx">Foo</span><span class="o">:</span>
-<span class="err">#</span>   <span class="nx">_debug</span> <span class="o">=</span> <span class="nx">True</span>
-<span class="err">#</span>   <span class="err">@</span><span class="nx">timeit</span><span class="p">()</span>
-<span class="err">#</span>   <span class="nx">def</span> <span class="nx">bar</span><span class="p">(</span><span class="nx">baz</span><span class="p">)</span><span class="o">:</span>
-<span class="nx">def</span> <span class="nx">timeit</span><span class="p">(</span><span class="nx">debug</span><span class="o">=</span><span class="nx">False</span><span class="p">)</span><span class="o">:</span>
-    <span class="nx">def</span> <span class="nx">real_decorator</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="o">:</span>
-        <span class="err">@</span><span class="nx">wraps</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
-        <span class="nx">def</span> <span class="nx">wrapper</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span><span class="o">:</span>
-            <span class="k">try</span><span class="o">:</span>
-                <span class="nx">_debug</span> <span class="o">=</span> <span class="nx">debug</span> <span class="nx">or</span> <span class="nx">args</span><span class="cp">[</span><span class="mi">0</span><span class="cp">]</span><span class="p">.</span><span class="nx">_debug</span>
-            <span class="nx">except</span><span class="o">:</span>
-                <span class="nx">_debug</span> <span class="o">=</span> <span class="nx">False</span>
-            <span class="nx">start_time</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">time</span><span class="p">()</span>
-            <span class="nx">retval</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span>
-            <span class="nx">cost_time</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">time</span><span class="p">()</span> <span class="o">-</span> <span class="nx">start_time</span>
-            <span class="k">if</span> <span class="nx">_debug</span><span class="o">:</span>
-                <span class="nx">print</span> <span class="s1">&#39;function = %s&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nx">fn</span><span class="p">.</span><span class="nx">__name__</span><span class="p">)</span>
-                <span class="nx">print</span> <span class="s1">&#39;    arguments = {0} {1}&#39;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">kwargs</span><span class="p">)</span>
-                <span class="nx">print</span> <span class="s1">&#39;    cost = %.6f&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nx">cost_time</span><span class="p">)</span>
-            <span class="k">return</span> <span class="nx">retval</span>
-        <span class="k">return</span> <span class="nx">wrapper</span>
-    <span class="k">return</span> <span class="nx">real_decorator</span>
+<div class="hlcode"><pre><span class="c"># Use for time a function cost time.</span>
+<span class="c"># timeit(debug=True), or it will use self._debug if decorate a method of class.</span>
+<span class="c"># Usage: @timeit(True)</span>
+<span class="c"># class Foo:</span>
+<span class="c">#   _debug = True</span>
+<span class="c">#   @timeit()</span>
+<span class="c">#   def bar(baz):</span>
+<span class="k">def</span> <span class="nf">timeit</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">_debug</span> <span class="o">=</span> <span class="n">debug</span> <span class="ow">or</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_debug</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="n">_debug</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">cost_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="k">if</span> <span class="n">_debug</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;function = </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&#39;    arguments = {0} {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s">&#39;    cost = </span><span class="si">%.6f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cost_time</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">real_decorator</span>
 </pre></div>
 
 
 <h2 id="log-level">Log level</h2>
-<div class="hlcode"><pre><span class="kr">import</span> <span class="nx">inspect</span>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">inspect</span>
 
-<span class="nx">def</span> <span class="nx">advance_logger</span><span class="p">(</span><span class="nx">loglevel</span><span class="p">)</span><span class="o">:</span>
+<span class="k">def</span> <span class="nf">advance_logger</span><span class="p">(</span><span class="n">loglevel</span><span class="p">):</span>
 
-    <span class="nx">def</span> <span class="nx">get_line_number</span><span class="p">()</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">inspect</span><span class="p">.</span><span class="nx">currentframe</span><span class="p">().</span><span class="nx">f_back</span><span class="p">.</span><span class="nx">f_back</span><span class="p">.</span><span class="nx">f_lineno</span>
+    <span class="k">def</span> <span class="nf">get_line_number</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_back</span><span class="o">.</span><span class="n">f_back</span><span class="o">.</span><span class="n">f_lineno</span>
 
-    <span class="nx">def</span> <span class="nx">_basic_log</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span><span class="o">:</span>
-        <span class="nx">print</span> <span class="s2">&quot;function   = &quot;</span> <span class="o">+</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">__name__</span><span class="p">,</span>
-        <span class="nx">print</span> <span class="s2">&quot;    arguments = {0} {1}&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">args</span><span class="p">,</span> <span class="nx">kwargs</span><span class="p">)</span>
-        <span class="nx">print</span> <span class="s2">&quot;    return    = {0}&quot;</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_basic_log</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&quot;function   = &quot;</span> <span class="o">+</span> <span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
+        <span class="k">print</span> <span class="s">&quot;    arguments = {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&quot;    return    = {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
-    <span class="nx">def</span> <span class="nx">info_log_decorator</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="o">:</span>
-        <span class="err">@</span><span class="nx">wraps</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
-        <span class="nx">def</span> <span class="nx">wrapper</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span><span class="o">:</span>
-            <span class="nx">result</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span>
-            <span class="nx">_basic_log</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nx">wrapper</span>
+    <span class="k">def</span> <span class="nf">info_log_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">_basic_log</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
 
-    <span class="nx">def</span> <span class="nx">debug_log_decorator</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span><span class="o">:</span>
-        <span class="err">@</span><span class="nx">wraps</span><span class="p">(</span><span class="nx">fn</span><span class="p">)</span>
-        <span class="nx">def</span> <span class="nx">wrapper</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span><span class="o">:</span>
-            <span class="nx">ts</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">time</span><span class="p">()</span>
-            <span class="nx">result</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">(</span><span class="o">*</span><span class="nx">args</span><span class="p">,</span> <span class="o">**</span><span class="nx">kwargs</span><span class="p">)</span>
-            <span class="nx">te</span> <span class="o">=</span> <span class="nx">time</span><span class="p">.</span><span class="nx">time</span><span class="p">()</span>
-            <span class="nx">_basic_log</span><span class="p">(</span><span class="nx">fn</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">args</span><span class="p">,</span> <span class="nx">kwargs</span><span class="p">)</span>
-            <span class="nx">print</span> <span class="s2">&quot;    time      = %.6f sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nx">te</span><span class="o">-</span><span class="nx">ts</span><span class="p">)</span>
-            <span class="nx">print</span> <span class="s2">&quot;    called_from_line : &quot;</span> <span class="o">+</span> <span class="nx">str</span><span class="p">(</span><span class="nx">get_line_number</span><span class="p">())</span>
-        <span class="k">return</span> <span class="nx">wrapper</span>
+    <span class="k">def</span> <span class="nf">debug_log_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">te</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+            <span class="n">_basic_log</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">&quot;    time      = </span><span class="si">%.6f</span><span class="s"> sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s">&quot;    called_from_line : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_line_number</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
 
-    <span class="k">if</span> <span class="nx">loglevel</span> <span class="nx">is</span> <span class="s2">&quot;debug&quot;</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">debug_log_decorator</span>
-    <span class="k">else</span><span class="o">:</span>
-        <span class="k">return</span> <span class="nx">info_log_decorator</span>
+    <span class="k">if</span> <span class="n">loglevel</span> <span class="ow">is</span> <span class="s">&quot;debug&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">debug_log_decorator</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">info_log_decorator</span>
 </pre></div>
 
 
