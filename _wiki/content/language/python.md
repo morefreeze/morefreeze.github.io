@@ -98,7 +98,7 @@ student_tuples = [
     ('jane', 'B', 12),
     ('dave', 'B', 10),
 ]
-sorted(student_tuples, key=lambda student: student[2])   # sort by age]
+sorted(student_tuples, key=lambda student: student[2])   # sort by age
 # [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
 ```
 
