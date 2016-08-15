@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="LevelDB实现总结">
-<title>LevelDB实现总结</title>
-<meta property="og:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
-<meta property="og:url" content="/tech/2016/05/22/LevelDB-Summarize.html">
+<meta property="og:title" content="The Last Of Us">
+<title>The Last Of Us</title>
+<meta property="og:description" content="上周通了_The Last Of Us_，我的心情久久不能平静，我肯定会说这绝对是神作的。">
+<meta property="og:url" content="/2016/08/10/tlou.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="LevelDB实现总结">
-<meta name="twitter:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
-<meta name="twitter:url" content="/tech/2016/05/22/LevelDB-Summarize.html">
+<meta name="twitter:title" content="The Last Of Us">
+<meta name="twitter:description" content="上周通了_The Last Of Us_，我的心情久久不能平静，我肯定会说这绝对是神作的。">
+<meta name="twitter:url" content="/2016/08/10/tlou.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/tech/2016/05/22/LevelDB-Summarize.html">
+<link rel="canonical" href="/2016/08/10/tlou.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -108,99 +108,66 @@
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">LevelDB实现总结</h1>
-    <meta itemprop="keywords" content="algorithm,database" />
+    <h1 itemprop="name" class="post-title">The Last Of Us</h1>
+    <meta itemprop="keywords" content="game,PS4,fps" />
     <p class="post-meta">
     Posted in
-    
-    <a href="/categories/#tech">tech</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#algorithm" title="algorithm">algorithm </a>, 
+    <a href="/tags/#game" title="game">game </a>, 
     
-    <a href="/tags/#database" title="database">database </a>
+    <a href="/tags/#PS4" title="PS4">PS4 </a>, 
+    
+    <a href="/tags/#fps" title="fps">fps </a>
     
     
-    <time itemprop="datePublished" datetime="2016-05-22">
-    on May 22, 2016
+    <time itemprop="datePublished" datetime="2016-08-10">
+    on Aug 10, 2016
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
       
-<p>学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。
-参考链接是<a href="http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html">这里</a>
-<a class="anchor" id="read-more"></a></p>
+<p>上周通了_The Last Of Us_，我的心情久久不能平静，我肯定会说这绝对是神作的。
+<a class="anchor" id="read-more"></a>
+故事讲的是一个末世背景下，一个大叔和萝莉活到了最后。我简直不敢相信一句话是概括完了我玩了 2 年的游戏。</p>
 
-<h2 id="section">概览</h2>
-<ol>
-  <li>LevelDB是一个KV<strong>持久化</strong>存储引擎，它的特性是写非常快，读相对写较慢</li>
-  <li>LevelDB是基于LSM(Log Structured Merge)实现，它会顺序地记录各种写操作</li>
-  <li>LevelDB存储分为两部分，一部分在内存，另一部分在磁盘上。内存中方便快速查找，
-查找失败后，去磁盘上查找。一段时间后或内存达到一定大小，会将内存中的compact成sst文件存在磁盘</li>
-</ol>
+<p>刚开始玩是在入手 PS4 时直接随机器买了实体盘，在网上也看了谷歌的绝地难度攻略，
+然后是一个潜入+FPS的游戏，结果用 Hard 上手了才发现这设定真的是坑。
+近战肉搏你和敌人几乎是你一拳我一拳对殴，所以你没有任何优势，而且一旦面对两个敌人，
+你基本可以 GG 了。那就潜行吧，刚开始对人类敌人这招基本好使，偶尔发现了换个地方就行了。
+到后面开始遇上感染者，常见的感染者分 2 种，一种叫Runner，发现人后跑起来巨快，
+而且近战也很厉害，但可以从背后击杀，另一种叫Clicker，它教会了我原来推杆还会轻重，
+一定要潜行+轻推摇杆才能靠近，但背刺只能被小刀击杀，一旦近战直接秒杀，就是这么无解，
+要不就是各种武器生撸。后面还会遇到长满包的胖子，近身秒杀，远程还会投掷榴弹，血又多。</p>
 
-<h2 id="section-1">内存存储</h2>
-<ol>
-  <li>内存存储叫memTable，存储结构为跳表，存储为顺序存储，查找和写入都很快(O(log N))</li>
-  <li>删除操作在这里只是打上删除标记，真正的删除在compaction中做</li>
-</ol>
+<p>游戏的战斗只有两种，一种是人类，一种是感染者，DLC 会出现人类和感染者混合的情况。
+对于人类基本就是潜行击杀，找好击杀顺序，合理利用道具。感染者因为 Clicker 背刺很难杀，
+所以一般先把 Runner 清干净，最后再料理 Clicker ，实在不行用枪开杀戒吧。</p>
 
-<h2 id="section-2">日志</h2>
-<ol>
-  <li>日志文件记录了每一步的操作，因为文件的append操作很快，所以LevelDB可以支持大量
-的写操作</li>
-  <li>每次的写都会先在日志上记一笔，记完后去更新memTable</li>
-  <li>如果遇到重启等情况，LevelDB就会将已经持久化的文件与日志进行一个merge操作，这就是LSM，
-与HBase的恢复操作很相似</li>
-</ol>
+<p>看了上面的介绍你以为这是个类似_生化危机_的游戏？呵呵，这里的弹药你十个指头都能数过来，
+大部分时候还要靠神器——板砖生撸配合酒瓶诱敌。这里稍微说下中期才发现的游戏技巧，
+游戏中场景物只有板砖和酒瓶，板砖基本上 Runner 和人类都是一砖撂倒，同时砖碎了。
+或者酒瓶扔在地上把敌人引过来。板砖和酒瓶都要直接投掷到人或感染者身上，击中后有个硬直，
+如果有 2、3 步的距离，可以跑过来发动终结技，但这会除非周围没人，否则你很可能被发现。
+但因为板砖和酒瓶在战斗场景几乎随处都有，甚至 1 个敌人平均下来能有 1.5 个板砖或酒瓶，
+所以这俩东西一定要多用。另一个比较鸡贼的打法是，中后期的战斗全是感染者时，
+可以拉一圈火车，把感染者都聚在身后，找一处过门或者死胡同，拿出燃烧瓶，
+基本一次就能烧死 3、4 个，剩下的用各种枪搞定就行了，效率很高。</p>
 
-<h2 id="section-3">磁盘存储</h2>
-<ol>
-  <li>磁盘存储叫immuteTable，以一种分层的结构存储，层数从0到n（n会随着数据增多而增多），
-层数越高表示数据越老旧（可能存在相同的key），除了<strong>层0</strong>，其他层之间的key都是不相交的</li>
-  <li>查找的顺序从这里已经可以得出来了memTable-&gt;层0-&gt;层1-&gt;…-&gt;层n，这也是LevelDB名字的由来，
-那么数据是如何从<strong>memTable转移到层0</strong>呢</li>
-  <li>层数0是将memTable整个dump出来的结果，因此可能之间有相交，这个操作叫<strong>minor compaction</strong></li>
-  <li>major compaction是将层i合到i+1中去，合并是将层i中的一块合到整个层i+1中去，
-这个过程类似归并排序，将参与的几个块全部取出来排序，再重新组合成新的层i+1，同时
-会将重复的key<strong>弃掉</strong></li>
-  <li>弃掉是指如果key已经出现在更低的层，则高级的层不需要记录这个key</li>
-</ol>
+<p>比较单调的可能在战斗上，因为到中后期根据板砖和酒瓶分布很容易确定哪里是战场哪里绝对不会遇敌，
+敌人也只是在数量和位置上有些变化，所以感觉摸通了一个打法，后面基本都还是适用，
+除非出现新怪物和新武器入手。</p>
 
-<h2 id="section-4">文件格式</h2>
-<ol>
-  <li>实际硬盘存储并非只有一种sst文件，分为三种：</li>
-  <li>sst文件记录实际的数据，按顺序排列</li>
-  <li>manifest文件是sst文件的索引表，记录各个层0文件的key range</li>
-  <li>current文件记录当前的manifest文件是哪个</li>
-  <li><strong>sst文件</strong>存储的格式像这样：key共享长度，key非共享长度，value长度，key非共享内容，
-value内容。共享长度指的是相邻两个key的公共子串（可能不止两个），比如”the Car”和
-“The Color”共享长度是5，即”The C”，后面非共享的部分分别为”ar”和”olor”</li>
-  <li><strong>manifest文件</strong>的作用主要是指示层0文件的key range，因为层0会有交叠的情况，
-因此查询一个key时可能需要在多个层0文件中寻找（这里层0文件也要按新鲜度排序依次查询）</li>
-</ol>
+<hr />
 
-<h2 id="cache">Cache</h2>
-<ol>
-  <li>查询会先在memTable中找，如果没找到，会去读index，确定在哪个block中，再去block中读，
-这至少需要2次磁盘读取</li>
-  <li>这里的cache分两种：</li>
-  <li>TableCache的key为ssTable名称，值包括磁盘文件指针，以及表结构，表结构又包括
-  index内容及block信息。当查到某个table时，要判断这个key在不在table中，然后再去查
-  block</li>
-  <li>BlockCache为可选项，它的key是block_id，value是block内容，这样就避免了一次读取。
-  这种适合热点读取，如果随机读取并不适合打开BlockCache</li>
-</ol>
-
-<h2 id="version">Version</h2>
-<ol>
-  <li>当一次compaction结束后，会创建新版本，当前版本会指向新版本，可用的版本放在
-VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用于重建数据</li>
-</ol>
+<p>上面基本是游戏机制相关的，游戏剧情网上已经有许多文章进行分析了，我在此也只能佩服顽皮狗讲故事的能力，
+另外也配合 PS4 如此高的画质来展现。越是打到最后越容易将自己代入其中，不过最后我还是感觉 Joey 有些化身死神的感觉，
+真的是见人杀人的地步了，也许是中间的剧情有些没理解透。但看到萝莉和大叔之间的羁绊如此强烈，
+最后不免有些感动。</p>
 
   </article>
   <hr />
@@ -210,10 +177,10 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/tech/2016/05/11/share-precommit-hook.html" title="Share precommit hook">&larr; Older</a></li>
+    <li class="previous"><a href="/book/2016/07/31/namiya-general-store.html" title="解忧杂货铺">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/note/2016/06/12/learning-how-to-learn.html" title="Learning how to learn">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -230,8 +197,8 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/tech/2016/05/22/LevelDB-Summarize.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/tech/2016/05/22/LevelDB-Summarize.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2016/08/10/tlou.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2016/08/10/tlou.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
