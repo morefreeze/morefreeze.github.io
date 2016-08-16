@@ -119,6 +119,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/tech/2015/12/28/hbase-split.html">HBase Split</a>
+      </h1>
+      <meta itemprop="keywords" content="Hadoop,HBase" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#tech">tech</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+      
+      <a href="/tags/#HBase" title="HBase">HBase </a>
+      
+      
+      <time itemprop="datePublished" datetime="2015-12-28">
+      on Dec 28, 2015
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h2 id="split">split是什么？</h2>
+
+<p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
+就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
+拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。</p>
+
+
+        
+        
+
+        
+        <p><a href="/tech/2015/12/28/hbase-split.html/#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html">Solution of Minimum Height Trees</a>
       </h1>
       <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
@@ -291,40 +334,6 @@ last solution, jump to</p>
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/articles/2014/12/13/sample-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.
-        
-        
-
-        
-        <p><a href="/articles/2014/12/13/sample-post.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
 </div>
 
@@ -370,6 +379,10 @@ last solution, jump to</p>
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/tech/2016/08/16/parallel.html" title="parallel" rel="bookmark">parallel</a>
+  </li>
+  
+  <li>
   <a href="/game/2016/08/10/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
   </li>
   
@@ -383,10 +396,6 @@ last solution, jump to</p>
   
   <li>
   <a href="/book/2016/06/24/the-end-of-eternity.html" title="The End of Eternity" rel="bookmark">The End of Eternity</a>
-  </li>
-  
-  <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title="Learning how to learn" rel="bookmark">Learning how to learn</a>
   </li>
   
 </div>
@@ -405,7 +414,7 @@ last solution, jump to</p>
   
   <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
   
-  <li><a href="/categories/#tech" title="tech" rel="5">tech (5)</a></li>
+  <li><a href="/categories/#tech" title="tech" rel="6">tech (6)</a></li>
   
   <li><a href="/categories/#note" title="note" rel="1">note (1)</a></li>
   
@@ -465,6 +474,10 @@ last solution, jump to</p>
   
     <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
   
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
 </div>
 
 
@@ -485,6 +498,9 @@ last solution, jump to</p>
   
   
   <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
   
   
   
