@@ -3,7 +3,7 @@
     <head>
         <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
         <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
-        <title>Wiki</title>
+        <title>One Key Install - Wiki</title>
         <meta name="keywords" content="simiki, wiki"/>
         <meta name="description" content=""/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,73 +22,45 @@
     <body>
         <div id="container">
             
-    <div id="wiki_title">Wiki</div>
+<div id="header">
+  <div id="post-nav"><a href="/wiki/">Home</a>&nbsp;»&nbsp;<a href="/wiki/#unix">unix</a>&nbsp;»&nbsp;One Key Install</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">One Key Install</div>
+  <div id="content">
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#basic">Basic</a><ul>
+<li><a href="#zsh">zsh</a></li>
+<li><a href="#oh-my-zsh">oh-my-zsh</a></li>
+</ul>
+</li>
+<li><a href="#network">Network</a></li>
+</ul>
+</div>
+<p>Treat every command as <strong>CentOS 6.0</strong>.</p>
+<h1 id="basic">Basic</h1>
+<h2 id="zsh">zsh</h2>
+<p>Referer <a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH">github</a></p>
+<div class="hlcode"><pre>yum install zsh
+</pre></div>
 
-    <div id="index">
-  
-    
-    
-    <h2 id="intro">intro</h2>
-      
-      <ul>
-          
-        <li class="pagelist">
-          <a href="./intro/gettingstarted.html">Getting Started</a>
-        </li>
-          
-      </ul>
-    <div class="clearfix"></div>
-    
-  
-    
-    
-    <h2 id="language">language</h2>
-      
-      <ul>
-          
-        <li class="pagelist">
-          <a href="./language/c++.html">C++</a>
-        </li>
-          
-          
-        <li class="pagelist">
-          <a href="./language/go.html">Go</a>
-        </li>
-          
-          
-        <li class="pagelist">
-          <a href="./language/python.html">Python</a>
-        </li>
-          
-          
-        <li class="pagelist">
-          <a href="./language/shell.html">Shell</a>
-        </li>
-          
-          
-        <li class="pagelist">
-          <a href="./language/vim.html">Vim</a>
-        </li>
-          
-      </ul>
-    <div class="clearfix"></div>
-    
-  
-    
-    
-    <h2 id="unix">unix</h2>
-      
-      <ul>
-          
-        <li class="pagelist">
-          <a href="./unix/one_key.html">One Key Install</a>
-        </li>
-          
-      </ul>
-    <div class="clearfix"></div>
-    
-  
-    </div>
+
+<h2 id="oh-my-zsh">oh-my-zsh</h2>
+<p>Need install <code>zsh</code> first!</p>
+<p>Referer <a href="https://github.com/robbyrussell/oh-my-zsh">github</a></p>
+<div class="hlcode"><pre>sh -c <span class="s2">&quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;</span>
+</pre></div>
+
+
+<h1 id="network">Network</h1>
+<p>Referer <a href="https://github.com/">github</a></p>
+<div class="hlcode"><pre>yum install httpie
+</pre></div>
+
+
+<div class="hlcode"><pre>pip install -U httpie
+</pre></div>
+</div>
 
         </div>
         <div id="footer">
