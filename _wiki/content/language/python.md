@@ -111,6 +111,12 @@ sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 # sorted_x will be a list of tuples. dict(sorted_x) == x
 ```
 
+# Threading
+
+## Best practise
+
+[https://pymotw.com/2/threading/index.html]()
+
 # Decorator
 
 ## Referer [Python Decorator Library](https://wiki.python.org/moin/PythonDecoratorLibrary)
