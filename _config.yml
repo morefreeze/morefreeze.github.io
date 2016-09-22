@@ -58,14 +58,28 @@ Blogroll:
       href: http://morefreeze.github.io
       title: MoreFreeze's Sanctuary
 
+### Outputting
+      permalink: /:categories/:year/:month/:title.html
+
 ### Build settings
 markdown: kramdown
 highlighter: rouge
 gems: [jekyll-paginate]
 paginate: 5
+paginate_path: /page:num
 
 layout: default
 comments: true
+
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  input:          GFM
+  hard_wrap:      false
+  footnote_nr:    1
 
 ### Read More link
 excerpt_separator: <!--more-->
