@@ -9,27 +9,34 @@
 
 <meta property="og:title" content="记一次cloudera机器重装">
 <title>记一次cloudera机器重装</title>
-<meta property="og:description" content="">
-<meta property="og:url" content="/game/2015/09/23/machine-die-in-cloudera.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:description" content="先上结论：线上机器千万别没事yum update以及同类的升级操作">
+<meta property="og:url" content="/work/2015/09/machine-die-in-cloudera.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="记一次cloudera机器重装">
-<meta name="twitter:description" content="">
-<meta name="twitter:url" content="/game/2015/09/23/machine-die-in-cloudera.html">
+<meta name="twitter:description" content="先上结论：线上机器千万别没事yum update以及同类的升级操作">
+<meta name="twitter:url" content="/work/2015/09/machine-die-in-cloudera.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/game/2015/09/23/machine-die-in-cloudera.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="canonical" href="/work/2015/09/machine-die-in-cloudera.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 
@@ -43,7 +50,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -61,7 +68,7 @@
         
         
         
-        <a class="page-link" href="/b_about.html">About Me</a>
+        <a class="page-link" href="/b_about">About Me</a>
         
         
         
@@ -88,6 +95,12 @@
         <a class="page-link" href="/wiki/">Wiki</a>
         
         
+        
+        
+        
+        
+        
+        
       </div>
     </nav>
 
@@ -107,7 +120,7 @@
     <p class="post-meta">
     Posted in
     
-    <a href="/categories/#game">game</a>&nbsp;
+    <a href="/categories/#work">work</a>&nbsp;
      
     
     and tagged
@@ -124,8 +137,9 @@
   </header>
 
   <article class="post-content" itemprop="articleBody">
-    
-<p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
+      
+<p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong>
+<a class="anchor" id="read-more"></a></p>
 
 <p>上周五由于跑数据发现某个软件需要更新，需要<code class="highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
 结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
@@ -162,10 +176,10 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/articles/howto/2014/12/19/how-to-set-the-config-file.html" title="How to set the config.yml file">&larr; Older</a></li>
+    <li class="previous"><a href="/articles/howto/2014/12/how-to-set-the-config-file.html" title="How to set the config.yml file">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/algorithm/2015/12/13/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Newer &rarr;</a></li>
+    <li class="next"><a href="/algorithm/2015/12/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -182,8 +196,8 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/game/2015/09/23/machine-die-in-cloudera.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/game/2015/09/23/machine-die-in-cloudera.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/work/2015/09/machine-die-in-cloudera.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/work/2015/09/machine-die-in-cloudera.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -230,43 +244,27 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 
 </div>
 
-<div class="sidebar-module"> <!-- sidebar-module-inset">-->
-  <h4>Copyright Notice</h4>
-
-  
-
-  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
-  </a>
-  <br />
-  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
-
-  
-
-</div>
-
-
 <div class="sidebar-module">
   <h4>Recent Posts</h4>
   
   <li>
-  <a href="/game/2016/07/14/portal-2.html" title="Portal 2" rel="bookmark">Portal 2</a>
+  <a href="/tech/2016/09/share-post-receive.html" title="Share post receive hook" rel="bookmark">Share post receive hook</a>
   </li>
   
   <li>
-  <a href="/book/2016/06/24/the-end-of-eternity.html" title="The End of Eternity" rel="bookmark">The End of Eternity</a>
+  <a href="/board-game/2016/09/dice-con.html" title="Dice Con 2016一日游" rel="bookmark">Dice Con 2016一日游</a>
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/tech/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
   </li>
   
   <li>
-  <a href="/tech/2016/05/22/LevelDB-Summarize.html" title="LevelDB实现总结" rel="bookmark">LevelDB实现总结</a>
+  <a href="/game/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
   </li>
   
   <li>
-  <a href="/tech/2016/05/11/share-precommit-hook.html" title="Share precommit hook" rel="bookmark">Share precommit hook</a>
+  <a href="/book/2016/07/namiya-general-store.html" title="解忧杂货铺" rel="bookmark">解忧杂货铺</a>
   </li>
   
 </div>
@@ -275,25 +273,35 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 <div class="sidebar-module">
   <h4>Categories</h4>
   
+  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
+  
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
   <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
   
-  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
   <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
   
-  <li><a href="/categories/#tech" title="tech" rel="5">tech (5)</a></li>
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
   
   <li><a href="/categories/#note" title="note" rel="1">note (1)</a></li>
   
-  <li><a href="/categories/#book" title="book" rel="1">book (1)</a></li>
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
 </div>
 
 
 <div class="sidebar-module">
   <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="2">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="2">fps</a> &nbsp;
   
     <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
   
@@ -317,7 +325,7 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
   
     <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
   
-    <a href="/tags/#git" title="git" rel="1">git</a> &nbsp;
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
     <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
   
@@ -327,17 +335,21 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
   
     <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
   
-    <a href="/tags/#Note" title="Note" rel="1">Note</a> &nbsp;
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
   
     <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
   
-    <a href="/tags/#Sci-fi" title="Sci-fi" rel="1">Sci-fi</a> &nbsp;
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
   
-    <a href="/tags/#game" title="game" rel="1">game</a> &nbsp;
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
   
-    <a href="/tags/#fps" title="fps" rel="1">fps</a> &nbsp;
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
 </div>
 
@@ -345,7 +357,7 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 <div class="sidebar-module">
   <h4>Blogroll</h4>
   
-  <li><a href="http://morefreeze.github.io" title="Another Jekyll blog theme">MoreFreeze</a></li>
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
   
 </div>
 
@@ -359,6 +371,21 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
   
   
   <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -405,6 +432,29 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
   
   
   
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
 
 </div>
 
@@ -417,7 +467,7 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

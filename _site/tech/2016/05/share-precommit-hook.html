@@ -7,29 +7,36 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="The Song Of Distant Earth">
-<title>The Song Of Distant Earth</title>
-<meta property="og:description" content="">
-<meta property="og:url" content="/2016/07/16/the-song-of-distant-earth.html">
-<meta property="og:site_name" content="MoreFreeze">
+<meta property="og:title" content="Share precommit hook">
+<title>Share precommit hook</title>
+<meta property="og:description" content="Today I want to share a code snippet. It used for reminding me run rake preview before git commit.">
+<meta property="og:url" content="/tech/2016/05/share-precommit-hook.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="The Song Of Distant Earth">
-<meta name="twitter:description" content="">
-<meta name="twitter:url" content="/2016/07/16/the-song-of-distant-earth.html">
+<meta name="twitter:title" content="Share precommit hook">
+<meta name="twitter:description" content="Today I want to share a code snippet. It used for reminding me run rake preview before git commit.">
+<meta name="twitter:url" content="/tech/2016/05/share-precommit-hook.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/2016/07/16/the-song-of-distant-earth.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze" href="/feed.xml" />
+<link rel="canonical" href="/tech/2016/05/share-precommit-hook.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
 </head>
 
 
@@ -43,7 +50,7 @@
 
   <div class="wrapper">
 
-    <h1 class="site-title"><a href="/">MoreFreeze</a></h1>
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
     <h3 class="site-meta">MoreFreeze's blog</h3>
 
     <nav class="site-nav">
@@ -61,7 +68,7 @@
         
         
         
-        <a class="page-link" href="/b_about.html">About Me</a>
+        <a class="page-link" href="/b_about">About Me</a>
         
         
         
@@ -88,6 +95,12 @@
         <a class="page-link" href="/wiki/">Wiki</a>
         
         
+        
+        
+        
+        
+        
+        
       </div>
     </nav>
 
@@ -102,20 +115,51 @@
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">The Song Of Distant Earth</h1>
-    <meta itemprop="keywords" content="" />
+    <h1 itemprop="name" class="post-title">Share precommit hook</h1>
+    <meta itemprop="keywords" content="git" />
     <p class="post-meta">
     Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
      
     
-    <time itemprop="datePublished" datetime="2016-07-16">
-    on Jul 16, 2016
+    and tagged
+    
+    <a href="/tags/#git" title="git">git </a>
+    
+    
+    <time itemprop="datePublished" datetime="2016-05-11">
+    on May 11, 2016
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
-    
+      
+<p>Today I want to share a code snippet. It used for reminding me run <code class="highlighter-rouge">rake preview</code> before <code class="highlighter-rouge">git commit</code>.
+<a class="anchor" id="read-more"></a></p>
+
+<p>TL;DR. Because I use <code class="highlighter-rouge">jeklly</code> to generate my blog static pages, <code class="highlighter-rouge">jeklly</code> is a generator of static blog.
+I can write a markdown file (just like this one) and run <code class="highlighter-rouge">rake preview</code>, <code class="highlighter-rouge">jeklly</code> could help me
+generate the html files from markdown. So I must remeber run this command before commit changes.
+But I often review my articles and found some mistakes in them, I make a tiny hotfix and commit quickly.
+In this case, I forgot to re-generate pages. So I made a hook before <code class="highlighter-rouge">git commit</code> which runs this command
+automatically and detects some changes occur. The hook will failed when I forget run the command.</p>
+
+<p>Here it is:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>./_gen_wiki.sh  # My blog contains a wiki, so it need be generated.
+jekyll build
+git diff --quiet --exit-code _site/  # Detect uncached changes.
+ret=$?
+exec 1&gt;&amp;2
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+[[ x$ret != "x0" ]] &amp;&amp; echo "${RED}Some files still not be stage in directory _site${NC}"
+exit $ret
+</code></pre>
+</div>
+
 
   </article>
   <hr />
@@ -125,10 +169,10 @@
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/book/2016/06/24/the-end-of-eternity.html" title="The End of Eternity">&larr; Older</a></li>
+    <li class="previous"><a href="/tech/2016/02/hbase-compaction.html" title="HBase Compaction">&larr; Older</a></li>
     
     
-    <li class="disabled"><a>Newer &rarr;</a>
+    <li class="next"><a href="/tech/2016/05/LevelDB-Summarize.html" title="LevelDB实现总结">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -145,8 +189,8 @@
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2016/07/16/the-song-of-distant-earth.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2016/07/16/the-song-of-distant-earth.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/tech/2016/05/share-precommit-hook.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/tech/2016/05/share-precommit-hook.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -193,43 +237,27 @@
 
 </div>
 
-<div class="sidebar-module"> <!-- sidebar-module-inset">-->
-  <h4>Copyright Notice</h4>
-
-  
-
-  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
-  </a>
-  <br />
-  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
-
-  
-
-</div>
-
-
 <div class="sidebar-module">
   <h4>Recent Posts</h4>
   
   <li>
-  <a href="/2016/07/16/the-song-of-distant-earth.html" title="The Song Of Distant Earth" rel="bookmark">The Song Of Distant Earth</a>
+  <a href="/tech/2016/09/share-post-receive.html" title="Share post receive hook" rel="bookmark">Share post receive hook</a>
   </li>
   
   <li>
-  <a href="/book/2016/06/24/the-end-of-eternity.html" title="The End of Eternity" rel="bookmark">The End of Eternity</a>
+  <a href="/board-game/2016/09/dice-con.html" title="Dice Con 2016一日游" rel="bookmark">Dice Con 2016一日游</a>
   </li>
   
   <li>
-  <a href="/note/2016/06/12/learning-how-to-learn.html" title=""Learning how to learn" Notes" rel="bookmark">"Learning how to learn" Notes</a>
+  <a href="/tech/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
   </li>
   
   <li>
-  <a href="/tech/2016/05/22/LevelDB-Summarize.html" title="LevelDB实现总结" rel="bookmark">LevelDB实现总结</a>
+  <a href="/game/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
   </li>
   
   <li>
-  <a href="/tech/2016/05/11/share-precommit-hook.html" title="Share precommit hook" rel="bookmark">Share precommit hook</a>
+  <a href="/book/2016/07/namiya-general-store.html" title="解忧杂货铺" rel="bookmark">解忧杂货铺</a>
   </li>
   
 </div>
@@ -238,7 +266,7 @@
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="1">game (1)</a></li>
+  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -248,11 +276,13 @@
   
   <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
   
-  <li><a href="/categories/#tech" title="tech" rel="5">tech (5)</a></li>
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
   
   <li><a href="/categories/#note" title="note" rel="1">note (1)</a></li>
   
-  <li><a href="/categories/#book" title="book" rel="1">book (1)</a></li>
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
 </div>
 
@@ -260,11 +290,11 @@
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="1">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="2">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
-    <a href="/tags/#fps" title="fps" rel="1">fps</a> &nbsp;
+    <a href="/tags/#fps" title="fps" rel="2">fps</a> &nbsp;
   
     <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
   
@@ -288,7 +318,7 @@
   
     <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
   
-    <a href="/tags/#git" title="git" rel="1">git</a> &nbsp;
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
     <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
   
@@ -298,11 +328,21 @@
   
     <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
   
-    <a href="/tags/#Note" title="Note" rel="1">Note</a> &nbsp;
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
   
     <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
   
-    <a href="/tags/#Sci-fi" title="Sci-fi" rel="1">Sci-fi</a> &nbsp;
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
 </div>
 
@@ -324,6 +364,21 @@
   
   
   <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
@@ -381,6 +436,22 @@
 </div>
 
 
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
 </div>
 
 
@@ -389,7 +460,7 @@
 
   <footer class="site-footer">
 
-  <p>Copyright &copy; <a href="/">MoreFreeze</a></p>
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
   on 
   

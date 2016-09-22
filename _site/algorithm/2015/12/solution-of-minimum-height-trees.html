@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="Solution of Minimum Height Trees">
+<title>Solution of Minimum Height Trees</title>
+<meta property="og:description" content="I have trained my algorithm on leetcode a period of time.Today, I will explain my solution about Minimum Height Trees.My solution beat ~95% against others bu...">
+<meta property="og:url" content="/algorithm/2015/12/solution-of-minimum-height-trees.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="Solution of Minimum Height Trees">
+<meta name="twitter:description" content="I have trained my algorithm on leetcode a period of time.Today, I will explain my solution about Minimum Height Trees.My solution beat ~95% against others bu...">
+<meta name="twitter:url" content="/algorithm/2015/12/solution-of-minimum-height-trees.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/algorithm/2015/12/solution-of-minimum-height-trees.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">Solution of Minimum Height Trees</h1>
+    <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#algorithm">algorithm</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#leetcode" title="leetcode">leetcode </a>, 
+    
+    <a href="/tags/#solution" title="solution">solution </a>, 
+    
+    <a href="/tags/#dp" title="dp">dp </a>, 
+    
+    <a href="/tags/#dfs" title="dfs">dfs </a>, 
+    
+    <a href="/tags/#tree" title="tree">tree </a>
+    
+    
+    <time itemprop="datePublished" datetime="2015-12-13">
+    on Dec 13, 2015
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<p>I have trained my algorithm on <a href="http://leetcode.com/">leetcode</a> a period of time.</p>
+
+<p>Today, I will explain my solution about <a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees</a>.
+My solution beat ~95% against others but it is hard to explain what is I do.
+Please allow me to introduce the solution from easy to hard. If you only need the
+last solution, jump to <a class="anchor" id="read-more"></a><a href="#solution4">Solution 4</a>.</p>
+
+<p>List of Solutions:</p>
+
+<ol>
+  <li><a href="#solution1">Brute Force Solution</a></li>
+  <li><a href="#solution2">Cut Leaves Solution</a></li>
+  <li><a href="#solution3">Find Diameter Solution</a></li>
+  <li><a href="#solution4">DP-DFS Solution</a></li>
+</ol>
+
+<h3 id="a-namesolution1abrute-force-solution"><a name="solution1"></a>Brute Force Solution</h3>
+<p>Brute force solution is very easy and direct. Enumerate every node of tree,
+find the longest path depends on problem description with DFS.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// TLE
+</span><span class="k">class</span> <span class="nc">BruteForceSolution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">min_len</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+                <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">VI</span> <span class="n">cnt</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">cnt</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">cnt</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">bool</span><span class="o">&gt;</span> <span class="n">vi</span><span class="p">;</span>
+                <span class="n">vi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">len</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vi</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;=</span> <span class="n">min_len</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="n">min_len</span><span class="p">)</span> <span class="n">ans</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+                    <span class="n">min_len</span> <span class="o">=</span> <span class="n">len</span><span class="p">;</span>
+                    <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">vi</span><span class="p">,</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">len</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">depth</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">EXIST</span><span class="p">(</span><span class="n">vi</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span> <span class="p">{</span>
+                    <span class="n">vi</span><span class="p">[</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                    <span class="n">dfs</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">vi</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
+                    <span class="n">vi</span><span class="p">[</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="p">]</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<hr />
+
+<h3 id="a-namesolution2acut-leaves-solution"><a name="solution2"></a>Cut Leaves Solution</h3>
+<p>Cut leaves of current tree, repeat this process until there are one or two leaves left.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// cut every leaf, again and again, until left one or two node
+</span><span class="k">class</span> <span class="nc">CutSolution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
+                <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+                <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">].</span><span class="n">insert</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">].</span><span class="n">insert</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">VI</span> <span class="n">ans1</span><span class="p">,</span> <span class="n">ans2</span><span class="p">;</span>
+            <span class="n">VI</span> <span class="o">*</span><span class="n">p1</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ans1</span><span class="p">),</span> <span class="o">*</span><span class="n">p2</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ans2</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">p1</span><span class="o">-&gt;</span><span class="n">PB</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">i</span><span class="o">:</span> <span class="o">*</span><span class="n">p1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="n">cur</span> <span class="o">:</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="n">a</span><span class="p">[</span> <span class="n">cur</span> <span class="p">].</span><span class="n">erase</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span> <span class="n">cur</span> <span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="n">p2</span><span class="o">-&gt;</span><span class="n">PB</span><span class="p">(</span><span class="n">cur</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">p2</span><span class="o">-&gt;</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="o">*</span><span class="n">p1</span><span class="p">;</span>
+                <span class="n">p1</span><span class="o">-&gt;</span><span class="n">clear</span><span class="p">();</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<hr />
+
+<h3 id="a-namesolution3afind-diameter-solution"><a name="solution3"></a>Find Diameter Solution</h3>
+<p>Use two DFS to find the diameter and record the diameter path, then pick the middle node what answer is.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// find diameter, then find center
+// slower than Solution
+</span><span class="k">class</span> <span class="nc">SolutionDiameter</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">VI</span> <span class="n">ret</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">VI</span> <span class="n">fa</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">VI</span> <span class="n">p</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">diameter</span><span class="p">(</span><span class="n">find_diameter</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">p</span><span class="p">));</span>
+            <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="kt">int</span> <span class="n">cur</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">diameter</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">cur</span> <span class="o">=</span> <span class="n">fa</span><span class="p">[</span><span class="n">cur</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">cur</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">diameter</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">fa</span><span class="p">[</span><span class="n">cur</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// find diameter
+</span>        <span class="c1">// ret length from one point
+</span>        <span class="c1">// fa father of path
+</span>        <span class="c1">// p contain two endpoint
+</span>        <span class="c1">// return diameter length
+</span>        <span class="kt">int</span> <span class="n">find_diameter</span><span class="p">(</span><span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">diameter</span><span class="p">;</span>
+            <span class="c1">// pick random point to start, so we pick 0, use random can't speed up
+</span>            <span class="kt">int</span> <span class="n">point</span><span class="p">(</span><span class="n">find_longest</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">diameter</span><span class="p">));</span>
+            <span class="kt">int</span> <span class="n">point2</span><span class="p">(</span><span class="n">find_longest</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">diameter</span><span class="p">));</span>
+            <span class="n">p</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
+            <span class="n">p</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">point2</span><span class="p">);</span>
+            <span class="k">return</span> <span class="n">diameter</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// bfs find longest point
+</span>        <span class="kt">int</span> <span class="n">find_longest</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">diameter</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+            <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+            <span class="n">v</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">cur</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">());</span>
+                <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">]))</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">EXIST</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span> <span class="p">{</span>
+                        <span class="n">v</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+                        <span class="n">q</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+                        <span class="n">ret</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="n">fa</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="c1">// the last one of queue
+</span>                <span class="k">if</span> <span class="p">(</span><span class="n">SZ</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">diameter</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()];</span>
+                    <span class="k">return</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="p">}</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">start</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<hr />
+
+<h3 id="a-namesolution4adp-dfs-solution"><a name="solution4"></a>DP-DFS Solution</h3>
+<p><em>a[i]</em> convert <em>edges</em> to adjacency list of <em>i</em></p>
+
+<p><em>ret[i]</em> the LPL when <em>i</em> as root, so finally we find all smallest <em>ret</em>, that is the answer.</p>
+
+<p><em>d0[i]</em> the LPL begin with node <em>i</em> through one child of <em>i</em>.</p>
+
+<p><em>d1[i]</em> the second path length begin with node <em>i</em> through another child of <em>i</em>, if <em>i</em> only have one child, then <em>d1[i] == 0</em></p>
+
+<p><em>up_path[i]</em> the path go up through father of <em>i</em> reach one leaf</p>
+
+<p>So, I calculate the <em>d0</em> and <em>d1</em> in <em>calc_d</em>, we just travel the tree and get every path length which through child, and assign longest to <em>d0</em> and second longest to <em>d1</em></p>
+
+<p>Well, we do many work for this moment, we almost meet our truth.</p>
+
+<p>If we have  <em>d0[cur]</em>, <em>up_path[cur]</em> as above, the <em>ret[cur] = max(d0[cur], up_path[cur])</em>, is very simple, right? In <em>dfs</em> we will figure out <em>up_path</em>(it will figure out in-place so we don’t need array) and <em>ret[cur]</em>. If the path of <em>d0[cur]</em> is <strong>in</strong> the path of <em>d0[fa]</em>(that says they both coincide most partly), <em>up_path</em> will be <em>max(d1[fa], fa_up_path)+1</em>(must compare the other path of father instead of this path contains <em>cur</em>), otherwise, will be <em>max(d0[fa], fa_up_path)+1</em>. Then travel every child do the same thing.</p>
+
+<p>This solution will save tons of time because it don’t calculate repeatedly any path twice. DRY. :)</p>
+
+<p>Actually, I wrote four solutions from fastest to slowest. The order of solutions is tree-dp which I explain above,
+use <em>dfs</em> twice to find the diameter of a tree and record the path, then find the center.
+The third is cutting the leaves again and again until only one or two node.
+The lastest is just enumerating every node to find the longest path, then pick the shortest path.</p>
+
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include &lt;unordered_set&gt;
+#include &lt;vector&gt;
+#include &lt;list&gt;
+#include &lt;map&gt;
+#include &lt;set&gt;
+#include &lt;deque&gt;
+#include &lt;stack&gt;
+#include &lt;bitset&gt;
+#include &lt;algorithm&gt;
+#include &lt;functional&gt;
+#include &lt;numeric&gt;
+#include &lt;utility&gt;
+#include &lt;sstream&gt;
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;cstdio&gt;
+#include &lt;cmath&gt;
+#include &lt;cstdlib&gt;
+#include &lt;cctype&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
+#include &lt;ctime&gt;
+</span>
+<span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">//conversion
+//------------------------------------------
+</span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">toInt</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span><span class="kt">int</span> <span class="n">v</span><span class="p">;</span> <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="n">sin</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span><span class="k">return</span> <span class="n">v</span><span class="p">;}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="n">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
+
+<span class="c1">//math
+//-------------------------------------------
+</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
+
+<span class="c1">//typedef
+//------------------------------------------
+</span><span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">VI</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">VI</span><span class="o">&gt;</span> <span class="n">VVI</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">VS</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PII</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">LL</span><span class="p">;</span>
+
+<span class="c1">//container util
+//------------------------------------------
+</span><span class="cp">#define ALL(a)  (a).begin(),(a).end()
+#define RALL(a) (a).rbegin(), (a).rend()
+#define PB push_back
+#define MP make_pair
+#define SZ(a) int((a).size())
+#define ASZ(a) (a),(a)+int(sizeof(a)/sizeof(a[0]))
+#define EACH(i,c) for(typeof((c).begin()) i=(c).begin(); i!=(c).end(); ++i)
+#define EXIST(s,e) ((s).find(e)!=(s).end())
+#define SORT(c) sort((c).begin(),(c).end())
+</span>
+<span class="c1">//repetition
+//------------------------------------------
+</span><span class="cp">#define FOR(i,a,b) for(int i=(a);i&lt;(b);++i)
+#define REP(i,n)  FOR(i,0,n)
+</span>
+<span class="c1">//constant
+//--------------------------------------------
+</span><span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span>  <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
+
+<span class="c1">//clear memory
+</span><span class="cp">#define CLR(a) memset((a), 0 ,sizeof(a))
+</span>
+<span class="c1">//debug
+</span><span class="cp">#define dump(x)  cerr &lt;&lt; #x &lt;&lt; " = " &lt;&lt; (x) &lt;&lt; endl;
+#define debug(x) cerr &lt;&lt; #x &lt;&lt; " = " &lt;&lt; (x) &lt;&lt; " (L" &lt;&lt; __LINE__ &lt;&lt; ")" &lt;&lt; " " &lt;&lt; __FILE__ &lt;&lt; endl;
+</span>
+<span class="c1">// d0 cur node longest path
+// d1 cur node second longest path without longest path
+// ret[cur] = max(d0[cur], go up through father longest path)
+</span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">);</span>
+                <span class="n">a</span><span class="p">[</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">].</span><span class="n">PB</span><span class="p">(</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">VI</span> <span class="n">d0</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">d1</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">calc_d</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+            <span class="n">VI</span> <span class="n">ret</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">min_len</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">min_len</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_len</span><span class="p">,</span> <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">min_len</span> <span class="o">==</span> <span class="n">ret</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="n">ans</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fa_up_path</span><span class="p">,</span> <span class="k">const</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d0</span><span class="p">,</span> <span class="k">const</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d1</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// go up through father node which longest path
+</span>            <span class="kt">int</span> <span class="n">up_path</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">fa</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">up_path</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">up_path</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">fa_up_path</span><span class="p">,</span> <span class="n">d1</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="c1">// &lt;=
+</span>            <span class="k">else</span> <span class="p">{</span>
+                <span class="n">up_path</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">fa_up_path</span><span class="p">,</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">],</span> <span class="n">up_path</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">fa</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="n">dfs</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">up_path</span><span class="p">,</span> <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">calc_d</span><span class="p">(</span><span class="kt">int</span> <span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d0</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d1</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">l0</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">l1</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">]))</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">fa</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+                <span class="kt">int</span> <span class="n">l</span><span class="p">(</span><span class="n">calc_d</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">],</span> <span class="n">d0</span><span class="p">,</span> <span class="n">d1</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;</span> <span class="n">l0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">l1</span> <span class="o">=</span> <span class="n">l0</span><span class="p">;</span>
+                    <span class="n">l0</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;</span> <span class="n">l1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">l1</span> <span class="o">=</span> <span class="n">l</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">=</span> <span class="n">l0</span><span class="p">;</span>
+            <span class="n">d1</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">=</span> <span class="n">l1</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">l0</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<hr />
+
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/work/2015/09/machine-die-in-cloudera.html" title="记一次cloudera机器重装">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/tech/2015/12/hbase-split.html" title="HBase Split">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/algorithm/2015/12/solution-of-minimum-height-trees.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/algorithm/2015/12/solution-of-minimum-height-trees.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/tech/2016/09/share-post-receive.html" title="Share post receive hook" rel="bookmark">Share post receive hook</a>
+  </li>
+  
+  <li>
+  <a href="/board-game/2016/09/dice-con.html" title="Dice Con 2016一日游" rel="bookmark">Dice Con 2016一日游</a>
+  </li>
+  
+  <li>
+  <a href="/tech/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
+  </li>
+  
+  <li>
+  <a href="/game/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
+  </li>
+  
+  <li>
+  <a href="/book/2016/07/namiya-general-store.html" title="解忧杂货铺" rel="bookmark">解忧杂货铺</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="1">note (1)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="2">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="2">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>

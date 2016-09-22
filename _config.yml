@@ -59,7 +59,7 @@ Blogroll:
       title: MoreFreeze's Sanctuary
 
 ### Outputting
-      permalink: /:categories/:year/:month/:title.html
+permalink: /:categories/:year/:month/:title.html
 
 ### Build settings
 markdown: kramdown

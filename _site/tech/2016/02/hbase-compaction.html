@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="Games">
-<title>Games</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/games/">
+<meta property="og:title" content="HBase Compaction">
+<title>HBase Compaction</title>
+<meta property="og:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
+<meta property="og:url" content="/tech/2016/02/hbase-compaction.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="Games">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/games/">
+<meta name="twitter:title" content="HBase Compaction">
+<meta name="twitter:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
+<meta name="twitter:url" content="/tech/2016/02/hbase-compaction.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/games/">
+<link rel="canonical" href="/tech/2016/02/hbase-compaction.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -112,76 +112,113 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
   <div class="page-content col-sm-8">
-    <div class="post">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Games</h1>
+    <h1 itemprop="name" class="post-title">HBase Compaction</h1>
+    <meta itemprop="keywords" content="HBase,Hadoop" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#HBase" title="HBase">HBase </a>, 
+    
+    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
+    
+    
+    <time itemprop="datePublished" datetime="2016-02-26">
+    on Feb 26, 2016
+    </time>
+    </p>
   </header>
 
-  <article class="post-content about"> 
-    <ul class="tags-box">
+  <article class="post-content" itemprop="articleBody">
+      
+<h2 id="merge">Merge</h2>
 
+<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。
+<a class="anchor" id="read-more"></a></p>
 
+<h2 id="compaction">Compaction</h2>
+<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
 
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                10 / 10
-            
-            <a href="/game/2016/08/tlou.html">The last of us</a><br />
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                9 / 10
-            
-            <a href="/game/2012/06/portal-2.html">Portal 2</a><br />
-        
-    
+<h2 id="minjor-compaction">Minjor Compaction</h2>
+<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
 
+<h2 id="major-compaction">Major Compaction</h2>
+<p>先来看几个参数：</p>
 
-
+<ul>
+  <li>hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数</li>
+  <li>hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数</li>
+  <li>hbase.hstore.compaction.min.size HStore小于该值的将被compaction</li>
+  <li>hbase.hstore.compaction.max.size HStore大于该值的将被compaction</li>
 </ul>
 
+<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
+
+<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
+
+<ul>
+  <li>hbase.store.compaction.ratio compaction的选择系数</li>
+</ul>
+
+<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
+
+<script type="math/tex; mode=display">b * ratio > a</script>
+
+<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
+
+<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
+
+
   </article>
+  <hr />
+</div>
 
-  
 
-</div> 
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/tech/2016/01/hbase_split_detail.html" title="HBase Split detail">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/tech/2016/05/share-precommit-hook.html" title="Share precommit hook">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/tech/2016/02/hbase-compaction.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/tech/2016/02/hbase-compaction.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 
     <section class="pager">
   
