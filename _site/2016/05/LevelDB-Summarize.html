@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="MoreFreeze's Sanctuary">
-<title>MoreFreeze's Sanctuary</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/page4/">
+<meta property="og:title" content="LevelDB实现总结">
+<title>LevelDB实现总结</title>
+<meta property="og:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
+<meta property="og:url" content="/2016/05/LevelDB-Summarize.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="MoreFreeze's Sanctuary">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/page4/">
+<meta name="twitter:title" content="LevelDB实现总结">
+<meta name="twitter:description" content="学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。参考链接是这里">
+<meta name="twitter:url" content="/2016/05/LevelDB-Summarize.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/page4/">
+<link rel="canonical" href="/2016/05/LevelDB-Summarize.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -112,182 +112,148 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
   <div class="page-content col-sm-8">
-    <div class="home">
-  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">LevelDB实现总结</h1>
+    <meta itemprop="keywords" content="algorithm,database" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#algorithm" title="algorithm">algorithm </a>, 
+    
+    <a href="/tags/#database" title="database">database </a>
     
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
+    <time itemprop="datePublished" datetime="2016-05-22">
+    on May 22, 2016
+    </time>
+    </p>
+  </header>
 
-    <article class="post-content" itemprop="articleBody">
-        <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
+  <article class="post-content" itemprop="articleBody">
+      
+<p>学习了下LevelDB的实现原理，发现G厂大神Jeff Dean果然牛B，实现也很巧妙。
+参考链接是<a href="http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html">这里</a>
+<a class="anchor" id="read-more"></a></p>
 
-<p><strong>First part</strong> is the site info.</p>
+<h2 id="section">概览</h2>
+<ol>
+  <li>LevelDB是一个KV<strong>持久化</strong>存储引擎，它的特性是写非常快，读相对写较慢</li>
+  <li>LevelDB是基于LSM(Log Structured Merge)实现，它会顺序地记录各种写操作</li>
+  <li>LevelDB存储分为两部分，一部分在内存，另一部分在磁盘上。内存中方便快速查找，
+查找失败后，去磁盘上查找。一段时间后或内存达到一定大小，会将内存中的compact成sst文件存在磁盘</li>
+</ol>
 
+<h2 id="section-1">内存存储</h2>
+<ol>
+  <li>内存存储叫memTable，存储结构为跳表，存储为顺序存储，查找和写入都很快(O(log N))</li>
+  <li>删除操作在这里只是打上删除标记，真正的删除在compaction中做</li>
+</ol>
 
-        
-        
+<h2 id="section-2">日志</h2>
+<ol>
+  <li>日志文件记录了每一步的操作，因为文件的append操作很快，所以LevelDB可以支持大量
+的写操作</li>
+  <li>每次的写都会先在日志上记一笔，记完后去更新memTable</li>
+  <li>如果遇到重启等情况，LevelDB就会将已经持久化的文件与日志进行一个merge操作，这就是LSM，
+与HBase的恢复操作很相似</li>
+</ol>
 
-        
-        <p><a href="/2014/12/how-to-set-the-config-file.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
+<h2 id="section-3">磁盘存储</h2>
+<ol>
+  <li>磁盘存储叫immuteTable，以一种分层的结构存储，层数从0到n（n会随着数据增多而增多），
+层数越高表示数据越老旧（可能存在相同的key），除了<strong>层0</strong>，其他层之间的key都是不相交的</li>
+  <li>查找的顺序从这里已经可以得出来了memTable-&gt;层0-&gt;层1-&gt;…-&gt;层n，这也是LevelDB名字的由来，
+那么数据是如何从<strong>memTable转移到层0</strong>呢</li>
+  <li>层数0是将memTable整个dump出来的结果，因此可能之间有相交，这个操作叫<strong>minor compaction</strong></li>
+  <li>major compaction是将层i合到i+1中去，合并是将层i中的一块合到整个层i+1中去，
+这个过程类似归并排序，将参与的几个块全部取出来排序，再重新组合成新的层i+1，同时
+会将重复的key<strong>弃掉</strong></li>
+  <li>弃掉是指如果key已经出现在更低的层，则高级的层不需要记录这个key</li>
+</ol>
 
-    <article class="post-content" itemprop="articleBody">
-        <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
+<h2 id="section-4">文件格式</h2>
+<ol>
+  <li>实际硬盘存储并非只有一种sst文件，分为三种：</li>
+  <li>sst文件记录实际的数据，按顺序排列</li>
+  <li>manifest文件是sst文件的索引表，记录各个层0文件的key range</li>
+  <li>current文件记录当前的manifest文件是哪个</li>
+  <li><strong>sst文件</strong>存储的格式像这样：key共享长度，key非共享长度，value长度，key非共享内容，
+value内容。共享长度指的是相邻两个key的公共子串（可能不止两个），比如”the Car”和
+“The Color”共享长度是5，即”The C”，后面非共享的部分分别为”ar”和”olor”</li>
+  <li><strong>manifest文件</strong>的作用主要是指示层0文件的key range，因为层0会有交叠的情况，
+因此查询一个key时可能需要在多个层0文件中寻找（这里层0文件也要按新鲜度排序依次查询）</li>
+</ol>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4</pre></td><td class="code"><pre><span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="gp">$ </span>gem install sass
-<span class="gp">$ </span>gem install jekyll
-<span class="gp">$ </span>git clone https://github.com/yulijia/freshman21.git<span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
+<h2 id="cache">Cache</h2>
+<ol>
+  <li>查询会先在memTable中找，如果没找到，会去读index，确定在哪个block中，再去block中读，
+这至少需要2次磁盘读取</li>
+  <li>这里的cache分两种：</li>
+  <li>TableCache的key为ssTable名称，值包括磁盘文件指针，以及表结构，表结构又包括
+  index内容及block信息。当查到某个table时，要判断这个key在不在table中，然后再去查
+  block</li>
+  <li>BlockCache为可选项，它的key是block_id，value是block内容，这样就避免了一次读取。
+  这种适合热点读取，如果随机读取并不适合打开BlockCache</li>
+</ol>
 
+<h2 id="version">Version</h2>
+<ol>
+  <li>当一次compaction结束后，会创建新版本，当前版本会指向新版本，可用的版本放在
+VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用于重建数据</li>
+</ol>
 
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-install.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/sample-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.
-        
-        
-
-        
-        <p><a href="/2014/12/sample-post.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2012/06/portal-2.html">Portal 2</a>
-      </h1>
-      <meta itemprop="keywords" content="game,puzzle,fps" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#game">game</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#game" title="game">game </a>, 
-      
-      <a href="/tags/#puzzle" title="puzzle">puzzle </a>, 
-      
-      <a href="/tags/#fps" title="fps">fps </a>
-      
-      
-      <time itemprop="datePublished" datetime="2012-06-19">
-      on Jun 19, 2012
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>赞！
-今天把Portal 2（传送枪2）通关了，感觉非常痛快，这作相比上作应该多了红蓝白三种液体，
-传送带和传送光波等（其实1很早玩的，而且出了许多MOD，所以有什么区别记不清楚了），
-而且</p>
-
-
-        
-        
-
-        
-        <p><a href="/2012/06/portal-2.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-  </div>
+  </article>
+  <hr />
 </div>
 
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2016/05/share-precommit-hook.html" title="Share precommit hook">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2016/06/learning-how-to-learn.html" title="Learning how to learn">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2016/05/LevelDB-Summarize.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2016/05/LevelDB-Summarize.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     <section class="pager">
-  
-  
-  <li class="previous"><a href="/page3/" title="Newer">&larr; Newer</a></li>
-  
   
   
 </section>

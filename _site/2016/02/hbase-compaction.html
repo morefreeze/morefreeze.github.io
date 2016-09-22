@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="MoreFreeze's Sanctuary">
-<title>MoreFreeze's Sanctuary</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/page4/">
+<meta property="og:title" content="HBase Compaction">
+<title>HBase Compaction</title>
+<meta property="og:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
+<meta property="og:url" content="/2016/02/hbase-compaction.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="MoreFreeze's Sanctuary">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/page4/">
+<meta name="twitter:title" content="HBase Compaction">
+<meta name="twitter:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
+<meta name="twitter:url" content="/2016/02/hbase-compaction.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/page4/">
+<link rel="canonical" href="/2016/02/hbase-compaction.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -112,182 +112,115 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
   <div class="page-content col-sm-8">
-    <div class="home">
-  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">HBase Compaction</h1>
+    <meta itemprop="keywords" content="HBase,Hadoop" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#HBase" title="HBase">HBase </a>, 
+    
+    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
     
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
+    <time itemprop="datePublished" datetime="2016-02-26">
+    on Feb 26, 2016
+    </time>
+    </p>
+  </header>
 
-    <article class="post-content" itemprop="articleBody">
-        <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
-
-<p><strong>First part</strong> is the site info.</p>
-
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-set-the-config-file.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
+  <article class="post-content" itemprop="articleBody">
       
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
+<h2 id="merge">Merge</h2>
 
-    <article class="post-content" itemprop="articleBody">
-        <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
+<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。
+<a class="anchor" id="read-more"></a></p>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4</pre></td><td class="code"><pre><span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="gp">$ </span>gem install sass
-<span class="gp">$ </span>gem install jekyll
-<span class="gp">$ </span>git clone https://github.com/yulijia/freshman21.git<span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
+<h2 id="compaction">Compaction</h2>
+<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
+
+<h2 id="minjor-compaction">Minjor Compaction</h2>
+<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
+
+<h2 id="major-compaction">Major Compaction</h2>
+<p>先来看几个参数：</p>
+
+<ul>
+  <li>hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数</li>
+  <li>hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数</li>
+  <li>hbase.hstore.compaction.min.size HStore小于该值的将被compaction</li>
+  <li>hbase.hstore.compaction.max.size HStore大于该值的将被compaction</li>
+</ul>
+
+<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
+
+<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
+
+<ul>
+  <li>hbase.store.compaction.ratio compaction的选择系数</li>
+</ul>
+
+<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
+
+<script type="math/tex; mode=display">b * ratio > a</script>
+
+<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
+
+<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
 
 
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-install.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/sample-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.
-        
-        
-
-        
-        <p><a href="/2014/12/sample-post.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2012/06/portal-2.html">Portal 2</a>
-      </h1>
-      <meta itemprop="keywords" content="game,puzzle,fps" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#game">game</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#game" title="game">game </a>, 
-      
-      <a href="/tags/#puzzle" title="puzzle">puzzle </a>, 
-      
-      <a href="/tags/#fps" title="fps">fps </a>
-      
-      
-      <time itemprop="datePublished" datetime="2012-06-19">
-      on Jun 19, 2012
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>赞！
-今天把Portal 2（传送枪2）通关了，感觉非常痛快，这作相比上作应该多了红蓝白三种液体，
-传送带和传送光波等（其实1很早玩的，而且出了许多MOD，所以有什么区别记不清楚了），
-而且</p>
-
-
-        
-        
-
-        
-        <p><a href="/2012/06/portal-2.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-  </div>
+  </article>
+  <hr />
 </div>
 
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2016/01/hbase_split_detail.html" title="HBase Split detail">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2016/05/share-precommit-hook.html" title="Share precommit hook">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2016/02/hbase-compaction.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2016/02/hbase-compaction.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     <section class="pager">
-  
-  
-  <li class="previous"><a href="/page3/" title="Newer">&larr; Newer</a></li>
-  
   
   
 </section>

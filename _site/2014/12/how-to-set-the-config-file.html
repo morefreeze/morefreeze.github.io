@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="How to set the config.yml file">
+<title>How to set the config.yml file</title>
+<meta property="og:description" content="The config.yml file in the Freshman21 theme includes five parts.First part is the site info.">
+<meta property="og:url" content="/2014/12/how-to-set-the-config-file.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="How to set the config.yml file">
+<meta name="twitter:description" content="The config.yml file in the Freshman21 theme includes five parts.First part is the site info.">
+<meta name="twitter:url" content="/2014/12/how-to-set-the-config-file.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2014/12/how-to-set-the-config-file.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">How to set the config.yml file</h1>
+    <meta itemprop="keywords" content="configure" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#articles">articles</a>&nbsp;
+    
+    <a href="/categories/#howto">howto</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#configure" title="configure">configure </a>
+    
+    
+    <time itemprop="datePublished" datetime="2014-12-19">
+    on Dec 19, 2014
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
+
+<p><strong>First part</strong> is the site info.
+<a class="anchor" id="read-more"></a></p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">title</span><span class="pi">:</span> <span class="s">Freshman21</span> <span class="c1"># blog title</span>
+<span class="s">tagline</span><span class="pi">:</span> <span class="s">Another Jekyll theme, Freshman twenty-first</span> <span class="c1"># blog sub-titile</span>
+<span class="s">author</span><span class="pi">:</span> <span class="s">Lijia YU</span> <span class="c1"># author name</span>
+<span class="s">email</span><span class="pi">:</span> <span class="s">yu@lijiayu.net</span> <span class="c1"># author email</span>
+<span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Freshman21</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">blog</span><span class="nv"> </span><span class="s">theme."</span> <span class="c1"># You can edit this line in _config.yml. It will appear in your document head meta and in </span>
+<span class="s">your feed.xml site description</span>
+<span class="s">keywords</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll,</span><span class="nv"> </span><span class="s">theme,</span><span class="nv"> </span><span class="s">Freshman21"</span> <span class="c1"># html meta keywords</span>
+<span class="s">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/freshman21"</span> <span class="c1"># the subpath of your site, e.g. /blog</span>
+<span class="s">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://yulijia.net/freshman21"</span> <span class="c1"># the base hostname &amp; protocol for your site</span></code></pre></figure>
+
+<p><strong>Part 2</strong>, Personal info and site tools info, twitter, github, aboutme and aboutme_photo only appears on the sidebar aboutme-box, you can <q>Hide</q> in two ways <sup><a href="#[1]">[1]</a></sup>:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">twitter_username</span><span class="pi">:</span> <span class="c1">#your twitter handle  </span>
+<span class="s">github_username</span><span class="pi">:</span>  <span class="c1">#your github account</span>
+<span class="s">disqus_shortname</span><span class="pi">:</span> <span class="c1">#disqus shortname</span>
+<span class="s">favicon</span><span class="pi">:</span>     <span class="s2">"</span><span class="s">images/favicon.ico"</span>
+<span class="s">aboutme</span><span class="pi">:</span> <span class="s">Hi, this is Lijia Yu. I made the Freshman21 theme. Please enjoy it.</span> <span class="c1"># these are shown on aboutme-box(sidebar).</span>
+<span class="s">aboutme_photo</span><span class="pi">:</span> <span class="s">https://i.imgur.com/15BT1.jpg</span> <span class="c1"># your personal photo.</span></code></pre></figure>
+
+<p><strong>Part3</strong>, Site setting:</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">ShowContactInfo</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span> <span class="c1"># Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown where ShowContactInfo == True</span>
+<span class="s">default_column</span><span class="pi">:</span> <span class="s2">"</span><span class="s">two"</span> <span class="c1"># blog style: two columns, if default_column != "two", you will see a one column blog.</span>
+<span class="s">default_locale</span><span class="pi">:</span> <span class="s2">"</span><span class="s">en"</span> <span class="c1"># blog sidebar language set, only include: English(en) and Chinese (cn)</span></code></pre></figure>
+
+<p><strong>Part4</strong>, Blogroll info, only <em>name</em> tags can shown on the page.</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">Blogroll</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">Freshman</span>
+        <span class="s">href</span><span class="pi">:</span> <span class="s">http://yulijia.net/freshman</span>
+        <span class="s">title</span><span class="pi">:</span> <span class="s">Another Jekyll blog theme</span>
+      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">author's website</span>
+        <span class="s">href</span><span class="pi">:</span> <span class="s">http://yulijia.net/</span>
+        <span class="s">title</span><span class="pi">:</span> <span class="s">Lijia Yu's website</span></code></pre></figure>
+
+<p><strong>Part5</strong>, Build settings</p>
+
+<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="s">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>
+<span class="s">highlighter</span><span class="pi">:</span> <span class="s">pygments</span> <span class="c1"># highlight</span>
+<span class="s">paginate</span><span class="pi">:</span> <span class="s">5</span>  <span class="c1"># how many post can seen in the main page</span></code></pre></figure>
+
+<p>=====</p>
+
+<ul style="list-style-type:none;"> 
+<li id="[1]"> [1], you can set those info at <strong>Part3</strong> or just delete the <q>aboutme.html</q> at <q>sidebar.html</q> in <code>_include</code> folder. </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-2"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!--{ % include Aboutme.html % }--&gt;</span>
+   { % include Copyright_Notice.html % }
+   { % include Recent_Posts.html % }
+   { % include Categories.html % }
+   { % include Tags.html % }
+   { % include Blogroll.html % }
+   { % include Archives.html % }
+<span class="nt">&lt;/div&gt;</span>                                                                                                      </code></pre></figure>
+
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2014/12/how-to-install.html" title="How to install this theme">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2015/09/machine-die-in-cloudera.html" title="记一次cloudera机器重装">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2014/12/how-to-set-the-config-file.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2014/12/how-to-set-the-config-file.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2016/09/share-post-receive.html" title="Share post receive hook" rel="bookmark">Share post receive hook</a>
+  </li>
+  
+  <li>
+  <a href="/2016/09/dice-con.html" title="Dice Con 2016一日游" rel="bookmark">Dice Con 2016一日游</a>
+  </li>
+  
+  <li>
+  <a href="/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
+  </li>
+  
+  <li>
+  <a href="/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
+  </li>
+  
+  <li>
+  <a href="/2016/07/namiya-general-store.html" title="解忧杂货铺" rel="bookmark">解忧杂货铺</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="1">note (1)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="2">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="2">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>

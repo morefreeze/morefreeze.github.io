@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="MoreFreeze's Sanctuary">
-<title>MoreFreeze's Sanctuary</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/page4/">
+<meta property="og:title" content="HBase Split detail">
+<title>HBase Split detail</title>
+<meta property="og:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
+<meta property="og:url" content="/2016/01/hbase_split_detail.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="MoreFreeze's Sanctuary">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/page4/">
+<meta name="twitter:title" content="HBase Split detail">
+<meta name="twitter:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
+<meta name="twitter:url" content="/2016/01/hbase_split_detail.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/page4/">
+<link rel="canonical" href="/2016/01/hbase_split_detail.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -112,182 +112,111 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
   <div class="page-content col-sm-8">
-    <div class="home">
-  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">HBase Split detail</h1>
+    <meta itemprop="keywords" content="Hadoop,HBase" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+    
+    <a href="/tags/#HBase" title="HBase">HBase </a>
     
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
+    <time itemprop="datePublished" datetime="2016-01-10">
+    on Jan 10, 2016
+    </time>
+    </p>
+  </header>
 
-    <article class="post-content" itemprop="articleBody">
-        <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
-
-<p><strong>First part</strong> is the site info.</p>
-
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-set-the-config-file.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
+  <article class="post-content" itemprop="articleBody">
       
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
+<h2 id="split">split的具体过程</h2>
+<p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
+以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。
+<a class="anchor" id="read-more"></a></p>
 
-    <article class="post-content" itemprop="articleBody">
-        <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
+<ol>
+  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
+  <li>Master通过监测这个节点得知父region（这时称要split的region为父，
+分出来的新的region为女儿region）要split了</li>
+  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
+  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
+需要客户端自己进行重试</li>
+  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
+<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
+其中文件都引用自父region，引用文件标记出开始和结束位置</li>
+  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
+引用文件移到这个目录中</li>
+  <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
+注意这时client扫描META表并不能发现新的region，因为还没上线。
+如果这个RPC请求失败了，那么Master和下一个要执行打开region的region server一起清理掉
+这些脏数据</li>
+  <li>region server允许女儿region的写入</li>
+  <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
+region信息重新更新</li>
+  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
+Master就知道split完成</li>
+  <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
+的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>
+</ol>
 
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4</pre></td><td class="code"><pre><span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="gp">$ </span>gem install sass
-<span class="gp">$ </span>gem install jekyll
-<span class="gp">$ </span>git clone https://github.com/yulijia/freshman21.git<span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
+<h2 id="section">且听下回</h2>
+<p>下回将会详细介绍辛勤劳动的compaction操作。</p>
 
 
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-install.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/sample-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.
-        
-        
-
-        
-        <p><a href="/2014/12/sample-post.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2012/06/portal-2.html">Portal 2</a>
-      </h1>
-      <meta itemprop="keywords" content="game,puzzle,fps" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#game">game</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#game" title="game">game </a>, 
-      
-      <a href="/tags/#puzzle" title="puzzle">puzzle </a>, 
-      
-      <a href="/tags/#fps" title="fps">fps </a>
-      
-      
-      <time itemprop="datePublished" datetime="2012-06-19">
-      on Jun 19, 2012
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>赞！
-今天把Portal 2（传送枪2）通关了，感觉非常痛快，这作相比上作应该多了红蓝白三种液体，
-传送带和传送光波等（其实1很早玩的，而且出了许多MOD，所以有什么区别记不清楚了），
-而且</p>
-
-
-        
-        
-
-        
-        <p><a href="/2012/06/portal-2.html/#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-  </div>
+  </article>
+  <hr />
 </div>
 
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2015/12/hbase-split.html" title="HBase Split">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2016/02/hbase-compaction.html" title="HBase Compaction">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2016/01/hbase_split_detail.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2016/01/hbase_split_detail.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
     <section class="pager">
-  
-  
-  <li class="previous"><a href="/page3/" title="Newer">&larr; Newer</a></li>
-  
   
   
 </section>
