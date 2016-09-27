@@ -5,6 +5,24 @@ date: 2016-01-18 20:29
 
 [TOC][]()
 
+# Shortcut
+
+## Call any valid request with `__getattr__`
+
+```python
+import requests
+import urllib
+class Daiwan(object):
+    def __getattr__(self, func):
+        def function(**kwargs):
+            # do some prepare
+            return requests.get('http://api.daiwan.com/%s?%s' % (func, urllib.urlencode(kwargs)))
+        if func in Daiwan.valid_func:
+            return function
+        else:
+            raise AttributeError
+```
+
 # Network
 
 ## Send request with headers

@@ -29,6 +29,10 @@
 <div id="title">Python</div>
   <div id="content">
   <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#shortcut">Shortcut</a><ul>
+<li><a href="#call-any-valid-request-with-__getattr__">Call any valid request with __getattr__</a></li>
+</ul>
+</li>
 <li><a href="#network">Network</a><ul>
 <li><a href="#send-request-with-headers">Send request with headers</a></li>
 </ul>
@@ -61,6 +65,22 @@
 </li>
 </ul>
 </div>
+<h1 id="shortcut">Shortcut</h1>
+<h2 id="call-any-valid-request-with-__getattr__">Call any valid request with <code>__getattr__</code></h2>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="k">class</span> <span class="nc">Daiwan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="c"># do some prepare</span>
+            <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://api.daiwan.com/</span><span class="si">%s</span><span class="s">?</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">Daiwan</span><span class="o">.</span><span class="n">valid_func</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">function</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span>
+</pre></div>
+
+
 <h1 id="network">Network</h1>
 <h2 id="send-request-with-headers">Send request with headers</h2>
 <div class="hlcode"><pre><span class="kn">import</span> <span class="nn">urllib2</span>
