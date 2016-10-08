@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="Categories">
-<title>Categories</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/categories/">
+<meta property="og:title" content="HBase Split detail">
+<title>HBase Split detail</title>
+<meta property="og:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。  region server决定开始split，在zk上创建新节点/hbase/region-in-transition/parent-region-name:SPL...">
+<meta property="og:url" content="/2016/01/hbase_split_detail.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="Categories">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/categories/">
+<meta name="twitter:title" content="HBase Split detail">
+<meta name="twitter:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。  region server决定开始split，在zk上创建新节点/hbase/region-in-transition/parent-region-name:SPL...">
+<meta name="twitter:url" content="/2016/01/hbase_split_detail.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/categories/">
+<link rel="canonical" href="/2016/01/hbase_split_detail.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -97,81 +97,99 @@
     
 
   <div class="page-content col-sm-8">
-    <div class="post">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Categories</h1>
+    <h1 itemprop="name" class="post-title">HBase Split detail</h1>
+    <meta itemprop="keywords" content="Hadoop,HBase" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#tech">tech</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+    
+    <a href="/tags/#HBase" title="HBase">HBase </a>
+    
+    
+    <time itemprop="datePublished" datetime="2016-01-10">
+    on Jan 10, 2016
+    </time>
+    </p>
   </header>
 
-  <article class="post-content about"> 
-    <ul class="tags-box">
+  <article class="post-content" itemprop="articleBody">
+    
+<h2 id="split">split的具体过程</h2>
+<p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
+以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
 
+<ol>
+  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
+  <li>Master通过监测这个节点得知父region（这时称要split的region为父，
+分出来的新的region为女儿region）要split了</li>
+  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
+  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
+需要客户端自己进行重试</li>
+  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
+<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
+其中文件都引用自父region，引用文件标记出开始和结束位置</li>
+  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
+引用文件移到这个目录中</li>
+  <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
+注意这时client扫描META表并不能发现新的region，因为还没上线。
+如果这个RPC请求失败了，那么Master和下一个要执行打开region的region server一起清理掉
+这些脏数据</li>
+  <li>region server允许女儿region的写入</li>
+  <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
+region信息重新更新</li>
+  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
+Master就知道split完成</li>
+  <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
+的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>
+</ol>
 
-<a href="#articles" title="articles" rel="3">articles<span class="size"> 3</span></a>
-
-<a href="#howto" title="howto" rel="1">howto<span class="size"> 1</span></a>
-
-<a href="#work" title="work" rel="1">work<span class="size"> 1</span></a>
-
-<a href="#algorithm" title="algorithm" rel="1">algorithm<span class="size"> 1</span></a>
-
-<a href="#tech" title="tech" rel="3">tech<span class="size"> 3</span></a>
-
-</ul>
-
-<ul class="tags-box">
-
-<li id="articles">articles</li>
-
-<time datetime="2014-12-19">2014-12-19</time> &raquo;
-<a href="/2014/12/how-to-set-the-config-file.html" title="How to set the config.yml file">How to set the config.yml file</a><br />
-
-<time datetime="2014-12-18">2014-12-18</time> &raquo;
-<a href="/2014/12/how-to-install.html" title="How to install this theme">How to install this theme</a><br />
-
-<time datetime="2014-12-13">2014-12-13</time> &raquo;
-<a href="/2014/12/simple-post.html" title="Sample Post">Sample Post</a><br />
-
-
-<li id="howto">howto</li>
-
-<time datetime="2014-12-19">2014-12-19</time> &raquo;
-<a href="/2014/12/how-to-set-the-config-file.html" title="How to set the config.yml file">How to set the config.yml file</a><br />
-
-
-<li id="work">work</li>
-
-<time datetime="2015-09-23">2015-09-23</time> &raquo;
-<a href="/2015/09/machine-die-in-cloudera.html" title="记一次cloudera机器重装">记一次cloudera机器重装</a><br />
-
-
-<li id="algorithm">algorithm</li>
-
-<time datetime="2015-12-13">2015-12-13</time> &raquo;
-<a href="/2015/12/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Solution of Minimum Height Trees</a><br />
-
-
-<li id="tech">tech</li>
-
-<time datetime="2016-02-26">2016-02-26</time> &raquo;
-<a href="/2016/02/hbase-compaction.html" title="HBase Compaction">HBase Compaction</a><br />
-
-<time datetime="2016-01-10">2016-01-10</time> &raquo;
-<a href="/2016/01/hbase_split_detail.html" title="HBase Split detail">HBase Split detail</a><br />
-
-<time datetime="2015-12-28">2015-12-28</time> &raquo;
-<a href="/2015/12/hbase-split.html" title="HBase Split">HBase Split</a><br />
-
-
-
-</ul>
+<h2 id="section">且听下回</h2>
+<p>下回将会详细介绍辛勤劳动的compaction操作。</p>
 
 
   </article>
+  <hr />
+</div>
 
-  
 
-</div> 
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2015/12/hbase-split.html" title="HBase Split">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2016/02/hbase-compaction.html" title="HBase Compaction">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+<div id="disqus_thread"></div>
+
+<script type="text/javascript">
+
+  var disqus_developer = 1;
+
+var disqus_shortname ='';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 
     <section class="pager">
   

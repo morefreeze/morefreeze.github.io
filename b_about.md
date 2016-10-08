@@ -13,7 +13,9 @@ tags: ['personal']
 - 邮    箱：morefreeze@gmail.com
 
 ## 工作经历
-- 2015.10-  在PingCAP任职软件开发，主要负责分布式数据库系统的实现与开发。目前全套系统趋于稳定并在github(https://github.com/pingcap/)上开源，在Go及Rust语言社区获得较高关注。
+- 2016.6- 在 下厨房 担任数据分析工程师，主要负责后台数据统计，开发一套系统提高数据统计效率
+
+- 2015.10-2016.5  在PingCAP任职软件开发，主要负责分布式数据库系统的实现与开发。目前全套系统趋于稳定并在github(https://github.com/pingcap/)上开源，在Go及Rust语言社区获得较高关注。
   1. TiDB/TiKV/TiClient分布式数据库开发(Go+Rust)
     - 项目背景：根据Google发布的Spanner论文实现分布式存储，取名TiKV。根据F1论文实现分布式数据库处理框架，取名TiDB。两者之间实现通信，取名TiClient。
     - 工作内容：负责TiClient大部分代码编写，包括制定protobuf协议，对数据的路由，实现2PC算法。在TiKV端实现Server解析请求并封装成消息传入下层存储层。

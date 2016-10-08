@@ -1,5 +1,5 @@
 ### Site info:
-title: MoreFreeze
+title: MoreFreeze's Sanctuary
 tagline: MoreFreeze's blog
 author : More Freeze
 github_username : morefreeze
@@ -9,10 +9,11 @@ description: "morefreeze's blog" # You can edit this line in _config.yml. It wil
 keywords: "Jekyll, theme, Freshman21"
 locale: en_US
 baseurl: 
+absurl: "https://morefreeze.github.io"
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
-aboutme: Hi, this is More Freeze. I am a backend engineer in Beijing. I am good at C++, PHP, Python deveploping. # these are shown on aboutme-sidebar.
+aboutme: Hi, this is More Freeze. I am a video game player (specially ACT, PUZ) / backend engineer / board gamer in Beijing. I am good at C++, PHP, Python deveploping. # these are shown on aboutme-sidebar.
 aboutme_photo: 'http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200'
 
 
@@ -55,9 +56,30 @@ locales:
 Blogroll:
     - name: MoreFreeze
       href: http://morefreeze.github.io
-      title: Another Jekyll blog theme
+      title: MoreFreeze's Sanctuary
+
+### Outputting
+permalink: /:year/:month/:title.html
 
 ### Build settings
 markdown: kramdown
 highlighter: rouge
+gems: [jekyll-paginate]
 paginate: 5
+paginate_path: /page:num
+
+layout: default
+comments: true
+
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  input:          GFM
+  hard_wrap:      false
+  footnote_nr:    1
+
+### Read More link
+excerpt_separator: <!--more-->

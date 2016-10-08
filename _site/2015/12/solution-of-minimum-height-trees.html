@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="MoreFreeze's Sanctuary">
-<title>MoreFreeze's Sanctuary</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/">
+<meta property="og:title" content="Solution of Minimum Height Trees">
+<title>Solution of Minimum Height Trees</title>
+<meta property="og:description" content="I have trained my algorithm on leetcode a period of time.Today, I will explain my solution about Minimum Height Trees.My solution beat ~95% against others bu...">
+<meta property="og:url" content="/2015/12/solution-of-minimum-height-trees.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="MoreFreeze's Sanctuary">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/">
+<meta name="twitter:title" content="Solution of Minimum Height Trees">
+<meta name="twitter:description" content="I have trained my algorithm on leetcode a period of time.Today, I will explain my solution about Minimum Height Trees.My solution beat ~95% against others bu...">
+<meta name="twitter:url" content="/2015/12/solution-of-minimum-height-trees.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/">
+<link rel="canonical" href="/2015/12/solution-of-minimum-height-trees.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -97,265 +97,38 @@
     
 
   <div class="page-content col-sm-8">
-    <div class="home">
-  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">Solution of Minimum Height Trees</h1>
+    <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#algorithm">algorithm</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#leetcode" title="leetcode">leetcode </a>, 
+    
+    <a href="/tags/#solution" title="solution">solution </a>, 
+    
+    <a href="/tags/#dp" title="dp">dp </a>, 
+    
+    <a href="/tags/#dfs" title="dfs">dfs </a>, 
+    
+    <a href="/tags/#tree" title="tree">tree </a>
     
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2016/02/hbase-compaction.html">HBase Compaction</a>
-      </h1>
-      <meta itemprop="keywords" content="HBase,Hadoop" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#HBase" title="HBase">HBase </a>, 
-      
-      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
-      
-      
-      <time itemprop="datePublished" datetime="2016-02-26">
-      on Feb 26, 2016
-      </time>
-      </p>
-    </header>
+    <time itemprop="datePublished" datetime="2015-12-13">
+    on Dec 13, 2015
+    </time>
+    </p>
+  </header>
 
-    <article class="post-content" itemprop="articleBody">
-      
-<h2 id="merge">Merge</h2>
-
-<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
-
-<h2 id="compaction">Compaction</h2>
-<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
-
-<h2 id="minjor-compaction">Minjor Compaction</h2>
-<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
-
-<h2 id="major-compaction">Major Compaction</h2>
-<p>先来看几个参数：</p>
-
-<ul>
-  <li>hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.min.size HStore小于该值的将被compaction</li>
-  <li>hbase.hstore.compaction.max.size HStore大于该值的将被compaction</li>
-</ul>
-
-<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
-
-<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
-
-<ul>
-  <li>hbase.store.compaction.ratio compaction的选择系数</li>
-</ul>
-
-<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
-
-<script type="math/tex; mode=display">b * ratio > a</script>
-
-<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
-
-<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
-
-
-    </article> <hr />
+  <article class="post-content" itemprop="articleBody">
     
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2016/01/hbase_split_detail.html">HBase Split detail</a>
-      </h1>
-      <meta itemprop="keywords" content="Hadoop,HBase" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
-      
-      <a href="/tags/#HBase" title="HBase">HBase </a>
-      
-      
-      <time itemprop="datePublished" datetime="2016-01-10">
-      on Jan 10, 2016
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
-<h2 id="split">split的具体过程</h2>
-<p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
-以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
-
-<ol>
-  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
-  <li>Master通过监测这个节点得知父region（这时称要split的region为父，
-分出来的新的region为女儿region）要split了</li>
-  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
-  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
-需要客户端自己进行重试</li>
-  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
-<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
-其中文件都引用自父region，引用文件标记出开始和结束位置</li>
-  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
-引用文件移到这个目录中</li>
-  <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
-注意这时client扫描META表并不能发现新的region，因为还没上线。
-如果这个RPC请求失败了，那么Master和下一个要执行打开region的region server一起清理掉
-这些脏数据</li>
-  <li>region server允许女儿region的写入</li>
-  <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
-region信息重新更新</li>
-  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
-Master就知道split完成</li>
-  <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
-的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>
-</ol>
-
-<h2 id="section">且听下回</h2>
-<p>下回将会详细介绍辛勤劳动的compaction操作。</p>
-
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/12/hbase-split.html">HBase Split</a>
-      </h1>
-      <meta itemprop="keywords" content="Hadoop,HBase" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
-      
-      <a href="/tags/#HBase" title="HBase">HBase </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-12-28">
-      on Dec 28, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
-<h2 id="split">split是什么？</h2>
-
-<p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
-就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
-拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。</p>
-
-<h2 id="split-1">split有什么用？</h2>
-<p>split的主要作用就是让数据分布更均匀，让每个region都有数据可查，你说这样的决定吼不吼啊，
-当然吼啊。举个栗子，在服务上线后，发现总会有些region上的key访问很频繁，而这些key恰好
-又都是相近的，那这个region就钦定为热点region(hot region)，这时就需要将这个region
-切分下，让这些key分散出去，减少这个region所在的region server的访问。
-但要注意的是让HBase自己来决定怎么分可能并没有手动分得好，除非key是完全随机的
-（比如md5生成的）。</p>
-
-<h2 id="splitpre-splitting">预split(pre-splitting)</h2>
-<p>预split就是在建表时，指定拆分的各key，可以指定多份，在<code class="highlighter-rouge">HBase shell</code>下执行就像这样：</p>
-
-<p><code class="highlighter-rouge">create 'test_table', 'f1', SPLITS=&gt; ['a', 'b', 'c']</code></p>
-
-<p>或用外部文件表示，每一行为一个切分点(key)</p>
-
-<p><code class="highlighter-rouge">$ echo -e  "a\nb\nc" &gt;/tmp/splits</code></p>
-
-<p><code class="highlighter-rouge">create 'test_table', 'f1', SPLITSFILE=&gt;'/tmp/splits'</code></p>
-
-<h2 id="split-2">自动split</h2>
-<p>如果你之前没听过region还要split也不要紧，HBase会在region量达到一定程度时，自己进行
-split。什么时候自动进行split呢，这是根据Split Policy来决定的，0.94之前是一个定值
-(<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/ConstantSizeRegionSplitPolicy.html" title="ConstantSizeRegionSplitPolicy">ConstantSizeRegionSplitPolicy</a>)，之后改成根据一个公式(<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/IncreasingToUpperBoundRegionSplitPolicy.html" title="IncreasingToUpperBoundRegionSplitPolicy">IncreasingToUpperBoundRegionSplitPolicy</a>)
-来计算是否要split，这个公式如下：</p>
-
-<script type="math/tex; mode=display">Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.max.filesize)</script>
-
-<p>R是一个表在同一个region server上的region数，<code class="highlighter-rouge">flush.size</code>为一个配置值，默认为128M，
-memstore的意思为memory store，表示在内存中的文件大小，当大小达到这个值时，会flush到磁盘，
-<code class="highlighter-rouge">filesize</code>也是配置值，表示超过这个值一定要被split了，默认为10G。</p>
-
-<p>确定要被split了，那哪里是切分点呢，这里要注意的是，切分点只是一个大概的中点，比如：
-一个region有key从”000”到”099”，中点应该是”050”（注意我这里故意加了前导的0保持key是等长），
-但因为”050”并不一定存在文件的正中，因此HBase取的是<a href="http://hbase.apache.org/book/apes03.html#d2145e11930" title="block index">block index</a>的中点(TODO)。</p>
-
-<h2 id="split-3">手动split</h2>
-<p>自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本），
-如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的
-<code class="highlighter-rouge">hbase.hregion.max.filesize</code>（对，就是前面公式里的第二项）为一个较大的值，比如100G。
-因此这里需要说下手动split。只需要在<code class="highlighter-rouge">HBase shell</code>中执行一条语句：</p>
-
-<p><code class="highlighter-rouge">split 'regionName', 'splitKey'</code></p>
-
-<p>更多用法可以在<code class="highlighter-rouge">HBase shell</code>中查。另外也可以在HBase的GUI管理界面中直接操作，如果split
-point不写，相当于只指定了表要被切分，则HBase会自行将表切分一次。经过几次试验，
-这类“自动”切分对于少量数据（比如100条）或没有数据的region不会切分，
-每个region都会被测试一次要不要切分。</p>
-
-<h2 id="section">且听下回</h2>
-<p>你一定想知道split时HBase都做了些什么？</p>
-
-<p>为啥上面的<code class="highlighter-rouge">hbase.hregion.max.filesize</code>的值设为100G而不是更大甚至无穷大的值？</p>
-
-<p>下篇会继续深入HBase的split操作。</p>
-
-
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/12/solution-of-minimum-height-trees.html">Solution of Minimum Height Trees</a>
-      </h1>
-      <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#algorithm">algorithm</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#leetcode" title="leetcode">leetcode </a>, 
-      
-      <a href="/tags/#solution" title="solution">solution </a>, 
-      
-      <a href="/tags/#dp" title="dp">dp </a>, 
-      
-      <a href="/tags/#dfs" title="dfs">dfs </a>, 
-      
-      <a href="/tags/#tree" title="tree">tree </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-12-13">
-      on Dec 13, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
 <p>I have trained my algorithm on <a href="http://leetcode.com/">leetcode</a> a period of time.</p>
 
 <p>Today, I will explain my solution about <a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees</a>.
@@ -694,76 +467,43 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <hr />
 
 
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/09/machine-die-in-cloudera.html">记一次cloudera机器重装</a>
-      </h1>
-      <meta itemprop="keywords" content="crash,trap" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#work">work</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#crash" title="crash">crash </a>, 
-      
-      <a href="/tags/#trap" title="trap">trap </a>
-      
-      
-      <time itemprop="datePublished" datetime="2015-09-23">
-      on Sep 23, 2015
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-      
-<p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
-
-<p>上周五由于跑数据发现某个软件需要更新，需要<code class="highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
-结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
-各方面素质差很多，同样的拉数据，别的机器不挂，它一会就挂了，娇贵得很。得出结论是只能重装。这台机器的角色还挺多，
-包括所有导入数据脚本，跑每天的统计，保存的数据结果，同时还有作为HDFS的NameNode和
-Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以再重跑就行了，于是决定重装。噩梦开始！</p>
-
-<p>重装完成……</p>
-
-<p>首先，发现cloudera的host管理这台机器处理故障状态，当然它上面其实啥东西都没，
-而且解除授权需要先把运行的停掉（但根本就没运行咋停？），从集群中移除需要先解除授权，
-所以为今之计只能先装上cloudera-agent，让cloudera发现它再说。然而公司的尿性网，
-其中的依赖cloudera-daemon有600M，中间下载又是断连，又是挂代理，搜了下国内还真没找到这个源，最终是下下来了，
-装上后，进行了个re-upgrade的操作，发现报错，研究一番后发现是版本装高了，是的，这一个月
-时间cloudera-agent这货升了3个小版本号，哦对了，cloudera-daemon也跟着升了3个小版本，
-因此还要重下，我当时就十万个草泥马跑过。</p>
-
-<p>又过了一天，经过以前同事提醒，想起来有台机器当时保存了yum下好的cache，赶紧找出来，
-用了一个小时就装了回去。后来又发现这台机器无法被server认出来，需要重新认证，
-找了半天，发现可以强制删除（之前我还在psql里强制删除这台机器，但因为外键限制没成功），
-然后就重新添加这台机器进集群，因为要重新分配角色，于是就把除了HDFS其它的Hive,Yarn等删了，
-重装分配了角色。发现HDFS的两个NameNode在安全模式，这时HDFS只读不写，找了半天没发现怎么修复这个问题，
-看来只能退出安全模式了，退出后机器重装的恶果终于显现了，HDFS块丢失，丢了近50%，
-后来又找到配置里的replication（冗余系数）为1，WTF，没有备份，丢就是丢了。</p>
-
-<p>好了不说了，我去导之前数据了。</p>
-
-
-    </article> <hr />
-    
-    
-  
-  </div>
+  </article>
+  <hr />
 </div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2015/09/machine-die-in-cloudera.html" title="记一次cloudera机器重装">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2015/12/hbase-split.html" title="HBase Split">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+<div id="disqus_thread"></div>
+
+<script type="text/javascript">
+
+  var disqus_developer = 1;
+
+var disqus_shortname ='';
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
 
     <section class="pager">
   
-  
-  <li class="next"><a href="/page2/" title="Older">Older &rarr;</a></li>
   
 </section>
 
