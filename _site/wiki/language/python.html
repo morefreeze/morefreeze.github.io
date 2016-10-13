@@ -31,6 +31,7 @@
   <div class="toc"><span class="toctitle">Table of Contents</span><ul>
 <li><a href="#shortcut">Shortcut</a><ul>
 <li><a href="#call-any-valid-request-with-__getattr__">Call any valid request with __getattr__</a></li>
+<li><a href="#import-dynamical-class">Import dynamical class</a></li>
 </ul>
 </li>
 <li><a href="#network">Network</a><ul>
@@ -78,6 +79,15 @@
             <span class="k">return</span> <span class="n">function</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">AttributeError</span>
+</pre></div>
+
+
+<h2 id="import-dynamical-class">Import dynamical class</h2>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">importlib</span>
+
+<span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s">&#39;my_package.my_module&#39;</span><span class="p">)</span>
+<span class="n">my_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s">&#39;MyClass&#39;</span><span class="p">)</span>
+<span class="n">my_instance</span> <span class="o">=</span> <span class="n">my_class</span><span class="p">()</span>
 </pre></div>
 
 

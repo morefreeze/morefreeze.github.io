@@ -23,6 +23,15 @@ class Daiwan(object):
             raise AttributeError
 ```
 
+## Import dynamical class
+```python
+import importlib
+
+module = importlib.import_module('my_package.my_module')
+my_class = getattr(module, 'MyClass')
+my_instance = my_class()
+```
+
 # Network
 
 ## Send request with headers
