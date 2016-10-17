@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="beancount 起步">
+<title>beancount 起步</title>
+<meta property="og:description" content="我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，名字已经不记得了，但我仍然记得大一的某个下午，我郑重地记录了第一笔晚饭。">
+<meta property="og:url" content="/2016/10/beancount-thinking.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="beancount 起步">
+<meta name="twitter:description" content="我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，名字已经不记得了，但我仍然记得大一的某个下午，我郑重地记录了第一笔晚饭。">
+<meta name="twitter:url" content="/2016/10/beancount-thinking.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2016/10/beancount-thinking.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">beancount 起步</h1>
+    <meta itemprop="keywords" content="beancount,double-entry" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#note">note</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#beancount" title="beancount">beancount </a>, 
+    
+    <a href="/tags/#double-entry" title="double-entry">double-entry </a>
+    
+    
+    <time itemprop="datePublished" datetime="2016-10-08">
+    on Oct 8, 2016
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">背景</a>    <ul>
+      <li><a href="#section-1" id="markdown-toc-section-1">复式记账</a></li>
+      <li><a href="#beancount" id="markdown-toc-beancount">beancount</a></li>
+      <li><a href="#section-2" id="markdown-toc-section-2">分析</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-3" id="markdown-toc-section-3">技巧</a>    <ul>
+      <li><a href="#section-4" id="markdown-toc-section-4">记账流程</a></li>
+      <li><a href="#section-5" id="markdown-toc-section-5">对账</a></li>
+    </ul>
+  </li>
+  <li><a href="#section-6" id="markdown-toc-section-6">引用</a></li>
+</ul>
+
+<p>我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，
+也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，
+名字已经不记得了，但我仍然记得大一的某个下午，我郑重地记录了第一笔晚饭。
+<a class="anchor" id="read-more"></a>
+但也限于当时的软件，没太坚持下去吧。
+2012 年 3 月开始用「随手记」，也正是从那时起正经地开始记账了，那时刚开始工作，
+记录了第一次发薪水（虽然之前实习也发了补助）。中间一直记了 1300+ 天，直到某天看到了 beancount，
+学习了复式记账法，学习了一点会计姿势，了解了一些理财前期准备工作，于是需要更强大的分析工具。</p>
+
+<p>这篇文章介绍了使用 beancount 时的一些心得，先推荐下带我入门的<a href="https://wzyboy.im/post/1063.html">这篇文章</a>，
+如果你已经看完了它那么「背景」这段可以跳过了。</p>
+
+<h2 id="section">背景</h2>
+
+<h3 id="section-1">复式记账</h3>
+<p>首先是复式记账，核心原则是你的所有账户加起来一定为 <strong>0</strong>。然后是将科目按收支分为四大类：
+收入(Income)，花费(Expenses)，资产(Assets)，负债(Liabilities)，收入就是你的工资，分红等，
+花费属于那种花出去的消费，比如买吃的，烟酒，资产是你的固定资产，本身有一定价值，
+之后你可能还可以出售，比如房、车、工资卡，负债就是你的信用卡，欠款。当你来到这世界上，
+你应该身无分文，所以这四项全为 0，之后你领工资，买衣服，置地，借钱都是这几个科目相互转移。
+当然，你不可能从出生就开始记账，从某个时间点，你可能已经有了些积蓄，有了些欠款，
+他们可能不等，这就需要有个权益(Equity)来平衡，简单来说就是允许你有不平等，不平等的部分从权益里补足。</p>
+
+<h3 id="beancount">beancount</h3>
+<p>接着介绍这个 beancount，这是个软件。它可以从你的账本里读取每条账目，生成你想要的数据，
+包括查询当前余额，开销情况，甚至支持 sql 语句实现自定义查询。你的账本实际只是一个简单的文本文件，
+你可以用你喜欢的编辑器去编辑它，运气好的话还有人已经为它开发了插件，比如<code class="highlighter-rouge">vim-beancount</code>。
+每条账目看起来像这样：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>2016-10-05 * "微信支付(Tenpay):滴滴出行" "滴滴"
+            Liabilities:CMBC:CreditCard
+            Expenses:Transport:Taxi                     10.50 CNY
+</code></pre>
+</div>
+<p>第一行依次为 日期，确认与否（存在争议为”!”），概述，收款人，
+之后每行为一个账户名，表示钱从这个账户转到另一个账户中去，上例表示我用信用卡打了次滴滴，
+花了 10.50 RMB。</p>
+
+<h3 id="section-2">分析</h3>
+<p>当你如此这般记了些时间的账后，就到了分析了，你可以用 <code class="highlighter-rouge">bean-web</code> 来生成你的账单，
+也可以用<a href="https://github.com/aumayr/fava">fava</a>来生成更酷炫的账单。在这里，
+我建议你可以先关注下你的每月花销在什么地方，收入 + 花销（学了复式你会知道为什么用加号）
+最后剩下多少钱你可以任意支配。更高端的分析我决定留到下篇写。</p>
+
+<hr />
+
+<h2 id="section-3">技巧</h2>
+<p>在刚学习 beancount 时，我读了许多的文章，教程和别人的例子（会分享在文后），学到了各种技巧，
+另外加上自己使用时遇到的问题并最终解决，在此分享出来，这也是我写这篇文章的目的。</p>
+
+<h3 id="section-4">记账流程</h3>
+<p>首先要说的是我的记账流程。目前我会将我的所有花销都尽量<strong>集中在一张信用卡上</strong>，
+这张卡最好也能在境外消费，因为现在境外银联变得多起来了，也不一定要求这张卡一定是 VISA 或 Master Card。
+这样每个月我会校对这张卡的账单来了解我上个月的支出情况。其它用不了信用卡的时候，
+比如买饮料等，如果有条件就在手机上记一笔，记清楚干什么，时间，花了多少钱，
+回来再记录到账本里。实在记不了也没关系，
+比如你这时正喝到不省人事并为你的朋友付了酒钱，之后会有对账纠正这个错误。</p>
+
+<h3 id="section-5">对账</h3>
+<p>每个月我会在我主信用卡的账单日去对账。如果还有多张信用卡，但账单日不在一起，
+可以尝试给信用卡客服中心打电话让他们把账单日改到一起，这样你可以在一天处理完所有事情。
+我得说，这是个神圣的事情，所以尽量在周围没人打扰的情况下完成，并且保证你有畅通的网络以便随时去回溯历史。</p>
+
+<p>下面打开信用卡账单的邮件（啥？你让他们寄了纸质账单，难道银行没提醒你节省木材吗？），
+逐个对照每条账目（通常账单是从近到远排序，所以你可能要从下往上看），这时你要做的是：</p>
+
+<ol>
+  <li>确认你记得有这笔支出，打上”*“，不记得就打上”!”，这时你可能需要翻看一些聊天记录或网站的购物记录</li>
+  <li>为这条账目找一个合适的账户，显然一边是你的信用卡，另一边是花费，具体是哪项花费由你决定（当然可能有例外）</li>
+  <li>一般信用卡会有收款人，这个一定程度也可以代替这笔花费的内容，但你也可以加一些，
+比如我在网上买了些宠物用品，信用卡账单可能显示是个人卖家，我就需要补充上这些信息。</li>
+  <li>看下一条</li>
+</ol>
+
+<p>对于我来说，我平时不会记这张信用卡的消费情况，我会写个脚本去抽取邮件中账单的内容，
+自动为我生成 beancout 的格式，在账单日导入就行了，
+我只需要将上面的步骤依次执行即可。这个过程可能会花掉大约 10 分钟。
+<strong>平常可能对一些计划外的购买还需要记个小笔记</strong>。</p>
+
+<p>当然，还会有些别的账户，这时我需要检查下最终余额和实际余额是否一致就行了。
+如果很不幸，产生了偏差，那么就需要查看下这些卡的交易记录了。
+我相信如果大部分交易都发生主信用卡上，那这点交易还是会很少的。</p>
+
+<p>最后我会对下我的现金，其他的账户随着信息时代到来，都能为我们提供可查的交易记录，
+但现金却没有，而且我在之前记账对账时就发现，每个月我的现金总是对不上，
+有时候少了几百，有时候又多了些，而我总是没法很好地对上。现在采取 beancount 记账法，
+仍然无法避免这个问题，所以我发现如果现金没对上，<strong>我会直接将差价认定为花在了吃饭上</strong>，
+因为我平时很少会用现金做别的事情。比如会有给修水管的小哥一些小费，但因为不常发生并且数额不大，
+记错用途也影响不大。</p>
+
+<p>好了，处理完这些琐碎的事情，大概会花掉我 20 分钟，当然这包括我打电话问我老婆为什么我的借记卡会被划掉 2000 块钱。</p>
+
+<p>你在刚开始做时，可能会花费 30 分钟到 2 个小时不等的时间，但随着你的消费习惯越来越成熟，
+这个时间会快速地缩减。</p>
+
+<h2 id="section-6">引用</h2>
+<ol>
+  <li><a href="https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit">Beancount - Language Syntax - Google Docs</a></li>
+  <li><a href="https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit">Beancount - Cookbook - Sharing Expenses - Google Docs</a></li>
+  <li><a href="https://docs.google.com/document/d/1RaondTJCS_IUPBHFNdT8oqFKJjVJDsfsn6JEjBG04eA/edit">Beancount - Index - Google Docs</a></li>
+</ol>
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2016/09/share-post-receive.html" title="Share post receive hook">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2016/10/beancount-thinking.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2016/10/beancount-thinking.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a video game player (specially ACT, PUZ) / backend engineer / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2016/10/beancount-thinking.html" title="beancount 起步" rel="bookmark">beancount 起步</a>
+  </li>
+  
+  <li>
+  <a href="/2016/09/share-post-receive.html" title="Share post receive hook" rel="bookmark">Share post receive hook</a>
+  </li>
+  
+  <li>
+  <a href="/2016/09/dice-con.html" title="Dice Con 2016一日游" rel="bookmark">Dice Con 2016一日游</a>
+  </li>
+  
+  <li>
+  <a href="/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
+  </li>
+  
+  <li>
+  <a href="/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="2">game (2)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="2">note (2)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="2">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="2">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+    <a href="/tags/#beancount" title="beancount" rel="1">beancount</a> &nbsp;
+  
+    <a href="/tags/#double-entry" title="double-entry" rel="1">double-entry</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>
