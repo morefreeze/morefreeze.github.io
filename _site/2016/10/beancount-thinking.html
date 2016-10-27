@@ -101,6 +101,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         
         
+        
+        
       </div>
     </nav>
 
@@ -138,22 +140,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
-<ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">背景</a>    <ul>
-      <li><a href="#section-1" id="markdown-toc-section-1">复式记账</a></li>
-      <li><a href="#beancount" id="markdown-toc-beancount">beancount</a></li>
-      <li><a href="#section-2" id="markdown-toc-section-2">分析</a></li>
-    </ul>
-  </li>
-  <li><a href="#section-3" id="markdown-toc-section-3">技巧</a>    <ul>
-      <li><a href="#section-4" id="markdown-toc-section-4">记账流程</a></li>
-      <li><a href="#section-5" id="markdown-toc-section-5">对账</a></li>
-    </ul>
-  </li>
-  <li><a href="#section-6" id="markdown-toc-section-6">接下来</a></li>
-  <li><a href="#section-7" id="markdown-toc-section-7">引用</a></li>
-</ul>
-
 <p>我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，
 也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，
 名字已经不记得了，但我仍然记得大一的某个下午，我郑重地记录了第一顿晚饭。
@@ -232,7 +218,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 
 <p>对于我来说，我平时不会逐条记这张信用卡的消费情况，我会写个脚本去抽取邮件中账单的内容，
-自动为我生成 beancout 的格式，在账单日导入，
+自动为我生成 beancount 的格式，在账单日导入，
 然后将上面的步骤依次执行即可。这个过程可能会花掉大约 10 分钟。
 <strong>平常可能对一些计划外的购买还需要记个小笔记</strong>，防止出现账单上显示个人卖家你却完全想不起来这是给猫买的铃铛的情况。</p>
 
@@ -255,7 +241,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2 id="section-6">接下来</h2>
 <p>可以说这篇文章只讲了我起步用 beancount 的一些情况，当你记了 3 个月，甚至半年账后，
 你会发现你遇到了更多更复杂的问题，当你着手开始分析你的财条情况时，你也会感谢你平时的积累。
-下一篇我会分享我记账时遇到的一些更困难的问题以及如何解决的。如果你看完这篇小教程还没开始创建你的账本，
+<a href="/2016/10/beancount-advance.html">下一篇</a>我会分享我记账时遇到的一些更困难的问题以及如何解决的。如果你看完这篇小教程还没开始创建你的账本，
 那么现在动手吧！</p>
 
 <h2 id="section-7">引用</h2>
@@ -263,11 +249,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 因为即使是我推荐的那篇入门文章，其中也省去了许多 beancount 的功能没有讲，比如 note，cost 与 price 的区别等。
 引用 2 建议最好可以完整地看一遍，因为里面讲了许多复杂的情况，包括股票投资账户的操作，
 这是我没有用到的。引用 3 关于 beancount 的所有资料都在这里，也许它还在更新，所以时常关注吧。
-引用 4 是一份 beancount 的 cheatsheet 在刚开始记账会很有用，但前提是你已经仔细阅读过 <code class="highlighter-rouge">Language Syntax</code> 了。
-1. <a href="https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit">Beancount - Language Syntax - Google Docs</a>
-1. <a href="https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit">Beancount - Cookbook - Sharing Expenses - Google Docs</a>
-1. <a href="https://docs.google.com/document/d/1RaondTJCS_IUPBHFNdT8oqFKJjVJDsfsn6JEjBG04eA/edit">Beancount - Index - Google Docs</a>
-1. <a href="http://furius.ca/beancount/doc/cheatsheet">Beancount Cheat Sheet</a></p>
+引用 4 是一份 beancount 的 cheatsheet 在刚开始记账会很有用，但前提是你已经仔细阅读过 <a href="https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit" title="Beancount - Language Syntax - Google Docs">Language Syntax</a> 了。</p>
+
+<ol>
+  <li><a href="https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit" title="Beancount - Language Syntax - Google Docs">Beancount - Language Syntax - Google Docs</a></li>
+  <li><a href="https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit" title="Beancount - Cookbook - Sharing Expenses - Google Docs">Beancount - Cookbook - Sharing Expenses - Google Docs</a></li>
+  <li><a href="https://docs.google.com/document/d/1RaondTJCS_IUPBHFNdT8oqFKJjVJDsfsn6JEjBG04eA/edit" title="Beancount - Index - Google Docs">Beancount - Index - Google Docs</a></li>
+  <li><a href="http://furius.ca/beancount/doc/cheatsheet" title="Beancount Cheat Sheet">Beancount Cheat Sheet</a></li>
+</ol>
+
 
   </article>
   <hr />
@@ -280,7 +270,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li class="previous"><a href="/2016/09/share-post-receive.html" title="Share post receive hook">&larr; Older</a></li>
     
     
-    <li class="disabled"><a>Newer &rarr;</a>
+    <li class="next"><a href="/2016/10/beancount-advance.html" title="beancount 进阶">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -324,7 +314,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module about">
   <h4>About Me</h4>
   <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
-  <span>Hi, this is More Freeze. I am a video game player (specially ACT, PUZ) / backend engineer / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <span>Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
   <br />
 
   
@@ -349,6 +339,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2016/10/beancount-advance.html" title="beancount 进阶" rel="bookmark">beancount 进阶</a>
+  </li>
+  
+  <li>
   <a href="/2016/10/beancount-thinking.html" title="beancount 起步" rel="bookmark">beancount 起步</a>
   </li>
   
@@ -362,10 +356,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2016/08/parallel.html" title="parallel" rel="bookmark">parallel</a>
-  </li>
-  
-  <li>
-  <a href="/2016/08/tlou.html" title="The Last Of Us" rel="bookmark">The Last Of Us</a>
   </li>
   
 </div>
@@ -386,7 +376,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="2">note (2)</a></li>
+  <li><a href="/categories/#note" title="note" rel="3">note (3)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
@@ -452,9 +442,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="1">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="1">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
   
 </div>
 
@@ -476,6 +466,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
   
   
   

@@ -8,7 +8,6 @@ tags: [beancount, double-entry]
 ---
 {% include JB/setup %}
 
-* Table of Contents
 {:toc}
 
 我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，
@@ -87,7 +86,7 @@ tags: [beancount, double-entry]
 1. 看下一条
 
 对于我来说，我平时不会逐条记这张信用卡的消费情况，我会写个脚本去抽取邮件中账单的内容，
-自动为我生成 beancout 的格式，在账单日导入，
+自动为我生成 beancount 的格式，在账单日导入，
 然后将上面的步骤依次执行即可。这个过程可能会花掉大约 10 分钟。
 **平常可能对一些计划外的购买还需要记个小笔记**，防止出现账单上显示个人卖家你却完全想不起来这是给猫买的铃铛的情况。
 
@@ -110,7 +109,7 @@ tags: [beancount, double-entry]
 ## 接下来
 可以说这篇文章只讲了我起步用 beancount 的一些情况，当你记了 3 个月，甚至半年账后，
 你会发现你遇到了更多更复杂的问题，当你着手开始分析你的财条情况时，你也会感谢你平时的积累。
-下一篇我会分享我记账时遇到的一些更困难的问题以及如何解决的。如果你看完这篇小教程还没开始创建你的账本，
+[下一篇](/2016/10/beancount-advance.html)我会分享我记账时遇到的一些更困难的问题以及如何解决的。如果你看完这篇小教程还没开始创建你的账本，
 那么现在动手吧！
 
 ## 引用
@@ -118,8 +117,14 @@ tags: [beancount, double-entry]
 因为即使是我推荐的那篇入门文章，其中也省去了许多 beancount 的功能没有讲，比如 note，cost 与 price 的区别等。
 引用 2 建议最好可以完整地看一遍，因为里面讲了许多复杂的情况，包括股票投资账户的操作，
 这是我没有用到的。引用 3 关于 beancount 的所有资料都在这里，也许它还在更新，所以时常关注吧。
-引用 4 是一份 beancount 的 cheatsheet 在刚开始记账会很有用，但前提是你已经仔细阅读过 `Language Syntax` 了。
-1. [Beancount - Language Syntax - Google Docs](https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit)
-1. [Beancount - Cookbook - Sharing Expenses - Google Docs](https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit)
-1. [Beancount - Index - Google Docs](https://docs.google.com/document/d/1RaondTJCS_IUPBHFNdT8oqFKJjVJDsfsn6JEjBG04eA/edit)
-1. [Beancount Cheat Sheet](http://furius.ca/beancount/doc/cheatsheet)
+引用 4 是一份 beancount 的 cheatsheet 在刚开始记账会很有用，但前提是你已经仔细阅读过 [Language Syntax][1] 了。
+
+1. [Beancount - Language Syntax - Google Docs][1]
+1. [Beancount - Cookbook - Sharing Expenses - Google Docs][2]
+1. [Beancount - Index - Google Docs][3]
+1. [Beancount Cheat Sheet][4]
+
+[1]: https://docs.google.com/document/d/1wAMVrKIA2qtRGmoVDSUBJGmYZSygUaR0uOMW1GV3YE0/edit   "Beancount - Language Syntax - Google Docs"
+[2]: https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit   "Beancount - Cookbook - Sharing Expenses - Google Docs"
+[3]: https://docs.google.com/document/d/1RaondTJCS_IUPBHFNdT8oqFKJjVJDsfsn6JEjBG04eA/edit   "Beancount - Index - Google Docs"
+[4]: http://furius.ca/beancount/doc/cheatsheet  "Beancount Cheat Sheet"

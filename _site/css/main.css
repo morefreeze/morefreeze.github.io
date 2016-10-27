@@ -386,7 +386,7 @@ cite {
     list-style-type: none; }
 
 #markdown-toc:before {
-  content: "Table of Contents";
+  content: "目录";
   font-weight: 700;
   padding-left: 10px;
   border-bottom: 5px solid #e8e8e8 !important;
