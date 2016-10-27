@@ -62,11 +62,12 @@ If someone know please let <a href="http://morefreeze.github.io/b_about.html">me
 <h2 id="grep">grep</h2>
 <h3 id="only-print-specified-grouping-that-match">Only print specified grouping that match</h3>
 <ul>
-<li>
-<p>Background: If there is a file like this:</p>
-<p>GET /app/path?foo=bar</p>
-</li>
+<li>Background: If there is a file like this:</li>
 </ul>
+<div class="hlcode"><pre><span class="n">GET</span> <span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">path</span><span class="o">?</span><span class="n">foo</span><span class="o">=</span><span class="n">bar</span> <span class="n">HTTP</span>
+</pre></div>
+
+
 <p>You need only get the <code>/app/path?foo=bar HTTP</code> when <code>GET</code> is front of it and
 <code>HTTP</code> is behind it.</p>
 <ul>

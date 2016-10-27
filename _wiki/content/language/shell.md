@@ -30,7 +30,9 @@ If someone know please let [me](http://morefreeze.github.io/b_about.html) know.
 
 - Background: If there is a file like this:
 
-    GET /app/path?foo=bar
+```
+GET /app/path?foo=bar HTTP
+```
 
 You need only get the `/app/path?foo=bar HTTP` when `GET` is front of it and
 `HTTP` is behind it.
