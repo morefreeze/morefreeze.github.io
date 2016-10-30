@@ -59,3 +59,75 @@ date: 2016-02-18 11:43
 ## Insert datetime
 
     `strftime("%Y%m%d", localtime())`  # Notice anti-quote
+
+# Code snippets
+
+## beancount
+
+### Date shorthand
+```
+snippet dt "date YYYY-mm-dd"
+	${3:`strftime("%Y")`}-${2:`strftime("%m")`}-${1:`strftime("%d")`} 
+```
+
+### Add balance
+This will add a `balance` for an account and auto `pad` it.
+```
+snippet bal
+	${9:`strftime("%Y", localtime()-86400)`}-${8:`strftime("%m", localtime()-86400)`}-${7:`strftime("%d", localtime()-86400)`} pad $2 ${3:Equity:Opening-Balances}
+	${6:`strftime("%Y")`}-${5:`strftime("%m")`}-${4:`strftime("%d")`} balance ${2:Assets:Cash}               ${1} CNY
+```
+
+### Add note
+```
+snippet note
+	${9:`strftime("%Y")`}-${8:`strftime("%m")`}-${7:`strftime("%d")`} note ${3:Assets:Cash} "${1} ${2} CNY"
+```
+
+### Add query
+```
+snippet query
+	${9:`strftime("%Y")`}-${8:`strftime("%m")`}-${7:`strftime("%d")`} query "${1}" "
+				SELECT ${2} WHERE ${3}
+	"
+```
+
+### General transaction
+```
+snippet new
+	${7:`strftime("%Y")`}-${6:`strftime("%m")`}-${5:`strftime("%d")`} * "${1}"
+				${2:Assets:Cash}            -${3} CNY
+				${4}
+```
+
+### House rent
+This records house rent monthly.
+```
+snippet house "house rent"
+	${8:`strftime("%Y")`}-${7:`strftime("%m")`}-${6:`strftime("%d")`} * "House rent ${9:`strftime("%Y/%m", localtime()-86400*30)`}"
+				Assets:Alipay:YuE                       -3000 CNY
+				Assets:Big:House
+```
+
+### Car installment
+This records a car installment and you can record this is which period. You need replace `$Bank` to your bank.
+```
+snippet car "car installment"
+	${4:`strftime("%Y")`}-${3:`strftime("%m")`}-${2:`strftime("%d")`} * "Car amortization ${1}/24"
+				Liabilities:$Bank:CreditCard         -2000.00 CNY
+				Assets:Big:Car
+```
+
+### Salary
+This is my salary template, it including social insurance and income tax,
+you need change `$Company` to your company name and `$Bank` as same. `Vacation` is your loss because personal leave.
+```
+snippet sal "salary"
+	${8:`strftime("%Y", localtime()-86400)`}-${7:`strftime("%m", localtime()-86400)`}-${6:`strftime("%d", localtime()-86400)`} * "${9:`strftime("%Y/%m", localtime()-86400*30)`} salary"
+				Income:$Company:Salary              -${1:10000} CNY
+				Expenses:Government:SocialInsurance ${2} CNY
+				Expenses:Government:HouseFund       ${3} CNY
+				Expenses:Government:IncomeTax       ${4} CNY
+				Expenses:$Company:Vacation          ${5:0} CNY
+				Assets:$Bank:Saving
+```

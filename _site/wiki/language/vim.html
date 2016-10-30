@@ -34,6 +34,20 @@
 <li><a href="#register">Register</a></li>
 <li><a href="#dance-with-command">Dance with Command</a></li>
 <li><a href="#insert-datetime">Insert datetime</a></li>
+<li><a href="#code-snippets">Code snippets</a><ul>
+<li><a href="#beancount">beancount</a><ul>
+<li><a href="#date-shorthand">Date shorthand</a></li>
+<li><a href="#add-balance">Add balance</a></li>
+<li><a href="#add-note">Add note</a></li>
+<li><a href="#add-query">Add query</a></li>
+<li><a href="#general-transaction">General transaction</a></li>
+<li><a href="#house-rent">House rent</a></li>
+<li><a href="#car-installment">Car installment</a></li>
+<li><a href="#salary">Salary</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 <h2 id="move-in-document">Move in document</h2>
@@ -99,6 +113,76 @@
 </ol>
 <h2 id="insert-datetime">Insert datetime</h2>
 <div class="hlcode"><pre><span class="err">`</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%Y%m%d&quot;</span><span class="p">,</span> <span class="n">localtime</span><span class="p">())</span><span class="err">`</span>  <span class="err">#</span> <span class="n">Notice</span> <span class="n">anti</span><span class="o">-</span><span class="n">quote</span>
+</pre></div>
+
+
+<h1 id="code-snippets">Code snippets</h1>
+<h2 id="beancount">beancount</h2>
+<h3 id="date-shorthand">Date shorthand</h3>
+<div class="hlcode"><pre>snippet dt &quot;date YYYY-mm-dd&quot;
+    <span class="cp">${</span><span class="mi">3</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">2</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">1</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> 
+</pre></div>
+
+
+<h3 id="add-balance">Add balance</h3>
+<p>This will add a <code>balance</code> for an account and auto <code>pad</code> it.</p>
+<div class="hlcode"><pre>snippet bal
+    <span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;, localtime()-86400)`</span><span class="cp">}</span> pad $2 <span class="cp">${</span><span class="mi">3</span><span class="p">:</span><span class="n">Equity</span><span class="p">:</span><span class="n">Opening</span><span class="o">-</span><span class="n">Balances</span><span class="cp">}</span>
+    <span class="cp">${</span><span class="mi">6</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">5</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">4</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> balance <span class="cp">${</span><span class="mi">2</span><span class="p">:</span><span class="n">Assets</span><span class="p">:</span><span class="n">Cash</span><span class="cp">}</span>               <span class="cp">${</span><span class="mi">1</span><span class="cp">}</span> CNY
+</pre></div>
+
+
+<h3 id="add-note">Add note</h3>
+<div class="hlcode"><pre>snippet note
+    <span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> note <span class="cp">${</span><span class="mi">3</span><span class="p">:</span><span class="n">Assets</span><span class="p">:</span><span class="n">Cash</span><span class="cp">}</span> &quot;<span class="cp">${</span><span class="mi">1</span><span class="cp">}</span> <span class="cp">${</span><span class="mi">2</span><span class="cp">}</span> CNY&quot;
+</pre></div>
+
+
+<h3 id="add-query">Add query</h3>
+<div class="hlcode"><pre>snippet query
+    <span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> query &quot;<span class="cp">${</span><span class="mi">1</span><span class="cp">}</span>&quot; &quot;
+                SELECT <span class="cp">${</span><span class="mi">2</span><span class="cp">}</span> WHERE <span class="cp">${</span><span class="mi">3</span><span class="cp">}</span>
+    &quot;
+</pre></div>
+
+
+<h3 id="general-transaction">General transaction</h3>
+<div class="hlcode"><pre>snippet new
+    <span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">6</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">5</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> * &quot;<span class="cp">${</span><span class="mi">1</span><span class="cp">}</span>&quot;
+                <span class="cp">${</span><span class="mi">2</span><span class="p">:</span><span class="n">Assets</span><span class="p">:</span><span class="n">Cash</span><span class="cp">}</span>            -<span class="cp">${</span><span class="mi">3</span><span class="cp">}</span> CNY
+                <span class="cp">${</span><span class="mi">4</span><span class="cp">}</span>
+</pre></div>
+
+
+<h3 id="house-rent">House rent</h3>
+<p>This records house rent monthly.</p>
+<div class="hlcode"><pre>snippet house &quot;house rent&quot;
+    <span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">6</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> * &quot;House rent <span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y/%m&quot;, localtime()-86400*30)`</span><span class="cp">}</span>&quot;
+                Assets:Alipay:YuE                       -3000 CNY
+                Assets:Big:House
+</pre></div>
+
+
+<h3 id="car-installment">Car installment</h3>
+<p>This records a car installment and you can record this is which period. You need replace <code>$Bank</code> to your bank.</p>
+<div class="hlcode"><pre>snippet car &quot;car installment&quot;
+    <span class="cp">${</span><span class="mi">4</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">3</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">2</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;)`</span><span class="cp">}</span> * &quot;Car amortization <span class="cp">${</span><span class="mi">1</span><span class="cp">}</span>/24&quot;
+                Liabilities:<span class="nv">$Bank</span>:CreditCard         -2000.00 CNY
+                Assets:Big:Car
+</pre></div>
+
+
+<h3 id="salary">Salary</h3>
+<p>This is my salary template, it including social insurance and income tax,
+you need change <code>$Company</code> to your company name and <code>$Bank</code> as same. <code>Vacation</code> is your loss because personal leave.</p>
+<div class="hlcode"><pre>snippet sal &quot;salary&quot;
+    <span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">6</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;, localtime()-86400)`</span><span class="cp">}</span> * &quot;<span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y/%m&quot;, localtime()-86400*30)`</span><span class="cp">}</span> salary&quot;
+                Income:<span class="nv">$Company</span>:Salary              -<span class="cp">${</span><span class="mi">1</span><span class="p">:</span><span class="mi">10000</span><span class="cp">}</span> CNY
+                Expenses:Government:SocialInsurance <span class="cp">${</span><span class="mi">2</span><span class="cp">}</span> CNY
+                Expenses:Government:HouseFund       <span class="cp">${</span><span class="mi">3</span><span class="cp">}</span> CNY
+                Expenses:Government:IncomeTax       <span class="cp">${</span><span class="mi">4</span><span class="cp">}</span> CNY
+                Expenses:<span class="nv">$Company</span>:Vacation          <span class="cp">${</span><span class="mi">5</span><span class="p">:</span><span class="mi">0</span><span class="cp">}</span> CNY
+                Assets:<span class="nv">$Bank</span>:Saving
 </pre></div>
 </div>
 
