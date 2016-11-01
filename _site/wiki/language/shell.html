@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+        <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+        <title>Shell - Wiki</title>
+        <meta name="keywords" content="simiki, wiki"/>
+        <meta name="description" content=""/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+        <!-- End Google Tag Manager -->
+
+    </head>
+
+    <body>
+        <div id="container">
+            
+<div id="header">
+  <div id="post-nav"><a href="/wiki/">Home</a>&nbsp;»&nbsp;<a href="/wiki/#language">language</a>&nbsp;»&nbsp;Shell</div>
+</div>
+<div class="clearfix"></div>
+<div id="title">Shell</div>
+  <div id="content">
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#text-processing">Text Processing</a><ul>
+<li><a href="#awk">awk</a><ul>
+<li><a href="#prepend-a-newline-in-a-file-in-the-makefile">Prepend a newline in a file in the Makefile</a></li>
+</ul>
+</li>
+<li><a href="#sed">sed</a></li>
+<li><a href="#grep">grep</a><ul>
+<li><a href="#only-print-specified-grouping-that-match">Only print specified grouping that match</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="text-processing">Text Processing</h1>
+<h2 id="awk">awk</h2>
+<h3 id="prepend-a-newline-in-a-file-in-the-makefile">Prepend a newline in a file in the Makefile</h3>
+<ul>
+<li>Solution: <code>@awk BEGIN{print "Header"} {print $0}' foo.txt; \</code></li>
+</ul>
+<p>I have tried <code>sed '1i'</code> but in Mac it need a newline after <code>i</code>, like:</p>
+<div class="hlcode"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="mi">1</span><span class="n">i</span>\
+<span class="n">Header</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span>
+</pre></div>
+
+
+<p>But Makefile couldn't input the newline, even if I have read
+<a href="https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html">this</a>.
+If someone know please let <a href="http://morefreeze.github.io/b_about.html">me</a> know.</p>
+<h2 id="sed">sed</h2>
+<h2 id="grep">grep</h2>
+<h3 id="only-print-specified-grouping-that-match">Only print specified grouping that match</h3>
+<ul>
+<li>Background: If there is a file like this:</li>
+</ul>
+<div class="hlcode"><pre><span class="n">GET</span> <span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">path</span><span class="o">?</span><span class="n">foo</span><span class="o">=</span><span class="n">bar</span> <span class="n">HTTP</span>
+</pre></div>
+
+
+<p>You need only get the <code>/app/path?foo=bar HTTP</code> when <code>GET</code> is front of it and
+<code>HTTP</code> is behind it.</p>
+<ul>
+<li>
+<p>Solution: <code>grep -oP '(?&lt;=GET )[^ ]+(?= HTTP)' file</code></p>
+</li>
+<li>
+<p>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.
+<a href="http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27">explainshell</a></p>
+</li>
+</ul>
+</div>
+
+        </div>
+        <div id="footer">
+            <span>
+                Copyright © 2012-2016 MoreFreeze.
+                Powered by <a href="http://simiki.org/" target="_blank">Simiki</a>.
+            </span>
+        </div>
+        
+    </body>
+</html>
