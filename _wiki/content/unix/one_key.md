@@ -31,7 +31,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 
 [github](https://github.com/rupa/z)
 ```bash
-https://github.com/rupa/z.git
+git clone https://github.com/rupa/z.git
 source z/z.sh
 ```
 
