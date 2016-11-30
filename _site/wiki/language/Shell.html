@@ -34,7 +34,10 @@
 <li><a href="#prepend-a-newline-in-a-file-in-the-makefile">Prepend a newline in a file in the Makefile</a></li>
 </ul>
 </li>
-<li><a href="#sed">sed</a></li>
+<li><a href="#sed">sed</a><ul>
+<li><a href="#tail-without-last-100-line">tail without last 100 line</a></li>
+</ul>
+</li>
 <li><a href="#grep">grep</a><ul>
 <li><a href="#only-print-specified-grouping-that-match">Only print specified grouping that match</a></li>
 </ul>
@@ -47,8 +50,12 @@
 <h2 id="awk">awk</h2>
 <h3 id="prepend-a-newline-in-a-file-in-the-makefile">Prepend a newline in a file in the Makefile</h3>
 <ul>
-<li>Solution: <code>@awk BEGIN{print "Header"} {print $0}' foo.txt; \</code></li>
+<li>Solution: </li>
 </ul>
+<div class="hlcode"><pre>    <span class="err">@</span><span class="n">awk</span> <span class="n">BEGIN</span><span class="p">{</span><span class="n">print</span> <span class="s">&quot;Header&quot;</span><span class="p">}</span> <span class="p">{</span><span class="n">print</span> <span class="err">$</span><span class="mi">0</span><span class="p">}</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span><span class="p">;</span> \
+</pre></div>
+
+
 <p>I have tried <code>sed '1i'</code> but in Mac it need a newline after <code>i</code>, like:</p>
 <div class="hlcode"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="mi">1</span><span class="n">i</span>\
 <span class="n">Header</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span>
@@ -59,6 +66,17 @@
 <a href="https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html">this</a>.
 If someone know please let <a href="http://morefreeze.github.io/b_about.html">me</a> know.</p>
 <h2 id="sed">sed</h2>
+<h3 id="tail-without-last-100-line">tail without last 100 line</h3>
+<p>Sometime, I may want to see a file last some lines without last some lines(let's say 100).
+A direct solution is <code>wc -l</code> get the line count then minus 100 use <code>sed</code>. But I have seen
+a more graceful solution.</p>
+<ul>
+<li>Solution: </li>
+</ul>
+<div class="hlcode"><pre><span class="n">tac</span> <span class="n">file</span> <span class="o">|</span> <span class="n">sed</span> <span class="err">&#39;</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="n">d</span><span class="err">&#39;</span> <span class="o">|</span> <span class="n">tac</span><span class="err">`</span>
+</pre></div>
+
+
 <h2 id="grep">grep</h2>
 <h3 id="only-print-specified-grouping-that-match">Only print specified grouping that match</h3>
 <ul>
@@ -71,13 +89,15 @@ If someone know please let <a href="http://morefreeze.github.io/b_about.html">me
 <p>You need only get the <code>/app/path?foo=bar HTTP</code> when <code>GET</code> is front of it and
 <code>HTTP</code> is behind it.</p>
 <ul>
-<li>
-<p>Solution: <code>grep -oP '(?&lt;=GET )[^ ]+(?= HTTP)' file</code></p>
-</li>
-<li>
-<p>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.
-<a href="http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27">explainshell</a></p>
-</li>
+<li>Solution:</li>
+</ul>
+<div class="hlcode"><pre><span class="n">grep</span> <span class="o">-</span><span class="n">oP</span> <span class="err">&#39;</span><span class="p">(</span><span class="o">?&lt;=</span><span class="n">GET</span> <span class="p">)[</span><span class="o">^</span> <span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="o">?=</span> <span class="n">HTTP</span><span class="p">)</span><span class="err">&#39;</span> <span class="n">file</span><span class="err">`</span>
+</pre></div>
+
+
+<ul>
+<li>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.
+<a href="http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27">explainshell</a></li>
 </ul>
 </div>
 
