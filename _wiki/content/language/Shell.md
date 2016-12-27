@@ -61,3 +61,46 @@ grep -oP '(?<=GET )[^ ]+(?= HTTP)' file`
 
 - Explain: `-o` is for only print match, `-P` is for using perl-style regex.
 [explainshell](http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27)
+
+### Print only appear in left(right) file line
+
+- Background: If your have two files like these:
+
+```
+A.csv
+1
+2
+3
+5
+```
+
+```
+B.csv
+2
+3
+4
+```
+
+You want to print the line only appear in left(right) file, like this:
+
+```
+1
+5
+```
+
+- Solutions:
+
+```shell
+diff --unchanged-line-format= --old-line-format='%L' --new-line-format= A.csv B.csv
+```
+
+Or if you need print the line only appear in right file, use this:
+
+```shell
+diff --unchanged-line-format= --old-line-format= --new-line-format='%L' A.csv B.csv
+```
+
+- Explain: `--LTYPE-line-format=LFMT`
+
+    `LTYPE is 'old', 'new', or 'unchanged'.`
+    `%L` is contents of line, other options you can see detail in `man diff`.

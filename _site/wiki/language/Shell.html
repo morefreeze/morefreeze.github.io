@@ -40,6 +40,7 @@
 </li>
 <li><a href="#grep">grep</a><ul>
 <li><a href="#only-print-specified-grouping-that-match">Only print specified grouping that match</a></li>
+<li><a href="#print-only-appear-in-leftright-file-line">Print only appear in left(right) file line</a></li>
 </ul>
 </li>
 </ul>
@@ -98,6 +99,50 @@ a more graceful solution.</p>
 <ul>
 <li>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.
 <a href="http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27">explainshell</a></li>
+</ul>
+<h3 id="print-only-appear-in-leftright-file-line">Print only appear in left(right) file line</h3>
+<ul>
+<li>Background: If your have two files like these:</li>
+</ul>
+<div class="hlcode"><pre><span class="n">A</span><span class="p">.</span><span class="n">csv</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">5</span>
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="n">B</span><span class="p">.</span><span class="n">csv</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+</pre></div>
+
+
+<p>You want to print the line only appear in left(right) file, like this:</p>
+<div class="hlcode"><pre><span class="mi">1</span>
+<span class="mi">5</span>
+</pre></div>
+
+
+<ul>
+<li>Solutions:</li>
+</ul>
+<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format=&#39;%L&#39; --new-line-format= A.csv B.csv</span>
+</pre></div>
+
+
+<p>Or if you need print the line only appear in right file, use this:</p>
+<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format= --new-line-format=&#39;%L&#39; A.csv B.csv</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>Explain: <code>--LTYPE-line-format=LFMT</code></p>
+<p><code>LTYPE is 'old', 'new', or 'unchanged'.</code>
+<code>%L</code> is contents of line, other options you can see detail in <code>man diff</code>.</p>
+</li>
 </ul>
 </div>
 
