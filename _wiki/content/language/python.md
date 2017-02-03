@@ -51,6 +51,15 @@ data = urllib2.urlopen(r).read()
 
 See [doc](https://docs.python.org/2/library/urllib2.html)
 
+## Send request with proxy
+
+```python
+proxy = urllib2.ProxyHandler({'http': 'http://127.0.0.1:7777'})
+opener = urllib2.build_opener(proxy)
+resp = opener.open('http://www.google.com', timeout=5)
+print resp.code
+```
+
 # Text Processing
 
 ## Merge two files with same primary key

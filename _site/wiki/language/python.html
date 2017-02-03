@@ -36,6 +36,7 @@
 </li>
 <li><a href="#network">Network</a><ul>
 <li><a href="#send-request-with-headers">Send request with headers</a></li>
+<li><a href="#send-request-with-proxy">Send request with proxy</a></li>
 </ul>
 </li>
 <li><a href="#text-processing">Text Processing</a><ul>
@@ -107,6 +108,14 @@
 
 
 <p>See <a href="https://docs.python.org/2/library/urllib2.html">doc</a></p>
+<h2 id="send-request-with-proxy">Send request with proxy</h2>
+<div class="hlcode"><pre><span class="n">proxy</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">({</span><span class="s">&#39;http&#39;</span><span class="p">:</span> <span class="s">&#39;http://127.0.0.1:7777&#39;</span><span class="p">})</span>
+<span class="n">opener</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;http://www.google.com&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">resp</span><span class="o">.</span><span class="n">code</span>
+</pre></div>
+
+
 <h1 id="text-processing">Text Processing</h1>
 <h2 id="merge-two-files-with-same-primary-key">Merge two files with same primary key</h2>
 <div class="hlcode"><pre><span class="c"># coding: utf-8</span>
