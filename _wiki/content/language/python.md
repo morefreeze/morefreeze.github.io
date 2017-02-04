@@ -151,7 +151,7 @@ sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 
 ## Best practise
 
-[https://pymotw.com/2/threading/index.html]()
+[https://pymotw.com/2/threading/index.html](https://pymotw.com/2/threading/index.html)
 
 # Decorator
 
