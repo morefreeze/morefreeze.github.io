@@ -50,6 +50,7 @@
 </li>
 <li><a href="#threading">Threading</a><ul>
 <li><a href="#best-practise">Best practise</a></li>
+<li><a href="#start-multithread-and-use-ctrl-c-to-interrupt">Start multithread and use Ctrl-C to interrupt</a></li>
 </ul>
 </li>
 <li><a href="#decorator">Decorator</a><ul>
@@ -200,6 +201,19 @@
 <h1 id="threading">Threading</h1>
 <h2 id="best-practise">Best practise</h2>
 <p><a href="https://pymotw.com/2/threading/index.html">https://pymotw.com/2/threading/index.html</a></p>
+<h2 id="start-multithread-and-use-ctrl-c-to-interrupt">Start multithread and use Ctrl-C to interrupt</h2>
+<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">time</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">FirstThread</span><span class="p">()</span>
+<span class="n">f</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">f</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">SecondThread</span><span class="p">()</span>
+<span class="n">s</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># Use sleep instead of join()</span>
+</pre></div>
+
+
 <h1 id="decorator">Decorator</h1>
 <h2 id="referer-python-decorator-library">Referer <a href="https://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a></h2>
 <h2 id="wraps">@wraps</h2>

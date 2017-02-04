@@ -153,6 +153,20 @@ sorted_x = sorted(x.items(), key=operator.itemgetter(1))
 
 [https://pymotw.com/2/threading/index.html](https://pymotw.com/2/threading/index.html)
 
+## Start multithread and use Ctrl-C to interrupt
+
+```python
+import time
+f = FirstThread()
+f.daemon = True
+f.start()
+s = SecondThread()
+s.daemon = True
+s.start()
+while True:
+    time.sleep(1)  # Use sleep instead of join()
+```
+
 # Decorator
 
 ## Referer [Python Decorator Library](https://wiki.python.org/moin/PythonDecoratorLibrary)
