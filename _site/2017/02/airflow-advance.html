@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="airflow 进阶">
+<title>airflow 进阶</title>
+<meta property="og:description" content="上一篇介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，同时也在公司内开始摸索着使用了起来，中间也是遇到了许多问题，如这个项目的网址所表达的，现在仍是一个孵化项目，使用在线上仍需谨慎。我就来做回吃螃蟹的人，分享下最近使用的心得，以及遇到的一些问题。">
+<meta property="og:url" content="/2017/02/airflow-advance.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="airflow 进阶">
+<meta name="twitter:description" content="上一篇介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，同时也在公司内开始摸索着使用了起来，中间也是遇到了许多问题，如这个项目的网址所表达的，现在仍是一个孵化项目，使用在线上仍需谨慎。我就来做回吃螃蟹的人，分享下最近使用的心得，以及遇到的一些问题。">
+<meta name="twitter:url" content="/2017/02/airflow-advance.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2017/02/airflow-advance.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">airflow 进阶</h1>
+    <meta itemprop="keywords" content="tech,airflow,python" />
+    <p class="post-meta">
+    Posted in
+     
+    
+    and tagged
+    
+    <a href="/tags/#tech" title="tech">tech </a>, 
+    
+    <a href="/tags/#airflow" title="airflow">airflow </a>, 
+    
+    <a href="/tags/#python" title="python">python </a>
+    
+    
+    <time itemprop="datePublished" datetime="2017-02-13">
+    on Feb 13, 2017
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<ul id="markdown-toc">
+  <li><a href="#section" id="markdown-toc-section">任务结构</a></li>
+  <li><a href="#section-1" id="markdown-toc-section-1">环境变量</a></li>
+  <li><a href="#section-2" id="markdown-toc-section-2">代码规范</a></li>
+  <li><a href="#section-3" id="markdown-toc-section-3">调试</a></li>
+  <li><a href="#section-4" id="markdown-toc-section-4">部署</a></li>
+  <li><a href="#section-5" id="markdown-toc-section-5">其他杂事</a></li>
+  <li><a href="#section-6" id="markdown-toc-section-6">焦油坑</a></li>
+  <li><a href="#airflow-" id="markdown-toc-airflow-">airflow 不足</a></li>
+  <li><a href="#section-7" id="markdown-toc-section-7">总结</a></li>
+</ul>
+
+<p><a href="/2016/12/airflow.html">上一篇</a>介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，
+同时也在公司内开始摸索着使用了起来，中间也是遇到了许多问题，如这个项目的网址所表达的，
+现在仍是一个孵化项目，使用在线上仍需谨慎。我就来做回吃螃蟹的人，分享下最近使用的心得，
+以及遇到的一些问题。
+<a class="anchor" id="read-more"></a></p>
+
+<hr />
+
+<h2 id="section">任务结构</h2>
+<p>安装完部署到线上，遇到的第一个问题是任务的结构，虽然 airflow 的 dag 文件也是 python写的，
+但和业务代码实际关系不太大，就像一个 shell 脚本，所以放在运维的项目中，建一个叫 dags的目录，
+之后如果有其它业务的 dag 要进来再新建子目录就行，同时别忘了把 airflow 配置的 dag 目录设置在这。</p>
+
+<h2 id="section-1">环境变量</h2>
+<p>环境变量总是一个让人头疼却又绕不开的东西，因为业务代码用了 conda，所以至少要设置一下<code class="highlighter-rouge">PYTHONPATH</code>，
+但这个变量其实应该是由外部部署程序决定的（比如我们用的ansible部署），也许还会分机房有不同配置，
+所以这里建议写一个类似<code class="highlighter-rouge">const.py.j2</code>的文件，把这些由外部决定的变量放进去，
+在部署时由程序生成出来。一个可能的写法像这样：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># const.py.j2</span>
+<span class="n">home_dir</span> <span class="o">=</span> <span class="s">""</span>
+<span class="n">PYTHONPATH</span> <span class="o">=</span> <span class="s">":/usr/bin"</span>
+</code></pre>
+</div>
+<p>但这样写在调试程序时就比较麻烦，只能每个人自己写一份自己的配置文件（就像自己生成配置文件）。</p>
+
+<p>当然，如果线上部署不会根据机房机器发生变化的话，那直接写一个<code class="highlighter-rouge">const.py</code>也是没问题的。</p>
+
+<h2 id="section-2">代码规范</h2>
+<p>dag 文件只要按照 PEP 8 的标准来写就行，而且一般行数也不多，大部分是在描述，
+没什么逻辑在其中。但我发现 airflow 对于要执行的脚本会有些要求。</p>
+
+<ol>
+  <li>脚本最好有明确的时间参数，执行后只更新那个时间点（段）的数据，
+并且在 dags 中也显式地指定执行的时间。可以用``来对时间进行偏移。</li>
+  <li>脚本如果只需要当前时间执行的，那最好有个上游函数(PythonBranchOperator)来判断是否需要继续执行，
+如果 execute_time 过了当前时间一段时间了那就直接跳过不执行了。</li>
+  <li>每个脚本的功能做到”Do one thing and do it well.”，不要把一堆操作放在一个地方，
+原先的脚本可能是要做先执行 foo，完成后再执行 bar 这样类似的操作，
+这应该正是 airflow 发挥作用的地方，所以最好拆开来写。当然如果真的只是一些没有依赖关系的操作，
+又不需要并行执行，写在一个脚本里我也没意见。</li>
+  <li>注意脚本是否能并行执行，比如是否写了同一个文件，如果是，做好线程安全处理。</li>
+</ol>
+
+<h2 id="section-3">调试</h2>
+<p>最大问题还是上面说的环境变量问题，在自己机器上维护一份<code class="highlighter-rouge">const.py</code>且不入库，
+然后搭一套 airflow 还是很快的，执行只要用默认的顺序执行器就好，写完 dag 直接在界面或者用命令去测都可以。
+因为有些测试服只有内网能访问，而且又没法改 nginx 配置的话，可以用 ssh 隧道把端口映射到本机，
+<code class="highlighter-rouge">shell
+ssh -N -f -L local_port:127.0.0.1:remote_port user@host
+</code>
+只需要改下 local_port 和 remote_port 就行了，命令的解释可以看<a href="http://explainshell.com/explain?cmd=ssh+-N+-f+-L+local_port%3A127.0.0.1%3Aremote_port+user%40host">这里</a></p>
+
+<h2 id="section-4">部署</h2>
+<p>部署方面基本比较流畅，只要拷到 dag 目录就可以了。如果文件拷贝时间比较长，
+可能会导致 airflow 读取的文件内容不一致，可以先将文件拷到一个目录，然后用软链链接到新目录就行了。</p>
+
+<h2 id="section-5">其他杂事</h2>
+<p>在写 dag 时都会指定 start_date，那么这个时间要指定从什么时候开始就比较头疼，
+因为在上线后，打开了任务，airflow 会把 start_date 以后的都执行一遍，
+这可能会导致不必要的运行，一个解决办法是在命令行直接都标记为成功，
+但我们规定线上不能随便操作，因为放开了 airflow run/backfill 这些命令，
+和直接在线上执行脚本没太大区别了，折中的做法是统一由一个人来执行，
+而不是让任何人都能随意地去执行命令，把自由降到最小。</p>
+
+<h2 id="section-6">焦油坑</h2>
+<p>在用的时候遇到的坑也是有的，查问题又查到了<a href="https://cwiki.apache.org/confluence/display/AIRFLOW/Common+Pitfalls">这里</a>，
+原来别人早已遇到过了，挑几个比较重要的列出来。</p>
+
+<ol>
+  <li>使用 BashOperator 时，因为 jinja2 的关系，在脚本的最后要留一个<strong>空格</strong>，否则会报一个诡异的 jinja2 错误。</li>
+  <li>使用 BahsOperator 如果 command 要使用 python 字符串命名变量的形式（如<code class="highlighter-rouge">'{foo}_{bar}'.format(bar=bar, foo=foo)</code>），
+并且要用模板变量时，命令就要写成类似这样 <code class="highlighter-rouge">'python {file} "}}"'.format(file=file)</code>
+正常的字符串替换用一层<code class="highlighter-rouge"><span class="p">{}</span></code>，模板变量用四层<code class="highlighter-rouge"><span class="p">{}</span></code>。
+另外一个小提示是，ds 这种时间变量两边要带上引号，否则<code class="highlighter-rouge">2017-02-13 00:00:00</code>的变量会被 shell 认为是两个参数，
+当然这可不是 airflow 的锅。</li>
+  <li>如果要修改 dag 的开始时间或运行间隔，一定要顺便改下 dag_id，例如改成 my_dag_v1, my_dag_v2，
+否则会出现各种诡异的问题，因为 scheduler 会监视目录下的文件改变，鬼知道新的 dag 会更新成什么样。</li>
+  <li>一般对于定时任务，大部分都是今天跑昨天的任务，比如 02-13 当天跑的时间参数是 02-12，
+这个 airflow 会自动把时间减掉一个周期，注意这里是上一个周期，如果任务是周级的，
+那执行时，传入的参数实际是 02-06 的日期。</li>
+</ol>
+
+<h2 id="airflow-">airflow 不足</h2>
+<p>在使用 airflow 过程中也发现了一些缺点，主要集中在 web UI 上，在这先列出一些：</p>
+
+<ol>
+  <li>官方文档上说 dag run 对象表示一个 dag 的执行，在 web UI 上直接创建这个并没有什么用，
+无论选成哪种状态，似乎 scheduler 并没有轮询到这个</li>
+  <li>webserver 启动时无法指定 subdir，这导致它的 dags 显示非常混乱，有时候可以显示不在 airflow_home下的 dag，
+有时候又消失了</li>
+  <li>web UI 在子图中，点查看 Code 会抛异常</li>
+  <li>web UI 在 dag run 下，无法修改状态，会报 CSRF token missing</li>
+  <li>无法在 web UI 下新启之前没跑过的任务（可以重跑之前完成的任务），只能通过打开任务让它自己去跑</li>
+  <li>Mark success 链接对于子任务不起作用，会报 404 lots of circles 的错误</li>
+  <li>Task Instances 无法对单列进行排序，总是先按状态排序，再排 dag_id等等</li>
+</ol>
+
+<h2 id="section-7">总结</h2>
+<p>以上是个人对airflow 一些进阶使用的心得，中间也会在 google 上搜索各种解决方案，
+但因为毕竟用的人比较少，能找到的文章并不多，大部分都是指向官方文档，反复研读文档也是很必要的，
+只有几篇文章是类似我这样的使用心得，而且讲的也是比较特定的场景，但至少还是有些启发。
+我觉得一个获取帮助的快速渠道是一些官方的 channel，比如它的 <a href="https://gitter.im/apache/incubator-airflow">gitter</a>，
+如果没人理就隔段时间再问一次，回复可能是半天以上，但相比自己搞不出来已经好挺多的。
+当然更快的办法是看源码，可能顺便还能提个 PR。
+不过我相信随着项目的推广会有越来越多的人加入进来，有更多的技巧会分享出来，
+如果你发现有任何这些方面相关的文章可以通过留言，或者直接用边栏联系方式找到我。</p>
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2016/12/airflow.html" title="airflow 简明指南">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2017/02/airflow-advance.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/02/airflow-advance.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2017/02/airflow-advance.html" title="airflow 进阶" rel="bookmark">airflow 进阶</a>
+  </li>
+  
+  <li>
+  <a href="/2016/12/airflow.html" title="airflow 简明指南" rel="bookmark">airflow 简明指南</a>
+  </li>
+  
+  <li>
+  <a href="/2016/12/rise-of-the-tomb-raider.html" title="Rise of the Tomb Raider" rel="bookmark">Rise of the Tomb Raider</a>
+  </li>
+  
+  <li>
+  <a href="/2016/10/beancount-advance.html" title="beancount 进阶" rel="bookmark">beancount 进阶</a>
+  </li>
+  
+  <li>
+  <a href="/2016/10/beancount-thinking.html" title="beancount 起步" rel="bookmark">beancount 起步</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="3">game (3)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="3">note (3)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="3">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+  
+    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+  
+    <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
+  
+    <a href="/tags/#tech" title="tech" rel="2">tech</a> &nbsp;
+  
+    <a href="/tags/#airflow" title="airflow" rel="2">airflow</a> &nbsp;
+  
+    <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
+  
+    <a href="/tags/#python" title="python" rel="2">python</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>
