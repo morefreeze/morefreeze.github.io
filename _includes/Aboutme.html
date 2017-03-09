@@ -8,6 +8,9 @@
 
   You can contact me via:
 
+  {% if site.weibo_username != empty %}
+  <a href="https://weibo.com/{{site.weibo_username}}" title="WeiboID: {{site.weibo_username}}">Weibo</a> /
+  {% endif %}
   {% if site.email != empty %}
   <a href="mailto:{{site.email}}" title="mailto: {{site.email}}">Email</a> /
   {% endif %}
