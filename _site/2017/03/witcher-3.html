@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="HBase Compaction">
-<title>HBase Compaction</title>
-<meta property="og:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
-<meta property="og:url" content="/2016/02/hbase-compaction.html">
+<meta property="og:title" content="Witcher 3">
+<title>Witcher 3</title>
+<meta property="og:description" content="最近把拖了一年多的游戏《巫师3:狂猎》通关了，不愧为 2016 最佳角色扮演游戏，总体来说">
+<meta property="og:url" content="/2017/03/witcher-3.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="HBase Compaction">
-<meta name="twitter:description" content="Merge接着上回的Split说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看OnlineMerge和Master initiated automatic region merge。">
-<meta name="twitter:url" content="/2016/02/hbase-compaction.html">
+<meta name="twitter:title" content="Witcher 3">
+<meta name="twitter:description" content="最近把拖了一年多的游戏《巫师3:狂猎》通关了，不愧为 2016 最佳角色扮演游戏，总体来说">
+<meta name="twitter:url" content="/2017/03/witcher-3.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/2016/02/hbase-compaction.html">
+<link rel="canonical" href="/2017/03/witcher-3.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -117,65 +117,68 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">HBase Compaction</h1>
-    <meta itemprop="keywords" content="HBase,Hadoop" />
+    <h1 itemprop="name" class="post-title">Witcher 3</h1>
+    <meta itemprop="keywords" content="game,RPG,ACT" />
     <p class="post-meta">
     Posted in
     
-    <a href="/categories/#tech">tech</a>&nbsp;
+    <a href="/categories/#game">game</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#HBase" title="HBase">HBase </a>, 
+    <a href="/tags/#game" title="game">game </a>, 
     
-    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
+    <a href="/tags/#RPG" title="RPG">RPG </a>, 
+    
+    <a href="/tags/#ACT" title="ACT">ACT </a>
     
     
-    <time itemprop="datePublished" datetime="2016-02-26">
-    on Feb 26, 2016
+    <time itemprop="datePublished" datetime="2017-03-22">
+    on Mar 22, 2017
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
       
-<h2 id="merge">Merge</h2>
+<p>最近把拖了一年多的游戏《巫师3:狂猎》通关了，不愧为 <a href="https://zh.wikipedia.org/wiki/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%A5%96#.E8.AF.84.E5.A7.94.E4.BC.9A.E8.AF.84.E9.80.89.E5.A5.96.E9.A1.B9">2016 最佳角色扮演游戏</a>，
+总体来说
+<a class="anchor" id="read-more"></a>
+主线剧情体验很好，石之心剧情有些俗套且短，血与酒剧情很好，杰洛特最终过上了幸福的生活。</p>
 
-<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。
-<a class="anchor" id="read-more"></a></p>
+<p>主要说下系统吧，游戏系统是根据同名小说做的（剧情是原创的），故事应该从13世纪开始吧，
+很早就有了巫师这个职业（实际个人觉得更好的翻译是狩魔猎人，但巫师大家都叫惯了，就随大流了），
+这个职业从小受训，需要学习剑术，十字弓，法印（相对于女术士来说，即简单的魔法），
+人体用的煎药，抹剑上的剑油，以及调制炸弹，感觉给人一副什么都会的感觉，
+当然不可能什么都精通，在游戏中也分了几种流派，对应不同的装备和加点策略，
+尝试各流派打法也是一种挑战。对于我这种见过《血源》第一个神父 BOSS 的（伪）高端玩家来说，
+上来就选了“死而无愧”的最高难度，于是杰洛特也就停在了 6 级上，当我仔细研究了系(gong)统(lue)后，
+终于领悟玩好巫师不在于会各种招术，而要动脑子。游戏一开始就带你领略了前面说的各种系统，
+学了法印一看还分 5 种，功能各不相同，用个炸弹还分显形的，易燃的，反魔法的，
+不禁让人望而却步（我还记得当年玩巫师2的时候连教学关都没过去），但你真正熟练了就会主动去思考面对各种局面应该如何应对。</p>
 
-<h2 id="compaction">Compaction</h2>
-<p>下面终于进入正题了，compaction是将一些HStore文件合并或丢弃，从而更高效地去查找。Compaction分两种，一种是Minjor Compaction，另一种是Major Compaction。compaction的触发一般是定期检查文件的状态，如果达到的compaction的条件则进行，而进行compaction无论前面的哪种，都会真刀真枪地去写文件，这就会产生很大的IO，因此这个compaction一般建议设置较大的值，并由外部自行控制一天何时来compaction（比如凌晨没什么业务时）。</p>
+<p>因为有这么一个陡峭的学习曲线，所以在最高难度下要想能玩下去还真得下点工夫，
+简单来说网上找找攻略，看看加点策略会让游戏好过点，而加点策略的核心就是：加血。
+游戏开始应该是路过某个村子时，会出现巫师套装的寻宝任务，听我的，没有 40 级就别想这事，
+能穿什么穿什么，能做什么做什么，但就是别做绿装，当你做完第一件后，显示攒够 6 件就能触发特效，
+不过注意一行小字“师匠级才可触发”，也就是升到最高级，套装总共分：加工，高级，极品，师匠，
+算上刚做出来的话有 5 个等级，而没什么特效的话套装有的还不如一些橙装，升级最快的办法是过剧情，
+后期完成个主线至少升 1 级，比接支线任务好多了，先把等级升上去，再去合套装也不迟，
+而且做套装很费钱，平常没事多翻别人家，多采药，遇到人类敌人或者战场，一定要把装备都搜刮一遍。
+打怪套路就是滚滚滚，大部分怪物攻击都不能防反，只能老实躲，
+而且前期遇到最多一定是水鬼以及巫婆，勤抹剑油上去怼，同时有 3 个及以上的怪就拉开距离，
+最好落单一个个杀之，</p>
 
-<h2 id="minjor-compaction">Minjor Compaction</h2>
-<p>可以将它理解为一次合并，之后的major compaction相当于多次调用minjor compaction。它的操作是将相邻的两个较小的HStore文件合并，这会将两个文件内容重新写到一个新的位置，并将两个文件删除。如果minjor compaction要合的比较多，就可能会进化成major compaction。</p>
-
-<h2 id="major-compaction">Major Compaction</h2>
-<p>先来看几个参数：</p>
-
-<ul>
-  <li>hbase.hstore.compaction.min 每个Store最少要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.max 每个Store最多要进行compaction的文件数</li>
-  <li>hbase.hstore.compaction.min.size HStore小于该值的将被compaction</li>
-  <li>hbase.hstore.compaction.max.size HStore大于该值的将被compaction</li>
-</ul>
-
-<p>结合下这几个参数，用人话说的意思就是，major compaction将会选出一些文件，这些文件数在一个范围内，被选出的文件是那些太大或太小（就像果菜摊将坏的或畸形的水果剔除，但在HBase里它们都有用，所以是融合）。</p>
-
-<p>看起来很简单嘛，你想多了，还有一个最重要的参数：</p>
-
-<ul>
-  <li>hbase.store.compaction.ratio compaction的选择系数</li>
-</ul>
-
-<p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
-
-<script type="math/tex; mode=display">b * ratio > a</script>
-
-<p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
-
-<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
+<p>另一个吸引我的地方是剧情选择上，平常的对话会有多种选项，让你决定你的杰洛特是个什么样的人，
+是个视钱如命的赏金猎人（对，就是我），还是个行侠仗义的英雄，当然这些选项一般对剧情没太大影响。
+但有另外一种选择却可以左右剧情的发展，你是直接送希里到父王那里交差，还是选择和伙伴一起对抗狂猎，
+以及最后的 Happy ending 还是 Good ending 也在于以前的抉择中，还好我养成了良好的存盘习惯，
+在关键节点前都有备份，得以让我能回到过去选择另一种人生。这里顺便说下我在巫师3中的存档策略，
+前期因为没什么技能点，打怪又特别容易死，首先在设置里把自动存档调到最低，骑马跑大概 200 米就存一下，
+地图一般没开，瞎跑遇上个怪堆分分钟萝卜就给你掀下马，然后让怪一套带走了，频率高的就存这个档，
+过一段剧情后就存第二个档，防止剧情选错选项，当然可以再开第三个档，存的频率可以更大，
+因为狂猎结局确实会看比较靠前的一些选择。</p>
 
 
   </article>
@@ -186,10 +189,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/2016/01/hbase_split_detail.html" title="HBase Split detail">&larr; Older</a></li>
+    <li class="previous"><a href="/2017/02/airflow-advance.html" title="airflow 进阶">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/2016/05/share-precommit-hook.html" title="Share precommit hook">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -206,8 +209,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2016/02/hbase-compaction.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2016/02/hbase-compaction.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2017/03/witcher-3.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/03/witcher-3.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
