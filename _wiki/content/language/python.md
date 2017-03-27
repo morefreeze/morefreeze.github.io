@@ -60,6 +60,14 @@ resp = opener.open('http://www.google.com', timeout=5)
 print resp.code
 ```
 
+## Run shell with string as input
+
+```python
+from subprocess import Popen, PIPE
+p = Popen(['myapp'], stdout=PIPE, stdin=PIPE, stderr=PIPE)
+stdout_data = p.communicate(input='data_to_write')[0]
+```
+
 # Text Processing
 
 ## Merge two files with same primary key
