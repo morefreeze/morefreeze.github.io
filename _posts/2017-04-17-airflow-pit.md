@@ -78,8 +78,20 @@ A 和 B一起执行而没人相让的话就会陷入死锁。airflow 也存在�
 但缺点是如果目录层数变多，还要写一个比较复杂的函数去取到 dags 根目录位置。
 
 ## Jinja2 执行 shell 脚本
-上一篇提到了Jinja2在BashOperator里最后要有一个空格来防止错误的转义，这里补充一下，
-应该只有在执行 bash 脚本(末尾是.sh扩展名）时才会有这种问题，并不是任何shell命令都有。
+上一篇提到了 Jinja2 在 BashOperator 里最后要有一个空格来防止错误的转义，这里补充一下，
+应该只有在执行 bash 脚本(末尾是.sh扩展名）时才会有这种问题，并不是任何 shell 命令都有。
+
+## 头疼的中文
+看起来 BashOperator 没法正常地在有中文的情况下工作，因为 bash_command 需要接收一个 unicode，
+而且在 render 时，由于使用 `{}.format()` 的输出方式，在有中文的情况下就无法正常输出，
+这似乎是一个死局。目前的解决办法是在脚本头加上
+
+```python
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+```
+但要注意这会影响到其他脚本的 defaultencoding，当然可以在结束时再设置回来。
 
 ## 批量重跑任务
 使用airflow的一个主要原因是它有一个可视化的操作界面，但比较不爽的是批量操作只能通过命令行完成，
