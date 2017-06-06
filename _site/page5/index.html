@@ -123,6 +123,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2016/01/hbase_split_detail.html">HBase Split detail</a>
+      </h1>
+      <meta itemprop="keywords" content="Hadoop,HBase" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#tech">tech</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+      
+      <a href="/tags/#HBase" title="HBase">HBase </a>
+      
+      
+      <time itemprop="datePublished" datetime="2016-01-10">
+      on Jan 10, 2016
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h2 id="split">split的具体过程</h2>
+<p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
+以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
+
+
+        
+        
+
+        
+        <p><a href="/2016/01/hbase_split_detail.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2015/12/hbase-split.html">HBase Split</a>
       </h1>
       <meta itemprop="keywords" content="Hadoop,HBase" />
@@ -293,51 +334,6 @@ last solution, jump to</p>
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
-2
-3
-4</pre></td><td class="code"><pre><span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="gp">$ </span>gem install sass
-<span class="gp">$ </span>gem install jekyll
-<span class="gp">$ </span>git clone https://github.com/yulijia/freshman21.git<span class="w">
-</span></pre></td></tr></tbody></table></code></pre></figure>
-
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-install.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -406,6 +402,10 @@ last solution, jump to</p>
   </li>
   
   <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）" rel="bookmark">learn vim script the hard way 笔记（上）</a>
+  </li>
+  
+  <li>
   <a href="/2017/04/airflow-pit.html" title="airflow 踩坑集锦" rel="bookmark">airflow 踩坑集锦</a>
   </li>
   
@@ -415,10 +415,6 @@ last solution, jump to</p>
   
   <li>
   <a href="/2017/02/airflow-advance.html" title="airflow 进阶" rel="bookmark">airflow 进阶</a>
-  </li>
-  
-  <li>
-  <a href="/2016/12/airflow.html" title="airflow 简明指南" rel="bookmark">airflow 简明指南</a>
   </li>
   
 </div>
@@ -439,7 +435,7 @@ last solution, jump to</p>
   
   <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="3">note (3)</a></li>
+  <li><a href="/categories/#note" title="note" rel="4">note (4)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
@@ -525,6 +521,8 @@ last solution, jump to</p>
   
     <a href="/tags/#pit" title="pit" rel="1">pit</a> &nbsp;
   
+    <a href="/tags/#vim" title="vim" rel="1">vim</a> &nbsp;
+  
     <a href="/tags/#platformer" title="platformer" rel="1">platformer</a> &nbsp;
   
     <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
@@ -549,6 +547,9 @@ last solution, jump to</p>
   
   
   <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
   
   
   

@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="Games">
-<title>Games</title>
-<meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="/games/">
+<meta property="og:title" content="learn vim script the hard way 笔记（上）">
+<title>learn vim script the hard way 笔记（上）</title>
+<meta property="og:description" content="CH02布尔型变量可以用:set [no]number这样来设置，:set number!表示取反，:set number?获取当前状态（实际:set nonumber?也可以哟）数值型用:set numberwidth=10来设置，同理:set numberwidth?获取当前值relativenumber或者...">
+<meta property="og:url" content="/2017/06/learn-vim-script-the-hard-way.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="Games">
-<meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="/games/">
+<meta name="twitter:title" content="learn vim script the hard way 笔记（上）">
+<meta name="twitter:description" content="CH02布尔型变量可以用:set [no]number这样来设置，:set number!表示取反，:set number?获取当前状态（实际:set nonumber?也可以哟）数值型用:set numberwidth=10来设置，同理:set numberwidth?获取当前值relativenumber或者...">
+<meta name="twitter:url" content="/2017/06/learn-vim-script-the-hard-way.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/games/">
+<link rel="canonical" href="/2017/06/learn-vim-script-the-hard-way.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -116,109 +116,153 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
 
   <div class="page-content col-sm-8">
-    <div class="post">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title">Games</h1>
+    <h1 itemprop="name" class="post-title">learn vim script the hard way 笔记（上）</h1>
+    <meta itemprop="keywords" content="vim" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#note">note</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#vim" title="vim">vim </a>
+    
+    
+    <time itemprop="datePublished" datetime="2017-06-06">
+    on Jun 6, 2017
+    </time>
+    </p>
   </header>
 
-  <article class="post-content about"> 
-    <ul class="tags-box">
+  <article class="post-content" itemprop="articleBody">
+      
+<h3 id="ch02">CH02</h3>
 
+<p>布尔型变量可以用:set [no]number这样来设置，:set number!表示取反，:set number?获取当前状态（实际:set nonumber?也可以哟）
+数值型用:set numberwidth=10来设置，同理:set numberwidth?获取当前值
+relativenumber或者rnu用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</p>
 
+<h3 id="ch03">CH03</h3>
 
-    
-        
-            
-                - / 10
-            
-            <a href="/2017/06/shio.html">《汐》游玩体验</a><br />
-        
-    
-        
-    
-        
-    
-        
-            
-                10 / 10
-            
-            <a href="/2017/03/witcher-3.html">巫师 3</a><br />
-        
-    
-        
-    
-        
-    
-        
-            
-                9 / 10
-            
-            <a href="/2016/12/rise-of-the-tomb-raider.html">Rise of the tomb raider</a><br />
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                10 / 10
-            
-            <a href="/2016/08/tlou.html">The last of us</a><br />
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                9 / 10
-            
-            <a href="/2012/06/portal-2.html">Portal 2</a><br />
-        
-    
+<p>注意注释不要写在map后面，这样会当成命令去执行map a dd “comment</p>
 
+<h3 id="ch04">CH04</h3>
 
+<p>map,nmap,vmap,imap都知道什么意思吧</p>
 
-</ul>
+<h3 id="ch05">CH05</h3>
+
+<p>第四章的map都是会循环定义，如:nmap dd O<esc>jddk 这就是一死循环
+用noremap,nnoremap,inoremap,vnoremap来表示非递归的map
+unmap取消map定义</esc></p>
+
+<h3 id="ch06">CH06</h3>
+
+<p>有一些键在normal模式几乎不会用到，可以用来map，如<space>,<cr>,<bs>,-,H,L
+vim把prefix的key叫作leader，用:let mapleader="-"来定义，一般会用","作为leader
+vim还有种local leader，只作用于当前类型的文件，如py,html，用:lset maplocalleader="\\"来定义</bs></cr></space></p>
+
+<h3 id="ch07">CH07</h3>
+
+<p>本章教你如何更快地去更快地编辑文件（没打错），用:nnoremap <leader>ev :vsplit $MYVIMRC<cr>去打开vim的配置文件，_ev_意味着edit my vimrc file
+用:nnoremap <leader>sv :source $MYVIMRC<cr> _sv_意味着source my vimrc file
+最好用$MYVIMRC，这样能在不同系统下兼容</cr></leader></cr></leader></p>
+
+<h3 id="ch08">CH08</h3>
+
+<p>vim还有个特性叫“缩写”(abbreviations)，与map不同的是他只出现在插入，替换和命令模式
+缩写可以用于打错字的时候，如:iabbrev waht what
+缩写会替换“非关键字符”，这货是啥，用:set iskeyword?看一下
+经常会看到这样iskeyword=@,48-57,_,192-255，这表示关键字符是所有英文大小写字母，数字（48-57），下划线，另外一些特殊字符（192-255）
+你可以看:help isfname了解完整描述，但它货挺长的……（这个实际是vim定义哪些字符可以成为文件名，注意里面没有空格和反斜杠\）
+缩写另一个用处是可以快速输入用户或版权信息，如:iabbrev @@ morefreeze@gmail.com
+缩写和map的区别是map一旦发现能匹配上就转换，而缩写需要确认这是个整词（就是isfname定义的）才会替换，假如:inoremap ssig hehehe，如果输入Lessig，会发现后面被替换了，而换成缩写就没有问题</p>
+
+<h3 id="ch10">CH10</h3>
+
+<p>有几种办法可以退到normal模式，
+esc</p>
+<c-c>
+&lt;c-[&gt;
+尝试:map jk <esc>或者:map jj <esc>
+你要蛋疼想训练你的肌肉记忆新的map，你可以:inoremap <esc> <nop>（训练上面的jk反应）注意：这里我尝试把<esc>disable掉了，但出现了delete键失灵的情况，在插入模式按下会插入'[3~'，即使用vim wiki上的:fixdel也不管用，所以这里建议尽快训练好jk反应
+
+### CH11
+
+:nnoremap <buffer> <leader>x dd这句只会作用在当前光标在的那个窗口，切换到另一个窗口这句就不好使
+一般是不像上面那样写<buffer>的，而是写<localleader>，这类似命名空间，假如你写插件的话，这样会防止你写了半天的map被别人覆盖掉
+还有:setlocal wrap来只对当前窗口有效
+如果local和普通的map都是同一个值的话，会优先执行local的map
+localleader一般用于文件类型的插件
+想知道一个键是否被map可以用:verbose imap <c-h>
+
+### CH12 Autocommands
+
+正常如果打开一个新文件，并且马上退出，这个文件不会留在硬盘上，如果你执行:autocmd BufNewFile * :write则会让文件留在硬盘上
+我们来解析下这条命令，BufNewFile是vim要监控的事件，*是要过滤的事件，:write要运行的命令
+命令那部分是不允许出来<cr>这种的
+事件的类型有（只是一小部分）：
+开始编辑一个不存在的文件
+读一个文件无论是否存在
+切换文件的filetype设置
+一段时间内没有按键盘上的某个键
+进入插入模式
+退出插入模式
+:autocmd BufNewFile *.txt :write这是对.txt后缀的文件进行过滤，只保存这类文件
+可以同时有多个事件:autocmd BufWritePre,BufRead *.html :normal gg=G，在预写和读的时候格式化.html文件
+提一下BufNewFile和BufRead几乎总是同时出现
+文件类型相关的例子:autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>，当打开一个Python文件时，使用<leader>c 可以快速注释
+通过:help autocmd-events查看更多的事件列表
+在做习题时，发现可以map <buffer> <leader> yyyy而不能map <buffer> <localleader> yyyy，注意这里需要先设置localleader，我猜你就没设:let localleader="\\"
+</localleader></buffer></leader></buffer></leader></esc></localleader></buffer></cr></c-h></localleader></buffer></leader></buffer></esc></nop></esc></esc></esc></c-c>
 
   </article>
+  <hr />
+</div>
 
-  
 
-</div> 
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2017/04/airflow-pit.html" title="airflow 踩坑集锦">&larr; Older</a></li>
+    
+    
+    <li class="next"><a href="/2017/06/shio.html" title="《汐》游玩体验">Newer &rarr;</a></li>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
 
     <section class="pager">
   
