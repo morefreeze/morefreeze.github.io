@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="记一次cloudera机器重装">
-<title>记一次cloudera机器重装</title>
-<meta property="og:description" content="先上结论：线上机器千万别没事yum update以及同类的升级操作">
-<meta property="og:url" content="/2015/09/machine-die-in-cloudera.html">
+<meta property="og:title" content="《汐》游玩体验">
+<title>《汐》游玩体验</title>
+<meta property="og:description" content="趁着假期把《汐》通关了，先声明我是通过奶牛关的野蔷薇获取的 key，所以我会把写一篇靠谱的评测作为自己的一个责任。自己是一个 ACT 游戏玩家，会特别痴迷平台跳跃类游戏，玩过的 Super Meat Boy （后面简称 SMB）可以说是这类游戏的神作以及标杆，所以后面会把《汐》和 SMB 作个比较。我玩的时候游戏...">
+<meta property="og:url" content="/2017/06/shio.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="记一次cloudera机器重装">
-<meta name="twitter:description" content="先上结论：线上机器千万别没事yum update以及同类的升级操作">
-<meta name="twitter:url" content="/2015/09/machine-die-in-cloudera.html">
+<meta name="twitter:title" content="《汐》游玩体验">
+<meta name="twitter:description" content="趁着假期把《汐》通关了，先声明我是通过奶牛关的野蔷薇获取的 key，所以我会把写一篇靠谱的评测作为自己的一个责任。自己是一个 ACT 游戏玩家，会特别痴迷平台跳跃类游戏，玩过的 Super Meat Boy （后面简称 SMB）可以说是这类游戏的神作以及标杆，所以后面会把《汐》和 SMB 作个比较。我玩的时候游戏...">
+<meta name="twitter:url" content="/2017/06/shio.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/2015/09/machine-die-in-cloudera.html">
+<link rel="canonical" href="/2017/06/shio.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -119,58 +119,80 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">记一次cloudera机器重装</h1>
-    <meta itemprop="keywords" content="crash,trap" />
+    <h1 itemprop="name" class="post-title">《汐》游玩体验</h1>
+    <meta itemprop="keywords" content="platformer,hard" />
     <p class="post-meta">
     Posted in
     
-    <a href="/categories/#work">work</a>&nbsp;
+    <a href="/categories/#game">game</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#crash" title="crash">crash </a>, 
+    <a href="/tags/#platformer" title="platformer">platformer </a>, 
     
-    <a href="/tags/#trap" title="trap">trap </a>
+    <a href="/tags/#hard" title="hard">hard </a>
     
     
-    <time itemprop="datePublished" datetime="2015-09-23">
-    on Sep 23, 2015
+    <time itemprop="datePublished" datetime="2017-06-06">
+    on Jun 6, 2017
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
       
-<p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong>
-<a class="anchor" id="read-more"></a></p>
+<p>趁着假期把《汐》通关了，先声明我是通过<a href="https://cowlevel.net/wildrose">奶牛关的野蔷薇</a>
+获取的 key，所以我会把写一篇靠谱的评测作为自己的一个责任。</p>
 
-<p>上周五由于跑数据发现某个软件需要更新，需要<code class="highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
-结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
-各方面素质差很多，同样的拉数据，别的机器不挂，它一会就挂了，娇贵得很。得出结论是只能重装。这台机器的角色还挺多，
-包括所有导入数据脚本，跑每天的统计，保存的数据结果，同时还有作为HDFS的NameNode和
-Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以再重跑就行了，于是决定重装。噩梦开始！</p>
+<p>自己是一个 ACT 游戏玩家，会特别痴迷平台跳跃类游戏，玩过的 Super Meat Boy （后面简称 SMB）
+可以说是这类游戏的神作以及标杆，所以后面会把《汐》和 SMB 作个比较。我玩的时候游戏版本是 1.0.5。</p>
 
-<p>重装完成……</p>
+<p>整体来说游戏可以打 8/10 分，在我看来，这是一款可以发行的游戏了，而且口碑应该会不错。</p>
 
-<p>首先，发现cloudera的host管理这台机器处理故障状态，当然它上面其实啥东西都没，
-而且解除授权需要先把运行的停掉（但根本就没运行咋停？），从集群中移除需要先解除授权，
-所以为今之计只能先装上cloudera-agent，让cloudera发现它再说。然而公司的尿性网，
-其中的依赖cloudera-daemon有600M，中间下载又是断连，又是挂代理，搜了下国内还真没找到这个源，最终是下下来了，
-装上后，进行了个re-upgrade的操作，发现报错，研究一番后发现是版本装高了，是的，这一个月
-时间cloudera-agent这货升了3个小版本号，哦对了，cloudera-daemon也跟着升了3个小版本，
-因此还要重下，我当时就十万个草泥马跑过。</p>
+<p>先说整个游戏的游戏性，这个打 7/10 分，核心玩法是主角不断击打灯笼跳跃完成游戏，
+可以说这个设定很新颖，完全不符合物理常识，当然也很有趣，希望开发者<strong>绝对</strong>不要改这个设定。
+之所以打 7 分是因为这个设定还存在一些问题：
+1. 灯笼没有很好地反映跳跃的高度，这让人无法做好预测，特别是一些比较大的场景，
+有时候一次击打为了到达第二层会跳得特别高，如下图<img src="" alt="两个灯笼同样的位置不一样的高度" />
+甚至不是每个灯笼都要打到，中间有些跳得很高是可以直接略过的，比如这个<img src="" alt="略过中间一个" />。
+建议可以把灯笼改成长短不一表示跳跃的高度，更发散地，甚至可以用粗细来表示上升的速度
+（粗表示比较胖，上升得慢，细表示升得快，但总体高度是由长短决定的），这样有些关可以更多地变换齿轮的速度。
+2. 破灯笼采用上面的设计后可以移除掉了，现在的这个位置有些尴尬，觉得应该理一下所有灯笼种类。
+2. 带有引力的装置总是很难击打出来，像这个<img src="" alt="应该能打到" />
+但没有挥出来直到撞上刺，这个我后来摸索出来对于引力装置，都要走波纹最外侧才能打出来，
+稍微靠里就会出现打不出来的情况，虽然即使打出来也跳不了，但至少应该有挥出的动作。
+3. 之前在 steam 评论区看到很多说击打手感的问题，不过我在玩的时候应该已经没有，
+不需要看击打动作（实际动作会晚于按钮 0.5 秒吧），只要人到灯笼位置按 J 就行。</p>
 
-<p>又过了一天，经过以前同事提醒，想起来有台机器当时保存了yum下好的cache，赶紧找出来，
-用了一个小时就装了回去。后来又发现这台机器无法被server认出来，需要重新认证，
-找了半天，发现可以强制删除（之前我还在psql里强制删除这台机器，但因为外键限制没成功），
-然后就重新添加这台机器进集群，因为要重新分配角色，于是就把除了HDFS其它的Hive,Yarn等删了，
-重装分配了角色。发现HDFS的两个NameNode在安全模式，这时HDFS只读不写，找了半天没发现怎么修复这个问题，
-看来只能退出安全模式了，退出后机器重装的恶果终于显现了，HDFS块丢失，丢了近50%，
-后来又找到配置里的replication（冗余系数）为1，WTF，没有备份，丢就是丢了。</p>
+<p>关卡设置觉得可以打 8/10 分，整体难度是偏难，最难的地方应该是第三关 Boss（不断掌），
+需要一口气通过需要 ?? 次的跳跃，一般的存盘点只需要 10 次左右就过了。好在关卡设置每次是固定的，
+我觉得在这里是个优点，这让通关变得只需要背版加操作不失误就行了，而大部分关容错性还是蛮大的，
+比如在前一个灯笼打晚了，可以在下一个灯笼更快击打来弥补。然后是隐藏关的设置，
+因为场景本身比较大，关卡划分不明显，所以无法像 SMB 那种几乎每几小关就有一个隐藏关的设定，
+但我觉得可以借鉴下 SMB 的设定，隐藏关可以做得“胡逼”一点，比如弄个像素风，
+来个 3D 视角等等，甚至期待 DLC 来个里世界（梦外世界？）。最后要说是这游戏总共分了 4 大关，
+每关居然有 Boss 一说，说是 Boss 其实就是一段很长的场景，需要更多的耐心更少的容错，
+这样设置给玩家的感受是难度陡然上升，每关的每小节都比较平淡，一般跳个几次就过去了，
+但在 Boss 这会卡很久，我觉得可以越到后面把场景拉长（就是把存盘点减少），
+这样到 Boss 时不会特别不适应。说实话不断掌我是真真打了至少 2 个小时才过，
+即使有隐式的存盘点（过了一次就需要再跳前面一小段打灯笼了），光提示就出了五六回，
+中间有摔键盘的冲动（上个游戏是魂2）。</p>
 
-<p>好了不说了，我去导之前数据了。</p>
+<p>画面在我看来可以打 10/10 分，不怕骄傲，很有 Journey 那种风味，
+唯一需要加工的是齿轮尖刺以及红烙铁和整个风格有些不搭配。</p>
 
+<p>剧情没看太懂，所以不评分了，但我想刚开始是不是做一个简单易懂的游戏会不会更容易吸引大家？</p>
+
+<p>《汐》的收集要素是几封信和一些小物件，会反映在标题画面上。这里也有 SMB 作为参考，
+加一个弹珠或者什么的来收集一下，进而可以换个更酷炫的手杖或人物，也扩展了可玩性。
+另外发现大部分国内游戏要么是游戏做得特别好但不具有扩展性，要么就是扩展太好玩家都不知道从哪玩起，
+借着 steam 的创意工坊，可以更多地让玩家定义关卡，成为中国的《马里奥制造》，
+一点小期待是希望在 2018 的核聚变的地狱挑战区看到这款游戏。</p>
+
+<p>最后说个小八卦，参加了 2017 的核聚变，在展会上遇到了参展的《汐》，和其中一位穿着“老葛”衣服的开发者聊了下，
+当时后悔没有加下微信，不过也反馈了游戏初期遇到的一些问题，觉得背后是这样一个团队人来做的话，
+还是很靠谱的。</p>
 
   </article>
   <hr />
@@ -180,10 +202,10 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/2014/12/how-to-set-the-config-file.html" title="How to set the config.yml file">&larr; Older</a></li>
+    <li class="previous"><a href="/2017/04/airflow-pit.html" title="airflow 踩坑集锦">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/2015/12/solution-of-minimum-height-trees.html" title="Solution of Minimum Height Trees">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -200,8 +222,8 @@ Hive的入口，当时觉得HDFS数据应该会有冗余，而结果数据可以
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2015/09/machine-die-in-cloudera.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2015/09/machine-die-in-cloudera.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2017/06/shio.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/06/shio.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
