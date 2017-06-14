@@ -91,3 +91,5 @@ tags: [vim]
 文件类型相关的例子`:autocmd FileType python nnoremap <buffer> <localleader>c I#<esc>`，当打开一个Python文件时，使用<leader>c 可以快速注释
 （建议用scrooloose/nerdcommenter 插件，对各种语言都能很好地开关注释）
 通过`:help autocmd-events`查看更多的事件列表
+
+[下一篇](/2017/06/learn-vim-script-the-hard-way-b.html)
