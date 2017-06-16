@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="learn vim script the hard way 笔记（中）">
+<title>learn vim script the hard way 笔记（中）</title>
+<meta property="og:description" content="上一篇CH13 Buffer-Local Abbreviations  这章就是说iabbrev也能用&lt;buffer&gt;来修饰  你想记住某个新的snippet最好办法就是disable掉原来的命令，比如iabbrev &lt;buffer&gt; return NOPENOPENOPECH14 Aut...">
+<meta property="og:url" content="/2017/06/learn-vim-script-the-hard-way-b.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="learn vim script the hard way 笔记（中）">
+<meta name="twitter:description" content="上一篇CH13 Buffer-Local Abbreviations  这章就是说iabbrev也能用&lt;buffer&gt;来修饰  你想记住某个新的snippet最好办法就是disable掉原来的命令，比如iabbrev &lt;buffer&gt; return NOPENOPENOPECH14 Aut...">
+<meta name="twitter:url" content="/2017/06/learn-vim-script-the-hard-way-b.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2017/06/learn-vim-script-the-hard-way-b.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">learn vim script the hard way 笔记（中）</h1>
+    <meta itemprop="keywords" content="vim" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#note">note</a>&nbsp;
+     
+    
+    and tagged
+    
+    <a href="/tags/#vim" title="vim">vim </a>
+    
+    
+    <time itemprop="datePublished" datetime="2017-06-12">
+    on Jun 12, 2017
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<p><a href="/2017/06/learn-vim-script-the-hard-way.html">上一篇</a></p>
+
+<h3 id="ch13-buffer-local-abbreviations">CH13 Buffer-Local Abbreviations</h3>
+<ol>
+  <li>这章就是说<code class="highlighter-rouge">iabbrev</code>也能用<code class="highlighter-rouge">&lt;buffer&gt;</code>来修饰</li>
+  <li>你想记住某个新的snippet最好办法就是disable掉原来的命令，比如<code class="highlighter-rouge">iabbrev &lt;buffer&gt; return NOPENOPENOPE</code></li>
+</ol>
+
+<h3 id="ch14-autocommand-groups">CH14 Autocommand Groups</h3>
+<ol>
+  <li><code class="highlighter-rouge">autocmd</code>是不会替换原先的命令的，假如使用两次同样的命令，那触发autocmd时会进行两次命令</li>
+  <li>特别要注意在你<code class="highlighter-rouge">source $MYVIMRC</code>时，autocmd会再载入一次！</li>
+  <li>可以用<code class="highlighter-rouge">augroup testgroup autocmd xxx augroup END</code>，这时如果你运行下<code class="highlighter-rouge">augroup testgroup autocmd yyy augroup END</code>，你猜<code class="highlighter-rouge">xxx</code>还会执行吗？耶，答案是会！</li>
+  <li>你可以在augroup里用<code class="highlighter-rouge">autocmd!</code>来清空augroup
+<a class="anchor" id="read-more"></a></li>
+</ol>
+
+<h3 id="ch15-operator-pending-mappings">CH15 Operator-Pending Mappings</h3>
+<ol>
+  <li>vim有一类命令后面可以接动作，比如<code class="highlighter-rouge">d</code>,<code class="highlighter-rouge">y</code>,<code class="highlighter-rouge">c</code></li>
+  <li><code class="highlighter-rouge">onoremap p i(</code>，如果在普通模式下输入<code class="highlighter-rouge">dp</code>，相当于<code class="highlighter-rouge">di(</code>，就是把括号内的内容删掉</li>
+  <li><code class="highlighter-rouge">:onoremap b /return&lt;cr&gt;</code>，输入<code class="highlighter-rouge">db</code>，会向下删除，直到遇到<strong>return</strong>为止</li>
+  <li><code class="highlighter-rouge">:onoremap in( :&lt;c-u&gt;normal! f(vi(&lt;cr&gt;</code>，输入<code class="highlighter-rouge">cin(</code>会直接将光标移到一个括号，并且删除括号内的内容，然后变成插入模式，<code class="highlighter-rouge">&lt;c-u&gt;</code>之后会讲，这里没什么用，只是保证能在所有情况下运行，<code class="highlighter-rouge">normal! dddd</code>表示在普通模式下按<code class="highlighter-rouge">dddd</code>（删除2行），<code class="highlighter-rouge">f(</code>表示前进到最近的左括号，<code class="highlighter-rouge">vi(</code>表示选中括号内的内容，别忘最前面是<code class="highlighter-rouge">c</code>，所以相当于改变括号内的内容</li>
+  <li>定义延迟map有两个规则：
+    <ol>
+      <li>如果你定义的内容是一段选中的内容，则vim会直接操作这段内容</li>
+      <li>否则vim会操作原光标到到新位置的内容</li>
+    </ol>
+  </li>
+  <li><code class="highlighter-rouge">&lt;c-u&gt;</code>可以通过<code class="highlighter-rouge">:help omap-info</code>查看，但<strong>没懂</strong>，用于移除vim可能插入的范围（”The CTRL-U (<c-u>) is used to remove the range that Vim may insert."）</c-u></li>
+</ol>
+
+<h3 id="ch16-more-operator-pending-mappings">CH16 More Operator-Pending Mappings</h3>
+<p>这章讲了更复杂的延迟map的例子，比如<code class="highlighter-rouge">:onoremap ih :&lt;c-u&gt;execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"&lt;cr&gt;</code>，在Markdown里，当光标在内容中时，会选中heading，下面逐字翻译下
+1. <code class="highlighter-rouge">:normal gg</code>相当于普通模式下执行<code class="highlighter-rouge">gg</code>，跳到文件头
+3. <code class="highlighter-rouge">:execute "normal! gg"</code>和上面是一个效果
+4. <code class="highlighter-rouge">:normal! gg/a&lt;cr&gt;</code>就不是你想的那样，因为normal无法识别特别字符，比如<code class="highlighter-rouge">&lt;cr&gt;</code>，但是，你可以用<code class="highlighter-rouge">:execute "normal! gg/a\r"</code>来完成，注意，将<code class="highlighter-rouge">&lt;cr&gt;</code>替换成了<code class="highlighter-rouge">\r</code>
+5. 另一个值得注意的地方是，给出的命令最后用了<code class="highlighter-rouge">g_</code>而不是<code class="highlighter-rouge">$</code>，他俩都是到当前行最后一个字符，但<code class="highlighter-rouge">$</code>会多匹配一个，你感受一下
+6. <code class="highlighter-rouge">normal!</code>中的感叹号是表示不使用map
+7. <code class="highlighter-rouge">:help normal</code>,<code class="highlighter-rouge">:help execute</code>,<code class="highlighter-rouge">:help expr_quote</code>也许会有用</p>
+
+<h3 id="ch17-status-lines">CH17 Status Lines</h3>
+<ol>
+  <li><code class="highlighter-rouge">:set statusline=%f</code>设置状态栏为显示文件名</li>
+  <li>注意后面如果有<code class="highlighter-rouge">空格</code>的话，要用<code class="highlighter-rouge">\ </code>（斜杠后有个空格）来转义，否则会认为是set命令的下一条，因为set支持一次设置多个</li>
+  <li>一次写一整行的状态栏太复杂难懂了，可以分开写，只要<code class="highlighter-rouge">:set statusline=%f</code>,<code class="highlighter-rouge">:set statusline+=\ -\</code>,…</li>
+  <li><code class="highlighter-rouge">:set statusline=[%4l]</code>的%4表示占4个字符，不足用空格补齐，<code class="highlighter-rouge">%-4</code>表示左对齐，<code class="highlighter-rouge">%04</code>表示不足用0补齐，<code class="highlighter-rouge">%.20</code>表示占20个字符的宽，多的会截掉，一般格式为<code class="highlighter-rouge">%-0{minwid}.{maxwid}{item}</code></li>
+</ol>
+
+<h3 id="ch18-responsible-coding">CH18 Responsible Coding</h3>
+<ol>
+  <li>多写注释</li>
+  <li>可以用<code class="highlighter-rouge">" Vimscript file settings ---------------------- }</code>来包住一个想被折叠的部分，同时需要设置<code class="highlighter-rouge">:setlocal foldmethod=marker</code>，在这部分内容中时，按<code class="highlighter-rouge">za</code>来折叠或打开</li>
+  <li>vim有许多缩写的命令，比如<code class="highlighter-rouge">setl</code>==<code class="highlighter-rouge">setlocal</code>，但十分不建议在vim script里这么写，如果你是临时手写命令的话，可以用缩写</li>
+</ol>
+
+<h3 id="ch19-variables">CH19 Variables</h3>
+<ol>
+  <li>用<code class="highlighter-rouge">:set foo='bar'</code>对变量赋值</li>
+  <li><code class="highlighter-rouge">:set textwidth=80</code>，用<code class="highlighter-rouge">:echo &amp;textwidth</code>获取选项的变量值，对bool值也可以会用，如<code class="highlighter-rouge">:let &amp;wrap=1</code></li>
+  <li>对选项变量的值进行赋值也相当于修改选项，如<code class="highlighter-rouge">:let &amp;textwidth=100</code>,<code class="highlighter-rouge">:let &amp;textwidth=&amp;textwidth+10</code></li>
+  <li>你可以用<code class="highlighter-rouge">:let l:number=1</code>设置local变量</li>
+  <li>用<code class="highlighter-rouge">:let @a='hello'</code>设置一个寄存器变量，<code class="highlighter-rouge">@"</code>是复制时的内容，<code class="highlighter-rouge">@/</code>是按<code class="highlighter-rouge">/keyword</code>中的keyword内容</li>
+  <li>bool值不可以用纯字母的字符串，如果是’42’,’0’这种还是可以转换成数字1或0的</li>
+  <li>可用的寄存器有”-a-zA-Z0-9”（寄存器0存最近一次y的内容，1存最近一次删除或改变的内容，如果少于一行的话或指定别的寄存器，则不存，当还有删除或改变时，会将1的内容移到2，依此类推）</li>
+  <li>未命名寄存器<code class="highlighter-rouge">"</code>（vim的<code class="highlighter-rouge">d</code>,<code class="highlighter-rouge">c</code>,<code class="highlighter-rouge">s</code>,<code class="highlighter-rouge">x</code>,<code class="highlighter-rouge">y</code>的内容，也包括上一个用名字的寄存器的内容）</li>
+  <li>4个只读寄存器<code class="highlighter-rouge">:.%#</code>（<code class="highlighter-rouge">:</code>保存上一条命令，<code class="highlighter-rouge">.</code>保存一次输入内容，<code class="highlighter-rouge">%</code>当前文件全路径，<code class="highlighter-rouge">#</code>备用文件全路径），表达式寄存器<code class="highlighter-rouge">=</code>（这不是一个真的寄存器，只是在一些命令中表示这里是一个寄存器）</li>
+  <li>选择或drop寄存器<code class="highlighter-rouge">*+~</code>（这在GUI界面才有）</li>
+  <li>黑洞寄存器<code class="highlighter-rouge">_</code>（当使用<code class="highlighter-rouge">"_dd</code>时，将不存储dd的内容到任何寄存器）</li>
+  <li>还有搜索寄存器</li>
+  <li>其他更多寄存器看<code class="highlighter-rouge">:help registers</code>吧</li>
+  <li><code class="highlighter-rouge">:display</code>显示所有寄存器的值</li>
+  <li>经常会有想把复制的内容（用<code class="highlighter-rouge">y</code>复制，并非剪切板）用在搜索上，或其它地方，这时可以用<code class="highlighter-rouge">&lt;c-r&gt;</code>后面再跟寄存器名，比如<code class="highlighter-rouge">&lt;c-r&gt;0</code>就是刚才复制的内容，这时会自动替换成刚才复制的值</li>
+</ol>
+
+<h3 id="ch20-variable-scoping">CH20 Variable Scoping</h3>
+<ol>
+  <li><code class="highlighter-rouge">:let b:foo='bar'</code>，设置变量作用域是当前buffer</li>
+  <li><code class="highlighter-rouge">:help internal-variables</code>查看都有哪些变量作用域</li>
+  <li>前面什么都不写，变量是当前作用域，在函数里就只到函数结束，否则就是全局，其他修饰符有<code class="highlighter-rouge">b:</code>（当前buffer）,<code class="highlighter-rouge">w:</code>（当前窗口）,<code class="highlighter-rouge">t:</code>（当前tab）,<code class="highlighter-rouge">g:</code>（全局）,<code class="highlighter-rouge">l:</code>（当前函数内的变量）,<code class="highlighter-rouge">s:</code>（当前使用<code class="highlighter-rouge">:source</code>的vim脚本）,<code class="highlighter-rouge">a:</code>（函数参数，只在函数内有效，和<code class="highlighter-rouge">l:</code>的区别是<code class="highlighter-rouge">l:</code>可以随便定义变量，而<code class="highlighter-rouge">a:</code>只限于函数传进来的参数）,<code class="highlighter-rouge">v:</code>（全局，vim预定义变量）</li>
+  <li>可以用<code class="highlighter-rouge">:for k in keys(b:) | echo k | endfor</code>看到buffer作用域下的变量</li>
+</ol>
+
+<h3 id="ch21-conditionals">CH21 Conditionals</h3>
+<ol>
+  <li>多行命令可以用<code class="highlighter-rouge">|</code>连接起来，而且要注意，除了开头要有<strong>冒号</strong>外，<code class="highlighter-rouge">|</code>后面的命令不需要有<strong>冒号</strong></li>
+  <li>当判断是个字符串时，会先尝试转成数字，然后再转成bool，比如”10foo”相当于10，同时也可以进行运行<code class="highlighter-rouge">"10foo"+10</code>，将会得出20，类似PHP的处理方法</li>
+  <li><code class="highlighter-rouge">:if 1 | echo 'true' | elseif 2 | echo '2' | else | echo '3' | endif</code></li>
+</ol>
+
+<h3 id="ch22-comparisons">CH22 Comparisons</h3>
+<ol>
+  <li>如果<code class="highlighter-rouge">:set ignorecase</code>，则<code class="highlighter-rouge">:if 'foo'=='FOO'</code>就是真了</li>
+  <li>这个故事告诉我们写脚本时要假设用户的各种设置，不要相信裸的<code class="highlighter-rouge">==</code>，而要用<code class="highlighter-rouge">==?</code>表示大小写不敏感的相等，用<code class="highlighter-rouge">==#</code>大小敏感的相等，其实大部分比较都支持<code class="highlighter-rouge">?#</code>，比如<code class="highlighter-rouge">!=#</code>,<code class="highlighter-rouge">&gt;=?</code></li>
+  <li>还有种<code class="highlighter-rouge">smartcase</code>会在模式串都是小写的情况下，认为是大小写不敏感，其他情况认为是敏感的</li>
+  <li><code class="highlighter-rouge">\c</code>出现在模式串的任何位置都表示这个串是大小写不敏感，<code class="highlighter-rouge">\C</code>表示敏感，如<code class="highlighter-rouge">\cfoo</code></li>
+</ol>
+
+<h3 id="ch23-functions">CH23 Functions</h3>
+<ol>
+  <li>vim的函数都要<strong>首字母大写</strong></li>
+  <li>使用<code class="highlighter-rouge">:function Meow() | xxxx | endfunction</code>定义一个函数</li>
+  <li>使用<code class="highlighter-rouge">:call Meow()</code>调用一个函数</li>
+  <li>一个函数最多有<strong>20</strong>个参数</li>
+</ol>
+
+<h3 id="ch24-function-arguments">CH24 Function Arguments</h3>
+<ol>
+  <li>vim的函数可以接受参数哟，在函数内使用<code class="highlighter-rouge">a:xxx</code>来使用</li>
+  <li>函数可以接受变长参数列表，用<code class="highlighter-rouge">:function Varg(...)</code>，参数值是<code class="highlighter-rouge">a:0</code>这是参数个数,<code class="highlighter-rouge">a:1</code>这才是第一个参数,<code class="highlighter-rouge">a:000</code>是<strong>可变</strong>参数列表（注意如果是<code class="highlighter-rouge">:function Varg2(foo, ...)</code>的形式，<code class="highlighter-rouge">a:000</code>只会显示…的参数内容），<code class="highlighter-rouge">a:1 == a:000[0]</code></li>
+  <li>参数<code class="highlighter-rouge">a:xxx</code>是<strong>只读</strong>变量，试图赋值会报错</li>
+</ol>
+
+<h3 id="ch25-numbers">CH25 Numbers</h3>
+<ol>
+  <li>vim的数字有2种，一种是有符号32位整数，一种是单浮点数</li>
+  <li><code class="highlighter-rouge">echo 0x10 017</code></li>
+  <li><code class="highlighter-rouge">echo 5.45e+3</code></li>
+  <li><code class="highlighter-rouge">echo 3/2</code>整除，<code class="highlighter-rouge">echo 3/2.0</code>浮点数</li>
+</ol>
+
+<h3 id="ch26-strings">CH26 Strings</h3>
+<ol>
+  <li><code class="highlighter-rouge">:echom 'Hello' + ' world</code>会显示0，因为vim的+只对数字有用，这里字符串都转成了数字</li>
+  <li><code class="highlighter-rouge">:echo 10 + '10.10'</code>会显示20，因为<code class="highlighter-rouge">10.10</code>是个字符串会转成10</li>
+  <li>字符串连接用<code class="highlighter-rouge">.</code></li>
+  <li><code class="highlighter-rouge">:echo 10.10 . 'hehe'</code>会报错，因为vim很愿意把字符串转成浮点，但反之不行</li>
+  <li>转义符是<code class="highlighter-rouge">\</code></li>
+  <li>如果用<code class="highlighter-rouge">:echom abc\nefg</code>，<code class="highlighter-rouge">\n</code>会显示成<code class="highlighter-rouge">^@</code>，这是表示新换行的另一种形式</li>
+  <li>用单引号表示不进行转义，<code class="highlighter-rouge">:echom 'That''s enough'</code>会显示成<code class="highlighter-rouge">That's enough</code>，两个单引号’‘是这里唯一的转义</li>
+  <li>通过<code class="highlighter-rouge">:help expr-quote</code>可以知道，<code class="highlighter-rouge">\x</code>,<code class="highlighter-rouge">\001</code>这种就不说了，<code class="highlighter-rouge">\u02a4</code>或<code class="highlighter-rouge">\U02a4</code>表示<strong>当前编码</strong>（<code class="highlighter-rouge">encoding</code>）下的字符值，<code class="highlighter-rouge">\b</code>表示删除，<code class="highlighter-rouge">\e</code>表示<code class="highlighter-rouge">&lt;esc&gt;</code>，<code class="highlighter-rouge">\f</code>表示<code class="highlighter-rouge">formfeed</code>(<code class="highlighter-rouge">&lt;FF&gt;</code>)</li>
+  <li>用<code class="highlighter-rouge">&lt;c-v&gt;</code>或<code class="highlighter-rouge">&lt;c-q&gt;</code>来插入非数字的字面值，比如Tab，比如<code class="highlighter-rouge">&lt;c-v&gt;065</code>就是插入’A’</li>
+  <li>一般模式匹配的时候用单引号比较好，省去转义\的麻烦，例如<code class="highlighter-rouge">a =~ '\s*'</code></li>
+</ol>
+
+<h3 id="ch27-string-functions">CH27 String Functions</h3>
+<ol>
+  <li><code class="highlighter-rouge">strlen</code>,<code class="highlighter-rouge">len</code>测字符串的长度</li>
+  <li><code class="highlighter-rouge">split(expr[, patt[, keepempty]])</code>会把字符串按patt切分成List类型，如果patt是<code class="highlighter-rouge">xxxx\zs</code>则会保留被切掉的部分，keepempty表示前几部分可以是空，如果不写默认是0，则返回的第一个元素一定是有值的，<code class="highlighter-rouge">join(List, glue)</code>会用glue把List粘成一个字符串</li>
+  <li><code class="highlighter-rouge">tolower</code>,<code class="highlighter-rouge">toupper</code>转换大小写</li>
+</ol>
+
+<h3 id="ch28-execute">CH28 Execute</h3>
+<ol>
+  <li><code class="highlighter-rouge">execute</code>就是为了给字符串估值，然后去执行，比如<code class="highlighter-rouge">:execute "vsplit " . bufname('#')"</code></li>
+  <li>vim的<code class="highlighter-rouge">execute</code>不像其他语言的<code class="highlighter-rouge">eval</code>那样危险，因为vim很少接受用户输入，即使接受也是当前用户，反正那是他们的电脑，第二个原因是vim有一些难懂的语法，但<code class="highlighter-rouge">execute</code>是最简单的，而且能把多行弄成一行写，见下例子</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">execute</code>通常用来追加那些不能用</td>
+          <td>追加的命令，比如<code class="highlighter-rouge">:execute '!ls' | echo 'abc'</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>也可用于要打<code class="highlighter-rouge">:normal</code>的情况，如<code class="highlighter-rouge">:execute  "normal ixxx\&lt;esc&gt;"</code>，效果是切换到插入模式，输出<code class="highlighter-rouge">xxx</code>然后按<code class="highlighter-rouge">&lt;esc&gt;</code></li>
+</ol>
+
+<h3 id="ch29-normal">CH29 Normal</h3>
+<ol>
+  <li>用<code class="highlighter-rouge">:normal G</code>就相当于在普通模式下执行<code class="highlighter-rouge">G</code>跳到文件最后</li>
+  <li><code class="highlighter-rouge">:normal</code>也会忠实地使用任何能用的map，如果<code class="highlighter-rouge">:nnoremap G dd</code>，则<code class="highlighter-rouge">:normal G</code>会相当于删除一行</li>
+  <li>可以用<code class="highlighter-rouge">:normal!</code>来执行原来的命令的意思</li>
+  <li>但是在<code class="highlighter-rouge">:normal!</code>无法识别特殊字符，如<code class="highlighter-rouge">&lt;cr&gt;</code>，会当成小于号字符串cr和大于号</li>
+  <li><code class="highlighter-rouge">:helpgrep</code>是跳到与后面模式匹配第一个的帮助上，可以用<code class="highlighter-rouge">:cwindow</code>或<code class="highlighter-rouge">:cnext</code>来切换，<code class="highlighter-rouge">:helpgrep uganda\c</code>忽略大小写</li>
+</ol>
+
+<h3 id="ch30-execute-normal">CH30 Execute Normal!</h3>
+<ol>
+  <li>使用<code class="highlighter-rouge">:execute normal! gg/foo\&lt;cr&gt;</code>就可以接受特殊字符了！</li>
+</ol>
+
+<p><a href="/2017/06/learn-vim-script-the-hard-way-c.html">下一篇</a></p>
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way-b.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way-b.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="https://weibo.com/morefreeze" title="WeiboID: morefreeze">Weibo</a> /
+  
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）" rel="bookmark">learn vim script the hard way 笔记（上）</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/shio.html" title="《汐》游玩体验" rel="bookmark">《汐》游玩体验</a>
+  </li>
+  
+  <li>
+  <a href="/2017/04/airflow-pit.html" title="airflow 踩坑集锦" rel="bookmark">airflow 踩坑集锦</a>
+  </li>
+  
+  <li>
+  <a href="/2017/03/witcher-3.html" title="巫师 3" rel="bookmark">巫师 3</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="5">game (5)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="5">note (5)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="4">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+  
+    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+  
+    <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
+  
+    <a href="/tags/#tech" title="tech" rel="3">tech</a> &nbsp;
+  
+    <a href="/tags/#airflow" title="airflow" rel="3">airflow</a> &nbsp;
+  
+    <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
+  
+    <a href="/tags/#python" title="python" rel="3">python</a> &nbsp;
+  
+    <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
+  
+    <a href="/tags/#ACT" title="ACT" rel="1">ACT</a> &nbsp;
+  
+    <a href="/tags/#pit" title="pit" rel="1">pit</a> &nbsp;
+  
+    <a href="/tags/#platformer" title="platformer" rel="1">platformer</a> &nbsp;
+  
+    <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
+  
+    <a href="/tags/#vim" title="vim" rel="2">vim</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>
