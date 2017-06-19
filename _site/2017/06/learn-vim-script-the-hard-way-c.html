@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="learn vim script the hard way 笔记（下）">
+<title>learn vim script the hard way 笔记（下）</title>
+<meta property="og:description" content="上一篇### CH31 Basic Regular Expressions1. /和?，前者向后找，后者向前找CH32 Case Study: Grep Operator, Part One  :nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;...">
+<meta property="og:url" content="/2017/06/learn-vim-script-the-hard-way-c.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="learn vim script the hard way 笔记（下）">
+<meta name="twitter:description" content="上一篇### CH31 Basic Regular Expressions1. /和?，前者向后找，后者向前找CH32 Case Study: Grep Operator, Part One  :nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;...">
+<meta name="twitter:url" content="/2017/06/learn-vim-script-the-hard-way-c.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2017/06/learn-vim-script-the-hard-way-c.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">learn vim script the hard way 笔记（下）</h1>
+    <meta itemprop="keywords" content="" />
+    <p class="post-meta">
+    Posted in
+    
+    <a href="/categories/#note">note</a>&nbsp;
+     
+    
+    <time itemprop="datePublished" datetime="2017-06-18">
+    on Jun 18, 2017
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<p><a href="./2017/06/learn-vim-script-the-hard-way-b.html">上一篇</a>
+### CH31 Basic Regular Expressions
+1. <code class="highlighter-rouge">/</code>和<code class="highlighter-rouge">?</code>，前者向后找，后者向前找</p>
+
+<h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
+<ol>
+  <li><code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="highlighter-rouge">:cwindow</code>查看<code class="highlighter-rouge">quickfix</code>窗口</li>
+  <li>以上还有一点要修改，如果光标在一个<code class="highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
+  <li>但上面对于光标有单引号的不启作用，用<code class="highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
+  <li>最终版本<code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="highlighter-rouge">:copen</code>打开结果页</li>
+</ol>
+
+<h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
+<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="highlighter-rouge">Test</code>
+<a class="anchor" id="read-more"></a></p>
+
+<ol>
+  <li>这里函数名后面有个<code class="highlighter-rouge">g@</code>，表示这是个<code class="highlighter-rouge">operatorfunc</code>，就是说后面可以跟动作，比如<code class="highlighter-rouge">iw</code>表示光标所在的单词，<code class="highlighter-rouge">i(</code>表示光标所在的圆括号，<code class="highlighter-rouge">g@</code>后可以跟<code class="highlighter-rouge">line</code>,<code class="highlighter-rouge">char</code>,<code class="highlighter-rouge">block</code>表示动作类型，这个也体现在上面函数的参数<code class="highlighter-rouge">type</code>上</li>
+  <li>再给visual模式加个命令，加上<code class="highlighter-rouge">vnoremap &lt;leader&gt;g :&lt;c-u&gt;call GrepOperator(visualmode())&lt;cr&gt;</code>，解释下这个<code class="highlighter-rouge">&lt;c-u&gt;</code>，和shell中的<code class="highlighter-rouge">&lt;c-u&gt;</code>一样删除光标前内容直到行首，如果进入选择模式后，这时按<code class="highlighter-rouge">:</code>，会发现命令行自带了<code class="highlighter-rouge">:'&lt;,'&gt;</code>，这时如果按<code class="highlighter-rouge">&lt;c-u&gt;</code>就会“删掉从光标位置到开头的内容”，只剩<code class="highlighter-rouge">:</code>，正是我们想要的，这里的参数<code class="highlighter-rouge">visualmode()</code>是表示进的哪种visual模式，比如字节型就是<code class="highlighter-rouge">v</code>，行选择就是<code class="highlighter-rouge">V</code>，块选择就是<code class="highlighter-rouge">&lt;c-v&gt;</code></li>
+  <li>上面把函数体改成<code class="highlighter-rouge">echom a:type</code>后，会有几种情况，<code class="highlighter-rouge">viw&lt;leader&gt;g</code>显示<code class="highlighter-rouge">v</code>，<code class="highlighter-rouge">vjj&lt;leader&gt;g</code>显示<code class="highlighter-rouge">V</code>，<code class="highlighter-rouge">&lt;leader&gt;gviw</code>显示<code class="highlighter-rouge">char</code>，<code class="highlighter-rouge">&lt;leader&gt;gG</code>显示<code class="highlighter-rouge">line</code></li>
+</ol>
+
+<h3 id="ch34-case-study-grep-operator-part-three">CH34 Case Study: Grep Operator, Part Three</h3>
+<ol>
+  <li>一个可用的思路是，将选中的内容复制到临时寄存器中，但记得最后还原，如
+ <code class="highlighter-rouge">sh
+ let saved_unnamed_register = @@
+ # do something
+ let @@ = saved_unnamed_register
+</code></li>
+  <li>当你真正要写一个vim脚本时，最好使用命名空间，之前的函数改为<code class="highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=&lt;SID&gt;GrepOperator&lt;cr&gt;g@</code>，这时函数名前加了<code class="highlighter-rouge">&lt;SID&gt;</code>，同时，函数定义改为<code class="highlighter-rouge">function! s:GrepOperator(type)</code></li>
+  <li><code class="highlighter-rouge">&lt;SID&gt;</code>应该相当于是Script ID，加上这个会在执行的时候替换为<code class="highlighter-rouge">&lt;SNR&gt;12_func</code>这种形式，另外在脚本内部使用时，前面加<code class="highlighter-rouge">s:</code>即可，但如果是一个map外部调用，应该使用<code class="highlighter-rouge">&lt;SID&gt;</code></li>
+</ol>
+
+<h3 id="ch35-lists">CH35 Lists</h3>
+<ol>
+  <li>vim的list下标是从0开始，用-1表示最后一个元素，-2表示倒数第二个</li>
+  <li>使用<code class="highlighter-rouge">l[0:2]</code>表示切片，这里注意是表示从第0个到第2个元素（闭区间），支持<code class="highlighter-rouge">[-2:-1]</code>写法，如果下界大于上界则显示空list</li>
+  <li>字符串也可以进行list的操作，但要注意<code class="highlighter-rouge">"abcd"[-2]</code>这种只用一个负数的操作会显示为空字符串，而用<code class="highlighter-rouge">"abcd"[-2:]</code>才能显示为”cd”</li>
+  <li><code class="highlighter-rouge">add(['a'], 'b')</code>将<code class="highlighter-rouge">b</code>插入末尾，注意这些命令在normal模式下用要写成<code class="highlighter-rouge">:call add(xxx)</code></li>
+  <li><code class="highlighter-rouge">extend(list, [1,2])</code>将两个list合成一个</li>
+  <li><code class="highlighter-rouge">len(list)</code>求长度</li>
+  <li><code class="highlighter-rouge">get(list, 0, 'default')</code>取list[0]，如果不存在则返回”default”</li>
+  <li><code class="highlighter-rouge">index(list, 'a')</code>返回a在list中第一次出现的位置，没有返回-1</li>
+  <li><code class="highlighter-rouge">join(list, glue)</code>类似php的<code class="highlighter-rouge">implode</code>，将list用glue连接成字符串</li>
+  <li><code class="highlighter-rouge">reverse(list)</code><strong>就地</strong>倒排list</li>
+  <li><code class="highlighter-rouge">unlet list[3:]</code>删除list的3到最后</li>
+  <li><code class="highlighter-rouge">:let l = remove(list, 3, -1)</code>返回删完的list</li>
+  <li><code class="highlighter-rouge">filter(list, 'v:val !~ "x"')</code>移除元素中带<code class="highlighter-rouge">x</code>的，后面表达式为真将被留下</li>
+  <li>list用<code class="highlighter-rouge">+</code>号连接，也可以<code class="highlighter-rouge">+=</code></li>
+  <li>直接写<code class="highlighter-rouge">b = a</code>相当于b是a的引用，对a操作同时也会作用于b，复制可以用<code class="highlighter-rouge">b = copy(a)</code>，或者<code class="highlighter-rouge">b = a[:]</code>，但是上面这个只对一维有效，如果<code class="highlighter-rouge">a[0][1] = 'aa'</code>，这时会发现b[0]也变了，深度复制用<code class="highlighter-rouge">b = deepcopy(a)</code>（最多能复制100层）</li>
+  <li>用<code class="highlighter-rouge">:echo a is b</code>来判断是不是同一个list，而<code class="highlighter-rouge">a == b</code>是从值上比较的，有个例外是，<code class="highlighter-rouge">:echo 4 == "4"</code>显示是1，而<code class="highlighter-rouge">:echo [4] == ["4"]</code>显示是0</li>
+  <li>支持分别赋值，如<code class="highlighter-rouge">:let [var1, var2] = list</code>，如果只需要前几个值，可以这样<code class="highlighter-rouge">:let [var1, var2; rest] = mylist</code>，这里rest一定要有，否则会报错</li>
+  <li>使用<code class="highlighter-rouge">for item in mylist</code>进行循环，如果是多层，则用<code class="highlighter-rouge">for [lnum, col] in [[1, 3], [2, 8], [3, 0]]</code>，后面的list必须每项个数一致</li>
+</ol>
+
+<h3 id="ch36-looping">CH36 Looping</h3>
+<ol>
+  <li>
+    <dl>
+      <dt>for循环像这样</dt>
+      <dt> ```sh</dt>
+      <dt> :for i in [1,2,3,4]</dt>
+      <dd>let c += i
+ :endfor
+ ```</dd>
+    </dl>
+  </li>
+  <li>
+    <dl>
+      <dt>while循环像这样</dt>
+      <dt> ```sh</dt>
+      <dt> :while c &lt;= 4</dt>
+      <dd>let total += c</dd>
+      <dd>let c += 1
+ :endwhile
+ ```</dd>
+    </dl>
+  </li>
+  <li>有点要注意的是，当<code class="highlighter-rouge">for i in mylist</code>时，在对当前元素执行命令前，vim会保存下一个的引用，所以这时即使删除mylist的当前元素也是OK的，但删除之后的元素会导致vim找不到它</li>
+</ol>
+
+<h3 id="ch37-dictionaries">CH37 Dictionaries</h3>
+<ol>
+  <li><code class="highlighter-rouge">:echo {'a': 1, 100: 'foo',}</code>这是定义一个字典，同时最好保留后面的逗号，防止在多行时出错</li>
+  <li>vim的字典只能是字符串，写成数字也会被转成字符串</li>
+  <li>还可以用<code class="highlighter-rouge">:echo {}.a</code>的形式</li>
+  <li>用<code class="highlighter-rouge">remove(dict, 'a')</code>或<code class="highlighter-rouge">unlet(dict.b)</code>来删除元素，十分推荐用<code class="highlighter-rouge">remove</code>，因为它的作用比<code class="highlighter-rouge">unlet</code>大</li>
+  <li>可以用<code class="highlighter-rouge">:for key in keys(mydict)</code>来循环得到key值，同理，<code class="highlighter-rouge">:for v in values(mydict)</code>循环value，还可以<code class="highlighter-rouge">:for [key, value] in items(mydict)</code>两个都循环</li>
+  <li>可以用<code class="highlighter-rouge">has_key()</code>验证一个key是不是在字典中</li>
+  <li>字典的函数和上面list的函数类似</li>
+</ol>
+
+<h3 id="ch38-toggling">CH38 Toggling</h3>
+<ol>
+  <li>之前学过用<code class="highlighter-rouge">:setlocal nu!</code>是可以开头某个布尔值的，下面来看下对于非布尔怎么做</li>
+  <li>比如可以检测值满足某个条件A时，设为x，满足条件B时，设为y这样，例如
+ <code class="highlighter-rouge">sh
+ nnoremap &lt;leader&gt;f :call FoldColumnToggle()&lt;cr&gt;
+ function! FoldColumnToggle()
+     if &amp;foldcolumn
+         setlocal foldcolumn=0
+     else
+         setlocal foldcolumn=4
+     endif
+ endfunction
+</code></li>
+  <li>或者打开或关闭某个窗口，如<code class="highlighter-rouge">:copen</code>和<code class="highlighter-rouge">:cclose</code>，这时可以用全局变量标识
+ <code class="highlighter-rouge">sh
+ nnoremap &lt;leader&gt;q :call QuickfixToggle()&lt;cr&gt;
+ function! QuickfixToggle()
+     if g:quickfix_is_open
+         cclose
+         let g:quickfix_is_open = 0
+     else
+         copen
+         let g:quickfix_is_open = 1
+     endif
+ endfunction
+</code>
+ 这里只有一点不太完美，如果用户手动打开了窗口，则全局变量是不会更新的，但这里要花大工夫来完成，得不偿失</li>
+  <li>这里还有一点是在打开多个文件再使用<code class="highlighter-rouge">&lt;leader&gt;q</code>时，如果在quick-fix窗口中使用，则会返回上一个split的窗口，而不是之前<code class="highlighter-rouge">copen</code>时所在的窗口，所以要做以下修改，同时这也是个约定俗成的写法
+ <code class="highlighter-rouge">sh
+ nnoremap &lt;leader&gt;q :call QuickfixToggle()&lt;cr&gt;
+ let g:quickfix_is_open = 0
+ function! QuickfixToggle()
+     if g:quickfix_is_open
+         cclose
+         let g:quickfix_is_open = 0
+         execute g:quickfix_return_to_window . "wincmd w"
+     else
+         let g:quickfix_return_to_window = winnr()
+         copen
+         let g:quickfix_is_open = 1
+     endif
+ endfunction
+</code></li>
+</ol>
+
+<h3 id="ch39-functional-programming">CH39 Functional Programming</h3>
+<ol>
+  <li>就是你可以把变量赋成函数，然后变量名就相当于函数名去调用，这里要注意一点是，变量可以不像函数名那样遵守首字母大写的约定，如
+ <code class="highlighter-rouge">sh
+ :let funcs = [function("Append"), function("Pop")]
+ :echo funcs[1](['a', 'b', 'c'], 1)
+</code></li>
+  <li>再来感受一个类似py中的map的例子
+ <code class="highlighter-rouge">sh
+ function! Mapped(fn, l)
+     let new_list = deepcopy(a:l)
+     call map(new_list, string(a:fn) . '(v:val)')
+     return new_list
+ endfunction
+</code>
+相当于对l数组中的所有元素过一遍函数fn</li>
+</ol>
+
+<h3 id="ch40-paths">CH40 Paths</h3>
+<ol>
+  <li>为啥这章和上章函数式编程没有一点关系了……</li>
+  <li>获取绝对路径，<code class="highlighter-rouge">:echom expand('%:p')</code>或<code class="highlighter-rouge">:echom fnamemodify('foo.txt', ':p')</code>，但第二个必须手写foo.txt（可以是个不存在的文件）</li>
+  <li>列出当前文件夹下的文件<code class="highlighter-rouge">:echo globpath('.', '*')</code>，还可以递归地显示文件<code class="highlighter-rouge">:echo split(globpath('.', '**'), '\n')</code>，递归地查找某个文件<code class="highlighter-rouge">:echo split(globpath('.', '**/*.py'), '\n')</code></li>
+  <li><code class="highlighter-rouge">expand(expr[, nosuf[, list]])</code>，expr可以以
+    <ul>
+      <li><code class="highlighter-rouge">%</code> 当前文件</li>
+      <li><code class="highlighter-rouge">#</code> 另一个文件</li>
+      <li><code class="highlighter-rouge">#n</code> 另n个文件</li>
+    </ul>
+
+    <p>后面还可以接修饰符
+ - <code class="highlighter-rouge">:p</code> 扩展成全路径
+ - <code class="highlighter-rouge">:h</code> 会把最后一部分去掉（这个可以接在一些修饰符后面，比如’:p:h’就相当于全路径的文件夹名，如果只用’:h’可能只显示’.’）
+ - <code class="highlighter-rouge">:t</code> 只保留路径最后一部分
+ - <code class="highlighter-rouge">:r</code> 移除扩展名的全路径
+ - <code class="highlighter-rouge">:e</code> 文件扩展名</p>
+  </li>
+  <li><code class="highlighter-rouge">simplify(filename)</code> 尽可能简化路径，会把<code class="highlighter-rouge">.././/</code>这种简化掉，快捷方式或链接不解析</li>
+  <li><code class="highlighter-rouge">resolve(filename)</code> 可以解析快捷方式或链接，并返回简化后的全路径</li>
+  <li>关于通配符，可以有<code class="highlighter-rouge">?</code>,<code class="highlighter-rouge">*</code>,<code class="highlighter-rouge">**</code>,<code class="highlighter-rouge">[abc]</code>，这里注意在win下比较蛋疼，如果要实际匹配字面值<code class="highlighter-rouge">path[abc]</code>写<code class="highlighter-rouge">path\[abc]</code>会认为反斜杠是目录分隔符，避免这样，可以写成<code class="highlighter-rouge">path\[[]abc]</code></li>
+</ol>
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way-c.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/06/learn-vim-script-the-hard-way-c.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="https://weibo.com/morefreeze" title="WeiboID: morefreeze">Weibo</a> /
+  
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）" rel="bookmark">learn vim script the hard way 笔记（上）</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/shio.html" title="《汐》游玩体验" rel="bookmark">《汐》游玩体验</a>
+  </li>
+  
+  <li>
+  <a href="/2017/04/airflow-pit.html" title="airflow 踩坑集锦" rel="bookmark">airflow 踩坑集锦</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="5">game (5)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="6">note (6)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="4">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+  
+    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+  
+    <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
+  
+    <a href="/tags/#tech" title="tech" rel="3">tech</a> &nbsp;
+  
+    <a href="/tags/#airflow" title="airflow" rel="3">airflow</a> &nbsp;
+  
+    <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
+  
+    <a href="/tags/#python" title="python" rel="3">python</a> &nbsp;
+  
+    <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
+  
+    <a href="/tags/#ACT" title="ACT" rel="1">ACT</a> &nbsp;
+  
+    <a href="/tags/#pit" title="pit" rel="1">pit</a> &nbsp;
+  
+    <a href="/tags/#platformer" title="platformer" rel="1">platformer</a> &nbsp;
+  
+    <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
+  
+    <a href="/tags/#vim" title="vim" rel="2">vim</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>
