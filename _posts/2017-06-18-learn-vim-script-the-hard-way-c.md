@@ -8,7 +8,8 @@ tags: []
 ---
 {% include JB/setup %}
 
-[上一篇](./2017/06/learn-vim-script-the-hard-way-b.html)
+[上一篇](/2017/06/learn-vim-script-the-hard-way-b.html)
+
 ### CH31 Basic Regular Expressions
 1. `/`和`?`，前者向后找，后者向前找
 
