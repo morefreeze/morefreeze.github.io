@@ -147,7 +147,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ol>
   <li><code class="highlighter-rouge">~/.vim/colors/</code>在这里的文件记录了vim的颜色主题，如果运行<code class="highlighter-rouge">:color xxx</code>就能看<code class="highlighter-rouge">~/.vim/colors/xxx.vim</code>的配色方案了，查看当前配色都有哪些用<code class="highlighter-rouge">:hi</code></li>
   <li><code class="highlighter-rouge">~/.vim/plugin/</code>在这里的文件每次vim启动都会运行一次</li>
-  <li><code class="highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="highlighter-rouge">ft</code>的意思是<code class="highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong></li>
+  <li>
+    <p><code class="highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="highlighter-rouge">ft</code>的意思是<code class="highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong>
+<a class="anchor" id="read-more"></a></p>
+  </li>
   <li><code class="highlighter-rouge">~/.vim/ftplugin/</code>这里的名字<strong>非常重要</strong>，如果你<code class="highlighter-rouge">:set filetype=derp</code>，则会找<code class="highlighter-rouge">~/.vim/ftplugin/derp.vim</code>，有就运行它，同时也支持目录，也会在<code class="highlighter-rouge">~/.vim/ftplugin/derp/</code>下找，这样有利于分组</li>
   <li><code class="highlighter-rouge">~/.vim/indent/</code>这里的文件是用于不同ft的缩进排版的，文件名规律同<code class="highlighter-rouge">ftplugin</code>，这里只能设置<strong>local-buffer</strong>，这个实际和<code class="highlighter-rouge">ftplugin</code>没啥区别，但分开放有利于理解</li>
   <li><code class="highlighter-rouge">~/.vim/compiler/</code>这个和<code class="highlighter-rouge">indent</code>又非常相像，只是它做的是编译器相关的</li>

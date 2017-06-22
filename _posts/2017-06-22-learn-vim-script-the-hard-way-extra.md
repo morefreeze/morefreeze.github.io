@@ -16,6 +16,8 @@ tags: []
 1. `~/.vim/colors/`在这里的文件记录了vim的颜色主题，如果运行`:color xxx`就能看`~/.vim/colors/xxx.vim`的配色方案了，查看当前配色都有哪些用`:hi`
 2. `~/.vim/plugin/`在这里的文件每次vim启动都会运行一次
 3. `~/.vim/ftdetect/`这里的文件每次启动也会运行一次，`ft`的意思是`filetype`，这里的文件应该是包含`autocmd`用来切换filetype的，所以一般就**一行**
+<!--more-->
+
 4. `~/.vim/ftplugin/`这里的名字**非常重要**，如果你`:set filetype=derp`，则会找`~/.vim/ftplugin/derp.vim`，有就运行它，同时也支持目录，也会在`~/.vim/ftplugin/derp/`下找，这样有利于分组
 5. `~/.vim/indent/`这里的文件是用于不同ft的缩进排版的，文件名规律同`ftplugin`，这里只能设置**local-buffer**，这个实际和`ftplugin`没啥区别，但分开放有利于理解
 6. `~/.vim/compiler/`这个和`indent`又非常相像，只是它做的是编译器相关的
