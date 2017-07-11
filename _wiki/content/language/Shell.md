@@ -56,7 +56,7 @@ You need only get the `/app/path?foo=bar HTTP` when `GET` is front of it and
 - Solution:
 
 ```shell
-grep -oP '(?<=GET )[^ ]+(?= HTTP)' file`
+grep -oP '(?<=GET )[^ ]+(?= HTTP)' file
 ```
 
 - Explain: `-o` is for only print match, `-P` is for using perl-style regex.
