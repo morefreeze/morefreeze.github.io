@@ -125,6 +125,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2015/12/hbase-split.html">HBase Split</a>
+      </h1>
+      <meta itemprop="keywords" content="Hadoop,HBase" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#tech">tech</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+      
+      <a href="/tags/#HBase" title="HBase">HBase </a>
+      
+      
+      <time itemprop="datePublished" datetime="2015-12-28">
+      on Dec 28, 2015
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h2 id="split">split是什么？</h2>
+
+<p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
+就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
+拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。</p>
+
+
+        
+        
+
+        
+        <p><a href="/2015/12/hbase-split.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2015/12/solution-of-minimum-height-trees.html">Solution of Minimum Height Trees</a>
       </h1>
       <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
@@ -297,40 +340,6 @@ last solution, jump to</p>
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/sample-post.html">Sample Post</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-13">
-      on Dec 13, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more.
-        
-        
-
-        
-        <p><a href="/2014/12/sample-post.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -395,6 +404,10 @@ last solution, jump to</p>
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2017/07/apply_defaults.html" title="apply_defaults 赏析" rel="bookmark">apply_defaults 赏析</a>
+  </li>
+  
+  <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-extra.html" title="learn vim script the hard way 笔记（番外）" rel="bookmark">learn vim script the hard way 笔记（番外）</a>
   </li>
   
@@ -408,10 +421,6 @@ last solution, jump to</p>
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）" rel="bookmark">learn vim script the hard way 笔记（上）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/shio.html" title="《汐》游玩体验" rel="bookmark">《汐》游玩体验</a>
   </li>
   
 </div>
@@ -430,7 +439,7 @@ last solution, jump to</p>
   
   <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
   
-  <li><a href="/categories/#tech" title="tech" rel="7">tech (7)</a></li>
+  <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
   <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
   
@@ -506,11 +515,11 @@ last solution, jump to</p>
   
     <a href="/tags/#tech" title="tech" rel="3">tech</a> &nbsp;
   
-    <a href="/tags/#airflow" title="airflow" rel="3">airflow</a> &nbsp;
+    <a href="/tags/#airflow" title="airflow" rel="4">airflow</a> &nbsp;
   
     <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
   
-    <a href="/tags/#python" title="python" rel="3">python</a> &nbsp;
+    <a href="/tags/#python" title="python" rel="4">python</a> &nbsp;
   
     <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
   
@@ -523,6 +532,10 @@ last solution, jump to</p>
     <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
   
     <a href="/tags/#vim" title="vim" rel="2">vim</a> &nbsp;
+  
+    <a href="/tags/#decorator" title="decorator" rel="1">decorator</a> &nbsp;
+  
+    <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
 </div>
 
@@ -544,6 +557,9 @@ last solution, jump to</p>
   
   
   <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
   
   
   
