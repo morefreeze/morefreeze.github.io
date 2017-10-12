@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="HBase Split detail">
-<title>HBase Split detail</title>
-<meta property="og:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
-<meta property="og:url" content="/2016/01/hbase_split_detail.html">
+<meta property="og:title" content="airflow priority_weight 计算方法">
+<title>airflow priority_weight 计算方法</title>
+<meta property="og:description" content="最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。以最新的稳定版(v1.8-stable)为例，代码总共就这么一小段    @property    def priority_weight_total(self):        return sum([...">
+<meta property="og:url" content="/2017/10/airflow-priority_weight.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="HBase Split detail">
-<meta name="twitter:description" content="split的具体过程切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。以下基本翻译自这里。">
-<meta name="twitter:url" content="/2016/01/hbase_split_detail.html">
+<meta name="twitter:title" content="airflow priority_weight 计算方法">
+<meta name="twitter:description" content="最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。以最新的稳定版(v1.8-stable)为例，代码总共就这么一小段    @property    def priority_weight_total(self):        return sum([...">
+<meta name="twitter:url" content="/2017/10/airflow-priority_weight.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/2016/01/hbase_split_detail.html">
+<link rel="canonical" href="/2017/10/airflow-priority_weight.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -121,62 +121,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">HBase Split detail</h1>
-    <meta itemprop="keywords" content="Hadoop,HBase" />
+    <h1 itemprop="name" class="post-title">airflow priority_weight 计算方法</h1>
+    <meta itemprop="keywords" content="airflow,python" />
     <p class="post-meta">
     Posted in
-    
-    <a href="/categories/#tech">tech</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
+    <a href="/tags/#airflow" title="airflow">airflow </a>, 
     
-    <a href="/tags/#HBase" title="HBase">HBase </a>
+    <a href="/tags/#python" title="python">python </a>
     
     
-    <time itemprop="datePublished" datetime="2016-01-10">
-    on Jan 10, 2016
+    <time itemprop="datePublished" datetime="2017-10-12">
+    on Oct 12, 2017
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
       
-<h2 id="split">split的具体过程</h2>
-<p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
-以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。
-<a class="anchor" id="read-more"></a></p>
+<p>最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。</p>
 
-<ol>
-  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
-  <li>Master通过监测这个节点得知父region（这时称要split的region为父，
-分出来的新的region为女儿region）要split了</li>
-  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
-  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
-需要客户端自己进行重试</li>
-  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
-<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
-其中文件都引用自父region，引用文件标记出开始和结束位置</li>
-  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
-引用文件移到这个目录中</li>
-  <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
-注意这时client扫描META表并不能发现新的region，因为还没上线。
-如果这个RPC请求失败了，那么Master和下一个要执行打开region的region server一起清理掉
-这些脏数据</li>
-  <li>region server允许女儿region的写入</li>
-  <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
-region信息重新更新</li>
-  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
-Master就知道split完成</li>
-  <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
-的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>
-</ol>
+<p>以最新的稳定版(v1.8-stable)为例，代码总共就这么<a href="https://github.com/apache/incubator-airflow/blob/v1-8-stable/airflow/models.py#L2161-L2166">一小段</a></p>
 
-<h2 id="section">且听下回</h2>
-<p>下回将会详细介绍辛勤劳动的compaction操作。</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">priority_weight</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_flat_relatives</span><span class="p">(</span><span class="n">upstream</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_weight</span>
+</code></pre>
+</div>
 
+<a class="anchor" id="read-more"></a>
+
+<p>这是类 Operator 下的一个属性，同时可以发现在 airflow 里，Task 和 Operator 概念是互通的，
+（可以看到许多地方传参都是一个 task，实际传的都是 Operator。注意区别 Task 和 TaskInstance）
+计算方法就是把所有下游（依赖它的）任务的权重和自己的权重加起来，<code class="highlighter-rouge">get_flat_relatives</code>
+就是递归地遍历所有下游任务，返回一个数组，顺便说下<code class="highlighter-rouge">upstream=True</code>就是遍历所有上游任务。</p>
+
+<p>因此，可以得到一个结论，任务依赖层级越多，越容易出现权重大的任务，这也就解释了为什么我设置了
+<code class="highlighter-rouge">t1 &gt;&gt; t2</code>权重都是7，又设置了<code class="highlighter-rouge">r1 &gt;&gt; r2 &gt;&gt; r3</code> 权重都是5，<code class="highlighter-rouge">t1</code>的权重却比<code class="highlighter-rouge">r1</code>的权重小。</p>
+
+<blockquote>
+  <p>源码面前，了无秘密                   —— 侯捷</p>
+</blockquote>
 
   </article>
   <hr />
@@ -186,10 +177,10 @@ Master就知道split完成</li>
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/2015/12/hbase-split.html" title="HBase Split">&larr; Older</a></li>
+    <li class="previous"><a href="/2017/07/apply_defaults.html" title="apply_defaults 赏析">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/2016/02/hbase-compaction.html" title="HBase Compaction">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -206,8 +197,8 @@ Master就知道split完成</li>
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2016/01/hbase_split_detail.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2016/01/hbase_split_detail.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2017/10/airflow-priority_weight.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2017/10/airflow-priority_weight.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

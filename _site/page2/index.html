@@ -125,6 +125,62 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way.html">learn vim script the hard way 笔记（上）</a>
+      </h1>
+      <meta itemprop="keywords" content="vim" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#note">note</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#vim" title="vim">vim </a>
+      
+      
+      <time itemprop="datePublished" datetime="2017-06-07">
+      on Jun 7, 2017
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h3 id="ch02">CH02</h3>
+
+<ol>
+  <li>布尔型变量可以用<code class="highlighter-rouge">:set [no]number</code>这样来设置，<code class="highlighter-rouge">:set number!</code>表示取反，<code class="highlighter-rouge">:set number?</code>获取当前状态（实际<code class="highlighter-rouge">:set nonumber?</code>也可以哟）</li>
+  <li>数值型用<code class="highlighter-rouge">:set numberwidth=10</code>来设置，同理<code class="highlighter-rouge">:set numberwidth?</code>获取当前值</li>
+  <li><code class="highlighter-rouge">relativenumber</code>或者<code class="highlighter-rouge">rnu</code>用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</li>
+</ol>
+
+<h3 id="ch03">CH03</h3>
+
+<ol>
+  <li>注释用<code class="highlighter-rouge">"</code>来标记</li>
+  <li>注意注释不要写在<code class="highlighter-rouge">map</code>后面，这样会当成命令去执行<code class="highlighter-rouge">map a dd "comment</code></li>
+</ol>
+
+<h3 id="ch04">CH04</h3>
+
+<ol>
+  <li><code class="highlighter-rouge">map</code>,<code class="highlighter-rouge">nmap</code>,<code class="highlighter-rouge">vmap</code>,<code class="highlighter-rouge">imap</code>都知道什么意思吧</li>
+</ol>
+
+
+        
+        
+
+        
+        <p><a href="/2017/06/learn-vim-script-the-hard-way.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2017/06/shio.html">《汐》游玩体验</a>
       </h1>
       <meta itemprop="keywords" content="platformer,hard" />
@@ -295,53 +351,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2016/12/airflow.html">airflow 简明指南</a>
-      </h1>
-      <meta itemprop="keywords" content="tech,airflow,pip,python" />
-      <p class="post-meta">
-      Posted in
-      
-      
-      and tagged
-      
-      <a href="/tags/#tech" title="tech">tech </a>, 
-      
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
-      
-      <a href="/tags/#pip" title="pip">pip </a>, 
-      
-      <a href="/tags/#python" title="python">python </a>
-      
-      
-      <time itemprop="datePublished" datetime="2016-12-16">
-      on Dec 16, 2016
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-
-<p>最近被线上任务折磨得不行了，总是隔三差五出各种问题，导致日志丢了或者脚本没跑成功，
-出了问题就需要手动去修复，比如手动把少的日志补齐，重跑失败的脚本。有些脚本之间有依赖关系，
-手动跑起来就比较复杂，需要隔一会看一眼脚本有没有跑完，再接着跑下一个，严重影响效率。
-所以我想如果有个程序能帮我定义好我的任务依赖关系，由它来自动解决运行时的依赖，
-如果能有可视化界面看到执行状态，管理任务就更好了。
-最近找到一个满足现在这些需求的开源项目—— airflow。</p>
-
-
-        
-        
-
-        
-        <p><a href="/2016/12/airflow.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -406,6 +415,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
+  </li>
+  
+  <li>
   <a href="/2017/07/apply_defaults.html" title="apply_defaults 赏析" rel="bookmark">apply_defaults 赏析</a>
   </li>
   
@@ -419,10 +432,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way.html" title="learn vim script the hard way 笔记（上）" rel="bookmark">learn vim script the hard way 笔记（上）</a>
   </li>
   
 </div>
@@ -517,11 +526,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#tech" title="tech" rel="3">tech</a> &nbsp;
   
-    <a href="/tags/#airflow" title="airflow" rel="4">airflow</a> &nbsp;
+    <a href="/tags/#airflow" title="airflow" rel="5">airflow</a> &nbsp;
   
     <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
   
-    <a href="/tags/#python" title="python" rel="4">python</a> &nbsp;
+    <a href="/tags/#python" title="python" rel="5">python</a> &nbsp;
   
     <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
   
@@ -559,6 +568,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
   
   
   
