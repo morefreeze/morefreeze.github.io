@@ -7,8 +7,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="apply_defaults 赏析">
-<title>apply_defaults 赏析</title>
+<meta property="og:title" content="airflow apply_defaults 赏析">
+<title>airflow apply_defaults 赏析</title>
 <meta property="og:description" content="最近在写 airflow 的脚本时遇到一个问题，出于方便把 BaseSensorOperator 包了一层，后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 Operator 都有个 apply_defaults的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当...">
 <meta property="og:url" content="/2017/07/apply_defaults.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
@@ -16,7 +16,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="apply_defaults 赏析">
+<meta name="twitter:title" content="airflow apply_defaults 赏析">
 <meta name="twitter:description" content="最近在写 airflow 的脚本时遇到一个问题，出于方便把 BaseSensorOperator 包了一层，后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 Operator 都有个 apply_defaults的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当...">
 <meta name="twitter:url" content="/2017/07/apply_defaults.html">
 
@@ -121,7 +121,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">apply_defaults 赏析</h1>
+    <h1 itemprop="name" class="post-title">airflow apply_defaults 赏析</h1>
     <meta itemprop="keywords" content="airflow,python,decorator,apply_defaults" />
     <p class="post-meta">
     Posted in
@@ -372,7 +372,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </li>
   
   <li>
-  <a href="/2017/07/apply_defaults.html" title="apply_defaults 赏析" rel="bookmark">apply_defaults 赏析</a>
+  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
   </li>
   
   <li>
