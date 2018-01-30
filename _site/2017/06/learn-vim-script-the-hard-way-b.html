@@ -171,17 +171,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>否则vim会操作原光标到到新位置的内容</li>
     </ol>
   </li>
-  <li><code class="highlighter-rouge">&lt;c-u&gt;</code>可以通过<code class="highlighter-rouge">:help omap-info</code>查看，但<strong>没懂</strong>，用于移除vim可能插入的范围（”The CTRL-U (<c-u>) is used to remove the range that Vim may insert."）</c-u></li>
+  <li><code class="highlighter-rouge">&lt;c-u&gt;</code>可以通过<code class="highlighter-rouge">:help omap-info</code>查看，但<strong>没懂</strong>，用于移除vim可能插入的范围（”The CTRL-U (<C-U>) is used to remove the range that Vim may insert."）</C-U></li>
 </ol>
 
 <h3 id="ch16-more-operator-pending-mappings">CH16 More Operator-Pending Mappings</h3>
-<p>这章讲了更复杂的延迟map的例子，比如<code class="highlighter-rouge">:onoremap ih :&lt;c-u&gt;execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"&lt;cr&gt;</code>，在Markdown里，当光标在内容中时，会选中heading，下面逐字翻译下
-1. <code class="highlighter-rouge">:normal gg</code>相当于普通模式下执行<code class="highlighter-rouge">gg</code>，跳到文件头
-3. <code class="highlighter-rouge">:execute "normal! gg"</code>和上面是一个效果
-4. <code class="highlighter-rouge">:normal! gg/a&lt;cr&gt;</code>就不是你想的那样，因为normal无法识别特别字符，比如<code class="highlighter-rouge">&lt;cr&gt;</code>，但是，你可以用<code class="highlighter-rouge">:execute "normal! gg/a\r"</code>来完成，注意，将<code class="highlighter-rouge">&lt;cr&gt;</code>替换成了<code class="highlighter-rouge">\r</code>
-5. 另一个值得注意的地方是，给出的命令最后用了<code class="highlighter-rouge">g_</code>而不是<code class="highlighter-rouge">$</code>，他俩都是到当前行最后一个字符，但<code class="highlighter-rouge">$</code>会多匹配一个，你感受一下
-6. <code class="highlighter-rouge">normal!</code>中的感叹号是表示不使用map
-7. <code class="highlighter-rouge">:help normal</code>,<code class="highlighter-rouge">:help execute</code>,<code class="highlighter-rouge">:help expr_quote</code>也许会有用</p>
+<p>这章讲了更复杂的延迟map的例子，比如<code class="highlighter-rouge">:onoremap ih :&lt;c-u&gt;execute "normal! ?^==\\+$\r:nohlsearch\rkvg_"&lt;cr&gt;</code>，在Markdown里，当光标在内容中时，会选中heading，下面逐字翻译下</p>
+<ol>
+  <li><code class="highlighter-rouge">:normal gg</code>相当于普通模式下执行<code class="highlighter-rouge">gg</code>，跳到文件头</li>
+  <li><code class="highlighter-rouge">:execute "normal! gg"</code>和上面是一个效果</li>
+  <li><code class="highlighter-rouge">:normal! gg/a&lt;cr&gt;</code>就不是你想的那样，因为normal无法识别特别字符，比如<code class="highlighter-rouge">&lt;cr&gt;</code>，但是，你可以用<code class="highlighter-rouge">:execute "normal! gg/a\r"</code>来完成，注意，将<code class="highlighter-rouge">&lt;cr&gt;</code>替换成了<code class="highlighter-rouge">\r</code></li>
+  <li>另一个值得注意的地方是，给出的命令最后用了<code class="highlighter-rouge">g_</code>而不是<code class="highlighter-rouge">$</code>，他俩都是到当前行最后一个字符，但<code class="highlighter-rouge">$</code>会多匹配一个，你感受一下</li>
+  <li><code class="highlighter-rouge">normal!</code>中的感叹号是表示不使用map</li>
+  <li><code class="highlighter-rouge">:help normal</code>,<code class="highlighter-rouge">:help execute</code>,<code class="highlighter-rouge">:help expr_quote</code>也许会有用</li>
+</ol>
 
 <h3 id="ch17-status-lines">CH17 Status Lines</h3>
 <ol>
@@ -192,9 +194,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 
 <h3 id="ch18-responsible-coding">CH18 Responsible Coding</h3>
+
 <ol>
   <li>多写注释</li>
-  <li>可以用<code class="highlighter-rouge">" Vimscript file settings ---------------------- }</code>来包住一个想被折叠的部分，同时需要设置<code class="highlighter-rouge">:setlocal foldmethod=marker</code>，在这部分内容中时，按<code class="highlighter-rouge">za</code>来折叠或打开</li>
+  <li>可以用<code class="highlighter-rouge">" Vimscript file settings ---------------------- {{{</code>和<code class="highlighter-rouge">: }}}</code>来包住一个想被折叠的部分，同时需要设置<code class="highlighter-rouge">:setlocal foldmethod=marker</code>，在这部分内容中时，按<code class="highlighter-rouge">za</code>来折叠或打开</li>
   <li>vim有许多缩写的命令，比如<code class="highlighter-rouge">setl</code>==<code class="highlighter-rouge">setlocal</code>，但十分不建议在vim script里这么写，如果你是临时手写命令的话，可以用缩写</li>
 </ol>
 
@@ -400,6 +403,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -413,10 +420,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -442,6 +445,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -533,6 +538,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -547,6 +554,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

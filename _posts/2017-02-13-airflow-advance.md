@@ -44,8 +44,9 @@ PYTHONPATH = "{{ python_path}}:/usr/bin"
 dag 文件只要按照 PEP 8 的标准来写就行，而且一般行数也不多，大部分是在描述，
 没什么逻辑在其中。但我发现 airflow 对于要执行的脚本会有些要求。
 
+{% assign macro_tpl = '{{ macros.ds_add(ds, 1) }}' %}
 1. 脚本最好有明确的时间参数，执行后只更新那个时间点（段）的数据，
-并且在 dags 中也显式地指定执行的时间。可以用`{{ macros.ds_add(ds, 1) }}`来对时间进行偏移。
+并且在 dags 中也显式地指定执行的时间。可以用`{{ macro_tpl }}`来对时间进行偏移。
 1. 脚本如果只需要当前时间执行的，那最好有个上游函数(PythonBranchOperator)来判断是否需要继续执行，
 如果 execute_time 过了当前时间一段时间了那就直接跳过不执行了。
 1. 每个脚本的功能做到"Do one thing and do it well."，不要把一堆操作放在一个地方，
@@ -79,9 +80,10 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
 在用的时候遇到的坑也是有的，查问题又查到了[这里](https://cwiki.apache.org/confluence/display/AIRFLOW/Common+Pitfalls)，
 原来别人早已遇到过了，挑几个比较重要的列出来。
 
+{% assign ds_tmp = '{{{{ ds }}}}' %}
 1. 使用 BashOperator 时，因为 jinja2 的关系，在脚本的最后要留一个**空格**，否则会报一个诡异的 jinja2 错误。
 1. 使用 BahsOperator 如果 command 要使用 python 字符串命名变量的形式（如`'{foo}_{bar}'.format(bar=bar, foo=foo)`），
-并且要用模板变量时，命令就要写成类似这样 `'python {file} "{{{{ ds }}}}"'.format(file=file)`
+并且要用模板变量时，命令就要写成类似这样 `'python {file} "{{ ds_tmp }}"'.format(file=file)`
 正常的字符串替换用一层`{}`，模板变量用四层`{}`。
 另外一个小提示是，ds 这种时间变量两边要带上引号，否则`2017-02-13 00:00:00`的变量会被 shell 认为是两个参数，
 当然这可不是 airflow 的锅。

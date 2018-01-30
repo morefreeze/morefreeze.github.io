@@ -159,9 +159,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <hr />
 
-<h2 id="section">背景</h2>
+<h2 id="背景">背景</h2>
 
-<h3 id="section-1">复式记账</h3>
+<h3 id="复式记账">复式记账</h3>
 <p>首先是复式记账，核心原则是你的所有账户加起来一定为 <strong>0</strong>。然后是将科目按收支分为四大类：
 收入(Income)，花费(Expenses)，资产(Assets)，负债(Liabilities)，收入就是你的工资，分红等，
 花费属于那种花出去的消费，比如买吃的，烟酒，资产是你的固定资产，本身有一定价值，
@@ -176,16 +176,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 你可以用你喜欢的编辑器去编辑它，运气好的话还有人已经为它开发了插件，比如<code class="highlighter-rouge">vim-beancount</code>。
 每条账目看起来像这样：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>2016-10-05 * "微信支付(Tenpay):滴滴出行" "滴滴"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-05 * "微信支付(Tenpay):滴滴出行" "滴滴"
             Liabilities:CMBC:CreditCard
             Expenses:Transport:Taxi                     10.50 CNY
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>第一行依次为 日期，确认与否（存在争议为<code class="highlighter-rouge">!</code>），概述，收款人，
 之后每行为一个账户名，表示钱从这个账户转到另一个账户中去，上例表示我用信用卡打了次滴滴，
 花了 10.50 RMB。</p>
 
-<h3 id="section-2">分析</h3>
+<h3 id="分析">分析</h3>
 <p>当你如此这般记了些时间的账后，就到了分析了，你可以用 <code class="highlighter-rouge">bean-web</code> 来生成你的账单，
 也可以用<a href="https://github.com/aumayr/fava">fava</a>来生成更酷炫的账单。在这里，
 我建议你可以先关注下你的每月花销在什么地方，收入 + 花销（学了复式你会知道为什么用加号）
@@ -193,11 +192,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <hr />
 
-<h2 id="section-3">技巧</h2>
+<h2 id="技巧">技巧</h2>
 <p>在刚学习 beancount 时，我读了许多的文章，教程和别人的例子（会分享在文后），学到了各种技巧，
 另外加上自己使用时遇到的问题并最终解决，在此分享出来，这也是我写这篇文章的目的。</p>
 
-<h3 id="section-4">记账流程</h3>
+<h3 id="记账流程">记账流程</h3>
 <p>首先要说的是我的记账流程。目前我会将我的所有花销都尽量<strong>集中在一张信用卡上</strong>，
 这张卡最好也能在境外消费，因为现在境外银联变得多起来了，也不一定要求这张卡一定是 VISA 或 Master Card。
 这样每个月我会校对这张卡的账单来了解我上个月的支出情况。其它用不了信用卡的时候，
@@ -205,7 +204,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 回来再记录到账本里。实在记不了也没关系，
 比如你这时正喝到不省人事并为你的朋友付了酒钱，之后会有对账纠正这个错误。</p>
 
-<h3 id="section-5">对账</h3>
+<h3 id="对账">对账</h3>
 <p>每个月我会在我主信用卡的账单日去对账。如果还有多张信用卡，但账单日不在一起，
 可以尝试给信用卡客服中心打电话让他们把账单日改到一起，这样你可以在一天处理完所有事情。
 我得说，这是个神圣的事情，所以尽量在周围没人打扰的情况下完成，并且保证你有畅通的网络以便随时去回溯历史。</p>
@@ -242,13 +241,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>你在刚开始做时，可能会花费 30 分钟到 2 个小时不等的时间，但随着你的消费习惯越来越成熟，
 这个时间会快速地缩减。</p>
 
-<h2 id="section-6">接下来</h2>
+<h2 id="接下来">接下来</h2>
 <p>可以说这篇文章只讲了我起步用 beancount 的一些情况，当你记了 3 个月，甚至半年账后，
 你会发现你遇到了更多更复杂的问题，当你着手开始分析你的财条情况时，你也会感谢你平时的积累。
 <a href="/2016/10/beancount-advance.html">下一篇</a>我会分享我记账时遇到的一些更困难的问题以及如何解决的。如果你看完这篇小教程还没开始创建你的账本，
 那么现在动手吧！</p>
 
-<h2 id="section-7">引用</h2>
+<h2 id="引用">引用</h2>
 <p>以下是我读过的一些引用，我的建议是 1 作为一个参考书去翻看，但你最好能把整个文章浏览一遍，
 因为即使是我推荐的那篇入门文章，其中也省去了许多 beancount 的功能没有讲，比如 note，cost 与 price 的区别等。
 引用 2 建议最好可以完整地看一遍，因为里面讲了许多复杂的情况，包括股票投资账户的操作，
@@ -346,6 +345,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -359,10 +362,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -388,6 +387,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -479,6 +480,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -493,6 +496,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

@@ -125,6 +125,47 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2016/02/hbase-compaction.html">HBase Compaction</a>
+      </h1>
+      <meta itemprop="keywords" content="HBase,Hadoop" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#tech">tech</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#HBase" title="HBase">HBase </a>, 
+      
+      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>
+      
+      
+      <time itemprop="datePublished" datetime="2016-02-26">
+      on Feb 26, 2016
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h2 id="merge">Merge</h2>
+
+<p>接着上回的<a href="/tech/2015/12/28/hbase-split.html">Split</a>说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看<a href="https://issues.apache.org/jira/browse/HBASE-7403">OnlineMerge</a>和<a href="https://issues.apache.org/jira/browse/HBASE-7629">Master initiated automatic region merge</a>。</p>
+
+
+        
+        
+
+        
+        <p><a href="/2016/02/hbase-compaction.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2016/01/hbase_split_detail.html">HBase Split detail</a>
       </h1>
       <meta itemprop="keywords" content="Hadoop,HBase" />
@@ -149,7 +190,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <article class="post-content" itemprop="articleBody">
         
-<h2 id="split">split的具体过程</h2>
+<h2 id="split的具体过程">split的具体过程</h2>
 <p>切分的操作是由各个region server自己决定，但它们要通知到Master来及时地更新META信息。
 以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
 
@@ -190,7 +231,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <article class="post-content" itemprop="articleBody">
         
-<h2 id="split">split是什么？</h2>
+<h2 id="split是什么">split是什么？</h2>
 
 <p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
 就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
@@ -296,46 +337,6 @@ last solution, jump to</p>
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
-
-<p><strong>First part</strong> is the site info.</p>
-
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-set-the-config-file.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -400,6 +401,10 @@ last solution, jump to</p>
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -413,10 +418,6 @@ last solution, jump to</p>
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -442,6 +443,8 @@ last solution, jump to</p>
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -533,6 +536,8 @@ last solution, jump to</p>
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -547,6 +552,13 @@ last solution, jump to</p>
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

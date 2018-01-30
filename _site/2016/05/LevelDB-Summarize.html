@@ -148,7 +148,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 参考链接是<a href="http://www.cnblogs.com/haippy/archive/2011/12/04/2276064.html">这里</a>
 <a class="anchor" id="read-more"></a></p>
 
-<h2 id="section">概览</h2>
+<h2 id="概览">概览</h2>
 <ol>
   <li>LevelDB是一个KV<strong>持久化</strong>存储引擎，它的特性是写非常快，读相对写较慢</li>
   <li>LevelDB是基于LSM(Log Structured Merge)实现，它会顺序地记录各种写操作</li>
@@ -156,13 +156,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 查找失败后，去磁盘上查找。一段时间后或内存达到一定大小，会将内存中的compact成sst文件存在磁盘</li>
 </ol>
 
-<h2 id="section-1">内存存储</h2>
+<h2 id="内存存储">内存存储</h2>
 <ol>
   <li>内存存储叫memTable，存储结构为跳表，存储为顺序存储，查找和写入都很快(O(log N))</li>
   <li>删除操作在这里只是打上删除标记，真正的删除在compaction中做</li>
 </ol>
 
-<h2 id="section-2">日志</h2>
+<h2 id="日志">日志</h2>
 <ol>
   <li>日志文件记录了每一步的操作，因为文件的append操作很快，所以LevelDB可以支持大量
 的写操作</li>
@@ -171,7 +171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 与HBase的恢复操作很相似</li>
 </ol>
 
-<h2 id="section-3">磁盘存储</h2>
+<h2 id="磁盘存储">磁盘存储</h2>
 <ol>
   <li>磁盘存储叫immuteTable，以一种分层的结构存储，层数从0到n（n会随着数据增多而增多），
 层数越高表示数据越老旧（可能存在相同的key），除了<strong>层0</strong>，其他层之间的key都是不相交的</li>
@@ -184,7 +184,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li>弃掉是指如果key已经出现在更低的层，则高级的层不需要记录这个key</li>
 </ol>
 
-<h2 id="section-4">文件格式</h2>
+<h2 id="文件格式">文件格式</h2>
 <ol>
   <li>实际硬盘存储并非只有一种sst文件，分为三种：</li>
   <li>sst文件记录实际的数据，按顺序排列</li>
@@ -298,6 +298,10 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -311,10 +315,6 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -340,6 +340,8 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -431,6 +433,8 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -445,6 +449,13 @@ VersionSet中，VersionEdit存在manifest中，表示版本更替的信息，用
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

@@ -177,31 +177,31 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch45-basic-syntax-highlighting">CH45 Basic Syntax Highlighting</h3>
 <ol>
   <li>新建一个语法文件<code class="highlighter-rouge">~/.vim/syntax/potion.vim</code>
- <code class="highlighter-rouge">vim
- if exists("b:current_syntax")
-     finish
- endif
- echom "Our syntax highlighting code will go here."
- let b:current_syntax = "potion"
-</code>
- 注意用<code class="highlighter-rouge">b:current_syntax</code>保证互斥，不会被载入两次</li>
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> exists<span class="p">(</span><span class="s2">"b:current_syntax"</span><span class="p">)</span>
+     <span class="k">finish</span>
+ <span class="k">endif</span>
+ <span class="k">echom</span> <span class="s2">"Our syntax highlighting code will go here."</span>
+ <span class="k">let</span> <span class="nv">b:current_syntax</span> <span class="p">=</span> <span class="s2">"potion"</span>
+</code></pre></div>    </div>
+    <p>注意用<code class="highlighter-rouge">b:current_syntax</code>保证互斥，不会被载入两次</p>
+  </li>
   <li>加入
- <code class="highlighter-rouge">vim
- syntax keyword potionKeyword to times
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax keyword potionKeyword <span class="k">to</span> times
  highlight link potionKeyword Keyword
-</code>
- 定义<code class="highlighter-rouge">to</code>,<code class="highlighter-rouge">times</code>是关键词，然后连接potion关键词到关键词组（这个XX组就是决定了一套配色，比如函数是蓝色）</li>
+</code></pre></div>    </div>
+    <p>定义<code class="highlighter-rouge">to</code>,<code class="highlighter-rouge">times</code>是关键词，然后连接potion关键词到关键词组（这个XX组就是决定了一套配色，比如函数是蓝色）</p>
+  </li>
   <li>上面<code class="highlighter-rouge">syntax keyword {group-name} [{options}] {keyword} ... [{options}]</code>，注意syntax后的keyword是固定的，接着是自定义的组名，再接着是关键词，关键词要满足<code class="highlighter-rouge">iskeyword</code></li>
 </ol>
 
 <h3 id="ch46-advanced-syntax-highlighting">CH46 Advanced Syntax Highlighting</h3>
 <ol>
   <li>由于一般注释都是用<code class="highlighter-rouge">#</code>，而<code class="highlighter-rouge">#</code>又不是<code class="highlighter-rouge">iskeyword</code>，所以我们要用正则去匹配及它后面的内容
- <code class="highlighter-rouge">vim
- syntax match potionComment "\v#.*$"
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax <span class="k">match</span> potionComment <span class="s2">"\v#.*$"</span>
  highlight link potionComment Comment
-</code>
- <code class="highlighter-rouge">\v</code>表示”very magic”，对于<code class="highlighter-rouge">|()</code>这种就不需要加<code class="highlighter-rouge">\</code>转义了，这里还要注意<code class="highlighter-rouge">syntax match</code>是不支持放在组里的</li>
+</code></pre></div>    </div>
+    <p><code class="highlighter-rouge">\v</code>表示”very magic”，对于<code class="highlighter-rouge">|()</code>这种就不需要加<code class="highlighter-rouge">\</code>转义了，这里还要注意<code class="highlighter-rouge">syntax match</code>是不支持放在组里的</p>
+  </li>
   <li><code class="highlighter-rouge">hi link</code>的位置可以任意放，放匹配前面也可以</li>
   <li>优先级是先按最后匹配的来，然后<code class="highlighter-rouge">Keyword</code>大于<code class="highlighter-rouge">Match</code>和<code class="highlighter-rouge">Region</code>，最后(匹配开始较前的)优先于(匹配开始较后的)</li>
   <li>匹配的两端必须保证是一样的字符，比如可以是+”+（这和正则的匹配规则是一致的）</li>
@@ -211,17 +211,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ol>
   <li>想学习更高端的语法文件配置是继续读<code class="highlighter-rouge">:h syntax</code>或者看别人写的</li>
   <li>这次我们用<code class="highlighter-rouge">syntax region</code>来匹配字符串
- <code class="highlighter-rouge">vim
- syntax region potionString start=/\v"/ skip=/\v\\./ end=/\v"/
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax region potionString <span class="k">start</span><span class="p">=</span><span class="sr">/\v"/</span> skip<span class="p">=</span><span class="sr">/\v\\./</span> <span class="k">end</span><span class="p">=</span><span class="sr">/\v"/</span>
  highlight link potionString String
-</code>
- <code class="highlighter-rouge">skip</code>是用来跳过字符串中所有以反斜杠和一个任意字符的（当然也包括引号），其实这里用<code class="highlighter-rouge">skip=/\v\\"/</code>也可以，但应该是为了兼顾单引号的情况（这样就不用改skip了）就写成<code class="highlighter-rouge">\\.</code>了，比如这可以正确匹配<code class="highlighter-rouge">"She said: \"Vimscript is tricky, but useful\"!"</code>，</li>
+</code></pre></div>    </div>
+    <p><code class="highlighter-rouge">skip</code>是用来跳过字符串中所有以反斜杠和一个任意字符的（当然也包括引号），其实这里用<code class="highlighter-rouge">skip=/\v\\"/</code>也可以，但应该是为了兼顾单引号的情况（这样就不用改skip了）就写成<code class="highlighter-rouge">\\.</code>了，比如这可以正确匹配<code class="highlighter-rouge">"She said: \"Vimscript is tricky, but useful\"!"</code>，</p>
+  </li>
 </ol>
 
 <h3 id="ch48-basic-folding">CH48 Basic Folding</h3>
+
 <ol>
   <li>手动折叠，保存在内存中，关了就没了，你可以用<code class="highlighter-rouge">:mkview [1|2...]</code>来保存，用<code class="highlighter-rouge">:loadview [1|2...]</code>来载入，都保存在<code class="highlighter-rouge">~/.vim/view</code>中，参看<code class="highlighter-rouge">:h viewdir</code></li>
-  <li>Marker折叠，这种是文本中带有<code class="highlighter-rouge">// }</code>的会自动折叠，但比如在JS里<code class="highlighter-rouge"><span class="p">{</span></code>和<code class="highlighter-rouge">}</code>也会折叠</li>
+  <li>Marker折叠，这种是文本中带有<code class="highlighter-rouge">// {{{</code>和<code class="highlighter-rouge">// }}}</code>的会自动折叠，但比如在JS里<code class="highlighter-rouge">{</code>和<code class="highlighter-rouge">}</code>也会折叠</li>
   <li>Diff折叠，这个只有在对比文件中才有用</li>
   <li>Expr折叠，这是最强大的自定义折叠功能，但工作量也多，下章讲</li>
   <li>Indent折叠，按缩写折叠，以及一些空行</li>
@@ -253,17 +254,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li>有个技巧是，如果你自定义的一个foldlevel函数返回了<code class="highlighter-rouge">-1</code>，则会告诉vim这是未定义的折叠层数，vim会使用这行上面或下面的一行中<strong>较小</strong>的作为这行的foldlevel</li>
   <li>如果上面函数返回<code class="highlighter-rouge">&gt;n</code>，就表示这是个大于n的折叠层数</li>
   <li>一般自己定义一个按Indent的层数函数可以这样写
- <code class="highlighter-rouge">vim
- function! IndentLevel(lnum)
-     return indent(a:lnum) / &amp;shiftwidth
- endfunction
-</code></li>
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">function</span><span class="p">!</span> IndentLevel<span class="p">(</span>lnum<span class="p">)</span>
+     <span class="k">return</span> indent<span class="p">(</span><span class="nv">a:lnum</span><span class="p">)</span> / &amp;shiftwidth
+ <span class="k">endfunction</span>
+</code></pre></div>    </div>
+  </li>
 </ol>
 
 <h3 id="ch50-section-movement-theory">CH50 Section Movement Theory</h3>
 <ol>
   <li>这章讲了<code class="highlighter-rouge">[[</code>,<code class="highlighter-rouge">[]</code>,<code class="highlighter-rouge">][</code>,<code class="highlighter-rouge">]]</code>起源于<code class="highlighter-rouge">nroff</code>语言（一个类似Latex的文本语言）的宏</li>
-  <li><code class="highlighter-rouge">[</code>和<code class="highlighter-rouge">]</code>分别是向前或向后寻找，第二位的<code class="highlighter-rouge">[</code>,<code class="highlighter-rouge">]</code>表示寻找<code class="highlighter-rouge"><span class="p">{</span></code>还是<code class="highlighter-rouge">}</code>，在C语言里就是跳到上（或下，取决于第一位是<code class="highlighter-rouge">[</code>还是<code class="highlighter-rouge">]</code>）一个函数的开始或结尾</li>
+  <li><code class="highlighter-rouge">[</code>和<code class="highlighter-rouge">]</code>分别是向前或向后寻找，第二位的<code class="highlighter-rouge">[</code>,<code class="highlighter-rouge">]</code>表示寻找<code class="highlighter-rouge">{</code>还是<code class="highlighter-rouge">}</code>，在C语言里就是跳到上（或下，取决于第一位是<code class="highlighter-rouge">[</code>还是<code class="highlighter-rouge">]</code>）一个函数的开始或结尾</li>
 </ol>
 
 <h3 id="ch51-potion-section-movement">CH51 Potion Section Movement</h3>
@@ -274,17 +275,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch52-external-commands">CH52 External Commands</h3>
 <ol>
   <li>这章实现了一个自动编译的功能，新建<code class="highlighter-rouge">~/.vim/ftplugin/potion/running.vim</code>
- <code class="highlighter-rouge">vim
- if !exists("g:potion_command")
-     let g:potion_command = "potion"
- endif
- function! PotionCompileAndRunFile()
-     silent !clear
-     execute "!" . g:potion_command . " " . bufname("%")
- endfunction
- nnoremap &lt;buffer&gt; &lt;localleader&gt;r :call PotionCompileAndRunFile()&lt;cr&gt;
-</code>
- 这里需要设置<code class="highlighter-rouge">g:potion_command</code>的值</li>
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s2">"g:potion_command"</span><span class="p">)</span>
+     <span class="k">let</span> <span class="nv">g:potion_command</span> <span class="p">=</span> <span class="s2">"potion"</span>
+ <span class="k">endif</span>
+ <span class="k">function</span><span class="p">!</span> PotionCompileAndRunFile<span class="p">()</span>
+     <span class="k">silent</span> <span class="p">!</span><span class="k">clear</span>
+     execute <span class="s2">"!"</span> <span class="p">.</span> <span class="nv">g:potion_command</span> <span class="p">.</span> <span class="s2">" "</span> <span class="p">.</span> bufname<span class="p">(</span><span class="s2">"%"</span><span class="p">)</span>
+ <span class="k">endfunction</span>
+ nnoremap <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="p">&lt;</span>localleader<span class="p">&gt;</span><span class="k">r</span> <span class="p">:</span><span class="k">call</span> PotionCompileAndRunFile<span class="p">()&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+</code></pre></div>    </div>
+    <p>这里需要设置<code class="highlighter-rouge">g:potion_command</code>的值</p>
+  </li>
   <li>介绍下<code class="highlighter-rouge">system(expr[, input])</code>函数，expr是命令，input是之后输入的内容，比如有的命令支持从stdin读取数据，input就是那里的内容</li>
   <li>给那些想用vim做任何事的人看<code class="highlighter-rouge">:h design-not</code></li>
   <li><code class="highlighter-rouge">:read expr</code>是在当前光标下插入expr文件内容，<code class="highlighter-rouge">:read !expr</code>是插入执行命令的结果</li>
@@ -446,6 +447,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -459,10 +464,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -488,6 +489,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -579,6 +582,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -593,6 +598,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   
