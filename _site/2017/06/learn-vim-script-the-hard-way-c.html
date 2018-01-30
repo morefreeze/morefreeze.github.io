@@ -165,11 +165,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch34-case-study-grep-operator-part-three">CH34 Case Study: Grep Operator, Part Three</h3>
 <ol>
   <li>一个可用的思路是，将选中的内容复制到临时寄存器中，但记得最后还原，如
- <code class="highlighter-rouge">sh
- let saved_unnamed_register = @@
- # do something
- let @@ = saved_unnamed_register
-</code></li>
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">let </span>saved_unnamed_register <span class="o">=</span> @@
+ <span class="c"># do something</span>
+ <span class="nb">let</span> @@ <span class="o">=</span> saved_unnamed_register
+</code></pre></div>    </div>
+  </li>
   <li>当你真正要写一个vim脚本时，最好使用命名空间，之前的函数改为<code class="highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=&lt;SID&gt;GrepOperator&lt;cr&gt;g@</code>，这时函数名前加了<code class="highlighter-rouge">&lt;SID&gt;</code>，同时，函数定义改为<code class="highlighter-rouge">function! s:GrepOperator(type)</code></li>
   <li><code class="highlighter-rouge">&lt;SID&gt;</code>应该相当于是Script ID，加上这个会在执行的时候替换为<code class="highlighter-rouge">&lt;SNR&gt;12_func</code>这种形式，另外在脚本内部使用时，前面加<code class="highlighter-rouge">s:</code>即可，但如果是一个map外部调用，应该使用<code class="highlighter-rouge">&lt;SID&gt;</code></li>
 </ol>
@@ -198,26 +198,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="ch36-looping">CH36 Looping</h3>
 <ol>
-  <li>
-    <dl>
-      <dt>for循环像这样</dt>
-      <dt> ```sh</dt>
-      <dt> :for i in [1,2,3,4]</dt>
-      <dd>let c += i
+  <li>for循环像这样
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> :for i <span class="k">in</span> <span class="o">[</span>1,2,3,4]
+ :  <span class="nb">let </span>c +<span class="o">=</span> i
  :endfor
- ```</dd>
-    </dl>
+</code></pre></div>    </div>
   </li>
-  <li>
-    <dl>
-      <dt>while循环像这样</dt>
-      <dt> ```sh</dt>
-      <dt> :while c &lt;= 4</dt>
-      <dd>let total += c</dd>
-      <dd>let c += 1
+  <li>while循环像这样
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> :while c &lt;<span class="o">=</span> 4
+ :  <span class="nb">let </span>total +<span class="o">=</span> c
+ :  <span class="nb">let </span>c +<span class="o">=</span> 1
  :endwhile
- ```</dd>
-    </dl>
+</code></pre></div>    </div>
   </li>
   <li>有点要注意的是，当<code class="highlighter-rouge">for i in mylist</code>时，在对当前元素执行命令前，vim会保存下一个的引用，所以这时即使删除mylist的当前元素也是OK的，但删除之后的元素会导致vim找不到它</li>
 </ol>
@@ -237,64 +229,64 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <ol>
   <li>之前学过用<code class="highlighter-rouge">:setlocal nu!</code>是可以开头某个布尔值的，下面来看下对于非布尔怎么做</li>
   <li>比如可以检测值满足某个条件A时，设为x，满足条件B时，设为y这样，例如
- <code class="highlighter-rouge">sh
- nnoremap &lt;leader&gt;f :call FoldColumnToggle()&lt;cr&gt;
- function! FoldColumnToggle()
-     if &amp;foldcolumn
-         setlocal foldcolumn=0
-     else
-         setlocal foldcolumn=4
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;f :call FoldColumnToggle<span class="o">()</span>&lt;cr&gt;
+ <span class="k">function</span><span class="o">!</span> FoldColumnToggle<span class="o">()</span>
+     <span class="k">if</span> &amp;foldcolumn
+         setlocal <span class="nv">foldcolumn</span><span class="o">=</span>0
+     <span class="k">else
+         </span>setlocal <span class="nv">foldcolumn</span><span class="o">=</span>4
      endif
  endfunction
-</code></li>
+</code></pre></div>    </div>
+  </li>
   <li>或者打开或关闭某个窗口，如<code class="highlighter-rouge">:copen</code>和<code class="highlighter-rouge">:cclose</code>，这时可以用全局变量标识
- <code class="highlighter-rouge">sh
- nnoremap &lt;leader&gt;q :call QuickfixToggle()&lt;cr&gt;
- function! QuickfixToggle()
-     if g:quickfix_is_open
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;q :call QuickfixToggle<span class="o">()</span>&lt;cr&gt;
+ <span class="k">function</span><span class="o">!</span> QuickfixToggle<span class="o">()</span>
+     <span class="k">if </span>g:quickfix_is_open
          cclose
-         let g:quickfix_is_open = 0
-     else
-         copen
-         let g:quickfix_is_open = 1
+         <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 0
+     <span class="k">else
+         </span>copen
+         <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 1
      endif
  endfunction
-</code>
- 这里只有一点不太完美，如果用户手动打开了窗口，则全局变量是不会更新的，但这里要花大工夫来完成，得不偿失</li>
+</code></pre></div>    </div>
+    <p>这里只有一点不太完美，如果用户手动打开了窗口，则全局变量是不会更新的，但这里要花大工夫来完成，得不偿失</p>
+  </li>
   <li>这里还有一点是在打开多个文件再使用<code class="highlighter-rouge">&lt;leader&gt;q</code>时，如果在quick-fix窗口中使用，则会返回上一个split的窗口，而不是之前<code class="highlighter-rouge">copen</code>时所在的窗口，所以要做以下修改，同时这也是个约定俗成的写法
- <code class="highlighter-rouge">sh
- nnoremap &lt;leader&gt;q :call QuickfixToggle()&lt;cr&gt;
- let g:quickfix_is_open = 0
- function! QuickfixToggle()
-     if g:quickfix_is_open
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;q :call QuickfixToggle<span class="o">()</span>&lt;cr&gt;
+ <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 0
+ <span class="k">function</span><span class="o">!</span> QuickfixToggle<span class="o">()</span>
+     <span class="k">if </span>g:quickfix_is_open
          cclose
-         let g:quickfix_is_open = 0
-         execute g:quickfix_return_to_window . "wincmd w"
-     else
-         let g:quickfix_return_to_window = winnr()
+         <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 0
+         execute g:quickfix_return_to_window <span class="nb">.</span> <span class="s2">"wincmd w"</span>
+     <span class="k">else
+         </span><span class="nb">let </span>g:quickfix_return_to_window <span class="o">=</span> winnr<span class="o">()</span>
          copen
-         let g:quickfix_is_open = 1
+         <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 1
      endif
  endfunction
-</code></li>
+</code></pre></div>    </div>
+  </li>
 </ol>
 
 <h3 id="ch39-functional-programming">CH39 Functional Programming</h3>
 <ol>
   <li>就是你可以把变量赋成函数，然后变量名就相当于函数名去调用，这里要注意一点是，变量可以不像函数名那样遵守首字母大写的约定，如
- <code class="highlighter-rouge">sh
- :let funcs = [function("Append"), function("Pop")]
- :echo funcs[1](['a', 'b', 'c'], 1)
-</code></li>
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> :let funcs <span class="o">=</span> <span class="o">[</span><span class="k">function</span><span class="o">(</span><span class="s2">"Append"</span><span class="o">)</span>, <span class="k">function</span><span class="o">(</span><span class="s2">"Pop"</span><span class="o">)]</span>
+ :echo funcs[1]<span class="o">([</span><span class="s1">'a'</span>, <span class="s1">'b'</span>, <span class="s1">'c'</span><span class="o">]</span>, 1<span class="o">)</span>
+</code></pre></div>    </div>
+  </li>
   <li>再来感受一个类似py中的map的例子
- <code class="highlighter-rouge">sh
- function! Mapped(fn, l)
-     let new_list = deepcopy(a:l)
-     call map(new_list, string(a:fn) . '(v:val)')
-     return new_list
+    <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">function</span><span class="o">!</span> Mapped<span class="o">(</span>fn, l<span class="o">)</span>
+     <span class="nb">let </span>new_list <span class="o">=</span> deepcopy<span class="o">(</span>a:l<span class="o">)</span>
+     call map<span class="o">(</span>new_list, string<span class="o">(</span>a:fn<span class="o">)</span> <span class="nb">.</span> <span class="s1">'(v:val)'</span><span class="o">)</span>
+     <span class="k">return </span>new_list
  endfunction
-</code>
-相当于对l数组中的所有元素过一遍函数fn</li>
+</code></pre></div>    </div>
+    <p>相当于对l数组中的所有元素过一遍函数fn</p>
+  </li>
 </ol>
 
 <h3 id="ch40-paths">CH40 Paths</h3>
@@ -309,12 +301,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><code class="highlighter-rouge">#n</code> 另n个文件</li>
     </ul>
 
-    <p>后面还可以接修饰符
- - <code class="highlighter-rouge">:p</code> 扩展成全路径
- - <code class="highlighter-rouge">:h</code> 会把最后一部分去掉（这个可以接在一些修饰符后面，比如’:p:h’就相当于全路径的文件夹名，如果只用’:h’可能只显示’.’）
- - <code class="highlighter-rouge">:t</code> 只保留路径最后一部分
- - <code class="highlighter-rouge">:r</code> 移除扩展名的全路径
- - <code class="highlighter-rouge">:e</code> 文件扩展名</p>
+    <p>后面还可以接修饰符</p>
+    <ul>
+      <li><code class="highlighter-rouge">:p</code> 扩展成全路径</li>
+      <li><code class="highlighter-rouge">:h</code> 会把最后一部分去掉（这个可以接在一些修饰符后面，比如’:p:h’就相当于全路径的文件夹名，如果只用’:h’可能只显示’.’）</li>
+      <li><code class="highlighter-rouge">:t</code> 只保留路径最后一部分</li>
+      <li><code class="highlighter-rouge">:r</code> 移除扩展名的全路径</li>
+      <li><code class="highlighter-rouge">:e</code> 文件扩展名</li>
+    </ul>
   </li>
   <li><code class="highlighter-rouge">simplify(filename)</code> 尽可能简化路径，会把<code class="highlighter-rouge">.././/</code>这种简化掉，快捷方式或链接不解析</li>
   <li><code class="highlighter-rouge">resolve(filename)</code> 可以解析快捷方式或链接，并返回简化后的全路径</li>
@@ -406,6 +400,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -419,10 +417,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -448,6 +442,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -539,6 +535,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -553,6 +551,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

@@ -148,12 +148,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 但仍然有许多细节没有涉及，这篇文章正是为此而作。
 <a class="anchor" id="read-more"></a></p>
 
-<h2 id="section">导入账单</h2>
+<h2 id="导入账单">导入账单</h2>
 <p>这里不得不说一下当初为什么要放弃「随手记」转投了 beancount，正是因为 beancount 它只需要一个文本编辑器就可以记账，
 而「随手记」则需要我在手机上或 PC 上指指点点，虽然一套操作也非常流畅，但它并不能<strong>自动化</strong>，
 而 beancount 则可以让我以任何方式去记录我的账簿，也使自动解析账单并导入成了可能。</p>
 
-<h3 id="section-1">真正的导入工作</h3>
+<h3 id="真正的导入工作">真正的导入工作</h3>
 <p>说到真正的导入工作，不过也就是以下几个步骤：</p>
 
 <ol>
@@ -171,12 +171,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>考虑到记账可能会伴随你的一生，花个一下午写个好用的脚本还是值得的，或者到 <a href="https://github.com/search">github.com</a>上搜一下，
 有些现成的导入某个银行的账单的脚本。</p>
 
-<h2 id="section-2">旅行记账</h2>
+<h2 id="旅行记账">旅行记账</h2>
 <p>在一生中总会有些大事发生，比如外出旅行，买房装修等等，这时会出现一大笔开销，但发现频度很低，
 一年几次甚至几年一次，但这会影响你的月平均消费。
 因为旅行是一个相对发生更频繁的事，所以这里我举例来说明旅行如何记账。这章的灵感来自于<a href="https://docs.google.com/document/d/1FRcJqUfeAMQO6KjG94w6rF7VajMGJaFplmF1Wu0rCHY/edit" title="Sharing Expenses in Beancount">这里</a>。</p>
 
-<h3 id="section-3">建立旅行账本</h3>
+<h3 id="建立旅行账本">建立旅行账本</h3>
 <p>首先是新建一个文本文件，这就是你的旅行账本，这个账本相比主账本会少很多账目，
 你可以从主账本里挑一些可能会用到的账目(Account name)进来，在旅行过程中有可能会根据实际情况添加一些进去。
 接着要初始化用到的账目，比如银行卡，信用卡，如实记录目前的余额。还可能有一些提前兑换的外币也要记录，
@@ -187,7 +187,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 另一种办法是记在主账本，但加上 tag，这种好处是只需要记一次。我个人建议第二种方法，
 虽然这会让这个月的消费有些难看。</p>
 
-<h3 id="section-4">出发！</h3>
+<h3 id="出发">出发！</h3>
 <p>首先祝你旅途顺利。然后在每天的晚上回到酒店，可以抽一些时间来回顾下今天的花销，
 还是老套路，如果是用的信用卡消费，那可以只简单记个<code class="highlighter-rouge">note</code>提醒自己有这笔消费，
 在账单日导入的时候再实际记上。</p>
@@ -196,29 +196,28 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 如果不是太累，可以清点下现金对账，因为一天下来可能买了蛋筒，坐了过山车，又吃了大餐，
 难免遗漏，没对上的就看情况记在「餐饮」或「娱乐」上吧。</p>
 
-<h3 id="section-5">合入主账本</h3>
+<h3 id="合入主账本">合入主账本</h3>
 <p>这步就像 git 的 merge master 操作了。在旅行结束后回来的某一天，将旅行账本打开，
 用工具统计下这次行程的花费，最后可以就「衣食住行」这几大类作下汇总，了解钱都花在哪里。
 然后将这几个总数一次写入主账本，并打上个 tag，比如<code class="highlighter-rouge">#trip-some-place-2016</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>。</p>
 
-<h2 id="section-6">建立自己的「梦想」基金</h2>
+<h2 id="建立自己的梦想基金">建立自己的「梦想」基金</h2>
 <p>作为一名游戏玩家，时不时需要为信仰充个值，但也不能过度消费，所以我为自己设立了一个「游戏」基金。
 买游戏只能使用基金中的钱，如果基金没钱了就不能再买了。</p>
 
-<h3 id="section-7">账目设立</h3>
+<h3 id="账目设立">账目设立</h3>
 <p>一个基金需要用到两个账目，一个叫<code class="highlighter-rouge">Expenses:Games:Total</code>，表示游戏基金的总额，这是个负数，
 另一个叫<code class="highlighter-rouge">Expenses:Games:Actual</code>，表示实际在游戏上花的钱数，这两个其实可以合成一个账目，
 但我为了方便追踪我总共花在游戏上的金额，分成了两个账目。</p>
 
-<h3 id="section-8">增加你的基金</h3>
+<h3 id="增加你的基金">增加你的基金</h3>
 <p>最开始的时候，你的基金肯定为 0，你需要想办法增加你的基金，这样你才有资本去买游戏，
 比如你可以每个月在发工资那天，拿出一部分钱充进你的游戏基金，就像下面这样：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>2016-10-01 * "Games 201610"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-01 * "Games 201610"
             Income:Games                                100 CNY
             Expenses:Games:Total                        -100 CNY
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>你会发现<code class="highlighter-rouge">Expenses:Games:Total</code>是负的，而<code class="highlighter-rouge">Income</code>是正的，这和复式记账法有些出入，
 但不用纠结那些，这些账目正负并不很重要，你可以理解为现在有一笔未来可能发生的交易入账了，
@@ -228,16 +227,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p><img src="/images/shutup.jpg" alt="shut up and take my money" />
 终于可以剁手了，记录交易就变得和正常一样，只是账目变成<code class="highlighter-rouge">Expenses:Games:Actual</code>，就像这样：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>2016-10-02 * "Civilization V"
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-02 * "Civilization V"
             Liabilities:CMBC:CreditCard                 -23.00 CNY
             Expenses:Games:Actual                       23.00 CNY
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>可以看出我趁打折入了《下一回合 V》。现在检查下基金状况，-100+23=-77，
 也就是说我还有 77 块可以用来买入游戏，这你也可以直接统计<code class="highlighter-rouge">Expenses:Games</code>来获得。</p>
 
-<h3 id="section-9">小遗憾</h3>
+<h3 id="小遗憾">小遗憾</h3>
 <p>这种办法唯一的小遗憾是在用信用卡买游戏上，因为账单导入总是延迟记录已经发生的一切，
 所以有可能这个月已经买了许多游戏却无法实时地知道「游戏」基金余额还有多少，我只能自己手动记录已经买的游戏价格，
 再与总数相减。最终我决定不管它了，我会对我的当前基金健康状况有个把握，
@@ -288,13 +286,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   </tbody>
 </table>
 
-<h3 id="section-10">例子</h3>
+<h3 id="例子">例子</h3>
 
 <ul>
   <li>统计当月的<code class="highlighter-rouge">Expenses</code>和<code class="highlighter-rouge">Income</code>，最后只列出支出和收入加和各是多少</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
     year, month, root(account, 1) as account, sum(position) as total
 FROM
     year = YEAR(today()) and month = MONTH(today())
@@ -304,14 +302,13 @@ WHERE
 GROUP BY year, month, account
 ORDER BY year, month, account
 FLATTEN
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>统计当月具体支出项</li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>SELECT
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
     account, sum(cost(position)) as total, month
 FROM
      year = YEAR(today()) and month = MONTH(today())
@@ -319,21 +316,20 @@ WHERE
     account ~ 'Expenses:*'
 GROUP BY month, account
 ORDER BY total, account DESC
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>更多的例子可以查看<a href="https://aumayr.github.io/beancount-sql-queries/" title="SQL queries">这里</a>。</p>
 
-<h2 id="section-11">其它</h2>
+<h2 id="其它">其它</h2>
 <p>最后还有些其它零碎相关的东西要扯一扯。</p>
 
-<h3 id="section-12">备份</h3>
+<h3 id="备份">备份</h3>
 <p>备份我折腾了好久，后来采取定时同步到云盘 + git 的方法管理，同步云盘简单粗暴，
 但现在这个环境下不知道哪天哪个盘又倒了，所以还是找个靠谱的国外云盘吧。git 可以同步一些配套的脚本，
 但账本属于比较隐私的东西，就不适合放在 github 的 public repo 了，开个 private repo 又不值当，
 这种可以自己搞个 gitlab 或者国内的类似产品。</p>
 
-<h3 id="section-13">运行在云上</h3>
+<h3 id="运行在云上">运行在云上</h3>
 <p>之前在网上找教程时找到了<a href="https://alexjj.com/blog/2016/2/managing-my-personal-finances-with-beancount/" title="Managing my personal finances with beancount">这篇</a>，其中介绍了如何将 fava 部署在 <a href="https://www.pythonanywhere.com/">pythonanywhere</a> 上，
 喜欢折腾的可以自己按教程撸一遍，我之前也是在上面部署成功的。再次提醒账本是个人的隐私，
 请注意个人隐私的保密。</p>
@@ -346,7 +342,7 @@ ORDER BY total, account DESC
 <div class="footnotes">
   <ol>
     <li id="fn:1">
-      <p>你可以用<code class="highlighter-rouge">pushtag</code> <code class="highlighter-rouge">poptag</code> 语法省去每条交易都要打 tag 的麻烦 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+      <p>你可以用<code class="highlighter-rouge">pushtag</code> <code class="highlighter-rouge">poptag</code> 语法省去每条交易都要打 tag 的麻烦 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -434,6 +430,10 @@ ORDER BY total, account DESC
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -447,10 +447,6 @@ ORDER BY total, account DESC
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -476,6 +472,8 @@ ORDER BY total, account DESC
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -567,6 +565,8 @@ ORDER BY total, account DESC
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -581,6 +581,13 @@ ORDER BY total, account DESC
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

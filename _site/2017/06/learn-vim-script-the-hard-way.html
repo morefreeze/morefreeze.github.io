@@ -235,13 +235,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>我们来解析下这条命令，BufNewFile是vim要监控的事件，*是要过滤的事件，:write要运行的命令，
 命令那部分是不允许出现<cr>这种的，
-事件的类型有（只是一小部分）：
-- 开始编辑一个不存在的文件
-- 读一个文件无论是否存在
-- 切换文件的filetype设置
-- 一段时间内没有按键盘上的某个键
-- 进入插入模式
-- 退出插入模式</cr></p>
+事件的类型有（只是一小部分）：</cr></p>
+<ul>
+  <li>开始编辑一个不存在的文件</li>
+  <li>读一个文件无论是否存在</li>
+  <li>切换文件的filetype设置</li>
+  <li>一段时间内没有按键盘上的某个键</li>
+  <li>进入插入模式</li>
+  <li>退出插入模式</li>
+</ul>
 
 <p><code class="highlighter-rouge">:autocmd BufNewFile *.txt :write</code>这是对.txt后缀的文件进行过滤，只保存这类文件
 可以同时有多个事件<code class="highlighter-rouge">:autocmd BufWritePre,BufRead *.html :normal gg=G</code>，在预写和读的时候格式化.html文件，
@@ -335,6 +337,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -348,10 +354,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -377,6 +379,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -468,6 +472,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -482,6 +488,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

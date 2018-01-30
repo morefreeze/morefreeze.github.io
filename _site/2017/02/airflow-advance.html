@@ -145,15 +145,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <article class="post-content" itemprop="articleBody">
       
 <ul id="markdown-toc">
-  <li><a href="#section" id="markdown-toc-section">任务结构</a></li>
-  <li><a href="#section-1" id="markdown-toc-section-1">环境变量</a></li>
-  <li><a href="#section-2" id="markdown-toc-section-2">代码规范</a></li>
-  <li><a href="#section-3" id="markdown-toc-section-3">调试</a></li>
-  <li><a href="#section-4" id="markdown-toc-section-4">部署</a></li>
-  <li><a href="#section-5" id="markdown-toc-section-5">其他杂事</a></li>
-  <li><a href="#section-6" id="markdown-toc-section-6">焦油坑</a></li>
-  <li><a href="#airflow-" id="markdown-toc-airflow-">airflow 不足</a></li>
-  <li><a href="#section-7" id="markdown-toc-section-7">总结</a></li>
+  <li><a href="#任务结构" id="markdown-toc-任务结构">任务结构</a></li>
+  <li><a href="#环境变量" id="markdown-toc-环境变量">环境变量</a></li>
+  <li><a href="#代码规范" id="markdown-toc-代码规范">代码规范</a></li>
+  <li><a href="#调试" id="markdown-toc-调试">调试</a></li>
+  <li><a href="#部署" id="markdown-toc-部署">部署</a></li>
+  <li><a href="#其他杂事" id="markdown-toc-其他杂事">其他杂事</a></li>
+  <li><a href="#焦油坑" id="markdown-toc-焦油坑">焦油坑</a></li>
+  <li><a href="#airflow-不足" id="markdown-toc-airflow-不足">airflow 不足</a></li>
+  <li><a href="#总结" id="markdown-toc-总结">总结</a></li>
 </ul>
 
 <p><a href="/2016/12/airflow.html">上一篇</a>介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，
@@ -164,33 +164,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <hr />
 
-<h2 id="section">任务结构</h2>
+<h2 id="任务结构">任务结构</h2>
 <p>安装完部署到线上，遇到的第一个问题是任务的结构，虽然 airflow 的 dag 文件也是 python写的，
 但和业务代码实际关系不太大，就像一个 shell 脚本，所以放在运维的项目中，建一个叫 dags的目录，
 之后如果有其它业务的 dag 要进来再新建子目录就行，同时别忘了把 airflow 配置的 dag 目录设置在这。</p>
 
-<h2 id="section-1">环境变量</h2>
+<h2 id="环境变量">环境变量</h2>
 <p>环境变量总是一个让人头疼却又绕不开的东西，因为业务代码用了 conda，所以至少要设置一下<code class="highlighter-rouge">PYTHONPATH</code>，
 但这个变量其实应该是由外部部署程序决定的（比如我们用的ansible部署），也许还会分机房有不同配置，
 所以这里建议写一个类似<code class="highlighter-rouge">const.py.j2</code>的文件，把这些由外部决定的变量放进去，
 在部署时由程序生成出来。一个可能的写法像这样：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code><span class="c"># const.py.j2</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># const.py.j2</span>
 <span class="n">home_dir</span> <span class="o">=</span> <span class="s">""</span>
 <span class="n">PYTHONPATH</span> <span class="o">=</span> <span class="s">":/usr/bin"</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>但这样写在调试程序时就比较麻烦，只能每个人自己写一份自己的配置文件（就像自己生成配置文件）。</p>
 
 <p>当然，如果线上部署不会根据机房机器发生变化的话，那直接写一个<code class="highlighter-rouge">const.py</code>也是没问题的。</p>
 
-<h2 id="section-2">代码规范</h2>
+<h2 id="代码规范">代码规范</h2>
 <p>dag 文件只要按照 PEP 8 的标准来写就行，而且一般行数也不多，大部分是在描述，
 没什么逻辑在其中。但我发现 airflow 对于要执行的脚本会有些要求。</p>
 
 <ol>
   <li>脚本最好有明确的时间参数，执行后只更新那个时间点（段）的数据，
-并且在 dags 中也显式地指定执行的时间。可以用``来对时间进行偏移。</li>
+并且在 dags 中也显式地指定执行的时间。可以用<code class="highlighter-rouge">{{ macros.ds_add(ds, 1) }}</code>来对时间进行偏移。</li>
   <li>脚本如果只需要当前时间执行的，那最好有个上游函数(PythonBranchOperator)来判断是否需要继续执行，
 如果 execute_time 过了当前时间一段时间了那就直接跳过不执行了。</li>
   <li>每个脚本的功能做到”Do one thing and do it well.”，不要把一堆操作放在一个地方，
@@ -200,20 +199,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li>注意脚本是否能并行执行，比如是否写了同一个文件，如果是，做好线程安全处理。</li>
 </ol>
 
-<h2 id="section-3">调试</h2>
+<h2 id="调试">调试</h2>
 <p>最大问题还是上面说的环境变量问题，在自己机器上维护一份<code class="highlighter-rouge">const.py</code>且不入库，
 然后搭一套 airflow 还是很快的，执行只要用默认的顺序执行器就好，写完 dag 直接在界面或者用命令去测都可以。
-因为有些测试服只有内网能访问，而且又没法改 nginx 配置的话，可以用 ssh 隧道把端口映射到本机，
-<code class="highlighter-rouge">shell
-ssh -N -f -L local_port:127.0.0.1:remote_port user@host
-</code>
-只需要改下 local_port 和 remote_port 就行了，命令的解释可以看<a href="http://explainshell.com/explain?cmd=ssh+-N+-f+-L+local_port%3A127.0.0.1%3Aremote_port+user%40host">这里</a></p>
+因为有些测试服只有内网能访问，而且又没法改 nginx 配置的话，可以用 ssh 隧道把端口映射到本机，</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-N</span> <span class="nt">-f</span> <span class="nt">-L</span> local_port:127.0.0.1:remote_port user@host
+</code></pre></div></div>
+<p>只需要改下 local_port 和 remote_port 就行了，命令的解释可以看<a href="http://explainshell.com/explain?cmd=ssh+-N+-f+-L+local_port%3A127.0.0.1%3Aremote_port+user%40host">这里</a></p>
 
-<h2 id="section-4">部署</h2>
+<h2 id="部署">部署</h2>
 <p>部署方面基本比较流畅，只要拷到 dag 目录就可以了。如果文件拷贝时间比较长，
 可能会导致 airflow 读取的文件内容不一致，可以先将文件拷到一个目录，然后用软链链接到新目录就行了。</p>
 
-<h2 id="section-5">其他杂事</h2>
+<h2 id="其他杂事">其他杂事</h2>
 <p>在写 dag 时都会指定 start_date，那么这个时间要指定从什么时候开始就比较头疼，
 因为在上线后，打开了任务，airflow 会把 start_date 以后的都执行一遍，
 这可能会导致不必要的运行，一个解决办法是在命令行直接都标记为成功，
@@ -221,15 +219,15 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
 和直接在线上执行脚本没太大区别了，折中的做法是统一由一个人来执行，
 而不是让任何人都能随意地去执行命令，把自由降到最小。</p>
 
-<h2 id="section-6">焦油坑</h2>
+<h2 id="焦油坑">焦油坑</h2>
 <p>在用的时候遇到的坑也是有的，查问题又查到了<a href="https://cwiki.apache.org/confluence/display/AIRFLOW/Common+Pitfalls">这里</a>，
 原来别人早已遇到过了，挑几个比较重要的列出来。</p>
 
 <ol>
   <li>使用 BashOperator 时，因为 jinja2 的关系，在脚本的最后要留一个<strong>空格</strong>，否则会报一个诡异的 jinja2 错误。</li>
   <li>使用 BahsOperator 如果 command 要使用 python 字符串命名变量的形式（如<code class="highlighter-rouge">'{foo}_{bar}'.format(bar=bar, foo=foo)</code>），
-并且要用模板变量时，命令就要写成类似这样 <code class="highlighter-rouge">'python {file} "}}"'.format(file=file)</code>
-正常的字符串替换用一层<code class="highlighter-rouge"><span class="p">{}</span></code>，模板变量用四层<code class="highlighter-rouge"><span class="p">{}</span></code>。
+并且要用模板变量时，命令就要写成类似这样 <code class="highlighter-rouge">'python {file} "{{{{ ds }}}}"'.format(file=file)</code>
+正常的字符串替换用一层<code class="highlighter-rouge">{}</code>，模板变量用四层<code class="highlighter-rouge">{}</code>。
 另外一个小提示是，ds 这种时间变量两边要带上引号，否则<code class="highlighter-rouge">2017-02-13 00:00:00</code>的变量会被 shell 认为是两个参数，
 当然这可不是 airflow 的锅。</li>
   <li>如果要修改 dag 的开始时间或运行间隔，一定要顺便改下 dag_id，例如改成 my_dag_v1, my_dag_v2，
@@ -239,7 +237,7 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
 那执行时，传入的参数实际是 02-06 的日期。</li>
 </ol>
 
-<h2 id="airflow-">airflow 不足</h2>
+<h2 id="airflow-不足">airflow 不足</h2>
 <p>在使用 airflow 过程中也发现了一些缺点，主要集中在 web UI 上，在这先列出一些：</p>
 
 <ol>
@@ -254,7 +252,7 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
   <li>Task Instances 无法对单列进行排序，总是先按状态排序，再排 dag_id等等</li>
 </ol>
 
-<h2 id="section-7">总结</h2>
+<h2 id="总结">总结</h2>
 <p>以上是个人对airflow 一些进阶使用的心得，中间也会在 google 上搜索各种解决方案，
 但因为毕竟用的人比较少，能找到的文章并不多，大部分都是指向官方文档，反复研读文档也是很必要的，
 只有几篇文章是类似我这样的使用心得，而且讲的也是比较特定的场景，但至少还是有些启发。
@@ -347,6 +345,10 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
@@ -360,10 +362,6 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
   
   <li>
   <a href="/2017/06/learn-vim-script-the-hard-way-c.html" title="learn vim script the hard way 笔记（下）" rel="bookmark">learn vim script the hard way 笔记（下）</a>
-  </li>
-  
-  <li>
-  <a href="/2017/06/learn-vim-script-the-hard-way-b.html" title="learn vim script the hard way 笔记（中）" rel="bookmark">learn vim script the hard way 笔记（中）</a>
   </li>
   
 </div>
@@ -389,6 +387,8 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
   
 </div>
 
@@ -480,6 +480,8 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
 </div>
 
 
@@ -494,6 +496,13 @@ ssh -N -f -L local_port:127.0.0.1:remote_port user@host
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
   
   
   

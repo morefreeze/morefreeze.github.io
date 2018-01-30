@@ -47,8 +47,9 @@ tags: [vim]
 4. `:set statusline=[%4l]`的%4表示占4个字符，不足用空格补齐，`%-4`表示左对齐，`%04`表示不足用0补齐，`%.20`表示占20个字符的宽，多的会截掉，一般格式为`%-0{minwid}.{maxwid}{item}`
 
 ### CH18 Responsible Coding
+{% assign left_braces = '{{{' %}
 1. 多写注释
-2. 可以用`" Vimscript file settings ---------------------- {{{`和`: }}}`来包住一个想被折叠的部分，同时需要设置`:setlocal foldmethod=marker`，在这部分内容中时，按`za`来折叠或打开
+2. 可以用`" Vimscript file settings ---------------------- {{ left_braces }}`和`: }}}`来包住一个想被折叠的部分，同时需要设置`:setlocal foldmethod=marker`，在这部分内容中时，按`za`来折叠或打开
 3. vim有许多缩写的命令，比如`setl`==`setlocal`，但十分不建议在vim script里这么写，如果你是临时手写命令的话，可以用缩写
 
 ### CH19 Variables
