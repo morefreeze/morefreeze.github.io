@@ -65,7 +65,7 @@ permalink: /:year/:month/:title.html
 ### Build settings
 markdown: kramdown
 highlighter: rouge
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 paginate: 5
 paginate_path: /page:num
 

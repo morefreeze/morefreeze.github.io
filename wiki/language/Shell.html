@@ -63,13 +63,13 @@
 </pre></div>
 
 
-<p>But Makefile couldn't input the newline, even if I have read
-<a href="https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html">this</a>.
+<p>But Makefile couldn't input the newline, even if I have read<br />
+<a href="https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html">this</a>.<br />
 If someone know please let <a href="http://morefreeze.github.io/b_about.html">me</a> know.</p>
 <h2 id="sed">sed</h2>
 <h3 id="tail-without-last-100-line">tail without last 100 line</h3>
-<p>Sometime, I may want to see a file last some lines without last some lines(let's say 100).
-A direct solution is <code>wc -l</code> get the line count then minus 100 use <code>sed</code>. But I have seen
+<p>Sometime, I may want to see a file last some lines without last some lines(let's say 100).<br />
+A direct solution is <code>wc -l</code> get the line count then minus 100 use <code>sed</code>. But I have seen<br />
 a more graceful solution.</p>
 <ul>
 <li>Solution: </li>
@@ -87,7 +87,7 @@ a more graceful solution.</p>
 </pre></div>
 
 
-<p>You need only get the <code>/app/path?foo=bar HTTP</code> when <code>GET</code> is front of it and
+<p>You need only get the <code>/app/path?foo=bar HTTP</code> when <code>GET</code> is front of it and<br />
 <code>HTTP</code> is behind it.</p>
 <ul>
 <li>Solution:</li>
@@ -97,7 +97,7 @@ a more graceful solution.</p>
 
 
 <ul>
-<li>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.
+<li>Explain: <code>-o</code> is for only print match, <code>-P</code> is for using perl-style regex.<br />
 <a href="http://explainshell.com/explain?cmd=grep+-oP+%27%28%3F%3C%3DGET+%29%5B%5E+%5D%2B%28%3F%3D+HTTP%29%27">explainshell</a></li>
 </ul>
 <h3 id="print-only-appear-in-leftright-file-line">Print only appear in left(right) file line</h3>
@@ -140,7 +140,7 @@ a more graceful solution.</p>
 <ul>
 <li>
 <p>Explain: <code>--LTYPE-line-format=LFMT</code></p>
-<p><code>LTYPE is 'old', 'new', or 'unchanged'.</code>
+<p><code>LTYPE is 'old', 'new', or 'unchanged'.</code><br />
 <code>%L</code> is contents of line, other options you can see detail in <code>man diff</code>.</p>
 </li>
 </ul>
