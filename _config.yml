@@ -1,4 +1,5 @@
 ### Site info:
+mode: production
 title: MoreFreeze's Sanctuary
 tagline: MoreFreeze's blog
 author : More Freeze
@@ -10,7 +11,8 @@ description: "morefreeze's blog" # You can edit this line in _config.yml. It wil
 keywords: "Jekyll, theme, Freshman21"
 locale: en_US
 baseurl: 
-absurl: "https://morefreeze.github.io"
+url: 
+#absurl: "https://morefreeze.github.io"
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
@@ -65,7 +67,7 @@ permalink: /:year/:month/:title.html
 ### Build settings
 markdown: kramdown
 highlighter: rouge
-gems: [jekyll-paginate]
+plugins: [jekyll-paginate]
 paginate: 5
 paginate_path: /page:num
 

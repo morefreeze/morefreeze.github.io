@@ -173,7 +173,7 @@
 
 
 <h3 id="salary">Salary</h3>
-<p>This is my salary template, it including social insurance and income tax,
+<p>This is my salary template, it including social insurance and income tax,<br />
 you need change <code>$Company</code> to your company name and <code>$Bank</code> as same. <code>Vacation</code> is your loss because personal leave.</p>
 <div class="hlcode"><pre>snippet sal &quot;salary&quot;
     <span class="cp">${</span><span class="mi">8</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">7</span><span class="p">:</span><span class="sb">`strftime(&quot;%m&quot;, localtime()-86400)`</span><span class="cp">}</span>-<span class="cp">${</span><span class="mi">6</span><span class="p">:</span><span class="sb">`strftime(&quot;%d&quot;, localtime()-86400)`</span><span class="cp">}</span> * &quot;<span class="cp">${</span><span class="mi">9</span><span class="p">:</span><span class="sb">`strftime(&quot;%Y/%m&quot;, localtime()-86400*30)`</span><span class="cp">}</span> salary&quot;
