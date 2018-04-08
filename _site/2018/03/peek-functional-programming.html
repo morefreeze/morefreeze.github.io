@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="初探函数式编程">
 <title>初探函数式编程</title>
-<meta property="og:description" content="  目录最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系...">
+<meta property="og:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
 <meta property="og:url" content="/2018/03/peek-functional-programming.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="初探函数式编程">
-<meta name="twitter:description" content="  目录最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系...">
+<meta name="twitter:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
 <meta name="twitter:url" content="/2018/03/peek-functional-programming.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -144,8 +144,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
-<ul>
-  <li>目录</li>
+<ul id="markdown-toc">
+  <li><a href="#基本概念" id="markdown-toc-基本概念">基本概念</a></li>
+  <li><a href="#柯里化curry" id="markdown-toc-柯里化curry">柯里化(curry)</a></li>
+  <li><a href="#函子functor" id="markdown-toc-函子functor">函子(Functor)</a></li>
+  <li><a href="#maybe-函子" id="markdown-toc-maybe-函子">Maybe 函子</a></li>
+  <li><a href="#ap-函子" id="markdown-toc-ap-函子">ap 函子</a></li>
+  <li><a href="#monad-函子" id="markdown-toc-monad-函子">Monad 函子</a></li>
+  <li><a href="#小结" id="markdown-toc-小结">小结</a></li>
+  <li><a href="#下期预告" id="markdown-toc-下期预告">下期预告</a></li>
 </ul>
 
 <p>最近遇到了一些函数式编程的概念，心想我用 <code class="highlighter-rouge">Python</code> 的 <code class="highlighter-rouge">map</code> <code class="highlighter-rouge">reduce</code> 不就是在函数式编程嘛，

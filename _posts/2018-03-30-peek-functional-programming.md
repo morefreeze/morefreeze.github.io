@@ -8,8 +8,7 @@ tags: [functional, python, monad]
 ---
 {% include JB/setup %}
 
-* 目录
-
+* Table of Contents
 {:toc}
 
 最近遇到了一些函数式编程的概念，心想我用 `Python` 的 `map` `reduce` 不就是在函数式编程嘛，
