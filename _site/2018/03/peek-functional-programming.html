@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="初探函数式编程">
 <title>初探函数式编程</title>
-<meta property="og:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但为什么我却看不懂呢，于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，python 这些操作算是函数式编程，但要系统地理解为什么能这样，还得从头说起。">
+<meta property="og:description" content="  目录最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系...">
 <meta property="og:url" content="/2018/03/peek-functional-programming.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="初探函数式编程">
-<meta name="twitter:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但为什么我却看不懂呢，于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，python 这些操作算是函数式编程，但要系统地理解为什么能这样，还得从头说起。">
+<meta name="twitter:description" content="  目录最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系...">
 <meta name="twitter:url" content="/2018/03/peek-functional-programming.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -144,13 +144,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
+<ul>
+  <li>目录</li>
+</ul>
+
 <p>最近遇到了一些函数式编程的概念，心想我用 <code class="highlighter-rouge">Python</code> 的 <code class="highlighter-rouge">map</code> <code class="highlighter-rouge">reduce</code> 不就是在函数式编程嘛，
-但为什么我却看不懂呢，于是先学了阮老师的<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html">函数式编程入门教程</a>，
-唉哟喂，和我原来想的还不一样，python 这些操作算是函数式编程，但要系统地理解为什么能这样，
+但看了半天仍然一头雾水，什么是 <code class="highlighter-rouge">UnitBox</code>？<code class="highlighter-rouge">flatMap</code> 和 <code class="highlighter-rouge">map</code> 差在哪里？于是先学了阮老师的<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html">函数式编程入门教程</a>，
+唉哟喂，和我原来想的还不一样，<code class="highlighter-rouge">Python</code> 这些操作虽然算是函数式编程，但要系统地理解为什么能这样，
 还得从头说起。</p>
 
 <a class="anchor" id="read-more"></a>
-<p>这里我就从阮老师的这篇文章开始，好在他是用 JS 讲解的，于是我就写个 python 实现的版本。</p>
+<p>这里我就从阮老师的这篇文章开始，好在他是用 <code class="highlighter-rouge">JS</code> 讲解的，于是我就写个 <code class="highlighter-rouge">Python</code> 实现的版本。</p>
 
 <h3 id="基本概念">基本概念</h3>
 
@@ -163,11 +167,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 
 <p>翻译成程序员理解的话就是说，函数要没有副作用，比如修改全局变量，传多个参数，
-这些全是禁止的。</p>
+这些都是禁止的。</p>
 
 <h3 id="柯里化curry">柯里化(curry)</h3>
 
-<p>柯里化简单来说就是把多个参数的函数参过“俄罗斯套娃”的形式，展成多个函数调用的形式，
+<p>柯里化简单来说就是把接受多个参数的函数通过“俄罗斯套娃”的形式，展成多个函数调用的形式，
 每个函数只处理一个函数，就像这样：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
@@ -179,7 +183,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span class="n">curry_add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>         <span class="c"># 5</span>
 </code></pre></div></div>
 
-<p>显然把好端端的函数重写一遍挺费劲的，可以用装饰器来简化这一过程，代码受 <a href="https://bitbucket.org/jason_delaat/pymonad/src/cbecd6796cd1488237d2a0f057cefd2a50df753a/pymonad/Reader.py?at=master&amp;fileviewer=file-view-default#Reader.py-91">pymonad</a> 的启发：</p>
+<p>显然把好端端的函数都重写一遍挺费劲的，可以用装饰器来简化这一过程，代码受 <a href="https://bitbucket.org/jason_delaat/pymonad/src/cbecd6796cd1488237d2a0f057cefd2a50df753a/pymonad/Reader.py?at=master&amp;fileviewer=file-view-default#Reader.py-91">pymonad</a> 的启发：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">curry</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="n">num_args</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">__code__</span><span class="o">.</span><span class="n">co_argcount</span>
@@ -197,16 +201,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>       <span class="c"># 5</span>
 </code></pre></div></div>
 
-<p>上面 <code class="highlighter-rouge">curry</code> 装饰器直接返回 <code class="highlighter-rouge">wrap</code> 的调用，而这个 <code class="highlighter-rouge">wrap</code> 的函数总是返回一个<strong>接受一个参数的函数</strong>的调用，
+<p>上面 <code class="highlighter-rouge">curry</code> 装饰器直接返回 <code class="highlighter-rouge">wrap</code> 的调用，而这个 <code class="highlighter-rouge">wrap</code> 的函数总是返回一个<strong>接受一个参数的函数</strong>的调用，
 比如装饰 <code class="highlighter-rouge">add</code> 函数，第一层返回一个 <code class="highlighter-rouge">add1(x)</code> 的函数调用，第二层就返回一个 <code class="highlighter-rouge">add2(y)</code> 的调用，而到第三层，因为 <code class="highlighter-rouge">num_args == 0</code>，直接调用 <code class="highlighter-rouge">add(x, y)</code>
 将前面的所有参数一起传给 <code class="highlighter-rouge">add</code>，最终执行 <code class="highlighter-rouge">return x + y</code>，得到计算结果。</p>
 
 <h3 id="函子functor">函子(Functor)</h3>
 
-<p>下面终于轮到函子小姐出场啦，这是基本的运算单位和功能单位。规定凡是实现了 <code class="highlighter-rouge">map</code> 方法的都是函子。</p>
+<p>下面轮到函子出场啦，这是基本的运算单位和功能单位。规定凡是实现了 <code class="highlighter-rouge">map</code> 方法的都是函子。</p>
 
-<p>听名字有点像函数，但从应用上来看，它表示其实是一些我们熟悉的数据类型，比如 <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">string</code> 等，
-因为只有这些类型可以应用 <code class="highlighter-rouge">map</code> 操作，比如给一个数翻倍，将一串字符串变成大写。</p>
+<p>听名字有点像函数，但从应用上来看，它表示的是一些我们熟悉的数据类型，比如 <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">string</code> 等，
+这些类型可以应用 <code class="highlighter-rouge">map</code> 操作，比如给一个数翻倍，将一串字符串变成大写。</p>
 
 <p>让我们实现一个简单的函子：</p>
 
@@ -216,7 +220,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
 
     <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="err"></span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s">'</span><span class="si">%</span><span class="s">s(</span><span class="si">%</span><span class="s">s)'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
@@ -225,43 +229,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">of</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">)</span>
 
-<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>              <span class="c"># Functor(4)</span>
-<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">"foobar"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>     <span class="c"># Functor(FOOBAR)</span>
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                          <span class="c"># Functor(4)</span>
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">"foobar"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>                 <span class="c"># Functor(FOOBAR)</span>
 <span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>     <span class="c"># Functor(12)</span>
 </code></pre></div></div>
 
-<p>函子只有一个成员 <code class="highlighter-rouge">val</code> 就是用来存储各种数据类型的，然后有一个 <code class="highlighter-rouge">map</code> 方法，这个方法接受一个函数运算作为参数，应该就是将这个函数应用在 <code class="highlighter-rouge">self.val</code> 上，
+<p>函子只有一个成员 <code class="highlighter-rouge">val</code>， 就是用来存储各种数据类型的，然后有一个 <code class="highlighter-rouge">map</code> 方法，这个方法接受一个函数运算作为参数，将这个函数应用在 <code class="highlighter-rouge">self.val</code> 上，
 但要注意返回的仍然是一个函子，这样后面才能继续应用 <code class="highlighter-rouge">map</code> 进行操作，
 也就是说支持链式操作。</p>
 
-<p>另外 <code class="highlighter-rouge">__repr__</code> 函数只是为了打印方便调试用的。</p>
+<p>另外 <code class="highlighter-rouge">__repr__</code> 函数只是为了方便打印调试用的。</p>
 
 <p>注意到还有一个类方法 <code class="highlighter-rouge">of</code>，这是因为如果直接用 <code class="highlighter-rouge">Functor()</code> 来初始化不像函数式编程，
 所以一般约定使用 <code class="highlighter-rouge">of</code> 来生成新的对象。</p>
 
-<p>可以看到三个例子展示了<code class="highlighter-rouge">map</code>操作，注意到第 3 个例子还是链式写法，当然这是建立在这些函数都没有副作用的前提下，稍后将会看到这种写法的局限性。</p>
+<p>可以看到三个例子展示了<code class="highlighter-rouge">map</code>操作，注意到第 3 个例子是链式写法，当然这是建立在这些函数都没有副作用的前提下，稍后将会看到这种写法的局限性。</p>
 
 <h3 id="maybe-函子">Maybe 函子</h3>
 
-<p>编程中经常遇到一种情况是一个成员初始值赋为 <code class="highlighter-rouge">null</code> 或 <code class="highlighter-rouge">None</code>，之后才有可能赋为它的类型的值，
-在之后的函数处理中，如果用到这个值，经常会看到 <code class="highlighter-rouge">if (foo == null)</code> 或 <code class="highlighter-rouge">if foo is None</code> 的条件语句来做边界处理，
-这就比较烦，所以这时要用到 Maybe 函子，它的定义如下：</p>
+<p>编程中经常遇到一种情况是一个成员初始值赋为 <code class="highlighter-rouge">null</code> 或 <code class="highlighter-rouge">None</code>，之后才有可能赋为它的类型的值，
+在之后的函数处理中，如果用到这个值，经常会看到 <code class="highlighter-rouge">if (foo == null)</code> 或 <code class="highlighter-rouge">if foo is None</code> 的条件语句来做边界处理，
+这就比较烦，所以这时要用到 Maybe 函子，它的定义如下：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Maybe</span><span class="p">(</span><span class="n">Functor</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
 
 <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foobar'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>     <span class="c"># Maybe(FOOBAR)</span>
 <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>         <span class="c"># Maybe(None)</span>
 </code></pre></div></div>
 
-<p>只是在实现的 <code class="highlighter-rouge">map</code> 中判断下值是否为空，再根据情况处理即可，其实就是把函数中要进行的判断都放到
+<p>只是在实现的 <code class="highlighter-rouge">map</code> 中判断下值是否为空，再根据情况处理即可，其实就是把函数中要进行的判断放到
 Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">rust</code> 语言中的 <code class="highlighter-rouge">Option</code>。</p>
 
 <h3 id="ap-函子">ap 函子</h3>
 
-<p>Functor 只能传数据类型，再应用<strong>接受一个参数</strong>的函数，那对于已经柯里化的多参数函数怎么调用呢，
+<p>Functor 只能传数据类型，再应用<strong>接受一个参数</strong>的函数，那对于已经柯里化的多参数函数怎么调用呢，
 这时就用到了 ap 函子，ap 是 applicative （应用）的缩写。只要实现 <code class="highlighter-rouge">ap</code> 方法就行。</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ap</span><span class="p">(</span><span class="n">Functor</span><span class="p">):</span>
@@ -276,11 +280,11 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
 <span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c"># Ap(5)</span>
 </code></pre></div></div>
 
-<p>注意到 ap 函子和 Functor（或 Maybe） 的不同是它用一个函数初始化，然后将数据来应用(apply)在这个函数。</p>
+<p>注意到 ap 函子和 Functor（或 Maybe） 的不同是它用<strong>一个函数</strong>（而不是一个数据）初始化，然后将函数应用(apply)在后面的数据上。</p>
 
 <h3 id="monad-函子">Monad 函子</h3>
 
-<p><code class="highlighter-rouge">Functor.map</code> 是接受一个普通的函数，这个普通函数接受一个普通值，返回一个封装过的值（返回仍是 Functor 或 Maybe），那如果一个函数中可能出现异常导致需要返回一个空值，这时一般我们会让这个函数返回一个封装值，比如这样：</p>
+<p><code class="highlighter-rouge">Functor.map</code> 是接受一个普通的函数，这个普通函数接受一个普通值并返回一个普通值，那如果一个函数中可能出现异常导致需要返回一个空值，这时一般我们会让这个函数返回一个封装值，比如这样：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">tryParse</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
@@ -288,15 +292,16 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
     <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>        <span class="c"># Maybe(Maybe(42))</span>
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>       <span class="c"># Maybe(Maybe(None))</span>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                    <span class="c"># Maybe(Maybe(42))</span>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                   <span class="c"># Maybe(Maybe(None))</span>
 <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>      <span class="c"># TypeError</span>
 </code></pre></div></div>
 
-<p>注意到经过<code class="highlighter-rouge">map</code>后的值多套了一层 <code class="highlighter-rouge">Maybe</code>，这样就没法再用链式写法了，
-那怎么办呢，发现函数接受的是一个普通类类型，那么只要让进出一致，就又可以愉快地用链式写法了，
-也就是说函数要变成<strong>接受一个普通值并返回一个封装类型的形式</strong>，我们管这种既能包普通值，
-又能包函数的类型叫 <code class="highlighter-rouge">Monad</code>，新增一个<code class="highlighter-rouge">flat_map</code>方法，这个方法就是把经过函数封装的值再展开(flat)，
+<p>注意到经过 <code class="highlighter-rouge">map</code> 后的值多套了一层 <code class="highlighter-rouge">Maybe</code>，这样就没法再用链式写法了，
+那怎么办呢，发现 <code class="highlighter-rouge">map</code> 函数接受的是一个普通值，那么只要让进出一致，就又可以愉快地用链式写法了，
+也就是说新 <code class="highlighter-rouge">map</code> 接受一个封装值并返回一个封装值，里面要做的工作是去掉封装传给真正的处理函数，
+我们管这种既能包普通值，又能包函数的类型叫 <code class="highlighter-rouge">Monad</code>，新 <code class="highlighter-rouge">map</code> 方法 叫
+<code class="highlighter-rouge">flat_map</code>，这个方法就是把封装的值展开(flat)再应用上 <code class="highlighter-rouge">map</code>，
 就像这样：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Monad</span><span class="p">(</span><span class="n">Fuctor</span><span class="p">):</span>
@@ -308,20 +313,20 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
 
 <span class="k">def</span> <span class="nf">half</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="err"></span>    <span class="k">try</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
     <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>        <span class="c"># Monad(2)</span>
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>        <span class="c"># Monad(None)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(2)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(None)</span>
 <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(1)</span>
 <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(None)</span>
 </code></pre></div></div>
 
 <p>可以看到给出的后两个例子支持了链式操作，并且如果函数处理得当，对 <code class="highlighter-rouge">None</code> 值也做了处理。</p>
 
-<p>但如果已经有了一些纯函数（就像上面直接进行 <code class="highlighter-rouge">x+2</code> 的函数）是不是还要都改成返回 <code class="highlighter-rouge">Monad</code> 的类型呢，
+<p>但如果已经有了一些纯函数，是不是还要都改成返回 <code class="highlighter-rouge">Monad</code> 的类型呢，
 肯定不啦，可以用装饰器轻松达到这个目的，就像这样：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">monadize</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
@@ -329,10 +334,12 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
         <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">_</span>
 
+<span class="nd">@monadize</span>
+<span class="nd">@curry</span>
 <span class="k">def</span> <span class="nf">add3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>
 
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span><span class="err"></span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span>      <span class="c"># Monad(8)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span>      <span class="c"># Monad(8)</span>
 </code></pre></div></div>
 
 <h3 id="小结">小结</h3>
@@ -343,8 +350,14 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
   <li>Functor 用来包装数据类型，这里的值可以是数字，字符串，也可以是复杂对象，调用 <code class="highlighter-rouge">map</code> 方法将函数应用在包装的数据上</li>
   <li>Maybe 可以将表示空值的 <code class="highlighter-rouge">None</code> 作为值，并且不会对 <code class="highlighter-rouge">None</code> 进行操作</li>
   <li>Ap 可以将多参数的函数包装，调用 <code class="highlighter-rouge">ap()</code> 不断将参数填充到函数里并求值</li>
-  <li>Monad 使用 <code class="highlighter-rouge">flat_map</code> 接受一个返回封装值的函数，并将函数的返回值取出，将多层封装展开成单层</li>
+  <li>Monad 使用 <code class="highlighter-rouge">flat_map</code> 接受一个返回封装值的函数，并将函数的返回值取出，将多层封装展开</li>
 </ol>
+
+<h3 id="下期预告">下期预告</h3>
+
+<p>下期将会介绍函数式编程最典型的三种 Monad，有了它们，就可以在函数式编程的海洋里浪了，
+所以如果你还没掌握 Monad，可以回头再看一看上面的文章，或者直接在下面留言给我
+（也许需要梯子才能加载出留言）。</p>
 
 
   </article>
