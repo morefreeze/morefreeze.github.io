@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width initial-scale=1">
+
+<meta property="og:title" content="初探函数式编程">
+<title>初探函数式编程</title>
+<meta property="og:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
+<meta property="og:url" content="/2018/03/peek-functional-programming.html">
+<meta property="og:site_name" content="MoreFreeze's Sanctuary">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@morefreeze">
+<meta name="twitter:creator" content="@morefreeze">
+<meta name="twitter:title" content="初探函数式编程">
+<meta name="twitter:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
+<meta name="twitter:url" content="/2018/03/peek-functional-programming.html">
+
+<meta name="keywords" content="Jekyll, theme, Freshman21">
+
+<link rel="icon" href="/images/favicon.ico">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="canonical" href="/2018/03/peek-functional-programming.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
+<!-- End Google Tag Manager -->
+</head>
+
+
+
+
+<body>
+
+<div class="container">
+
+  <header class="site-header">
+
+  <div class="wrapper">
+
+    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+    <h3 class="site-meta">MoreFreeze's blog</h3>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+      <div class="trigger">
+        
+        
+        <a class="page-link" href="/">Home</a>
+        
+        
+        
+        <a class="page-link" href="/b_about">About Me</a>
+        
+        
+        
+        <a class="page-link" href="/archives/">Archives</a>
+        
+        
+        
+        <a class="page-link" href="/categories/">Categories</a>
+        
+        
+        
+        <a class="page-link" href="/tags/">Tags</a>
+        
+        
+        
+        <a class="page-link" href="/games/">Games</a>
+        
+        
+        
+        
+        
+        
+        
+        <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    
+
+  <div class="page-content col-sm-8">
+    <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 itemprop="name" class="post-title">初探函数式编程</h1>
+    <meta itemprop="keywords" content="functional,python,monad" />
+    <p class="post-meta">
+    Posted in
+     
+    
+    and tagged
+    
+    <a href="/tags/#functional" title="functional">functional </a>, 
+    
+    <a href="/tags/#python" title="python">python </a>, 
+    
+    <a href="/tags/#monad" title="monad">monad </a>
+    
+    
+    <time itemprop="datePublished" datetime="2018-03-30">
+    on Mar 30, 2018
+    </time>
+    </p>
+  </header>
+
+  <article class="post-content" itemprop="articleBody">
+      
+<ul id="markdown-toc">
+  <li><a href="#基本概念" id="markdown-toc-基本概念">基本概念</a></li>
+  <li><a href="#柯里化curry" id="markdown-toc-柯里化curry">柯里化(curry)</a></li>
+  <li><a href="#函子functor" id="markdown-toc-函子functor">函子(Functor)</a></li>
+  <li><a href="#maybe-函子" id="markdown-toc-maybe-函子">Maybe 函子</a></li>
+  <li><a href="#ap-函子" id="markdown-toc-ap-函子">ap 函子</a></li>
+  <li><a href="#monad-函子" id="markdown-toc-monad-函子">Monad 函子</a></li>
+  <li><a href="#小结" id="markdown-toc-小结">小结</a></li>
+  <li><a href="#下期预告" id="markdown-toc-下期预告">下期预告</a></li>
+</ul>
+
+<p>最近遇到了一些函数式编程的概念，心想我用 <code class="highlighter-rouge">Python</code> 的 <code class="highlighter-rouge">map</code> <code class="highlighter-rouge">reduce</code> 不就是在函数式编程嘛，
+但看了半天仍然一头雾水，什么是 <code class="highlighter-rouge">UnitBox</code>？<code class="highlighter-rouge">flatMap</code> 和 <code class="highlighter-rouge">map</code> 差在哪里？于是先学了阮老师的<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html">函数式编程入门教程</a>，
+唉哟喂，和我原来想的还不一样，<code class="highlighter-rouge">Python</code> 这些操作虽然算是函数式编程，但要系统地理解为什么能这样，
+还得从头说起。</p>
+
+<a class="anchor" id="read-more"></a>
+<p>这里我就从阮老师的这篇文章开始，好在他是用 <code class="highlighter-rouge">JS</code> 讲解的，于是我就写个 <code class="highlighter-rouge">Python</code> 实现的版本。</p>
+
+<h3 id="基本概念">基本概念</h3>
+
+<p>说到函数式编程，肯定都知道“函数是一等公民”这条公理，但这其中少了许多细节。</p>
+
+<ol>
+  <li>这个函数只能接受一个参数，并返回一个值</li>
+  <li>不满足 1 条件的函数可以通过柯里化(curry)来变形成符合 1 条件的</li>
+  <li>函数之间要满足结合律</li>
+</ol>
+
+<p>翻译成程序员理解的话就是说，函数要没有副作用，比如修改全局变量，传多个参数，
+这些都是禁止的。</p>
+
+<h3 id="柯里化curry">柯里化(curry)</h3>
+
+<p>柯里化简单来说就是把接受多个参数的函数通过“俄罗斯套娃”的形式，展成多个函数调用的形式，
+每个函数只处理一个函数，就像这样：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="k">def</span> <span class="nf">curry_add</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="n">curry_add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>         <span class="c"># 5</span>
+</code></pre></div></div>
+
+<p>显然把好端端的函数都重写一遍挺费劲的，可以用装饰器来简化这一过程，代码受 <a href="https://bitbucket.org/jason_delaat/pymonad/src/cbecd6796cd1488237d2a0f057cefd2a50df753a/pymonad/Reader.py?at=master&amp;fileviewer=file-view-default#Reader.py-91">pymonad</a> 的启发：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">curry</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">num_args</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">__code__</span><span class="o">.</span><span class="n">co_argcount</span>
+    <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">num_args</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+        <span class="c"># 每次返回一个只接受一个参数的函数</span>
+        <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">wrap</span><span class="p">(</span><span class="n">args</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">num_args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrap</span><span class="p">([],</span> <span class="n">num_args</span><span class="p">)</span>
+
+<span class="nd">@curry</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+
+<span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>       <span class="c"># 5</span>
+</code></pre></div></div>
+
+<p>上面 <code class="highlighter-rouge">curry</code> 装饰器直接返回 <code class="highlighter-rouge">wrap</code> 的调用，而这个 <code class="highlighter-rouge">wrap</code> 的函数总是返回一个<strong>接受一个参数的函数</strong>的调用，
+比如装饰 <code class="highlighter-rouge">add</code> 函数，第一层返回一个 <code class="highlighter-rouge">add1(x)</code> 的函数调用，第二层就返回一个 <code class="highlighter-rouge">add2(y)</code> 的调用，而到第三层，因为 <code class="highlighter-rouge">num_args == 0</code>，直接调用 <code class="highlighter-rouge">add(x, y)</code>
+将前面的所有参数一起传给 <code class="highlighter-rouge">add</code>，最终执行 <code class="highlighter-rouge">return x + y</code>，得到计算结果。</p>
+
+<h3 id="函子functor">函子(Functor)</h3>
+
+<p>下面轮到函子出场啦，这是基本的运算单位和功能单位。规定凡是实现了 <code class="highlighter-rouge">map</code> 方法的都是函子。</p>
+
+<p>听名字有点像函数，但从应用上来看，它表示的是一些我们熟悉的数据类型，比如 <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">string</code> 等，
+这些类型可以应用 <code class="highlighter-rouge">map</code> 操作，比如给一个数翻倍，将一串字符串变成大写。</p>
+
+<p>让我们实现一个简单的函子：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Functor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="err"></span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">'</span><span class="si">%</span><span class="s">s(</span><span class="si">%</span><span class="s">s)'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">of</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">)</span>
+
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                          <span class="c"># Functor(4)</span>
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">"foobar"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>                 <span class="c"># Functor(FOOBAR)</span>
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>     <span class="c"># Functor(12)</span>
+</code></pre></div></div>
+
+<p>函子只有一个成员 <code class="highlighter-rouge">val</code>， 就是用来存储各种数据类型的，然后有一个 <code class="highlighter-rouge">map</code> 方法，这个方法接受一个函数运算作为参数，将这个函数应用在 <code class="highlighter-rouge">self.val</code> 上，
+但要注意返回的仍然是一个函子，这样后面才能继续应用 <code class="highlighter-rouge">map</code> 进行操作，
+也就是说支持链式操作。</p>
+
+<p>另外 <code class="highlighter-rouge">__repr__</code> 函数只是为了方便打印调试用的。</p>
+
+<p>注意到还有一个类方法 <code class="highlighter-rouge">of</code>，这是因为如果直接用 <code class="highlighter-rouge">Functor()</code> 来初始化不像函数式编程，
+所以一般约定使用 <code class="highlighter-rouge">of</code> 来生成新的对象。</p>
+
+<p>可以看到三个例子展示了<code class="highlighter-rouge">map</code>操作，注意到第 3 个例子是链式写法，当然这是建立在这些函数都没有副作用的前提下，稍后将会看到这种写法的局限性。</p>
+
+<h3 id="maybe-函子">Maybe 函子</h3>
+
+<p>编程中经常遇到一种情况是一个成员初始值赋为 <code class="highlighter-rouge">null</code> 或 <code class="highlighter-rouge">None</code>，之后才有可能赋为它的类型的值，
+在之后的函数处理中，如果用到这个值，经常会看到 <code class="highlighter-rouge">if (foo == null)</code> 或 <code class="highlighter-rouge">if foo is None</code> 的条件语句来做边界处理，
+这就比较烦，所以这时要用到 Maybe 函子，它的定义如下：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Maybe</span><span class="p">(</span><span class="n">Functor</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foobar'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>     <span class="c"># Maybe(FOOBAR)</span>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>         <span class="c"># Maybe(None)</span>
+</code></pre></div></div>
+
+<p>只是在实现的 <code class="highlighter-rouge">map</code> 中判断下值是否为空，再根据情况处理即可，其实就是把函数中要进行的判断放到
+Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">rust</code> 语言中的 <code class="highlighter-rouge">Option</code>。</p>
+
+<h3 id="ap-函子">ap 函子</h3>
+
+<p>Functor 只能传数据类型，再应用<strong>接受一个参数</strong>的函数，那对于已经柯里化的多参数函数怎么调用呢，
+这时就用到了 ap 函子，ap 是 applicative （应用）的缩写。只要实现 <code class="highlighter-rouge">ap</code> 方法就行。</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ap</span><span class="p">(</span><span class="n">Functor</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">ap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
+<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>        <span class="c"># Ap(4)</span>
+
+<span class="nd">@curry</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c"># Ap(5)</span>
+</code></pre></div></div>
+
+<p>注意到 ap 函子和 Functor（或 Maybe） 的不同是它用<strong>一个函数</strong>（而不是一个数据）初始化，然后将函数应用(apply)在后面的数据上。</p>
+
+<h3 id="monad-函子">Monad 函子</h3>
+
+<p><code class="highlighter-rouge">Functor.map</code> 是接受一个普通的函数，这个普通函数接受一个普通值并返回一个普通值，那如果一个函数中可能出现异常导致需要返回一个空值，这时一般我们会让这个函数返回一个封装值，比如这样：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">tryParse</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+    <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                    <span class="c"># Maybe(Maybe(42))</span>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                   <span class="c"># Maybe(Maybe(None))</span>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>      <span class="c"># TypeError</span>
+</code></pre></div></div>
+
+<p>注意到经过 <code class="highlighter-rouge">map</code> 后的值多套了一层 <code class="highlighter-rouge">Maybe</code>，这样就没法再用链式写法了，
+那怎么办呢，发现 <code class="highlighter-rouge">map</code> 函数接受的是一个普通值，那么只要让进出一致，就又可以愉快地用链式写法了，
+也就是说新 <code class="highlighter-rouge">map</code> 接受一个封装值并返回一个封装值，里面要做的工作是去掉封装传给真正的处理函数，
+我们管这种既能包普通值，又能包函数的类型叫 <code class="highlighter-rouge">Monad</code>，新 <code class="highlighter-rouge">map</code> 方法 叫
+<code class="highlighter-rouge">flat_map</code>，这个方法就是把封装的值展开(flat)再应用上 <code class="highlighter-rouge">map</code>，
+就像这样：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Monad</span><span class="p">(</span><span class="n">Fuctor</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">join</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span>
+
+    <span class="k">def</span> <span class="nf">flat_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">half</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(2)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(None)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(1)</span>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(None)</span>
+</code></pre></div></div>
+
+<p>可以看到给出的后两个例子支持了链式操作，并且如果函数处理得当，对 <code class="highlighter-rouge">None</code> 值也做了处理。</p>
+
+<p>但如果已经有了一些纯函数，是不是还要都改成返回 <code class="highlighter-rouge">Monad</code> 的类型呢，
+肯定不啦，可以用装饰器轻松达到这个目的，就像这样：</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">monadize</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">_</span>
+
+<span class="nd">@monadize</span>
+<span class="nd">@curry</span>
+<span class="k">def</span> <span class="nf">add3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>
+
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span>      <span class="c"># Monad(8)</span>
+</code></pre></div></div>
+
+<h3 id="小结">小结</h3>
+
+<p>这篇文章简单讲了函数式编程的 4 个基础概念：<code class="highlighter-rouge">Functor</code>, <code class="highlighter-rouge">May</code>, <code class="highlighter-rouge">Ap</code> 和 <code class="highlighter-rouge">Monad</code>，并用 <code class="highlighter-rouge">Python</code> 简单实现了下。</p>
+
+<ol>
+  <li>Functor 用来包装数据类型，这里的值可以是数字，字符串，也可以是复杂对象，调用 <code class="highlighter-rouge">map</code> 方法将函数应用在包装的数据上</li>
+  <li>Maybe 可以将表示空值的 <code class="highlighter-rouge">None</code> 作为值，并且不会对 <code class="highlighter-rouge">None</code> 进行操作</li>
+  <li>Ap 可以将多参数的函数包装，调用 <code class="highlighter-rouge">ap()</code> 不断将参数填充到函数里并求值</li>
+  <li>Monad 使用 <code class="highlighter-rouge">flat_map</code> 接受一个返回封装值的函数，并将函数的返回值取出，将多层封装展开</li>
+</ol>
+
+<h3 id="下期预告">下期预告</h3>
+
+<p>下期将会介绍函数式编程最典型的三种 Monad，有了它们，就可以在函数式编程的海洋里浪了，
+所以如果你还没掌握 Monad，可以回头再看一看上面的文章，或者直接在下面留言给我
+（也许需要梯子才能加载出留言）。</p>
+
+
+  </article>
+  <hr />
+</div>
+
+
+<section class="pager">
+  <ul>
+    
+    <li class="previous"><a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你">&larr; Older</a></li>
+    
+    
+    <li class="disabled"><a>Newer &rarr;</a>
+    
+  </ul>
+</section>
+
+
+
+<div id="disqus_thread"></div>
+<script>
+    
+        var disqus_developer = 1;
+    
+    /**
+     *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+     */
+    var disqus_config = function () {
+        this.page.url = "https://morefreeze.github.io/2018/03/peek-functional-programming.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2018/03/peek-functional-programming.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//morefreeze.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+    <section class="pager">
+  
+  
+</section>
+
+
+  </div>
+  <div class="col-sm-2">
+<div class="sidebar-module about">
+  <h4>About Me</h4>
+  <img title="More Freeze" src="http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200" alt="More Freeze"/>
+  <span>Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at C++, PHP, Python deveploping.</span>
+  <br />
+
+  
+
+  You can contact me via:
+
+  
+  <a href="https://weibo.com/morefreeze" title="WeiboID: morefreeze">Weibo</a> /
+  
+  
+  <a href="mailto:morefreeze@gmail.com" title="mailto: morefreeze@gmail.com">Email</a> /
+  
+  
+  <a href="https://github.com/morefreeze" title="GithubID: morefreeze">Github</a> /
+  
+  
+  <a href="https://twitter.com/morefreeze" title="TwitterID: morefreeze">Twitter</a>
+  
+
+  
+
+</div>
+
+<div class="sidebar-module">
+  <h4>Recent Posts</h4>
+  
+  <li>
+  <a href="/2018/03/peek-functional-programming.html" title="初探函数式编程" rel="bookmark">初探函数式编程</a>
+  </li>
+  
+  <li>
+  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
+  </li>
+  
+  <li>
+  <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
+  </li>
+  
+  <li>
+  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
+  </li>
+  
+  <li>
+  <a href="/2017/06/learn-vim-script-the-hard-way-extra.html" title="learn vim script the hard way 笔记（番外）" rel="bookmark">learn vim script the hard way 笔记（番外）</a>
+  </li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Categories</h4>
+  
+  <li><a href="/categories/#game" title="game" rel="5">game (5)</a></li>
+  
+  <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
+  
+  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  
+  <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
+  
+  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  
+  <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
+  
+  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  
+  <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
+  
+  <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
+  
+  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Tags</h4>
+  
+    <a href="/tags/#game" title="game" rel="4">game</a> &nbsp;
+  
+    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+  
+    <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
+  
+    <a href="/tags/#sample-post" title="sample-post" rel="2">sample-post</a> &nbsp;
+  
+    <a href="/tags/#configure" title="configure" rel="1">configure</a> &nbsp;
+  
+    <a href="/tags/#crash" title="crash" rel="1">crash</a> &nbsp;
+  
+    <a href="/tags/#trap" title="trap" rel="1">trap</a> &nbsp;
+  
+    <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
+  
+    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+  
+    <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
+  
+    <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
+  
+    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+  
+    <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
+  
+    <a href="/tags/#HBase" title="HBase" rel="3">HBase</a> &nbsp;
+  
+    <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
+  
+    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+  
+    <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
+  
+    <a href="/tags/#note" title="note" rel="1">note</a> &nbsp;
+  
+    <a href="/tags/#learning" title="learning" rel="1">learning</a> &nbsp;
+  
+    <a href="/tags/#Note" title="Note" rel="3">Note</a> &nbsp;
+  
+    <a href="/tags/#Isaac Asimov" title="Isaac Asimov" rel="1">Isaac Asimov</a> &nbsp;
+  
+    <a href="/tags/#Sci-fi" title="Sci-fi" rel="2">Sci-fi</a> &nbsp;
+  
+    <a href="/tags/#Arthur C. Clarke" title="Arthur C. Clarke" rel="1">Arthur C. Clarke</a> &nbsp;
+  
+    <a href="/tags/#PS4" title="PS4" rel="1">PS4</a> &nbsp;
+  
+    <a href="/tags/#linux" title="linux" rel="1">linux</a> &nbsp;
+  
+    <a href="/tags/#parallel" title="parallel" rel="1">parallel</a> &nbsp;
+  
+    <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
+  
+    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+  
+    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+  
+    <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
+  
+    <a href="/tags/#tech" title="tech" rel="3">tech</a> &nbsp;
+  
+    <a href="/tags/#airflow" title="airflow" rel="5">airflow</a> &nbsp;
+  
+    <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
+  
+    <a href="/tags/#python" title="python" rel="6">python</a> &nbsp;
+  
+    <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
+  
+    <a href="/tags/#ACT" title="ACT" rel="1">ACT</a> &nbsp;
+  
+    <a href="/tags/#pit" title="pit" rel="1">pit</a> &nbsp;
+  
+    <a href="/tags/#platformer" title="platformer" rel="1">platformer</a> &nbsp;
+  
+    <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
+  
+    <a href="/tags/#vim" title="vim" rel="2">vim</a> &nbsp;
+  
+    <a href="/tags/#decorator" title="decorator" rel="1">decorator</a> &nbsp;
+  
+    <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+  
+    <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
+  
+    <a href="/tags/#monad" title="monad" rel="1">monad</a> &nbsp;
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Blogroll</h4>
+  
+  <li><a href="http://morefreeze.github.io" title="MoreFreeze's Sanctuary">MoreFreeze</a></li>
+  
+</div>
+
+
+<div class="sidebar-module">
+  <h4>Archives</h4>
+
+  
+  
+  
+  
+  
+  <li id="2018" > <a href="/archives/#2018">2018</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2017" > <a href="/archives/#2017">2017</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2016" > <a href="/archives/#2016">2016</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2015" > <a href="/archives/#2015">2015</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2014" > <a href="/archives/#2014">2014</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2012" > <a href="/archives/#2012">2012</a></li>
+  
+  
+
+</div>
+
+
+<div class="sidebar-module"> <!-- sidebar-module-inset">-->
+  <h4>Copyright Notice</h4>
+
+  
+
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+    <img src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png">
+  </a>
+  <br />
+  <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Attribution-NonCommercial-ShareAlike</a>
+
+  
+
+</div>
+
+
+</div>
+
+
+
+  
+
+  <footer class="site-footer">
+
+  <p>Copyright &copy; <a href="/">MoreFreeze's Sanctuary</a></p>
+  <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 
+  on 
+  
+  <a href="https://github.com/">Github</a>
+  
+  | Theme <a href="https://github.com/yulijia/freshman21/">Freshman21</a> Design by <a href="http://yulijia.net">Lijia Yu</a>  
+
+</footer>
+
+
+</div>
+
+</body>
+
+</html>
