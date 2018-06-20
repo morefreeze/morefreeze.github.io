@@ -38,31 +38,31 @@
 </div>
 <h1 id="syntax">Syntax</h1>
 <h2 id="reflect">Reflect</h2>
-<div class="hlcode"><pre><span class="c1">// StructToMap converts a struct into map[fieldName]=fieldValue.</span>
-<span class="c1">// If field is array or slice then fieldValue is its length(don&#39;t care value).</span>
-<span class="c1">// Each field of struct must be exported.</span>
-<span class="n">func</span> <span class="n">StructToMap</span><span class="p">(</span><span class="n">in</span> <span class="k">interface</span><span class="p">{})</span> <span class="n">map</span><span class="p">[</span><span class="k">string</span><span class="p">]</span><span class="k">string</span> <span class="p">{</span>
-    <span class="n">ret</span> <span class="o">:=</span> <span class="n">make</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="k">string</span><span class="p">]</span><span class="k">string</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">:=</span> <span class="n">reflect</span><span class="p">.</span><span class="n">ValueOf</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
-    <span class="n">typ</span> <span class="o">:=</span> <span class="n">v</span><span class="p">.</span><span class="n">Type</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">NumField</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
-        <span class="n">f</span> <span class="o">:=</span> <span class="n">v</span><span class="p">.</span><span class="n">Field</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-        <span class="k">var</span> <span class="n">s</span> <span class="k">string</span>
-        <span class="n">switch</span> <span class="n">f</span><span class="p">.</span><span class="n">Type</span><span class="p">().</span><span class="n">Kind</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">case</span> <span class="n">reflect</span><span class="p">.</span><span class="n">Slice</span><span class="p">,</span> <span class="n">reflect</span><span class="p">.</span><span class="nl">Array:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">.</span><span class="n">Len</span><span class="p">())</span>
-        <span class="k">default</span><span class="o">:</span>
-            <span class="n">s</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">&quot;%v&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">.</span><span class="n">Interface</span><span class="p">())</span>
-        <span class="p">}</span>
-        <span class="n">ret</span><span class="p">[</span><span class="n">typ</span><span class="p">.</span><span class="n">Field</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">ret</span>
-<span class="p">}</span>
+<div class="hlcode"><pre><span></span>// StructToMap converts a struct into map[fieldName]=fieldValue.
+// If field is array or slice then fieldValue is its length(don&#39;t care value).
+// Each field of struct must be exported.
+func StructToMap(in interface{}) map[string]string {
+    ret := make(map[string]string)
+    v := reflect.ValueOf(in)
+    typ := v.Type()
+    for i := 0; i &lt; v.NumField(); i++ {
+        f := v.Field(i)
+        var s string
+        switch f.Type().Kind() {
+        case reflect.Slice, reflect.Array:
+            s = fmt.Sprintf(&quot;%d&quot;, f.Len())
+        default:
+            s = fmt.Sprintf(&quot;%v&quot;, f.Interface())
+        }
+        ret[typ.Field(i).Name] = s
+    }
+    return ret
+}
 </pre></div>
 
 
 <h2 id="receive-signals-and-quit-program-gracefully">Receive signals and quit program gracefully</h2>
-<div class="hlcode"><pre>sc <span class="o">:=</span> make<span class="p">(</span>chan os.Signal<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+<div class="hlcode"><pre><span></span>sc <span class="o">:=</span> make<span class="p">(</span>chan os.Signal<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
 quit <span class="o">:=</span> make<span class="p">(</span>chan bool<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
 signal.Notify<span class="p">(</span>sc<span class="p">,</span>
     syscall.SIGHUP<span class="p">,</span>
@@ -73,9 +73,9 @@ signal.Notify<span class="p">(</span>sc<span class="p">,</span>
 go func<span class="p">()</span> <span class="p">{</span>
     sig <span class="o">:=</span> <span class="o">&lt;-</span>sc
     fmt.Printf<span class="p">(</span><span class="s">&quot;Got signal [%d] to exit.\n&quot;</span><span class="p">,</span> sig<span class="p">)</span>
-    close<span class="p">(</span>quit<span class="p">)</span>
+    <span class="kp">close</span><span class="p">(</span><span class="kp">quit</span><span class="p">)</span>
 <span class="p">}()</span>
-<span class="o">&lt;-</span>quit
+<span class="o">&lt;-</span><span class="kp">quit</span>
 </pre></div>
 </div>
 

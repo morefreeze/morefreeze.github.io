@@ -71,13 +71,13 @@
 </div>
 <h1 id="shortcut">Shortcut</h1>
 <h2 id="call-any-valid-request-with-__getattr__">Call any valid request with <code>__getattr__</code></h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">requests</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">import</span> <span class="nn">urllib</span>
 <span class="k">class</span> <span class="nc">Daiwan</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="k">def</span> <span class="nf">function</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="c"># do some prepare</span>
-            <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;http://api.daiwan.com/</span><span class="si">%s</span><span class="s">?</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)))</span>
+            <span class="c1"># do some prepare</span>
+            <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;http://api.daiwan.com/</span><span class="si">%s</span><span class="s1">?</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)))</span>
         <span class="k">if</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">Daiwan</span><span class="o">.</span><span class="n">valid_func</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">function</span>
         <span class="k">else</span><span class="p">:</span>
@@ -86,23 +86,23 @@
 
 
 <h2 id="import-dynamical-class">Import dynamical class</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">importlib</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
 
-<span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s">&#39;my_package.my_module&#39;</span><span class="p">)</span>
-<span class="n">my_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s">&#39;MyClass&#39;</span><span class="p">)</span>
+<span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;my_package.my_module&#39;</span><span class="p">)</span>
+<span class="n">my_class</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s1">&#39;MyClass&#39;</span><span class="p">)</span>
 <span class="n">my_instance</span> <span class="o">=</span> <span class="n">my_class</span><span class="p">()</span>
 </pre></div>
 
 
 <h1 id="network">Network</h1>
 <h2 id="send-request-with-headers">Send request with headers</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">urllib2</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">urllib2</span>
 
 <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">&#39;Cookie&#39;</span><span class="p">:</span>       <span class="s">&#39;&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Accept&#39;</span><span class="p">:</span>       <span class="s">&#39;&#39;</span><span class="p">,</span>
-    <span class="s">&#39;Referer&#39;</span><span class="p">:</span>      <span class="s">&#39;&#39;</span><span class="p">,</span>
-    <span class="s">&#39;User-Agent&#39;</span><span class="p">:</span>   <span class="s">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Cookie&#39;</span><span class="p">:</span>       <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Accept&#39;</span><span class="p">:</span>       <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Referer&#39;</span><span class="p">:</span>      <span class="s1">&#39;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span>   <span class="s1">&#39;&#39;</span><span class="p">,</span>
 <span class="p">}</span>
 <span class="n">r</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
@@ -111,72 +111,72 @@
 
 <p>See <a href="https://docs.python.org/2/library/urllib2.html">doc</a></p>
 <h2 id="send-request-with-proxy">Send request with proxy</h2>
-<div class="hlcode"><pre><span class="n">proxy</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">({</span><span class="s">&#39;http&#39;</span><span class="p">:</span> <span class="s">&#39;http://127.0.0.1:7777&#39;</span><span class="p">})</span>
+<div class="hlcode"><pre><span></span><span class="n">proxy</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">ProxyHandler</span><span class="p">({</span><span class="s1">&#39;http&#39;</span><span class="p">:</span> <span class="s1">&#39;http://127.0.0.1:7777&#39;</span><span class="p">})</span>
 <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">proxy</span><span class="p">)</span>
-<span class="n">resp</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;http://www.google.com&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;http://www.google.com&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">resp</span><span class="o">.</span><span class="n">code</span>
 </pre></div>
 
 
 <h2 id="run-shell-with-string-as-input">Run shell with string as input</h2>
-<div class="hlcode"><pre><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
-<span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s">&#39;myapp&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
-<span class="n">stdout_data</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s">&#39;data_to_write&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="hlcode"><pre><span></span><span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">Popen</span><span class="p">,</span> <span class="n">PIPE</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;myapp&#39;</span><span class="p">],</span> <span class="n">stdout</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stdin</span><span class="o">=</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">PIPE</span><span class="p">)</span>
+<span class="n">stdout_data</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="s1">&#39;data_to_write&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
 
 <h1 id="text-processing">Text Processing</h1>
 <h2 id="merge-two-files-with-same-primary-key">Merge two files with same primary key</h2>
-<div class="hlcode"><pre><span class="c"># coding: utf-8</span>
+<div class="hlcode"><pre><span></span><span class="c1"># coding: utf-8</span>
 
 <span class="kn">import</span> <span class="nn">csv</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="n">__doc__</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
-<span class="s">python </span><span class="si">%s</span><span class="s"> left_file left_idx right_file [right_idx]</span>
-<span class="s">It will join right_file to left_file on(left.idx=right.idx).</span>
-<span class="s">The columns of right_file will be paste after left_file.</span>
-<span class="s">The index of both must be unique and start with 0.</span>
-<span class="s">e.g.:    left     |     right</span>
-<span class="s">      1 A B C     |   1 X Y</span>
-<span class="s">      2 D E F     |   3 Z W</span>
-<span class="s">      3 H I J     |   (EOF)</span>
-<span class="s">result is:</span>
-<span class="s">              merged</span>
-<span class="s">      1 A B C X Y</span>
-<span class="s">      2 D E F</span>
-<span class="s">      3 H I J Z W</span>
-<span class="s">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">python </span><span class="si">%s</span><span class="s1"> left_file left_idx right_file [right_idx]</span>
+<span class="s1">It will join right_file to left_file on(left.idx=right.idx).</span>
+<span class="s1">The columns of right_file will be paste after left_file.</span>
+<span class="s1">The index of both must be unique and start with 0.</span>
+<span class="s1">e.g.:    left     |     right</span>
+<span class="s1">      1 A B C     |   1 X Y</span>
+<span class="s1">      2 D E F     |   3 Z W</span>
+<span class="s1">      3 H I J     |   (EOF)</span>
+<span class="s1">result is:</span>
+<span class="s1">              merged</span>
+<span class="s1">      1 A B C X Y</span>
+<span class="s1">      2 D E F</span>
+<span class="s1">      3 H I J Z W</span>
+<span class="s1">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 
 
 <span class="k">def</span> <span class="nf">generate_outfile</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s">&#39;_ext.csv&#39;</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">f1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;_ext.csv&#39;</span>
 
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">!=</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">!=</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
     <span class="nb">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
-    <span class="k">print</span> <span class="s">&quot;Usage: python </span><span class="si">%s</span><span class="s"> left_file left_idx right_file [right_idx]&quot;</span> \
+    <span class="k">print</span> <span class="s2">&quot;Usage: python </span><span class="si">%s</span><span class="s2"> left_file left_idx right_file [right_idx]&quot;</span> \
         <span class="o">%</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="c"># d[left_idx] = left_row</span>
+<span class="c1"># d[left_idx] = left_row</span>
 <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">left_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">left_idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
 <span class="n">right_file</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 <span class="n">right_idx</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="k">else</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">right_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">right_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">right_idx</span><span class="p">:</span>
             <span class="k">continue</span>
-        <span class="n">new_row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>  <span class="c"># Remove right_idx.</span>
+        <span class="n">new_row</span> <span class="o">=</span> <span class="n">row</span><span class="p">[:</span><span class="n">right_idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>  <span class="c1"># Remove right_idx.</span>
         <span class="n">d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">right_idx</span><span class="p">]]</span> <span class="o">=</span> <span class="n">new_row</span>
 
 <span class="n">out_file</span> <span class="o">=</span> <span class="n">generate_outfile</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="n">right_file</span><span class="p">)</span>
-<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_file</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">out_f</span><span class="p">:</span>
     <span class="n">w</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">writer</span><span class="p">(</span><span class="n">out_f</span><span class="p">)</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">left_file</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">r</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">left_idx</span> <span class="ow">and</span> <span class="n">row</span><span class="p">[</span><span class="n">left_idx</span><span class="p">]</span> <span class="ow">in</span> <span class="n">d</span><span class="p">:</span>
@@ -188,21 +188,21 @@
 <h1 id="algorithm">Algorithm</h1>
 <h2 id="sorting-by-key">Sorting by key</h2>
 <p>Find more examples <a href="https://wiki.python.org/moin/HowTo/Sorting">here</a></p>
-<div class="hlcode"><pre><span class="n">student_tuples</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">(</span><span class="s">&#39;john&#39;</span><span class="p">,</span> <span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;jane&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
-    <span class="p">(</span><span class="s">&#39;dave&#39;</span><span class="p">,</span> <span class="s">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
+<div class="hlcode"><pre><span></span><span class="n">student_tuples</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;john&#39;</span><span class="p">,</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;jane&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;dave&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
 <span class="p">]</span>
-<span class="nb">sorted</span><span class="p">(</span><span class="n">student_tuples</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">student</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>   <span class="c"># sort by age</span>
-<span class="c"># [(&#39;dave&#39;, &#39;B&#39;, 10), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;john&#39;, &#39;A&#39;, 15)]</span>
+<span class="nb">sorted</span><span class="p">(</span><span class="n">student_tuples</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">student</span><span class="p">:</span> <span class="n">student</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>   <span class="c1"># sort by age</span>
+<span class="c1"># [(&#39;dave&#39;, &#39;B&#39;, 10), (&#39;jane&#39;, &#39;B&#39;, 12), (&#39;john&#39;, &#39;A&#39;, 15)]</span>
 </pre></div>
 
 
 <h2 id="sorting-by-value">Sorting by value</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">operator</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">operator</span>
 <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 <span class="n">sorted_x</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
-<span class="c"># sorted_x will be a list of tuples. dict(sorted_x) == x</span>
+<span class="c1"># sorted_x will be a list of tuples. dict(sorted_x) == x</span>
 </pre></div>
 
 
@@ -210,7 +210,7 @@
 <h2 id="best-practise">Best practise</h2>
 <p><a href="https://pymotw.com/2/threading/index.html">https://pymotw.com/2/threading/index.html</a></p>
 <h2 id="start-multithread-and-use-ctrl-c-to-interrupt">Start multithread and use Ctrl-C to interrupt</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">time</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="n">f</span> <span class="o">=</span> <span class="n">FirstThread</span><span class="p">()</span>
 <span class="n">f</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="n">f</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -218,29 +218,29 @@
 <span class="n">s</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="n">s</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># Use sleep instead of join()</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Use sleep instead of join()</span>
 </pre></div>
 
 
 <h1 id="decorator">Decorator</h1>
 <h2 id="referer-python-decorator-library">Referer <a href="https://wiki.python.org/moin/PythonDecoratorLibrary">Python Decorator Library</a></h2>
 <h2 id="wraps">@wraps</h2>
-<div class="hlcode"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="c"># without @wraps, foo.__name__ will output &#39;wrapper&#39;</span>
+<div class="hlcode"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="c1"># without @wraps, foo.__name__ will output &#39;wrapper&#39;</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
-        <span class="k">print</span> <span class="s">&#39;hello, </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s1">&#39;hello, </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
         <span class="n">fn</span><span class="p">()</span>
-        <span class="k">print</span> <span class="s">&#39;bye, </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s1">&#39;bye, </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wrapper</span>
 
-<span class="k">print</span> <span class="n">foo</span><span class="o">.</span><span class="n">__name__</span>
+<span class="k">print</span> <span class="n">foo</span><span class="o">.</span><span class="vm">__name__</span>
 </pre></div>
 
 
 <h2 id="function-memo">Function memo</h2>
-<div class="hlcode"><pre><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<div class="hlcode"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 <span class="k">def</span> <span class="nf">memo</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="n">miss</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
@@ -263,16 +263,16 @@
 
 
 <h2 id="profiler">Profiler</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">cProfile</span><span class="o">,</span> <span class="nn">pstats</span><span class="o">,</span> <span class="nn">StringIO</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">cProfile</span><span class="o">,</span> <span class="nn">pstats</span><span class="o">,</span> <span class="nn">StringIO</span>
 
 <span class="k">def</span> <span class="nf">profiler</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">datafn</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot;.profile&quot;</span>
+        <span class="n">datafn</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s2">&quot;.profile&quot;</span>
         <span class="n">prof</span> <span class="o">=</span> <span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span>
         <span class="n">retval</span> <span class="o">=</span> <span class="n">prof</span><span class="o">.</span><span class="n">runcall</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="c"># prof.dump_stats(datafn)</span>
+        <span class="c1"># prof.dump_stats(datafn)</span>
         <span class="n">s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">()</span>
-        <span class="n">sortby</span> <span class="o">=</span> <span class="s">&#39;cumulative&#39;</span>
+        <span class="n">sortby</span> <span class="o">=</span> <span class="s1">&#39;cumulative&#39;</span>
         <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">s</span><span class="p">)</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="n">sortby</span><span class="p">)</span>
         <span class="n">ps</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
         <span class="k">print</span> <span class="n">s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
@@ -282,13 +282,13 @@
 
 
 <h2 id="time-it">Time it</h2>
-<div class="hlcode"><pre><span class="c"># Use for time a function cost time.</span>
-<span class="c"># timeit(debug=True), or it will use self._debug if decorate a method of class.</span>
-<span class="c"># Usage: @timeit(True)</span>
-<span class="c"># class Foo:</span>
-<span class="c">#   _debug = True</span>
-<span class="c">#   @timeit()</span>
-<span class="c">#   def bar(baz):</span>
+<div class="hlcode"><pre><span></span><span class="c1"># Use for time a function cost time.</span>
+<span class="c1"># timeit(debug=True), or it will use self._debug if decorate a method of class.</span>
+<span class="c1"># Usage: @timeit(True)</span>
+<span class="c1"># class Foo:</span>
+<span class="c1">#   _debug = True</span>
+<span class="c1">#   @timeit()</span>
+<span class="c1">#   def bar(baz):</span>
 <span class="k">def</span> <span class="nf">timeit</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">real_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
@@ -301,9 +301,9 @@
             <span class="n">retval</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">cost_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
             <span class="k">if</span> <span class="n">_debug</span><span class="p">:</span>
-                <span class="k">print</span> <span class="s">&#39;function = </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
-                <span class="k">print</span> <span class="s">&#39;    arguments = {0} {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-                <span class="k">print</span> <span class="s">&#39;    cost = </span><span class="si">%.6f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cost_time</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s1">&#39;function = </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s1">&#39;    arguments = {0} {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">print</span> <span class="s1">&#39;    cost = </span><span class="si">%.6f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cost_time</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">retval</span>
         <span class="k">return</span> <span class="n">wrapper</span>
     <span class="k">return</span> <span class="n">real_decorator</span>
@@ -311,7 +311,7 @@
 
 
 <h2 id="log-level">Log level</h2>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">inspect</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">inspect</span>
 
 <span class="k">def</span> <span class="nf">advance_logger</span><span class="p">(</span><span class="n">loglevel</span><span class="p">):</span>
 
@@ -319,9 +319,9 @@
         <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_back</span><span class="o">.</span><span class="n">f_back</span><span class="o">.</span><span class="n">f_lineno</span>
 
     <span class="k">def</span> <span class="nf">_basic_log</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">print</span> <span class="s">&quot;function   = &quot;</span> <span class="o">+</span> <span class="n">fn</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>
-        <span class="k">print</span> <span class="s">&quot;    arguments = {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">print</span> <span class="s">&quot;    return    = {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;function   = &quot;</span> <span class="o">+</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+        <span class="k">print</span> <span class="s2">&quot;    arguments = {0} {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s2">&quot;    return    = {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">info_log_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
         <span class="nd">@wraps</span><span class="p">(</span><span class="n">fn</span><span class="p">)</span>
@@ -337,11 +337,11 @@
             <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">te</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
             <span class="n">_basic_log</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">result</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-            <span class="k">print</span> <span class="s">&quot;    time      = </span><span class="si">%.6f</span><span class="s"> sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span>
-            <span class="k">print</span> <span class="s">&quot;    called_from_line : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_line_number</span><span class="p">())</span>
+            <span class="k">print</span> <span class="s2">&quot;    time      = </span><span class="si">%.6f</span><span class="s2"> sec&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span>
+            <span class="k">print</span> <span class="s2">&quot;    called_from_line : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_line_number</span><span class="p">())</span>
         <span class="k">return</span> <span class="n">wrapper</span>
 
-    <span class="k">if</span> <span class="n">loglevel</span> <span class="ow">is</span> <span class="s">&quot;debug&quot;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">loglevel</span> <span class="ow">is</span> <span class="s2">&quot;debug&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">debug_log_decorator</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">info_log_decorator</span>
@@ -352,37 +352,37 @@
 <h2 id="measure-memory">Measure memory</h2>
 <p>This snippet is from <em>Python Cookbook(2nd edition)</em> chapter 8.2.<br />
 Notich it only work on <strong>Linux</strong>.</p>
-<div class="hlcode"><pre><span class="kn">import</span> <span class="nn">os</span>
+<div class="hlcode"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="n">_proc_status</span> <span class="o">=</span> <span class="s">&#39;/proc/</span><span class="si">%d</span><span class="s">/status&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
-<span class="n">_scale</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;kB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s">&#39;mB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">,</span>
-          <span class="s">&#39;KB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s">&#39;MB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">}</span>
+<span class="n">_proc_status</span> <span class="o">=</span> <span class="s1">&#39;/proc/</span><span class="si">%d</span><span class="s1">/status&#39;</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+<span class="n">_scale</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;kB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s1">&#39;mB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">,</span>
+          <span class="s1">&#39;KB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="p">,</span> <span class="s1">&#39;MB&#39;</span><span class="p">:</span> <span class="mf">1024.0</span><span class="o">*</span><span class="mf">1024.0</span><span class="p">}</span>
 <span class="k">def</span> <span class="nf">_VmB</span><span class="p">(</span><span class="n">VmKey</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; given a VmKey string, returns a number of bytes. &#39;&#39;&#39;</span>
-    <span class="c"># get pseudo file  /proc/&lt;pid&gt;/status</span>
+    <span class="c1"># get pseudo file  /proc/&lt;pid&gt;/status</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">t</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">_proc_status</span><span class="p">)</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">t</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
-        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&quot;non-linux?</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c"># non-Linux?</span>
-    <span class="c"># get VmKey line e.g. &#39;VmRSS:  9999  kB\n ...&#39;</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;non-linux?</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c1"># non-Linux?</span>
+    <span class="c1"># get VmKey line e.g. &#39;VmRSS:  9999  kB\n ...&#39;</span>
     <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">VmKey</span><span class="p">)</span>
-    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c"># split on runs of whitespace</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># split on runs of whitespace</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c"># invalid format?</span>
-    <span class="c"># convert Vm value to bytes</span>
+        <span class="k">return</span> <span class="mf">0.0</span>  <span class="c1"># invalid format?</span>
+    <span class="c1"># convert Vm value to bytes</span>
     <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">_scale</span><span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
 <span class="k">def</span> <span class="nf">memory</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Return virtual memory usage in bytes. &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmSize:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s1">&#39;VmSize:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
 <span class="k">def</span> <span class="nf">resident</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Return resident memory usage in bytes. &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmRSS:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s1">&#39;VmRSS:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
 <span class="k">def</span> <span class="nf">stacksize</span><span class="p">(</span><span class="n">since</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39; Return stack size in bytes. &#39;&#39;&#39;</span>
-    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s">&#39;VmStk:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
+    <span class="k">return</span> <span class="n">_VmB</span><span class="p">(</span><span class="s1">&#39;VmStk:&#39;</span><span class="p">)</span> <span class="o">-</span> <span class="n">since</span>
 </pre></div>
 </div>
 

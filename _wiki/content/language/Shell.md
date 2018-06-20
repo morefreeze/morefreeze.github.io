@@ -104,3 +104,22 @@ diff --unchanged-line-format= --old-line-format= --new-line-format='%L' A.csv B.
 
     `LTYPE is 'old', 'new', or 'unchanged'.`
     `%L` is contents of line, other options you can see detail in `man diff`.
+
+## Bash
+
+### Pure bash bible
+
+[https://github.com/dylanaraps/pure-bash-bible#reverse-an-array]()
+
+### Iterate recursively
+
+- Solutions:
+
+```shell
+# Iterate recursively.
+shopt -s globstar
+for file in ~/Pictures/**/*; do
+    printf '%s\n' "$file"
+done
+shopt -u globstar
+```

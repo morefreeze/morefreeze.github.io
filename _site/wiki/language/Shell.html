@@ -43,6 +43,11 @@
 <li><a href="#print-only-appear-in-leftright-file-line">Print only appear in left(right) file line</a></li>
 </ul>
 </li>
+<li><a href="#bash">Bash</a><ul>
+<li><a href="#pure-bash-bible">Pure bash bible</a></li>
+<li><a href="#iterate-recursively">Iterate recursively</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -53,13 +58,13 @@
 <ul>
 <li>Solution: </li>
 </ul>
-<div class="hlcode"><pre>    <span class="err">@</span><span class="n">awk</span> <span class="n">BEGIN</span><span class="p">{</span><span class="n">print</span> <span class="s">&quot;Header&quot;</span><span class="p">}</span> <span class="p">{</span><span class="n">print</span> <span class="err">$</span><span class="mi">0</span><span class="p">}</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span><span class="p">;</span> \
+<div class="hlcode"><pre><span></span>    @awk BEGIN<span class="o">{</span>print <span class="s2">&quot;Header&quot;</span><span class="o">}</span> <span class="o">{</span>print <span class="nv">$0</span><span class="o">}</span><span class="err">&#39;</span> foo.txt<span class="p">;</span> <span class="se">\</span>
 </pre></div>
 
 
 <p>I have tried <code>sed '1i'</code> but in Mac it need a newline after <code>i</code>, like:</p>
-<div class="hlcode"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="mi">1</span><span class="n">i</span>\
-<span class="n">Header</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span>
+<div class="hlcode"><pre><span></span>sed -e &#39;1i\
+Header&#39; foo.txt
 </pre></div>
 
 
@@ -74,7 +79,7 @@ a more graceful solution.</p>
 <ul>
 <li>Solution: </li>
 </ul>
-<div class="hlcode"><pre><span class="n">tac</span> <span class="n">file</span> <span class="o">|</span> <span class="n">sed</span> <span class="err">&#39;</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="n">d</span><span class="err">&#39;</span> <span class="o">|</span> <span class="n">tac</span><span class="err">`</span>
+<div class="hlcode"><pre><span></span>tac file <span class="p">|</span> sed <span class="s1">&#39;1,100d&#39;</span> <span class="p">|</span> tac<span class="sb">`</span>
 </pre></div>
 
 
@@ -83,7 +88,7 @@ a more graceful solution.</p>
 <ul>
 <li>Background: If there is a file like this:</li>
 </ul>
-<div class="hlcode"><pre><span class="n">GET</span> <span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">path</span><span class="o">?</span><span class="n">foo</span><span class="o">=</span><span class="n">bar</span> <span class="n">HTTP</span>
+<div class="hlcode"><pre><span></span><span class="err">GET /app/path?foo=bar HTTP</span>
 </pre></div>
 
 
@@ -92,7 +97,7 @@ a more graceful solution.</p>
 <ul>
 <li>Solution:</li>
 </ul>
-<div class="hlcode"><pre><span class="n">grep</span> <span class="o">-</span><span class="n">oP</span> <span class="err">&#39;</span><span class="p">(</span><span class="o">?&lt;=</span><span class="n">GET</span> <span class="p">)[</span><span class="o">^</span> <span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="o">?=</span> <span class="n">HTTP</span><span class="p">)</span><span class="err">&#39;</span> <span class="n">file</span>
+<div class="hlcode"><pre><span></span>grep -oP <span class="s1">&#39;(?&lt;=GET )[^ ]+(?= HTTP)&#39;</span> file
 </pre></div>
 
 
@@ -104,36 +109,36 @@ a more graceful solution.</p>
 <ul>
 <li>Background: If your have two files like these:</li>
 </ul>
-<div class="hlcode"><pre><span class="n">A</span><span class="p">.</span><span class="n">csv</span>
-<span class="mi">1</span>
-<span class="mi">2</span>
-<span class="mi">3</span>
-<span class="mi">5</span>
+<div class="hlcode"><pre><span></span>A.csv
+1
+2
+3
+5
 </pre></div>
 
 
-<div class="hlcode"><pre><span class="n">B</span><span class="p">.</span><span class="n">csv</span>
-<span class="mi">2</span>
-<span class="mi">3</span>
-<span class="mi">4</span>
+<div class="hlcode"><pre><span></span>B.csv
+2
+3
+4
 </pre></div>
 
 
 <p>You want to print the line only appear in left(right) file, like this:</p>
-<div class="hlcode"><pre><span class="mi">1</span>
-<span class="mi">5</span>
+<div class="hlcode"><pre><span></span>1
+5
 </pre></div>
 
 
 <ul>
 <li>Solutions:</li>
 </ul>
-<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format=&#39;%L&#39; --new-line-format= A.csv B.csv</span>
+<div class="hlcode"><pre><span></span>diff --unchanged-line-format<span class="o">=</span> --old-line-format<span class="o">=</span><span class="s1">&#39;%L&#39;</span> --new-line-format<span class="o">=</span> A.csv B.csv
 </pre></div>
 
 
 <p>Or if you need print the line only appear in right file, use this:</p>
-<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format= --new-line-format=&#39;%L&#39; A.csv B.csv</span>
+<div class="hlcode"><pre><span></span>diff --unchanged-line-format<span class="o">=</span> --old-line-format<span class="o">=</span> --new-line-format<span class="o">=</span><span class="s1">&#39;%L&#39;</span> A.csv B.csv
 </pre></div>
 
 
@@ -144,6 +149,20 @@ a more graceful solution.</p>
 <code>%L</code> is contents of line, other options you can see detail in <code>man diff</code>.</p>
 </li>
 </ul>
+<h2 id="bash">Bash</h2>
+<h3 id="pure-bash-bible">Pure bash bible</h3>
+<p><a href="">https://github.com/dylanaraps/pure-bash-bible#reverse-an-array</a></p>
+<h3 id="iterate-recursively">Iterate recursively</h3>
+<ul>
+<li>Solutions:</li>
+</ul>
+<div class="hlcode"><pre><span></span><span class="c1"># Iterate recursively.</span>
+<span class="nb">shopt</span> -s globstar
+<span class="k">for</span> file in ~/Pictures/**/*<span class="p">;</span> <span class="k">do</span>
+    <span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+<span class="nb">shopt</span> -u globstar
+</pre></div>
 </div>
 
         </div>
