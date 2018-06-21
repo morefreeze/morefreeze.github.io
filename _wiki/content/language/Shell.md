@@ -109,7 +109,7 @@ diff --unchanged-line-format= --old-line-format= --new-line-format='%L' A.csv B.
 
 ### Pure bash bible
 
-[https://github.com/dylanaraps/pure-bash-bible#reverse-an-array]()
+[https://github.com/dylanaraps/pure-bash-bible]()
 
 ### Iterate recursively
 
