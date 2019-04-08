@@ -10,7 +10,7 @@
 <meta property="og:title" content="MoreFreeze's Sanctuary">
 <title>MoreFreeze's Sanctuary</title>
 <meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="http://localhost:4000/">
+<meta property="og:url" content="/">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="MoreFreeze's Sanctuary">
 <meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="http://localhost:4000/">
+<meta name="twitter:url" content="/">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -235,7 +235,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>以最新的稳定版(v1.8-stable)为例，代码总共就这么<a href="https://github.com/apache/incubator-airflow/blob/v1-8-stable/airflow/models.py#L2161-L2166">一小段</a></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@property</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="nb">property</span>
     <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
             <span class="n">t</span><span class="o">.</span><span class="n">priority_weight</span>

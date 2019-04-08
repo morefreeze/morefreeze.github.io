@@ -10,7 +10,7 @@
 <meta property="og:title" content="airflow apply_defaults 赏析">
 <title>airflow apply_defaults 赏析</title>
 <meta property="og:description" content="最近在写 airflow 的脚本时遇到一个问题，出于方便把 BaseSensorOperator 包了一层，后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 Operator 都有个 apply_defaults的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当...">
-<meta property="og:url" content="http://localhost:4000/2017/07/apply_defaults.html">
+<meta property="og:url" content="/2017/07/apply_defaults.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="airflow apply_defaults 赏析">
 <meta name="twitter:description" content="最近在写 airflow 的脚本时遇到一个问题，出于方便把 BaseSensorOperator 包了一层，后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 Operator 都有个 apply_defaults的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当...">
-<meta name="twitter:url" content="http://localhost:4000/2017/07/apply_defaults.html">
+<meta name="twitter:url" content="/2017/07/apply_defaults.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2017/07/apply_defaults.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/2017/07/apply_defaults.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -160,39 +160,39 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 这里放一个略带注释的简化版本：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">apply_defaults</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
-    <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="o">@</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">dag_args</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c"># 这是一个默认参数的字典</span>
-        <span class="c"># 这里为了获取dag.default_args，if条件判断能否获取到一个dag实例</span>
-        <span class="c"># _CONTEXT_MANAGER_DAG是在使用with语法时获取到dag</span>
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'dag'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">_CONTEXT_MANAGER_DAG</span><span class="p">:</span>
+        <span class="n">dag_args</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># 这是一个默认参数的字典
+</span>        <span class="c1"># 这里为了获取dag.default_args，if条件判断能否获取到一个dag实例
+</span>        <span class="c1"># _CONTEXT_MANAGER_DAG是在使用with语法时获取到dag
+</span>        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'dag'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">_CONTEXT_MANAGER_DAG</span><span class="p">:</span>
             <span class="n">dag</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'dag'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">airflow</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">_CONTEXT_MANAGER_DAG</span>
             <span class="n">dag_args</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="n">dag</span><span class="o">.</span><span class="n">default_args</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="n">default_args</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="c"># 实际下面一段隐藏了无关内容，所以不要吐槽为啥不用kwargs.get</span>
-        <span class="k">if</span> <span class="s">'default_args'</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+        <span class="c1"># 实际下面一段隐藏了无关内容，所以不要吐槽为啥不用kwargs.get
+</span>        <span class="k">if</span> <span class="s">'default_args'</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
             <span class="n">default_args</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">'default_args'</span><span class="p">]</span>
 
         <span class="n">dag_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">default_args</span><span class="p">)</span>
-        <span class="c"># 至此，default_args包含函数实参default_args和dag.default_args</span>
-        <span class="n">default_args</span> <span class="o">=</span> <span class="n">dag_args</span>
+        <span class="c1"># 至此，default_args包含函数实参default_args和dag.default_args
+</span>        <span class="n">default_args</span> <span class="o">=</span> <span class="n">dag_args</span>
 
         <span class="n">sig</span> <span class="o">=</span> <span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-        <span class="c"># 得到这个函数的签名，进而得到必需的参数</span>
-        <span class="n">non_optional_args</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="c1"># 得到这个函数的签名，进而得到必需的参数
+</span>        <span class="n">non_optional_args</span> <span class="o">=</span> <span class="p">[</span>
             <span class="n">name</span> <span class="k">for</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
             <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">default</span> <span class="o">==</span> <span class="n">param</span><span class="o">.</span><span class="n">empty</span> <span class="ow">and</span>
             <span class="n">param</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s">'self'</span> <span class="ow">and</span>
             <span class="n">param</span><span class="o">.</span><span class="n">kind</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">VAR_POSITIONAL</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">)]</span>
-        <span class="c"># 对于没有明确给出的参数(没有出现在kwargs中)，用default_args来填充</span>
-        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+        <span class="c1"># 对于没有明确给出的参数(没有出现在kwargs中)，用default_args来填充
+</span>        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">default_args</span> <span class="ow">and</span> <span class="n">arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
                 <span class="n">kwargs</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">default_args</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span>
-        <span class="c"># 如果用default_args填充完还有必需参数没有赋值，则抛出参数缺失异常</span>
-        <span class="n">missing_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">non_optional_args</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+        <span class="c1"># 如果用default_args填充完还有必需参数没有赋值，则抛出参数缺失异常
+</span>        <span class="n">missing_args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">non_optional_args</span><span class="p">)</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
         <span class="k">if</span> <span class="n">missing_args</span><span class="p">:</span>
-            <span class="n">msg</span> <span class="o">=</span> <span class="s">"Argument {0} is required"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">missing_args</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s">"Argument {0} is required"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="n">missing_args</span><span class="p">)</span>
             <span class="k">raise</span> <span class="n">AirflowException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -210,53 +210,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>有没有发现以上三条似乎少了一条，先别急，来看几个例子，猜猜输出应该是什么。</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># coding: utf-8</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># coding: utf-8
+</span><span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">from</span> <span class="nn">airflow.utils</span> <span class="kn">import</span> <span class="n">apply_defaults</span>
 <span class="kn">from</span> <span class="nn">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
 <span class="kn">from</span> <span class="nn">airflow.operators.dummy_operator</span> <span class="kn">import</span> <span class="n">DummyOperator</span>
 <span class="kn">from</span> <span class="nn">airflow.operators.bash_operator</span> <span class="kn">import</span> <span class="n">BashOperator</span>
 
 <span class="n">dag_id</span> <span class="o">=</span> <span class="s">'test_default'</span>
-<span class="c"># 这是dag的default_args</span>
-<span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+<span class="c1"># 这是dag的default_args
+</span><span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s">'start_date'</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span>
     <span class="s">'email'</span><span class="p">:</span> <span class="p">[</span><span class="s">'morefreeze@gmail.com'</span><span class="p">,</span> <span class="p">],</span>
-    <span class="c"># 注意下面两个参数可能后面会用到</span>
-    <span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="c1"># 注意下面两个参数可能后面会用到
+</span>    <span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
     <span class="s">'bash_command'</span><span class="p">:</span> <span class="s">'top'</span><span class="p">,</span>
 <span class="p">}</span>
 
 <span class="n">dag</span> <span class="o">=</span> <span class="n">DAG</span><span class="p">(</span><span class="n">dag_id</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="n">default_args</span><span class="p">,</span> <span class="n">schedule_interval</span><span class="o">=</span><span class="s">'@daily'</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">DeafOperator</span><span class="p">(</span><span class="n">DummyOperator</span><span class="p">):</span>
-    <span class="nd">@apply_defaults</span>
+    <span class="o">@</span><span class="n">apply_defaults</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">priority_weight</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="s">'''这里需要显式给出priority_weight的值'''</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DeafOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">priority_weight</span><span class="o">=</span><span class="n">priority_weight</span><span class="p">,</span>
                                             <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">DashOperator</span><span class="p">(</span><span class="n">BashOperator</span><span class="p">):</span>
-    <span class="nd">@apply_defaults</span>
+    <span class="o">@</span><span class="n">apply_defaults</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bash_command</span><span class="o">=</span><span class="s">'ls'</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="s">'''虽然BashOperator需要显式给出bash_command，但这里重载后给个默认值'''</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">DashOperator</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">bash_command</span><span class="o">=</span><span class="n">bash_command</span><span class="p">,</span>
                                             <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="c"># 给params赋值会影响参数吗？</span>
-<span class="n">t1</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t1'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+<span class="c1"># 给params赋值会影响参数吗？
+</span><span class="n">t1</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t1'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
 <span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">priority_weight</span>
-<span class="c"># 给default_args['params']会影响参数吗？</span>
-<span class="n">t2</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t2'</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="p">{</span><span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}})</span>
+<span class="c1"># 给default_args['params']会影响参数吗？
+</span><span class="n">t2</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t2'</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="p">{</span><span class="s">'params'</span><span class="p">:</span> <span class="p">{</span><span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">2</span><span class="p">}})</span>
 <span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">priority_weight</span>
 <span class="n">t3</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t3'</span><span class="p">,</span> <span class="n">priority_weight</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">print</span> <span class="n">t3</span><span class="o">.</span><span class="n">priority_weight</span>
 <span class="n">t4</span> <span class="o">=</span> <span class="n">DeafOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t4'</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="p">{</span><span class="s">'priority_weight'</span><span class="p">:</span> <span class="mi">4</span><span class="p">})</span>
 <span class="k">print</span> <span class="n">t4</span><span class="o">.</span><span class="n">priority_weight</span>
-<span class="c"># 注意下面是DashOperator的操作，没有给bash_command</span>
-<span class="n">t5</span> <span class="o">=</span> <span class="n">DashOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t5'</span><span class="p">)</span>
-<span class="c"># 会输出ls还是top？</span>
-<span class="k">print</span> <span class="n">t5</span><span class="o">.</span><span class="n">bash_command</span>
+<span class="c1"># 注意下面是DashOperator的操作，没有给bash_command
+</span><span class="n">t5</span> <span class="o">=</span> <span class="n">DashOperator</span><span class="p">(</span><span class="n">dag</span><span class="o">=</span><span class="n">dag</span><span class="p">,</span> <span class="n">task_id</span><span class="o">=</span><span class="s">'t5'</span><span class="p">)</span>
+<span class="c1"># 会输出ls还是top？
+</span><span class="k">print</span> <span class="n">t5</span><span class="o">.</span><span class="n">bash_command</span>
 </code></pre></div></div>
 
 <p><a href="https://gist.github.com/morefreeze/4e7b1ffe7609527754e57c33cd48872b">答案在这</a></p>

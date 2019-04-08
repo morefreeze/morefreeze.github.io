@@ -10,7 +10,7 @@
 <meta property="og:title" content="初探函数式编程">
 <title>初探函数式编程</title>
 <meta property="og:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
-<meta property="og:url" content="http://localhost:4000/2018/03/peek-functional-programming.html">
+<meta property="og:url" content="/2018/03/peek-functional-programming.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="初探函数式编程">
 <meta name="twitter:description" content="最近遇到了一些函数式编程的概念，心想我用 Python 的 map reduce 不就是在函数式编程嘛，但看了半天仍然一头雾水，什么是 UnitBox？flatMap 和 map 差在哪里？于是先学了阮老师的函数式编程入门教程，唉哟喂，和我原来想的还不一样，Python 这些操作虽然算是函数式编程，但要系统地理解...">
-<meta name="twitter:url" content="http://localhost:4000/2018/03/peek-functional-programming.html">
+<meta name="twitter:url" content="/2018/03/peek-functional-programming.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2018/03/peek-functional-programming.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/2018/03/peek-functional-programming.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -187,8 +187,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <span class="k">def</span> <span class="nf">curry_add</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="k">lambda</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
-<span class="n">curry_add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>         <span class="c"># 5</span>
-</code></pre></div></div>
+<span class="n">curry_add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>         <span class="c1"># 5
+</span></code></pre></div></div>
 
 <p>显然把好端端的函数都重写一遍挺费劲的，可以用装饰器来简化这一过程，代码受 <a href="https://bitbucket.org/jason_delaat/pymonad/src/cbecd6796cd1488237d2a0f057cefd2a50df753a/pymonad/Reader.py?at=master&amp;fileviewer=file-view-default#Reader.py-91">pymonad</a> 的启发：</p>
 
@@ -197,16 +197,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">num_args</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">num_args</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
-        <span class="c"># 每次返回一个只接受一个参数的函数</span>
-        <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">wrap</span><span class="p">(</span><span class="n">args</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">num_args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># 每次返回一个只接受一个参数的函数
+</span>        <span class="k">return</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">wrap</span><span class="p">(</span><span class="n">args</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">num_args</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">wrap</span><span class="p">([],</span> <span class="n">num_args</span><span class="p">)</span>
 
-<span class="nd">@curry</span>
+<span class="o">@</span><span class="n">curry</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 
-<span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>       <span class="c"># 5</span>
-</code></pre></div></div>
+<span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">)(</span><span class="mi">3</span><span class="p">)</span>       <span class="c1"># 5
+</span></code></pre></div></div>
 
 <p>上面 <code class="highlighter-rouge">curry</code> 装饰器直接返回 <code class="highlighter-rouge">wrap</code> 的调用，而这个 <code class="highlighter-rouge">wrap</code> 的函数总是返回一个<strong>接受一个参数的函数</strong>的调用，
 比如装饰 <code class="highlighter-rouge">add</code> 函数，第一层返回一个 <code class="highlighter-rouge">add1(x)</code> 的函数调用，第二层就返回一个 <code class="highlighter-rouge">add2(y)</code> 的调用，而到第三层，因为 <code class="highlighter-rouge">num_args == 0</code>，直接调用 <code class="highlighter-rouge">add(x, y)</code>
@@ -232,14 +232,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="s">'</span><span class="si">%</span><span class="s">s(</span><span class="si">%</span><span class="s">s)'</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span>
 
-    <span class="nd">@classmethod</span>
+    <span class="o">@</span><span class="nb">classmethod</span>
     <span class="k">def</span> <span class="nf">of</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">cls</span><span class="p">(</span><span class="o">*</span><span class="n">argv</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargv</span><span class="p">)</span>
 
-<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                          <span class="c"># Functor(4)</span>
-<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">"foobar"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>                 <span class="c"># Functor(FOOBAR)</span>
-<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>     <span class="c"># Functor(12)</span>
-</code></pre></div></div>
+<span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>                          <span class="c1"># Functor(4)
+</span><span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">"foobar"</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">upper</span><span class="p">)</span>                 <span class="c1"># Functor(FOOBAR)
+</span><span class="n">Functor</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>     <span class="c1"># Functor(12)
+</span></code></pre></div></div>
 
 <p>函子只有一个成员 <code class="highlighter-rouge">val</code>， 就是用来存储各种数据类型的，然后有一个 <code class="highlighter-rouge">map</code> 方法，这个方法接受一个函数运算作为参数，将这个函数应用在 <code class="highlighter-rouge">self.val</code> 上，
 但要注意返回的仍然是一个函子，这样后面才能继续应用 <code class="highlighter-rouge">map</code> 进行操作，
@@ -263,9 +263,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <span class="k">def</span> <span class="nf">map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">val</span> <span class="k">else</span> <span class="bp">None</span><span class="p">)</span>
 
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foobar'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>     <span class="c"># Maybe(FOOBAR)</span>
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>         <span class="c"># Maybe(None)</span>
-</code></pre></div></div>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foobar'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>     <span class="c1"># Maybe(FOOBAR)
+</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>         <span class="c1"># Maybe(None)
+</span></code></pre></div></div>
 
 <p>只是在实现的 <code class="highlighter-rouge">map</code> 中判断下值是否为空，再根据情况处理即可，其实就是把函数中要进行的判断放到
 Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">rust</code> 语言中的 <code class="highlighter-rouge">Option</code>。</p>
@@ -279,13 +279,13 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
 
     <span class="k">def</span> <span class="nf">ap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">val</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">val</span><span class="p">))</span>
-<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>        <span class="c"># Ap(4)</span>
-
-<span class="nd">@curry</span>
+<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>        <span class="c1"># Ap(4)
+</span>
+<span class="o">@</span><span class="n">curry</span>
 <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c"># Ap(5)</span>
-</code></pre></div></div>
+<span class="n">Ap</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">add</span><span class="p">)</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>  <span class="c1"># Ap(5)
+</span></code></pre></div></div>
 
 <p>注意到 ap 函子和 Functor（或 Maybe） 的不同是它用<strong>一个函数</strong>（而不是一个数据）初始化，然后将函数应用(apply)在后面的数据上。</p>
 
@@ -299,10 +299,10 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
     <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                    <span class="c"># Maybe(Maybe(42))</span>
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                   <span class="c"># Maybe(Maybe(None))</span>
-<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>      <span class="c"># TypeError</span>
-</code></pre></div></div>
+<span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                    <span class="c1"># Maybe(Maybe(42))
+</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'foo'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>                   <span class="c1"># Maybe(Maybe(None))
+</span><span class="n">Maybe</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="s">'42'</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span><span class="o">.</span><span class="nb">map</span><span class="p">(</span><span class="n">tryParse</span><span class="p">)</span>      <span class="c1"># TypeError
+</span></code></pre></div></div>
 
 <p>注意到经过 <code class="highlighter-rouge">map</code> 后的值多套了一层 <code class="highlighter-rouge">Maybe</code>，这样就没法再用链式写法了，
 那怎么办呢，发现 <code class="highlighter-rouge">map</code> 函数接受的是一个普通值，那么只要让进出一致，就又可以愉快地用链式写法了，
@@ -325,11 +325,11 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
     <span class="k">except</span> <span class="nb">TypeError</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
 
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(2)</span>
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c"># Monad(None)</span>
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(1)</span>
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c"># Monad(None)</span>
-</code></pre></div></div>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c1"># Monad(2)
+</span><span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>                  <span class="c1"># Monad(None)
+</span><span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c1"># Monad(1)
+</span><span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">half</span><span class="p">)</span>   <span class="c1"># Monad(None)
+</span></code></pre></div></div>
 
 <p>可以看到给出的后两个例子支持了链式操作，并且如果函数处理得当，对 <code class="highlighter-rouge">None</code> 值也做了处理。</p>
 
@@ -341,13 +341,13 @@ Maybe 函子中判断了。这个其实很像 <code class="highlighter-rouge">ru
         <span class="k">return</span> <span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="n">f</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">_</span>
 
-<span class="nd">@monadize</span>
-<span class="nd">@curry</span>
+<span class="o">@</span><span class="n">monadize</span>
+<span class="o">@</span><span class="n">curry</span>
 <span class="k">def</span> <span class="nf">add3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">3</span>
 
-<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span>      <span class="c"># Monad(8)</span>
-</code></pre></div></div>
+<span class="n">Monad</span><span class="o">.</span><span class="n">of</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span><span class="o">.</span><span class="n">flat_map</span><span class="p">(</span><span class="n">add3</span><span class="p">)</span>      <span class="c1"># Monad(8)
+</span></code></pre></div></div>
 
 <h3 id="小结">小结</h3>
 

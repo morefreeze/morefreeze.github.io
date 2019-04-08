@@ -10,7 +10,7 @@
 <meta property="og:title" content="airflow 简明指南">
 <title>airflow 简明指南</title>
 <meta property="og:description" content="最近被线上任务折磨得不行了，总是隔三差五出各种问题，导致日志丢了或者脚本没跑成功，出了问题就需要手动去修复，比如手动把少的日志补齐，重跑失败的脚本。有些脚本之间有依赖关系，手动跑起来就比较复杂，需要隔一会看一眼脚本有没有跑完，再接着跑下一个，严重影响效率。所以我想如果有个程序能帮我定义好我的任务依赖关系，由它来自...">
-<meta property="og:url" content="http://localhost:4000/2016/12/airflow.html">
+<meta property="og:url" content="/2016/12/airflow.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="airflow 简明指南">
 <meta name="twitter:description" content="最近被线上任务折磨得不行了，总是隔三差五出各种问题，导致日志丢了或者脚本没跑成功，出了问题就需要手动去修复，比如手动把少的日志补齐，重跑失败的脚本。有些脚本之间有依赖关系，手动跑起来就比较复杂，需要隔一会看一眼脚本有没有跑完，再接着跑下一个，严重影响效率。所以我想如果有个程序能帮我定义好我的任务依赖关系，由它来自...">
-<meta name="twitter:url" content="http://localhost:4000/2016/12/airflow.html">
+<meta name="twitter:url" content="/2016/12/airflow.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2016/12/airflow.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/2016/12/airflow.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -217,8 +217,8 @@ airflow initdb
     <span class="s">'email_on_retry'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
     <span class="s">'retries'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="s">'retry_delay'</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
-    <span class="c"># 'end_date': datetime(2016, 1, 1),</span>
-<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+    <span class="c1"># 'end_date': datetime(2016, 1, 1),
+</span><span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
 
 <p>参数看描述基本都可以理解，第三行的<code class="highlighter-rouge">depends_on_past</code> 表示就是是否依赖上一个自己的执行状态。
 如果设置了 <code class="highlighter-rouge">email</code> 相关的配置，需要在 <code class="highlighter-rouge">airflow.cfg</code> 中配置下发件邮箱。
@@ -254,8 +254,8 @@ airflow 也提供一些字面意思的值表示执行周期，比如<code class=
     <span class="n">dag</span><span class="o">=</span><span class="n">dag</span>
 <span class="p">)</span>
 
-<span class="n">t1</span> <span class="o">&gt;&gt;</span> <span class="n">t2</span>  <span class="c"># t2.set_upstream(t1)</span>
-</code></pre></div></div>
+<span class="n">t1</span> <span class="o">&gt;&gt;</span> <span class="n">t2</span>  <span class="c1"># t2.set_upstream(t1)
+</span></code></pre></div></div>
 
 <p>我又修改了下例子，这个 DAG 包含两个任务 t1 和 t2，t1 是个 shell 命令，调用 <code class="highlighter-rouge">date</code>显示当前时间，
 t2 是个发往 <a href="https://slack.com">slack</a> 的操作，需要设置一个 slack token，可以从<a href="https://api.slack.com/web">这里</a>获得，

@@ -10,7 +10,7 @@
 <meta property="og:title" content="airflow priority_weight 计算方法">
 <title>airflow priority_weight 计算方法</title>
 <meta property="og:description" content="最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。以最新的稳定版(v1.8-stable)为例，代码总共就这么一小段    @property    def priority_weight_total(self):        return sum([...">
-<meta property="og:url" content="http://localhost:4000/2017/10/airflow-priority_weight.html">
+<meta property="og:url" content="/2017/10/airflow-priority_weight.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="airflow priority_weight 计算方法">
 <meta name="twitter:description" content="最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。以最新的稳定版(v1.8-stable)为例，代码总共就这么一小段    @property    def priority_weight_total(self):        return sum([...">
-<meta name="twitter:url" content="http://localhost:4000/2017/10/airflow-priority_weight.html">
+<meta name="twitter:url" content="/2017/10/airflow-priority_weight.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2017/10/airflow-priority_weight.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/2017/10/airflow-priority_weight.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -146,7 +146,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>以最新的稳定版(v1.8-stable)为例，代码总共就这么<a href="https://github.com/apache/incubator-airflow/blob/v1-8-stable/airflow/models.py#L2161-L2166">一小段</a></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nd">@property</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="nb">property</span>
     <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
             <span class="n">t</span><span class="o">.</span><span class="n">priority_weight</span>

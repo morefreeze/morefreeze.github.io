@@ -10,7 +10,7 @@
 <meta property="og:title" content="airflow 进阶">
 <title>airflow 进阶</title>
 <meta property="og:description" content="上一篇介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，同时也在公司内开始摸索着使用了起来，中间也是遇到了许多问题，如这个项目的网址所表达的，现在仍是一个孵化项目，使用在线上仍需谨慎。我就来做回吃螃蟹的人，分享下最近使用的心得，以及遇到的一些问题。">
-<meta property="og:url" content="http://localhost:4000/2017/02/airflow-advance.html">
+<meta property="og:url" content="/2017/02/airflow-advance.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,14 @@
 <meta name="twitter:creator" content="@morefreeze">
 <meta name="twitter:title" content="airflow 进阶">
 <meta name="twitter:description" content="上一篇介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，同时也在公司内开始摸索着使用了起来，中间也是遇到了许多问题，如这个项目的网址所表达的，现在仍是一个孵化项目，使用在线上仍需谨慎。我就来做回吃螃蟹的人，分享下最近使用的心得，以及遇到的一些问题。">
-<meta name="twitter:url" content="http://localhost:4000/2017/02/airflow-advance.html">
+<meta name="twitter:url" content="/2017/02/airflow-advance.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2017/02/airflow-advance.html">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/2017/02/airflow-advance.html">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google Tag Manager -->
@@ -175,8 +175,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 所以这里建议写一个类似<code class="highlighter-rouge">const.py.j2</code>的文件，把这些由外部决定的变量放进去，
 在部署时由程序生成出来。一个可能的写法像这样：</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># const.py.j2</span>
-<span class="n">home_dir</span> <span class="o">=</span> <span class="s">""</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># const.py.j2
+</span><span class="n">home_dir</span> <span class="o">=</span> <span class="s">""</span>
 <span class="n">PYTHONPATH</span> <span class="o">=</span> <span class="s">":/usr/bin"</span>
 </code></pre></div></div>
 <p>但这样写在调试程序时就比较麻烦，只能每个人自己写一份自己的配置文件（就像自己生成配置文件）。</p>
