@@ -141,12 +141,12 @@ last solution, jump to <a href="#solution4">Solution 4</a>.</p>
   <li><a href="#solution4">DP-DFS Solution</a></li>
 </ol>
 
-<h3 id="a-namesolution1abrute-force-solution"><a name="solution1"></a>Brute Force Solution</h3>
+<h3 id="brute-force-solution"><a name="solution1"></a>Brute Force Solution</h3>
 <p>Brute force solution is very easy and direct. Enumerate every node of tree,
 find the longest path depends on problem description with DFS.</p>
 
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// TLE
-</span><span class="k">class</span> <span class="nc">BruteForceSolution</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// TLE</span>
+<span class="k">class</span> <span class="nc">BruteForceSolution</span> <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
@@ -168,7 +168,7 @@ find the longest path depends on problem description with DFS.</p>
             <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
                 <span class="k">if</span> <span class="p">(</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
-                <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">bool</span><span class="o">&gt;</span> <span class="n">vi</span><span class="p">;</span>
+                <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">vi</span><span class="p">;</span>
                 <span class="n">vi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
                 <span class="kt">int</span> <span class="n">len</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
                 <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">vi</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
@@ -180,7 +180,7 @@ find the longest path depends on problem description with DFS.</p>
             <span class="p">}</span>
             <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="n">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">vi</span><span class="p">,</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="kt">int</span> <span class="n">depth</span><span class="p">,</span> <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">vi</span><span class="p">,</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">len</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">depth</span><span class="p">);</span>
             <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">]))</span> <span class="p">{</span>
                 <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">EXIST</span><span class="p">(</span><span class="n">vi</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span> <span class="p">{</span>
@@ -194,11 +194,11 @@ find the longest path depends on problem description with DFS.</p>
 
 <hr />
 
-<h3 id="a-namesolution2acut-leaves-solution"><a name="solution2"></a>Cut Leaves Solution</h3>
+<h3 id="cut-leaves-solution"><a name="solution2"></a>Cut Leaves Solution</h3>
 <p>Cut leaves of current tree, repeat this process until there are one or two leaves left.</p>
 
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// cut every leaf, again and again, until left one or two node
-</span><span class="k">class</span> <span class="nc">CutSolution</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// cut every leaf, again and again, until left one or two node</span>
+<span class="k">class</span> <span class="nc">CutSolution</span> <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
@@ -232,12 +232,12 @@ find the longest path depends on problem description with DFS.</p>
 
 <hr />
 
-<h3 id="a-namesolution3afind-diameter-solution"><a name="solution3"></a>Find Diameter Solution</h3>
+<h3 id="find-diameter-solution"><a name="solution3"></a>Find Diameter Solution</h3>
 <p>Use two DFS to find the diameter and record the diameter path, then pick the middle node what answer is.</p>
 
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// find diameter, then find center
-// slower than Solution
-</span><span class="k">class</span> <span class="nc">SolutionDiameter</span> <span class="p">{</span>
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// find diameter, then find center</span>
+<span class="c1">// slower than Solution</span>
+<span class="k">class</span> <span class="nc">SolutionDiameter</span> <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
@@ -260,22 +260,22 @@ find the longest path depends on problem description with DFS.</p>
             <span class="p">}</span>
             <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="c1">// find diameter
-</span>        <span class="c1">// ret length from one point
-</span>        <span class="c1">// fa father of path
-</span>        <span class="c1">// p contain two endpoint
-</span>        <span class="c1">// return diameter length
-</span>        <span class="kt">int</span> <span class="n">find_diameter</span><span class="p">(</span><span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// find diameter</span>
+        <span class="c1">// ret length from one point</span>
+        <span class="c1">// fa father of path</span>
+        <span class="c1">// p contain two endpoint</span>
+        <span class="c1">// return diameter length</span>
+        <span class="kt">int</span> <span class="n">find_diameter</span><span class="p">(</span><span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
             <span class="kt">int</span> <span class="n">diameter</span><span class="p">;</span>
-            <span class="c1">// pick random point to start, so we pick 0, use random can't speed up
-</span>            <span class="kt">int</span> <span class="n">point</span><span class="p">(</span><span class="n">find_longest</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">diameter</span><span class="p">));</span>
+            <span class="c1">// pick random point to start, so we pick 0, use random can't speed up</span>
+            <span class="kt">int</span> <span class="n">point</span><span class="p">(</span><span class="n">find_longest</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">diameter</span><span class="p">));</span>
             <span class="kt">int</span> <span class="n">point2</span><span class="p">(</span><span class="n">find_longest</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">fa</span><span class="p">,</span> <span class="n">diameter</span><span class="p">));</span>
             <span class="n">p</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">point</span><span class="p">);</span>
             <span class="n">p</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">point2</span><span class="p">);</span>
             <span class="k">return</span> <span class="n">diameter</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="c1">// bfs find longest point
-</span>        <span class="kt">int</span> <span class="n">find_longest</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">diameter</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// bfs find longest point</span>
+        <span class="kt">int</span> <span class="n">find_longest</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="o">&amp;</span><span class="n">diameter</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">deque</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span>
             <span class="n">q</span><span class="p">.</span><span class="n">PB</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
             <span class="n">unordered_set</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
@@ -291,8 +291,8 @@ find the longest path depends on problem description with DFS.</p>
                         <span class="n">fa</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">cur</span><span class="p">][</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
                     <span class="p">}</span>
                 <span class="p">}</span>
-                <span class="c1">// the last one of queue
-</span>                <span class="k">if</span> <span class="p">(</span><span class="n">SZ</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// the last one of queue</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">SZ</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                     <span class="n">diameter</span> <span class="o">=</span> <span class="n">ret</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">()];</span>
                     <span class="k">return</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
                 <span class="p">}</span>
@@ -304,7 +304,7 @@ find the longest path depends on problem description with DFS.</p>
 
 <hr />
 
-<h3 id="a-namesolution4adp-dfs-solution"><a name="solution4"></a>DP-DFS Solution</h3>
+<h3 id="dp-dfs-solution"><a name="solution4"></a>DP-DFS Solution</h3>
 <p><em>a[i]</em> convert <em>edges</em> to adjacency list of <em>i</em></p>
 
 <p><em>ret[i]</em> the LPL when <em>i</em> as root, so finally we find all smallest <em>ret</em>, that is the answer.</p>
@@ -353,26 +353,26 @@ The lastest is just enumerating every node to find the longest path, then pick t
 </span>
 <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-<span class="c1">//conversion
-//------------------------------------------
-</span><span class="kr">inline</span> <span class="kt">int</span> <span class="nf">toInt</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span><span class="kt">int</span> <span class="n">v</span><span class="p">;</span> <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="n">sin</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span><span class="k">return</span> <span class="n">v</span><span class="p">;}</span>
+<span class="c1">//conversion</span>
+<span class="c1">//------------------------------------------</span>
+<span class="kr">inline</span> <span class="kt">int</span> <span class="nf">toInt</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span><span class="kt">int</span> <span class="n">v</span><span class="p">;</span> <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="n">sin</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span><span class="k">return</span> <span class="n">v</span><span class="p">;}</span>
 <span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="n">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
 
-<span class="c1">//math
-//-------------------------------------------
-</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
+<span class="c1">//math</span>
+<span class="c1">//-------------------------------------------</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
 
-<span class="c1">//typedef
-//------------------------------------------
-</span><span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">VI</span><span class="p">;</span>
+<span class="c1">//typedef</span>
+<span class="c1">//------------------------------------------</span>
+<span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">VI</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">VI</span><span class="o">&gt;</span> <span class="n">VVI</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">VS</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">PII</span><span class="p">;</span>
 <span class="k">typedef</span> <span class="kt">long</span> <span class="kt">long</span> <span class="n">LL</span><span class="p">;</span>
 
-<span class="c1">//container util
-//------------------------------------------
-</span><span class="cp">#define ALL(a)  (a).begin(),(a).end()
+<span class="c1">//container util</span>
+<span class="c1">//------------------------------------------</span>
+<span class="cp">#define ALL(a)  (a).begin(),(a).end()
 #define RALL(a) (a).rbegin(), (a).rend()
 #define PB push_back
 #define MP make_pair
@@ -382,27 +382,27 @@ The lastest is just enumerating every node to find the longest path, then pick t
 #define EXIST(s,e) ((s).find(e)!=(s).end())
 #define SORT(c) sort((c).begin(),(c).end())
 </span>
-<span class="c1">//repetition
-//------------------------------------------
-</span><span class="cp">#define FOR(i,a,b) for(int i=(a);i&lt;(b);++i)
+<span class="c1">//repetition</span>
+<span class="c1">//------------------------------------------</span>
+<span class="cp">#define FOR(i,a,b) for(int i=(a);i&lt;(b);++i)
 #define REP(i,n)  FOR(i,0,n)
 </span>
-<span class="c1">//constant
-//--------------------------------------------
-</span><span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
+<span class="c1">//constant</span>
+<span class="c1">//--------------------------------------------</span>
+<span class="k">const</span> <span class="kt">double</span> <span class="n">EPS</span> <span class="o">=</span> <span class="mf">1e-10</span><span class="p">;</span>
 <span class="k">const</span> <span class="kt">double</span> <span class="n">PI</span>  <span class="o">=</span> <span class="n">acos</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">);</span>
 
-<span class="c1">//clear memory
-</span><span class="cp">#define CLR(a) memset((a), 0 ,sizeof(a))
+<span class="c1">//clear memory</span>
+<span class="cp">#define CLR(a) memset((a), 0 ,sizeof(a))
 </span>
-<span class="c1">//debug
-</span><span class="cp">#define dump(x)  cerr &lt;&lt; #x &lt;&lt; " = " &lt;&lt; (x) &lt;&lt; endl;
+<span class="c1">//debug</span>
+<span class="cp">#define dump(x)  cerr &lt;&lt; #x &lt;&lt; " = " &lt;&lt; (x) &lt;&lt; endl;
 #define debug(x) cerr &lt;&lt; #x &lt;&lt; " = " &lt;&lt; (x) &lt;&lt; " (L" &lt;&lt; __LINE__ &lt;&lt; ")" &lt;&lt; " " &lt;&lt; __FILE__ &lt;&lt; endl;
 </span>
-<span class="c1">// d0 cur node longest path
-// d1 cur node second longest path without longest path
-// ret[cur] = max(d0[cur], go up through father longest path)
-</span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="c1">// d0 cur node longest path</span>
+<span class="c1">// d1 cur node second longest path without longest path</span>
+<span class="c1">// ret[cur] = max(d0[cur], go up through father longest path)</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
     <span class="k">public</span><span class="o">:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
@@ -425,14 +425,14 @@ The lastest is just enumerating every node to find the longest path, then pick t
             <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="kt">void</span> <span class="n">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">fa</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cur</span><span class="p">,</span> <span class="kt">int</span> <span class="n">fa_up_path</span><span class="p">,</span> <span class="k">const</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d0</span><span class="p">,</span> <span class="k">const</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">d1</span><span class="p">,</span> <span class="k">const</span> <span class="n">VVI</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="n">VI</span> <span class="o">&amp;</span><span class="n">ret</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// go up through father node which longest path
-</span>            <span class="kt">int</span> <span class="n">up_path</span><span class="p">;</span>
+            <span class="c1">// go up through father node which longest path</span>
+            <span class="kt">int</span> <span class="n">up_path</span><span class="p">;</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">fa</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">up_path</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
             <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="p">{</span>
                 <span class="n">up_path</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">fa_up_path</span><span class="p">,</span> <span class="n">d1</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span>
-            <span class="c1">// &lt;=
-</span>            <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// &lt;=</span>
+            <span class="k">else</span> <span class="p">{</span>
                 <span class="n">up_path</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">fa_up_path</span><span class="p">,</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="n">ret</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">],</span> <span class="n">up_path</span><span class="p">);</span>
