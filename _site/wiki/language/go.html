@@ -38,44 +38,44 @@
 </div>
 <h1 id="syntax">Syntax</h1>
 <h2 id="reflect">Reflect</h2>
-<div class="hlcode"><pre><span></span><span class="o">//</span><span class="w"> </span><span class="n">StructToMap</span><span class="w"> </span><span class="n">converts</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">struct</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="k">map</span><span class="o">[</span><span class="n">fieldName</span><span class="o">]=</span><span class="n">fieldValue</span><span class="p">.</span><span class="w"></span>
-<span class="o">//</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">slice</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">fieldValue</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">length</span><span class="p">(</span><span class="n">don</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">care</span><span class="w"> </span><span class="k">value</span><span class="p">).</span><span class="w"></span>
-<span class="o">//</span><span class="w"> </span><span class="k">Each</span><span class="w"> </span><span class="n">field</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">struct</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">exported</span><span class="p">.</span><span class="w"></span>
-<span class="n">func</span><span class="w"> </span><span class="n">StructToMap</span><span class="p">(</span><span class="ow">in</span><span class="w"> </span><span class="n">interface</span><span class="err">{}</span><span class="p">)</span><span class="w"> </span><span class="k">map</span><span class="o">[</span><span class="n">string</span><span class="o">]</span><span class="n">string</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">    </span><span class="n">ret</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">make</span><span class="p">(</span><span class="k">map</span><span class="o">[</span><span class="n">string</span><span class="o">]</span><span class="n">string</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">v</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">reflect</span><span class="p">.</span><span class="n">ValueOf</span><span class="p">(</span><span class="ow">in</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">typ</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Type</span><span class="p">()</span><span class="w"></span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">NumField</span><span class="p">();</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">        </span><span class="n">f</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">Field</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="nf">var</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">string</span><span class="w"></span>
-<span class="w">        </span><span class="n">switch</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">Type</span><span class="p">().</span><span class="n">Kind</span><span class="p">()</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">reflect</span><span class="p">.</span><span class="n">Slice</span><span class="p">,</span><span class="w"> </span><span class="n">reflect</span><span class="p">.</span><span class="k">Array</span><span class="err">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="ss">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="nf">Len</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="k">default</span><span class="err">:</span><span class="w"></span>
-<span class="w">            </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="ss">&quot;%v&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="p">.</span><span class="n">Interface</span><span class="p">())</span><span class="w"></span>
-<span class="w">        </span><span class="err">}</span><span class="w"></span>
-<span class="w">        </span><span class="n">ret</span><span class="o">[</span><span class="n">typ.Field(i).Name</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="w"></span>
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ret</span><span class="w"></span>
-<span class="err">}</span><span class="w"></span>
+<div class="hlcode"><pre><span class="c1">// StructToMap converts a struct into map[fieldName]=fieldValue.</span>
+<span class="c1">// If field is array or slice then fieldValue is its length(don&#39;t care value).</span>
+<span class="c1">// Each field of struct must be exported.</span>
+<span class="n">func</span> <span class="n">StructToMap</span><span class="p">(</span><span class="n">in</span> <span class="k">interface</span><span class="p">{})</span> <span class="n">map</span><span class="p">[</span><span class="k">string</span><span class="p">]</span><span class="k">string</span> <span class="p">{</span>
+    <span class="n">ret</span> <span class="o">:=</span> <span class="n">make</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="k">string</span><span class="p">]</span><span class="k">string</span><span class="p">)</span>
+    <span class="n">v</span> <span class="o">:=</span> <span class="n">reflect</span><span class="p">.</span><span class="n">ValueOf</span><span class="p">(</span><span class="n">in</span><span class="p">)</span>
+    <span class="n">typ</span> <span class="o">:=</span> <span class="n">v</span><span class="p">.</span><span class="n">Type</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="o">:=</span> <span class="mh">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">v</span><span class="p">.</span><span class="n">NumField</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="n">f</span> <span class="o">:=</span> <span class="n">v</span><span class="p">.</span><span class="n">Field</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">var</span> <span class="n">s</span> <span class="k">string</span>
+        <span class="n">switch</span> <span class="n">f</span><span class="p">.</span><span class="n">Type</span><span class="p">().</span><span class="n">Kind</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">case</span> <span class="n">reflect</span><span class="p">.</span><span class="n">Slice</span><span class="p">,</span> <span class="n">reflect</span><span class="p">.</span><span class="nl">Array:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">.</span><span class="n">Len</span><span class="p">())</span>
+        <span class="k">default</span><span class="o">:</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">.</span><span class="n">Sprintf</span><span class="p">(</span><span class="s">&quot;%v&quot;</span><span class="p">,</span> <span class="n">f</span><span class="p">.</span><span class="n">Interface</span><span class="p">())</span>
+        <span class="p">}</span>
+        <span class="n">ret</span><span class="p">[</span><span class="n">typ</span><span class="p">.</span><span class="n">Field</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">Name</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">ret</span>
+<span class="p">}</span>
 </pre></div>
 
 
 <h2 id="receive-signals-and-quit-program-gracefully">Receive signals and quit program gracefully</h2>
-<div class="hlcode"><pre><span></span><span class="n">sc</span> <span class="o">:=</span> <span class="nf">make</span><span class="p">(</span><span class="n">chan</span> <span class="n">os.Signal</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
-<span class="n">quit</span> <span class="o">:=</span> <span class="nf">make</span><span class="p">(</span><span class="n">chan</span> <span class="n">bool</span><span class="p">,</span> <span class="m">1</span><span class="p">)</span>
-<span class="nf">signal.Notify</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-    <span class="n">syscall.SIGHUP</span><span class="p">,</span>
-    <span class="n">syscall.SIGINT</span><span class="p">,</span>
-    <span class="n">syscall.SIGTERM</span><span class="p">,</span>
-    <span class="n">syscall.SIGQUIT</span><span class="p">)</span>
+<div class="hlcode"><pre>sc <span class="o">:=</span> make<span class="p">(</span>chan os.Signal<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+quit <span class="o">:=</span> make<span class="p">(</span>chan bool<span class="p">,</span> <span class="m">1</span><span class="p">)</span>
+signal.Notify<span class="p">(</span>sc<span class="p">,</span>
+    syscall.SIGHUP<span class="p">,</span>
+    syscall.SIGINT<span class="p">,</span>
+    syscall.SIGTERM<span class="p">,</span>
+    syscall.SIGQUIT<span class="p">)</span>
 
-<span class="n">go</span> <span class="nf">func</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">sig</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="n">sc</span>
-    <span class="nf">fmt.Printf</span><span class="p">(</span><span class="s">&quot;Got signal [%d] to exit.\n&quot;</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
-    <span class="nf">close</span><span class="p">(</span><span class="n">quit</span><span class="p">)</span>
+go func<span class="p">()</span> <span class="p">{</span>
+    sig <span class="o">:=</span> <span class="o">&lt;-</span>sc
+    fmt.Printf<span class="p">(</span><span class="s">&quot;Got signal [%d] to exit.\n&quot;</span><span class="p">,</span> sig<span class="p">)</span>
+    close<span class="p">(</span>quit<span class="p">)</span>
 <span class="p">}()</span>
-<span class="o">&lt;-</span><span class="n">quit</span>
+<span class="o">&lt;-</span>quit
 </pre></div>
 </div>
 

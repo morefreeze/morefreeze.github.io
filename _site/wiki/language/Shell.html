@@ -58,13 +58,13 @@
 <ul>
 <li>Solution: </li>
 </ul>
-<div class="hlcode"><pre><span></span>    @awk BEGIN<span class="o">{</span>print <span class="s2">&quot;Header&quot;</span><span class="o">}</span> <span class="o">{</span>print <span class="nv">$0</span><span class="o">}</span><span class="err">&#39;</span> foo.txt<span class="p">;</span> <span class="se">\</span>
+<div class="hlcode"><pre>    <span class="err">@</span><span class="n">awk</span> <span class="n">BEGIN</span><span class="p">{</span><span class="n">print</span> <span class="s">&quot;Header&quot;</span><span class="p">}</span> <span class="p">{</span><span class="n">print</span> <span class="err">$</span><span class="mi">0</span><span class="p">}</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span><span class="p">;</span> \
 </pre></div>
 
 
 <p>I have tried <code>sed '1i'</code> but in Mac it need a newline after <code>i</code>, like:</p>
-<div class="hlcode"><pre><span></span><span class="err">sed -e &#39;1i\</span>
-<span class="err">Header&#39; foo.txt</span>
+<div class="hlcode"><pre><span class="n">sed</span> <span class="o">-</span><span class="n">e</span> <span class="err">&#39;</span><span class="mi">1</span><span class="n">i</span>\
+<span class="n">Header</span><span class="err">&#39;</span> <span class="n">foo</span><span class="p">.</span><span class="n">txt</span>
 </pre></div>
 
 
@@ -79,7 +79,7 @@ a more graceful solution.</p>
 <ul>
 <li>Solution: </li>
 </ul>
-<div class="hlcode"><pre><span></span>tac file <span class="p">|</span> sed <span class="s1">&#39;1,100d&#39;</span> <span class="p">|</span> tac<span class="sb">`</span>
+<div class="hlcode"><pre><span class="n">tac</span> <span class="n">file</span> <span class="o">|</span> <span class="n">sed</span> <span class="err">&#39;</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="n">d</span><span class="err">&#39;</span> <span class="o">|</span> <span class="n">tac</span><span class="err">`</span>
 </pre></div>
 
 
@@ -88,7 +88,7 @@ a more graceful solution.</p>
 <ul>
 <li>Background: If there is a file like this:</li>
 </ul>
-<div class="hlcode"><pre><span></span><span class="err">GET /app/path?foo=bar HTTP</span>
+<div class="hlcode"><pre><span class="n">GET</span> <span class="o">/</span><span class="n">app</span><span class="o">/</span><span class="n">path</span><span class="o">?</span><span class="n">foo</span><span class="o">=</span><span class="n">bar</span> <span class="n">HTTP</span>
 </pre></div>
 
 
@@ -97,7 +97,7 @@ a more graceful solution.</p>
 <ul>
 <li>Solution:</li>
 </ul>
-<div class="hlcode"><pre><span></span>grep -oP <span class="s1">&#39;(?&lt;=GET )[^ ]+(?= HTTP)&#39;</span> file
+<div class="hlcode"><pre><span class="n">grep</span> <span class="o">-</span><span class="n">oP</span> <span class="err">&#39;</span><span class="p">(</span><span class="o">?&lt;=</span><span class="n">GET</span> <span class="p">)[</span><span class="o">^</span> <span class="p">]</span><span class="o">+</span><span class="p">(</span><span class="o">?=</span> <span class="n">HTTP</span><span class="p">)</span><span class="err">&#39;</span> <span class="n">file</span>
 </pre></div>
 
 
@@ -109,36 +109,36 @@ a more graceful solution.</p>
 <ul>
 <li>Background: If your have two files like these:</li>
 </ul>
-<div class="hlcode"><pre><span></span><span class="err">A.csv</span>
-<span class="err">1</span>
-<span class="err">2</span>
-<span class="err">3</span>
-<span class="err">5</span>
+<div class="hlcode"><pre><span class="n">A</span><span class="p">.</span><span class="n">csv</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">5</span>
 </pre></div>
 
 
-<div class="hlcode"><pre><span></span><span class="err">B.csv</span>
-<span class="err">2</span>
-<span class="err">3</span>
-<span class="err">4</span>
+<div class="hlcode"><pre><span class="n">B</span><span class="p">.</span><span class="n">csv</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
 </pre></div>
 
 
 <p>You want to print the line only appear in left(right) file, like this:</p>
-<div class="hlcode"><pre><span></span><span class="err">1</span>
-<span class="err">5</span>
+<div class="hlcode"><pre><span class="mi">1</span>
+<span class="mi">5</span>
 </pre></div>
 
 
 <ul>
 <li>Solutions:</li>
 </ul>
-<div class="hlcode"><pre><span></span>diff --unchanged-line-format<span class="o">=</span> --old-line-format<span class="o">=</span><span class="s1">&#39;%L&#39;</span> --new-line-format<span class="o">=</span> A.csv B.csv
+<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format=&#39;%L&#39; --new-line-format= A.csv B.csv</span>
 </pre></div>
 
 
 <p>Or if you need print the line only appear in right file, use this:</p>
-<div class="hlcode"><pre><span></span>diff --unchanged-line-format<span class="o">=</span> --old-line-format<span class="o">=</span> --new-line-format<span class="o">=</span><span class="s1">&#39;%L&#39;</span> A.csv B.csv
+<div class="hlcode"><pre><span class="gh">diff --unchanged-line-format= --old-line-format= --new-line-format=&#39;%L&#39; A.csv B.csv</span>
 </pre></div>
 
 
@@ -156,12 +156,12 @@ a more graceful solution.</p>
 <ul>
 <li>Solutions:</li>
 </ul>
-<div class="hlcode"><pre><span></span><span class="c1"># Iterate recursively.</span>
-<span class="nb">shopt</span> -s globstar
-<span class="k">for</span> file in ~/Pictures/**/*<span class="p">;</span> <span class="k">do</span>
-    <span class="nb">printf</span> <span class="s1">&#39;%s\n&#39;</span> <span class="s2">&quot;</span><span class="nv">$file</span><span class="s2">&quot;</span>
-<span class="k">done</span>
-<span class="nb">shopt</span> -u globstar
+<div class="hlcode"><pre><span class="cp"># Iterate recursively.</span>
+<span class="n">shopt</span> <span class="o">-</span><span class="n">s</span> <span class="n">globstar</span>
+<span class="k">for</span> <span class="n">file</span> <span class="n">in</span> <span class="o">~/</span><span class="n">Pictures</span><span class="cm">/**/</span><span class="o">*</span><span class="p">;</span> <span class="k">do</span>
+    <span class="n">printf</span> <span class="err">&#39;</span><span class="o">%</span><span class="n">s</span><span class="err">\</span><span class="n">n</span><span class="err">&#39;</span> <span class="s">&quot;$file&quot;</span>
+<span class="n">done</span>
+<span class="n">shopt</span> <span class="o">-</span><span class="n">u</span> <span class="n">globstar</span>
 </pre></div>
 </div>
 
