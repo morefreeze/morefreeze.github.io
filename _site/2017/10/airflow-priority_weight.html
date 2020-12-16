@@ -152,20 +152,20 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="nb">property</span>
     <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
-            <span class="n">t</span><span class="o">.</span><span class="n">priority_weight</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_flat_relatives</span><span class="p">(</span><span class="n">upstream</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">priority_weight</span>
+            <span class="n">t</span><span class="p">.</span><span class="n">priority_weight</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_flat_relatives</span><span class="p">(</span><span class="n">upstream</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">priority_weight</span>
 </code></pre></div></div>
 
 <a class="anchor" id="read-more"></a>
 
 <p>这是类 Operator 下的一个属性，同时可以发现在 airflow 里，Task 和 Operator 概念是互通的，
 （可以看到许多地方传参都是一个 task，实际传的都是 Operator。注意区别 Task 和 TaskInstance）
-计算方法就是把所有下游（依赖它的）任务的权重和自己的权重加起来，<code class="highlighter-rouge">get_flat_relatives</code>
-就是递归地遍历所有下游任务，返回一个数组，顺便说下<code class="highlighter-rouge">upstream=True</code>就是遍历所有上游任务。</p>
+计算方法就是把所有下游（依赖它的）任务的权重和自己的权重加起来，<code class="language-plaintext highlighter-rouge">get_flat_relatives</code>
+就是递归地遍历所有下游任务，返回一个数组，顺便说下<code class="language-plaintext highlighter-rouge">upstream=True</code>就是遍历所有上游任务。</p>
 
 <p>因此，可以得到一个结论，任务依赖层级越多，越容易出现权重大的任务，这也就解释了为什么我设置了
-<code class="highlighter-rouge">t1 &gt;&gt; t2</code>权重都是7，又设置了<code class="highlighter-rouge">r1 &gt;&gt; r2 &gt;&gt; r3</code> 权重都是5，<code class="highlighter-rouge">t1</code>的权重却比<code class="highlighter-rouge">r1</code>的权重小。</p>
+<code class="language-plaintext highlighter-rouge">t1 &gt;&gt; t2</code>权重都是7，又设置了<code class="language-plaintext highlighter-rouge">r1 &gt;&gt; r2 &gt;&gt; r3</code> 权重都是5，<code class="language-plaintext highlighter-rouge">t1</code>的权重却比<code class="language-plaintext highlighter-rouge">r1</code>的权重小。</p>
 
 <blockquote>
   <p>源码面前，了无秘密                   —— 侯捷</p>
@@ -254,6 +254,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -269,17 +273,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -297,7 +297,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -305,7 +305,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -389,7 +389,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -398,6 +398,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -413,6 +415,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

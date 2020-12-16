@@ -163,15 +163,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 （比如md5生成的）。</p>
 
 <h2 id="预splitpre-splitting">预split(pre-splitting)</h2>
-<p>预split就是在建表时，指定拆分的各key，可以指定多份，在<code class="highlighter-rouge">HBase shell</code>下执行就像这样：</p>
+<p>预split就是在建表时，指定拆分的各key，可以指定多份，在<code class="language-plaintext highlighter-rouge">HBase shell</code>下执行就像这样：</p>
 
-<p><code class="highlighter-rouge">create 'test_table', 'f1', SPLITS=&gt; ['a', 'b', 'c']</code></p>
+<p><code class="language-plaintext highlighter-rouge">create 'test_table', 'f1', SPLITS=&gt; ['a', 'b', 'c']</code></p>
 
 <p>或用外部文件表示，每一行为一个切分点(key)</p>
 
-<p><code class="highlighter-rouge">$ echo -e  "a\nb\nc" &gt;/tmp/splits</code></p>
+<p><code class="language-plaintext highlighter-rouge">$ echo -e  "a\nb\nc" &gt;/tmp/splits</code></p>
 
-<p><code class="highlighter-rouge">create 'test_table', 'f1', SPLITSFILE=&gt;'/tmp/splits'</code></p>
+<p><code class="language-plaintext highlighter-rouge">create 'test_table', 'f1', SPLITSFILE=&gt;'/tmp/splits'</code></p>
 
 <h2 id="自动split">自动split</h2>
 <p>如果你之前没听过region还要split也不要紧，HBase会在region量达到一定程度时，自己进行
@@ -179,11 +179,11 @@ split。什么时候自动进行split呢，这是根据Split Policy来决定的�
 (<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/ConstantSizeRegionSplitPolicy.html" title="ConstantSizeRegionSplitPolicy">ConstantSizeRegionSplitPolicy</a>)，之后改成根据一个公式(<a href="https://hbase.apache.org/0.94/apidocs/org/apache/hadoop/hbase/regionserver/IncreasingToUpperBoundRegionSplitPolicy.html" title="IncreasingToUpperBoundRegionSplitPolicy">IncreasingToUpperBoundRegionSplitPolicy</a>)
 来计算是否要split，这个公式如下：</p>
 
-<script type="math/tex; mode=display">Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.max.filesize)</script>
+\[Min(R^3 * hbase.hregion.memstore.flush.size * 2, hbase.hregion.max.filesize)\]
 
-<p>R是一个表在同一个region server上的region数，<code class="highlighter-rouge">flush.size</code>为一个配置值，默认为128M，
+<p>R是一个表在同一个region server上的region数，<code class="language-plaintext highlighter-rouge">flush.size</code>为一个配置值，默认为128M，
 memstore的意思为memory store，表示在内存中的文件大小，当大小达到这个值时，会flush到磁盘，
-<code class="highlighter-rouge">filesize</code>也是配置值，表示超过这个值一定要被split了，默认为10G。</p>
+<code class="language-plaintext highlighter-rouge">filesize</code>也是配置值，表示超过这个值一定要被split了，默认为10G。</p>
 
 <p>确定要被split了，那哪里是切分点呢，这里要注意的是，切分点只是一个大概的中点，比如：
 一个region有key从”000”到”099”，中点应该是”050”（注意我这里故意加了前导的0保持key是等长），
@@ -192,12 +192,12 @@ memstore的意思为memory store，表示在内存中的文件大小，当大小
 <h2 id="手动split">手动split</h2>
 <p>自动split在前面说了并不如自己管理split靠谱（但这也增加了程序员的运维成本），
 如果你也下定决心要自己动手，那还需要修改配置文件hbase-site.xml中的
-<code class="highlighter-rouge">hbase.hregion.max.filesize</code>（对，就是前面公式里的第二项）为一个较大的值，比如100G。
-因此这里需要说下手动split。只需要在<code class="highlighter-rouge">HBase shell</code>中执行一条语句：</p>
+<code class="language-plaintext highlighter-rouge">hbase.hregion.max.filesize</code>（对，就是前面公式里的第二项）为一个较大的值，比如100G。
+因此这里需要说下手动split。只需要在<code class="language-plaintext highlighter-rouge">HBase shell</code>中执行一条语句：</p>
 
-<p><code class="highlighter-rouge">split 'regionName', 'splitKey'</code></p>
+<p><code class="language-plaintext highlighter-rouge">split 'regionName', 'splitKey'</code></p>
 
-<p>更多用法可以在<code class="highlighter-rouge">HBase shell</code>中查。另外也可以在HBase的GUI管理界面中直接操作，如果split
+<p>更多用法可以在<code class="language-plaintext highlighter-rouge">HBase shell</code>中查。另外也可以在HBase的GUI管理界面中直接操作，如果split
 point不写，相当于只指定了表要被切分，则HBase会自行将表切分一次。经过几次试验，
 这类“自动”切分对于少量数据（比如100条）或没有数据的region不会切分，
 每个region都会被测试一次要不要切分。</p>
@@ -205,7 +205,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
 <h2 id="且听下回">且听下回</h2>
 <p>你一定想知道split时HBase都做了些什么？</p>
 
-<p>为啥上面的<code class="highlighter-rouge">hbase.hregion.max.filesize</code>的值设为100G而不是更大甚至无穷大的值？</p>
+<p>为啥上面的<code class="language-plaintext highlighter-rouge">hbase.hregion.max.filesize</code>的值设为100G而不是更大甚至无穷大的值？</p>
 
 <p>下篇会继续深入HBase的split操作。</p>
 
@@ -293,6 +293,10 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -308,17 +312,13 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -336,7 +336,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -344,7 +344,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -428,7 +428,7 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -437,6 +437,8 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -452,6 +454,13 @@ point不写，相当于只指定了表要被切分，则HBase会自行将表切�
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

@@ -192,7 +192,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="出发">出发！</h3>
 <p>首先祝你旅途顺利。然后在每天的晚上回到酒店，可以抽一些时间来回顾下今天的花销，
-还是老套路，如果是用的信用卡消费，那可以只简单记个<code class="highlighter-rouge">note</code>提醒自己有这笔消费，
+还是老套路，如果是用的信用卡消费，那可以只简单记个<code class="language-plaintext highlighter-rouge">note</code>提醒自己有这笔消费，
 在账单日导入的时候再实际记上。</p>
 
 <p>如果是花的现金，那就尽量回忆下都花在了哪些地方，
@@ -202,41 +202,41 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="合入主账本">合入主账本</h3>
 <p>这步就像 git 的 merge master 操作了。在旅行结束后回来的某一天，将旅行账本打开，
 用工具统计下这次行程的花费，最后可以就「衣食住行」这几大类作下汇总，了解钱都花在哪里。
-然后将这几个总数一次写入主账本，并打上个 tag，比如<code class="highlighter-rouge">#trip-some-place-2016</code><sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>。</p>
+然后将这几个总数一次写入主账本，并打上个 tag，比如<code class="language-plaintext highlighter-rouge">#trip-some-place-2016</code><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote">1</a></sup>。</p>
 
 <h2 id="建立自己的梦想基金">建立自己的「梦想」基金</h2>
 <p>作为一名游戏玩家，时不时需要为信仰充个值，但也不能过度消费，所以我为自己设立了一个「游戏」基金。
 买游戏只能使用基金中的钱，如果基金没钱了就不能再买了。</p>
 
 <h3 id="账目设立">账目设立</h3>
-<p>一个基金需要用到两个账目，一个叫<code class="highlighter-rouge">Expenses:Games:Total</code>，表示游戏基金的总额，这是个负数，
-另一个叫<code class="highlighter-rouge">Expenses:Games:Actual</code>，表示实际在游戏上花的钱数，这两个其实可以合成一个账目，
+<p>一个基金需要用到两个账目，一个叫<code class="language-plaintext highlighter-rouge">Expenses:Games:Total</code>，表示游戏基金的总额，这是个负数，
+另一个叫<code class="language-plaintext highlighter-rouge">Expenses:Games:Actual</code>，表示实际在游戏上花的钱数，这两个其实可以合成一个账目，
 但我为了方便追踪我总共花在游戏上的金额，分成了两个账目。</p>
 
 <h3 id="增加你的基金">增加你的基金</h3>
 <p>最开始的时候，你的基金肯定为 0，你需要想办法增加你的基金，这样你才有资本去买游戏，
 比如你可以每个月在发工资那天，拿出一部分钱充进你的游戏基金，就像下面这样：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-01 * "Games 201610"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-01 * "Games 201610"
             Income:Games                                100 CNY
             Expenses:Games:Total                        -100 CNY
 </code></pre></div></div>
 
-<p>你会发现<code class="highlighter-rouge">Expenses:Games:Total</code>是负的，而<code class="highlighter-rouge">Income</code>是正的，这和复式记账法有些出入，
+<p>你会发现<code class="language-plaintext highlighter-rouge">Expenses:Games:Total</code>是负的，而<code class="language-plaintext highlighter-rouge">Income</code>是正的，这和复式记账法有些出入，
 但不用纠结那些，这些账目正负并不很重要，你可以理解为现在有一笔未来可能发生的交易入账了，
 现在只是为它作了准备。</p>
 
 <h3 id="shut-up-and-take-my-money">Shut up and take my money!</h3>
 <p><img src="/images/shutup.jpg" alt="shut up and take my money" />
-终于可以剁手了，记录交易就变得和正常一样，只是账目变成<code class="highlighter-rouge">Expenses:Games:Actual</code>，就像这样：</p>
+终于可以剁手了，记录交易就变得和正常一样，只是账目变成<code class="language-plaintext highlighter-rouge">Expenses:Games:Actual</code>，就像这样：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-02 * "Civilization V"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-02 * "Civilization V"
             Liabilities:CMBC:CreditCard                 -23.00 CNY
             Expenses:Games:Actual                       23.00 CNY
 </code></pre></div></div>
 
 <p>可以看出我趁打折入了《下一回合 V》。现在检查下基金状况，-100+23=-77，
-也就是说我还有 77 块可以用来买入游戏，这你也可以直接统计<code class="highlighter-rouge">Expenses:Games</code>来获得。</p>
+也就是说我还有 77 块可以用来买入游戏，这你也可以直接统计<code class="language-plaintext highlighter-rouge">Expenses:Games</code>来获得。</p>
 
 <h3 id="小遗憾">小遗憾</h3>
 <p>这种办法唯一的小遗憾是在用信用卡买游戏上，因为账单导入总是延迟记录已经发生的一切，
@@ -292,10 +292,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="例子">例子</h3>
 
 <ul>
-  <li>统计当月的<code class="highlighter-rouge">Expenses</code>和<code class="highlighter-rouge">Income</code>，最后只列出支出和收入加和各是多少</li>
+  <li>统计当月的<code class="language-plaintext highlighter-rouge">Expenses</code>和<code class="language-plaintext highlighter-rouge">Income</code>，最后只列出支出和收入加和各是多少</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
     year, month, root(account, 1) as account, sum(position) as total
 FROM
     year = YEAR(today()) and month = MONTH(today())
@@ -311,7 +311,7 @@ FLATTEN
   <li>统计当月具体支出项</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SELECT
     account, sum(cost(position)) as total, month
 FROM
      year = YEAR(today()) and month = MONTH(today())
@@ -340,12 +340,12 @@ ORDER BY total, account DESC
 <h3 id="vim-snippets">Vim snippets</h3>
 <p>使用文本编辑器编辑账本还有一个好处是你可以方便定制一些「模板」交易，比如每月例行的发工资，
 交房租等，可以存成一个 code snippets，只需要改动一小部分即可。<a href="/wiki/language/vim.html">这里</a>是我用到的一些 vim 下的 snippets，
-使用前确保你装了<code class="highlighter-rouge">honza/vim-snippets</code>和<code class="highlighter-rouge">SirVer/ultisnips</code>插件。</p>
+使用前确保你装了<code class="language-plaintext highlighter-rouge">honza/vim-snippets</code>和<code class="language-plaintext highlighter-rouge">SirVer/ultisnips</code>插件。</p>
 
-<div class="footnotes">
+<div class="footnotes" role="doc-endnotes">
   <ol>
-    <li id="fn:1">
-      <p>你可以用<code class="highlighter-rouge">pushtag</code> <code class="highlighter-rouge">poptag</code> 语法省去每条交易都要打 tag 的麻烦 <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    <li id="fn:1" role="doc-endnote">
+      <p>你可以用<code class="language-plaintext highlighter-rouge">pushtag</code> <code class="language-plaintext highlighter-rouge">poptag</code> 语法省去每条交易都要打 tag 的麻烦 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>
@@ -433,6 +433,10 @@ ORDER BY total, account DESC
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -448,17 +452,13 @@ ORDER BY total, account DESC
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -476,7 +476,7 @@ ORDER BY total, account DESC
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -484,7 +484,7 @@ ORDER BY total, account DESC
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -568,7 +568,7 @@ ORDER BY total, account DESC
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -577,6 +577,8 @@ ORDER BY total, account DESC
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -592,6 +594,13 @@ ORDER BY total, account DESC
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

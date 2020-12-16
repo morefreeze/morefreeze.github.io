@@ -153,34 +153,23 @@ Get into the car!
 <a class="anchor" id="read-more"></a></p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -k echo ::: A B C &gt; abc-file</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -k echo ::: A B C &gt; abc-file</code></li>
 </ul>
 
 <p>-k will keep order or it will output A B C arbitrality.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">perl -e 'for(1..8){print "$_\n"}' &gt; num8</code></li>
+  <li><code class="language-plaintext highlighter-rouge">perl -e 'for(1..8){print "$_\n"}' &gt; num8</code></li>
 </ul>
 
 <p>This command is very useful because you will use it frequently later.</p>
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">(echo %head1; echo %head2; perl -e 'for(1..10){print "$_\n"}') &gt; num_%header</code></p>
+    <p><code class="language-plaintext highlighter-rouge">(echo %head1; echo %head2; perl -e 'for(1..10){print "$_\n"}') &gt; num_%header</code></p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">parallel echo ::: A B C</code></p>
-  </li>
-</ul>
-
-<p>Same as:</p>
-
-<ul>
-  <li>
-    <p><code class="highlighter-rouge">parallel -a abc-file echo</code></p>
-  </li>
-  <li>
-    <p><code class="highlighter-rouge">parallel echo ::: A B C ::: D E F</code></p>
+    <p><code class="language-plaintext highlighter-rouge">parallel echo ::: A B C</code></p>
   </li>
 </ul>
 
@@ -188,10 +177,21 @@ Get into the car!
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">parallel -a abc-file -a def-file echo</code></p>
+    <p><code class="language-plaintext highlighter-rouge">parallel -a abc-file echo</code></p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">parallel --xapply echo ::: A B C ::: D E F</code></p>
+    <p><code class="language-plaintext highlighter-rouge">parallel echo ::: A B C ::: D E F</code></p>
+  </li>
+</ul>
+
+<p>Same as:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">parallel -a abc-file -a def-file echo</code></p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">parallel --xapply echo ::: A B C ::: D E F</code></p>
   </li>
 </ul>
 
@@ -202,9 +202,9 @@ Get into the car!
   C F</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">:::</code> mean literal values, <code class="highlighter-rouge">::::</code> mean file(same as -a)</li>
-  <li><code class="highlighter-rouge">parallel echo {} ::: A/B.C</code></li>
-  <li><code class="highlighter-rouge">parallel echo {.} ::: A/B.C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">:::</code> mean literal values, <code class="language-plaintext highlighter-rouge">::::</code> mean file(same as -a)</li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {} ::: A/B.C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {.} ::: A/B.C</code></li>
 </ul>
 
 <p>Output:</p>
@@ -212,7 +212,7 @@ Get into the car!
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">   A/B</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel echo {/} ::: A/B.C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {/} ::: A/B.C</code></li>
 </ul>
 
 <p>Output:</p>
@@ -220,7 +220,7 @@ Get into the car!
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">  B.C</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel echo {//} ::: A/B.C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {//} ::: A/B.C</code></li>
 </ul>
 
 <p>Output:</p>
@@ -228,7 +228,7 @@ Get into the car!
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">  A</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel echo {/.} ::: A/B.C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {/.} ::: A/B.C</code></li>
 </ul>
 
 <p>Output:</p>
@@ -236,7 +236,7 @@ Get into the car!
 <figure class="highlight"><pre><code class="language-shell" data-lang="shell">  B</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel echo {#} ::: A B C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel echo {#} ::: A B C</code></li>
 </ul>
 
 <p>Output (the order may be different):</p>
@@ -246,7 +246,7 @@ Get into the car!
   3</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -j 2 echo {\%} ::: A B C</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -j 2 echo {\%} ::: A B C</code></li>
 </ul>
 
 <p>Output:</p>
@@ -255,22 +255,22 @@ Get into the car!
   2
   1</code></pre></figure>
 
-<p>job slot number, <code class="highlighter-rouge">\ </code> could be removed(I add it cause my template syntax and so do whitespace)</p>
+<p>job slot number, <code class="language-plaintext highlighter-rouge">\ </code> could be removed(I add it cause my template syntax and so do whitespace)</p>
 
 <ul>
   <li>Summary:
     <ul>
-      <li><code class="highlighter-rouge">{}</code> print out each element</li>
-      <li><code class="highlighter-rouge">{.}</code> remove the extension</li>
-      <li><code class="highlighter-rouge">{/}</code> remove the path(only keep file name)</li>
-      <li><code class="highlighter-rouge">{//}</code> keep the path</li>
-      <li><code class="highlighter-rouge">{/.}</code> remove path and extension</li>
-      <li><code class="highlighter-rouge">{#}</code> job number</li>
-      <li><code class="highlighter-rouge">{\%}</code> job slot number</li>
-      <li><code class="highlighter-rouge">{number}</code> number is index param list, like <code class="highlighter-rouge">{1}</code> mean first param</li>
+      <li><code class="language-plaintext highlighter-rouge">{}</code> print out each element</li>
+      <li><code class="language-plaintext highlighter-rouge">{.}</code> remove the extension</li>
+      <li><code class="language-plaintext highlighter-rouge">{/}</code> remove the path(only keep file name)</li>
+      <li><code class="language-plaintext highlighter-rouge">{//}</code> keep the path</li>
+      <li><code class="language-plaintext highlighter-rouge">{/.}</code> remove path and extension</li>
+      <li><code class="language-plaintext highlighter-rouge">{#}</code> job number</li>
+      <li><code class="language-plaintext highlighter-rouge">{\%}</code> job slot number</li>
+      <li><code class="language-plaintext highlighter-rouge">{number}</code> number is index param list, like <code class="language-plaintext highlighter-rouge">{1}</code> mean first param</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">parallel --jobs 4 -m echo ::: 1 2 3 4 5 6 7 8 9 10</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --jobs 4 -m echo ::: 1 2 3 4 5 6 7 8 9 10</code></li>
 </ul>
 
 <p>Split to 4 tasks to run</p>
@@ -283,7 +283,7 @@ Get into the car!
  10</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --jobs 4 -X echo pre-{}-post ::: A B C D E F G</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --jobs 4 -X echo pre-{}-post ::: A B C D E F G</code></li>
 </ul>
 
 <p>Split to 4 tasks, but each has separate param</p>
@@ -296,68 +296,68 @@ Get into the car!
   pre-G-post</code></pre></figure>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -N3 echo ::: A B C D E F G H</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -N3 echo ::: A B C D E F G H</code></li>
 </ul>
 
 <p>Limit each task has 3 params</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -N3 echo 1={1} 2={2} 3={3} ::: A B C D E F G H</code></li>
-  <li><code class="highlighter-rouge">cat num30000 | parallel --xargs echo | wc -l</code></li>
-  <li><code class="highlighter-rouge">parallel --tmux</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -N3 echo 1={1} 2={2} 3={3} ::: A B C D E F G H</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cat num30000 | parallel --xargs echo | wc -l</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --tmux</code></li>
 </ul>
 
 <p>Use tmux for every job(use ctrl-b p to switch session)</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --eta</code></li>
-  <li><code class="highlighter-rouge">parallel --progress</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --eta</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --progress</code></li>
 </ul>
 
-<p>Show progress of computations. <code class="highlighter-rouge">kill -s USR2</code> to <code class="highlighter-rouge">Parallel</code> to toggle turning on/off –progress</p>
+<p>Show progress of computations. <code class="language-plaintext highlighter-rouge">kill -s USR2</code> to <code class="language-plaintext highlighter-rouge">Parallel</code> to toggle turning on/off –progress</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --joblog /tmp/log</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --joblog /tmp/log</code></li>
 </ul>
 
 <p>The log file will contain job id, run time, exit code, command and so on.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --resume-failed --joblog /tmp/log</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --resume-failed --joblog /tmp/log</code></li>
 </ul>
 
-<p>Use <code class="highlighter-rouge">--resume-failed</code> will rerun failed task from the joblog,
-so you also can use <code class="highlighter-rouge">parallel</code> as your task executor that it can resume automatically.</p>
+<p>Use <code class="language-plaintext highlighter-rouge">--resume-failed</code> will rerun failed task from the joblog,
+so you also can use <code class="language-plaintext highlighter-rouge">parallel</code> as your task executor that it can resume automatically.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --memfree 1G</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --memfree 1G</code></li>
 </ul>
 
-<p><code class="highlighter-rouge">parallel</code> will run job when memory large 1G.</p>
+<p><code class="language-plaintext highlighter-rouge">parallel</code> will run job when memory large 1G.</p>
 
 <p>Notice,
-<strong><code class="highlighter-rouge">parallel</code> will kill youngest job if free memory below 50% of size. The killed job will be pushed back the queue.</strong></p>
+<strong><code class="language-plaintext highlighter-rouge">parallel</code> will kill youngest job if free memory below 50% of size. The killed job will be pushed back the queue.</strong></p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --pipe -N140000 --block 2M wc</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --pipe -N140000 --block 2M wc</code></li>
 </ul>
 
 <p>This will split several group pass to wc, N and block to limit each group.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel --pipe --round-robin</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel --pipe --round-robin</code></li>
 </ul>
 
 <p>If you don’t care order of records you can use round-robin</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -S $SERVER1 --transferfile --return {}.out --cleanup</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -S $SERVER1 --transferfile --return {}.out --cleanup</code></li>
 </ul>
 
 <p>This will transfer result file back to local from remote server and clean origin files.</p>
 
 <ul>
-  <li><code class="highlighter-rouge">parallel -S $SERVER1 --trc {}.out</code></li>
+  <li><code class="language-plaintext highlighter-rouge">parallel -S $SERVER1 --trc {}.out</code></li>
 </ul>
 
 <p>As same as above.</p>
@@ -452,6 +452,10 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -467,17 +471,13 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -495,7 +495,7 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -503,7 +503,7 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -587,7 +587,7 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -596,6 +596,8 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -611,6 +613,13 @@ so you also can use <code class="highlighter-rouge">parallel</code> as your task
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

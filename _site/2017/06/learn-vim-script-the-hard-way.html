@@ -148,22 +148,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch02">CH02</h3>
 
 <ol>
-  <li>布尔型变量可以用<code class="highlighter-rouge">:set [no]number</code>这样来设置，<code class="highlighter-rouge">:set number!</code>表示取反，<code class="highlighter-rouge">:set number?</code>获取当前状态（实际<code class="highlighter-rouge">:set nonumber?</code>也可以哟）</li>
-  <li>数值型用<code class="highlighter-rouge">:set numberwidth=10</code>来设置，同理<code class="highlighter-rouge">:set numberwidth?</code>获取当前值</li>
-  <li><code class="highlighter-rouge">relativenumber</code>或者<code class="highlighter-rouge">rnu</code>用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</li>
+  <li>布尔型变量可以用<code class="language-plaintext highlighter-rouge">:set [no]number</code>这样来设置，<code class="language-plaintext highlighter-rouge">:set number!</code>表示取反，<code class="language-plaintext highlighter-rouge">:set number?</code>获取当前状态（实际<code class="language-plaintext highlighter-rouge">:set nonumber?</code>也可以哟）</li>
+  <li>数值型用<code class="language-plaintext highlighter-rouge">:set numberwidth=10</code>来设置，同理<code class="language-plaintext highlighter-rouge">:set numberwidth?</code>获取当前值</li>
+  <li><code class="language-plaintext highlighter-rouge">relativenumber</code>或者<code class="language-plaintext highlighter-rouge">rnu</code>用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</li>
 </ol>
 
 <h3 id="ch03">CH03</h3>
 
 <ol>
-  <li>注释用<code class="highlighter-rouge">"</code>来标记</li>
-  <li>注意注释不要写在<code class="highlighter-rouge">map</code>后面，这样会当成命令去执行<code class="highlighter-rouge">map a dd "comment</code></li>
+  <li>注释用<code class="language-plaintext highlighter-rouge">"</code>来标记</li>
+  <li>注意注释不要写在<code class="language-plaintext highlighter-rouge">map</code>后面，这样会当成命令去执行<code class="language-plaintext highlighter-rouge">map a dd "comment</code></li>
 </ol>
 
 <h3 id="ch04">CH04</h3>
 
 <ol>
-  <li><code class="highlighter-rouge">map</code>,<code class="highlighter-rouge">nmap</code>,<code class="highlighter-rouge">vmap</code>,<code class="highlighter-rouge">imap</code>都知道什么意思吧</li>
+  <li><code class="language-plaintext highlighter-rouge">map</code>,<code class="language-plaintext highlighter-rouge">nmap</code>,<code class="language-plaintext highlighter-rouge">vmap</code>,<code class="language-plaintext highlighter-rouge">imap</code>都知道什么意思吧</li>
 </ol>
 
 <a class="anchor" id="read-more"></a>
@@ -171,37 +171,37 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch05">CH05</h3>
 
 <ol>
-  <li>第四章的<code class="highlighter-rouge">map</code>都是会循环定义，如<code class="highlighter-rouge">:nmap dd O&lt;esc&gt;jddk</code> 这就是一死循环</li>
-  <li>用<code class="highlighter-rouge">noremap</code>,<code class="highlighter-rouge">nnoremap</code>,<code class="highlighter-rouge">inoremap</code>,<code class="highlighter-rouge">vnoremap</code>来表示非递归的map</li>
-  <li><code class="highlighter-rouge">unmap</code>取消map定义</li>
+  <li>第四章的<code class="language-plaintext highlighter-rouge">map</code>都是会循环定义，如<code class="language-plaintext highlighter-rouge">:nmap dd O&lt;esc&gt;jddk</code> 这就是一死循环</li>
+  <li>用<code class="language-plaintext highlighter-rouge">noremap</code>,<code class="language-plaintext highlighter-rouge">nnoremap</code>,<code class="language-plaintext highlighter-rouge">inoremap</code>,<code class="language-plaintext highlighter-rouge">vnoremap</code>来表示非递归的map</li>
+  <li><code class="language-plaintext highlighter-rouge">unmap</code>取消map定义</li>
 </ol>
 
 <h3 id="ch06">CH06</h3>
 
 <ol>
-  <li>有一些键在normal模式几乎不会用到，可以用来map，如<code class="highlighter-rouge">&lt;space&gt;</code>,<code class="highlighter-rouge">&lt;cr&gt;</code>,<code class="highlighter-rouge">&lt;bs&gt;</code>,<code class="highlighter-rouge">-</code>,<code class="highlighter-rouge">H</code>,<code class="highlighter-rouge">L</code></li>
-  <li>vim把prefix的key叫作leader，用<code class="highlighter-rouge">:let mapleader="-"</code>来定义，一般会用<code class="highlighter-rouge">,</code>作为leader</li>
-  <li>vim还有种local leader，只作用于当前类型的文件，如py,html，用<code class="highlighter-rouge">:lset maplocalleader="\\"</code>来定义</li>
+  <li>有一些键在normal模式几乎不会用到，可以用来map，如<code class="language-plaintext highlighter-rouge">&lt;space&gt;</code>,<code class="language-plaintext highlighter-rouge">&lt;cr&gt;</code>,<code class="language-plaintext highlighter-rouge">&lt;bs&gt;</code>,<code class="language-plaintext highlighter-rouge">-</code>,<code class="language-plaintext highlighter-rouge">H</code>,<code class="language-plaintext highlighter-rouge">L</code></li>
+  <li>vim把prefix的key叫作leader，用<code class="language-plaintext highlighter-rouge">:let mapleader="-"</code>来定义，一般会用<code class="language-plaintext highlighter-rouge">,</code>作为leader</li>
+  <li>vim还有种local leader，只作用于当前类型的文件，如py,html，用<code class="language-plaintext highlighter-rouge">:lset maplocalleader="\\"</code>来定义</li>
 </ol>
 
 <h3 id="ch07">CH07</h3>
 
 <ol>
-  <li>本章教你如何更快地去更快地编辑文件（没打错），用<code class="highlighter-rouge">:nnoremap &lt;leader&gt;ev :vsplit $MYVIMRC&lt;cr&gt;</code>去打开vim的配置文件，ev 意味着 edit my vimrc file</li>
-  <li>用<code class="highlighter-rouge">:nnoremap &lt;leader&gt;sv :source $MYVIMRC&lt;cr&gt;</code> sv 意味着source my vimrc file</li>
-  <li>最好用<code class="highlighter-rouge">$MYVIMRC</code>，这样能在不同系统下兼容</li>
+  <li>本章教你如何更快地去更快地编辑文件（没打错），用<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;ev :vsplit $MYVIMRC&lt;cr&gt;</code>去打开vim的配置文件，ev 意味着 edit my vimrc file</li>
+  <li>用<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;sv :source $MYVIMRC&lt;cr&gt;</code> sv 意味着source my vimrc file</li>
+  <li>最好用<code class="language-plaintext highlighter-rouge">$MYVIMRC</code>，这样能在不同系统下兼容</li>
 </ol>
 
 <h3 id="ch08">CH08</h3>
 
 <ol>
   <li>vim还有个特性叫“缩写”(abbreviations)，与map不同的是他只出现在插入，替换和命令模式</li>
-  <li>缩写可以用于打错字的时候，如<code class="highlighter-rouge">:iabbrev waht what</code></li>
-  <li>缩写会替换“非关键字符”，这货是啥，用<code class="highlighter-rouge">:set iskeyword?</code>看一下</li>
-  <li>经常会看到这样<code class="highlighter-rouge">iskeyword=@,48-57,_,192-255</code>，这表示关键字符是所有英文大小写字母，数字（48-57），下划线，另外一些特殊字符（192-255）</li>
-  <li>你可以看<code class="highlighter-rouge">:help isfname</code>了解完整描述，但这货挺长的……（这个实际是vim定义哪些字符可以成为文件名，注意里面没有空格和反斜杠\）</li>
-  <li>缩写另一个用处是可以快速输入用户或版权信息，如<code class="highlighter-rouge">:iabbrev @@ morefreeze@gmail.com</code></li>
-  <li>缩写和map的区别是map一旦发现能匹配上就转换，而缩写需要确认这是个整词（就是isfname定义的）才会替换，假如<code class="highlighter-rouge">:inoremap ssig hehehe</code>，如果输入Lessig，会发现后面被替换了，而换成缩写就没有问题</li>
+  <li>缩写可以用于打错字的时候，如<code class="language-plaintext highlighter-rouge">:iabbrev waht what</code></li>
+  <li>缩写会替换“非关键字符”，这货是啥，用<code class="language-plaintext highlighter-rouge">:set iskeyword?</code>看一下</li>
+  <li>经常会看到这样<code class="language-plaintext highlighter-rouge">iskeyword=@,48-57,_,192-255</code>，这表示关键字符是所有英文大小写字母，数字（48-57），下划线，另外一些特殊字符（192-255）</li>
+  <li>你可以看<code class="language-plaintext highlighter-rouge">:help isfname</code>了解完整描述，但这货挺长的……（这个实际是vim定义哪些字符可以成为文件名，注意里面没有空格和反斜杠\）</li>
+  <li>缩写另一个用处是可以快速输入用户或版权信息，如<code class="language-plaintext highlighter-rouge">:iabbrev @@ morefreeze@gmail.com</code></li>
+  <li>缩写和map的区别是map一旦发现能匹配上就转换，而缩写需要确认这是个整词（就是isfname定义的）才会替换，假如<code class="language-plaintext highlighter-rouge">:inoremap ssig hehehe</code>，如果输入Lessig，会发现后面被替换了，而换成缩写就没有问题</li>
 </ol>
 
 <h3 id="ch10">CH10</h3>
@@ -217,16 +217,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>&lt;c-[&gt;</li>
     </ol>
   </li>
-  <li>尝试<code class="highlighter-rouge">:map jk &lt;esc&gt;</code>或者<code class="highlighter-rouge">:map jj &lt;esc&gt;</code></li>
-  <li>你要蛋疼想训练你的肌肉记忆新的map，你可以<code class="highlighter-rouge">:inoremap &lt;esc&gt; &lt;nop&gt;</code>（训练上面的jk反应）（<strong>注意</strong>：这里我尝试把<esc>disable掉了，但出现了delete键失灵的情况，在插入模式按下会插入'[3~'，即使用vim wiki上的:fixdel也不管用，所以这里建议尽快训练好jk反应）</esc></li>
+  <li>尝试<code class="language-plaintext highlighter-rouge">:map jk &lt;esc&gt;</code>或者<code class="language-plaintext highlighter-rouge">:map jj &lt;esc&gt;</code></li>
+  <li>你要蛋疼想训练你的肌肉记忆新的map，你可以<code class="language-plaintext highlighter-rouge">:inoremap &lt;esc&gt; &lt;nop&gt;</code>（训练上面的jk反应）（<strong>注意</strong>：这里我尝试把<esc>disable掉了，但出现了delete键失灵的情况，在插入模式按下会插入'[3~'，即使用vim wiki上的:fixdel也不管用，所以这里建议尽快训练好jk反应）</esc></li>
 </ol>
 
 <h3 id="ch11">CH11</h3>
 
 <ol>
-  <li><code class="highlighter-rouge">:nnoremap &lt;buffer&gt; &lt;leader&gt;x dd</code>这句只会作用在当前光标在的那个窗口，切换到另一个窗口这句就不好使</li>
+  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;buffer&gt; &lt;leader&gt;x dd</code>这句只会作用在当前光标在的那个窗口，切换到另一个窗口这句就不好使</li>
   <li>一般是不像上面那样写<buffer>的，而是写<localleader>，这类似命名空间，假如你写插件的话，这样会防止你写了半天的map被别人覆盖掉</localleader></buffer></li>
-  <li>还有<code class="highlighter-rouge">:setlocal wrap</code>来只对当前窗口有效</li>
+  <li>还有<code class="language-plaintext highlighter-rouge">:setlocal wrap</code>来只对当前窗口有效</li>
   <li>如果local和普通的map都是同一个值的话，会优先执行local的map</li>
   <li>localleader一般用于文件类型的插件</li>
   <li>想知道一个键是否被map可以用:verbose imap <c-h></c-h></li>
@@ -234,7 +234,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="ch12-autocommands">CH12 Autocommands</h3>
 
-<p>正常如果打开一个新文件，并且马上退出，这个文件不会留在硬盘上，如果你执行<code class="highlighter-rouge">:autocmd BufNewFile * :write</code>则会让文件留在硬盘上</p>
+<p>正常如果打开一个新文件，并且马上退出，这个文件不会留在硬盘上，如果你执行<code class="language-plaintext highlighter-rouge">:autocmd BufNewFile * :write</code>则会让文件留在硬盘上</p>
 
 <p>我们来解析下这条命令，BufNewFile是vim要监控的事件，*是要过滤的事件，:write要运行的命令，
 命令那部分是不允许出现<cr>这种的，
@@ -248,10 +248,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li>退出插入模式</li>
 </ul>
 
-<p><code class="highlighter-rouge">:autocmd BufNewFile *.txt :write</code>这是对.txt后缀的文件进行过滤，只保存这类文件
-可以同时有多个事件<code class="highlighter-rouge">:autocmd BufWritePre,BufRead *.html :normal gg=G</code>，在预写和读的时候格式化.html文件，
+<p><code class="language-plaintext highlighter-rouge">:autocmd BufNewFile *.txt :write</code>这是对.txt后缀的文件进行过滤，只保存这类文件
+可以同时有多个事件<code class="language-plaintext highlighter-rouge">:autocmd BufWritePre,BufRead *.html :normal gg=G</code>，在预写和读的时候格式化.html文件，
 提一下BufNewFile和BufRead几乎总是同时出现，
-文件类型相关的例子<code class="highlighter-rouge">:autocmd FileType python nnoremap &lt;buffer&gt; &lt;localleader&gt;c I#&lt;esc&gt;</code>，当打开一个Python文件时，使用<leader>c 可以快速注释
+文件类型相关的例子<code class="language-plaintext highlighter-rouge">:autocmd FileType python nnoremap &lt;buffer&gt; &lt;localleader&gt;c I#&lt;esc&gt;</code>，当打开一个Python文件时，使用<leader>c 可以快速注释
 （建议用scrooloose/nerdcommenter 插件，对各种语言都能很好地开关注释）
 通过`:help autocmd-events`查看更多的事件列表</leader></p>
 
@@ -340,6 +340,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -355,17 +359,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -383,7 +383,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -391,7 +391,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -475,7 +475,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -484,6 +484,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -499,6 +501,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

@@ -153,16 +153,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <a class="anchor" id="read-more"></a></p>
 
 <ol>
-  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
+  <li>region server决定开始split，在zk上创建新节点<code class="language-plaintext highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
   <li>Master通过监测这个节点得知父region（这时称要split的region为父，
 分出来的新的region为女儿region）要split了</li>
-  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
-  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
+  <li>region server在HDFS目录下创建一个子目录<code class="language-plaintext highlighter-rouge">.splits</code>，如<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits</code></li>
+  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="language-plaintext highlighter-rouge">NotServingRegionException</code>的异常，
 需要客户端自己进行重试</li>
-  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
-<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
+  <li>在刚才创建的<code class="language-plaintext highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
+<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
 其中文件都引用自父region，引用文件标记出开始和结束位置</li>
-  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
+  <li>region server在HDFS中创建实际的女儿region目录，如<code class="language-plaintext highlighter-rouge">.../daughterA/</code>，再将刚才创建的
 引用文件移到这个目录中</li>
   <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
 注意这时client扫描META表并不能发现新的region，因为还没上线。
@@ -171,7 +171,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li>region server允许女儿region的写入</li>
   <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
 region信息重新更新</li>
-  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
+  <li>将zk中的节点，改为<code class="language-plaintext highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
 Master就知道split完成</li>
   <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
 的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>
@@ -264,6 +264,10 @@ Master就知道split完成</li>
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -279,17 +283,13 @@ Master就知道split完成</li>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -307,7 +307,7 @@ Master就知道split完成</li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -315,7 +315,7 @@ Master就知道split完成</li>
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -399,7 +399,7 @@ Master就知道split完成</li>
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -408,6 +408,8 @@ Master就知道split完成</li>
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -423,6 +425,13 @@ Master就知道split完成</li>
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

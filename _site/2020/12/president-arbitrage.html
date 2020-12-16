@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="How to set the config.yml file">
-<title>How to set the config.yml file</title>
-<meta property="og:description" content="The config.yml file in the Freshman21 theme includes five parts.First part is the site info.">
-<meta property="og:url" content="/2014/12/how-to-set-the-config-file.html">
+<meta property="og:title" content="如何优雅地从总统竞选中套利">
+<title>如何优雅地从总统竞选中套利</title>
+<meta property="og:description" content="最近看了篇很有趣的文章，讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注">
+<meta property="og:url" content="/2020/12/president-arbitrage.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@morefreeze">
 <meta name="twitter:creator" content="@morefreeze">
-<meta name="twitter:title" content="How to set the config.yml file">
-<meta name="twitter:description" content="The config.yml file in the Freshman21 theme includes five parts.First part is the site info.">
-<meta name="twitter:url" content="/2014/12/how-to-set-the-config-file.html">
+<meta name="twitter:title" content="如何优雅地从总统竞选中套利">
+<meta name="twitter:description" content="最近看了篇很有趣的文章，讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注">
+<meta name="twitter:url" content="/2020/12/president-arbitrage.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="/2014/12/how-to-set-the-config-file.html">
+<link rel="canonical" href="/2020/12/president-arbitrage.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
 
 <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -124,90 +124,74 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">How to set the config.yml file</h1>
-    <meta itemprop="keywords" content="configure" />
+    <h1 itemprop="name" class="post-title">如何优雅地从总统竞选中套利</h1>
+    <meta itemprop="keywords" content="ariticles" />
     <p class="post-meta">
     Posted in
     
-    <a href="/categories/#articles">articles</a>&nbsp;
-    
-    <a href="/categories/#howto">howto</a>&nbsp;
+    <a href="/categories/#probability, thinking, solution">probability, thinking, solution</a>&nbsp;
      
     
     and tagged
     
-    <a href="/tags/#configure" title="configure">configure </a>
+    <a href="/tags/#ariticles" title="ariticles">ariticles </a>
     
     
-    <time itemprop="datePublished" datetime="2014-12-19">
-    on Dec 19, 2014
+    <time itemprop="datePublished" datetime="2020-12-16">
+    on Dec 16, 2020
     </time>
     </p>
   </header>
 
   <article class="post-content" itemprop="articleBody">
-      <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
+      
+<p>最近看了篇<a href="https://computersciencealgorithms.wordpress.com/2020/11/22/exploiting-arbitrage-opportunities-in-betting-markets/">很有趣的文章</a>，
+讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注<a class="anchor" id="read-more"></a>，
+拜登胜出则你拿到 1 块，净赚 0.12，输则什么都没有亏掉那 0.88。B 网站允许你看空，看空拜登胜出（也就是认为拜登不会胜），
+赔率就比较高了，是 1.05:0.05，就是你只要出 5 分钱（这里其实包含 1 分钱看空费，简化就不提了，感兴趣可以看原文），如果拜登没有当选，
+那你拿到 1.05 净赚 1 块，输则损失掉 0.05。</p>
 
-<p><strong>First part</strong> is the site info.
-<a class="anchor" id="read-more"></a></p>
+<h2 id="如何下注">如何下注</h2>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">title</span><span class="pi">:</span> <span class="s">Freshman21</span> <span class="c1"># blog title</span>
-<span class="na">tagline</span><span class="pi">:</span> <span class="s">Another Jekyll theme, Freshman twenty-first</span> <span class="c1"># blog sub-titile</span>
-<span class="na">author</span><span class="pi">:</span> <span class="s">Lijia YU</span> <span class="c1"># author name</span>
-<span class="na">email</span><span class="pi">:</span> <span class="s">yu@lijiayu.net</span> <span class="c1"># author email</span>
-<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Freshman21</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Jekyll</span><span class="nv"> </span><span class="s">blog</span><span class="nv"> </span><span class="s">theme."</span> <span class="c1"># You can edit this line in _config.yml. It will appear in your document head meta and in </span>
-<span class="s">your feed.xml site description</span>
-<span class="na">keywords</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll,</span><span class="nv"> </span><span class="s">theme,</span><span class="nv"> </span><span class="s">Freshman21"</span> <span class="c1"># html meta keywords</span>
-<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/freshman21"</span> <span class="c1"># the subpath of your site, e.g. /blog</span>
-<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://yulijia.net/freshman21"</span> <span class="c1"># the base hostname &amp; protocol for your site</span></code></pre></figure>
+<p>如果按照赔率来计算概率的话，作者发现其实是有利可图的，A 网站相当于预测有 88% 的概率拜登会赢，而 B 网站则认为有 (1.05-0.05) / 1.05 = 95.2%拜登会赢（原文考虑看空费，实际是拿 1/1.04 算的，这里仍然简化），那就有 4.8%概率会输，88%+4.8% &lt; 1 所以这里就存在套利的可能（为什么&lt;1 就存在套利可能，后面也会证明）。</p>
 
-<p><strong>Part 2</strong>, Personal info and site tools info, twitter, github, aboutme and aboutme_photo only appears on the sidebar aboutme-box, you can <q>Hide</q> in two ways <sup><a href="#[1]">[1]</a></sup>:</p>
+<p>先给出拜登胜负在 AB 两个网站的损益表：</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">twitter_username</span><span class="pi">:</span> <span class="c1">#your twitter handle  </span>
-<span class="na">github_username</span><span class="pi">:</span>  <span class="c1">#your github account</span>
-<span class="na">disqus_shortname</span><span class="pi">:</span> <span class="c1">#disqus shortname</span>
-<span class="na">favicon</span><span class="pi">:</span>     <span class="s2">"</span><span class="s">images/favicon.ico"</span>
-<span class="na">aboutme</span><span class="pi">:</span> <span class="s">Hi, this is Lijia Yu. I made the Freshman21 theme. Please enjoy it.</span> <span class="c1"># these are shown on aboutme-box(sidebar).</span>
-<span class="na">aboutme_photo</span><span class="pi">:</span> <span class="s">https://i.imgur.com/15BT1.jpg</span> <span class="c1"># your personal photo.</span></code></pre></figure>
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>胜</th>
+      <th>负</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>+$0.12</td>
+      <td>-$0.88</td>
+    </tr>
+    <tr>
+      <td>B</td>
+      <td>-$0.05</td>
+      <td>+$1.00</td>
+    </tr>
+  </tbody>
+</table>
 
-<p><strong>Part3</strong>, Site setting:</p>
+<p>假设我们拿出 1 块投在 A 站，投入 B 站设为 X 元，为了使无论哪种结果都能有稳定的收入，使胜负收益相等，那么有\(1 / 0.88 *0.12 - X = -0.88 + X / 0.05* 1  \space [1]\)，解得\(X \approx 0.054\)，假设我们想获利 1000 元，即令等式一边等于 1000，设 N 为投入 A 站的钱数，有\(N*(0.12/0.88 - X)= 1000\)，解得\(N \approx 12157.89\)，由于每投入 1 块到 A 站，就有 X 元投入 B 站，实际投入 B 站\(N * X \approx657.89\)，与原文得出一致的结果。</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">ShowContactInfo</span><span class="pi">:</span> <span class="s2">"</span><span class="s">True"</span> <span class="c1"># Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown where ShowContactInfo == True</span>
-<span class="na">default_column</span><span class="pi">:</span> <span class="s2">"</span><span class="s">two"</span> <span class="c1"># blog style: two columns, if default_column != "two", you will see a one column blog.</span>
-<span class="na">default_locale</span><span class="pi">:</span> <span class="s2">"</span><span class="s">en"</span> <span class="c1"># blog sidebar language set, only include: English(en) and Chinese (cn)</span></code></pre></figure>
+<h2 id="凭什么能套利">凭什么能套利？</h2>
 
-<p><strong>Part4</strong>, Blogroll info, only <em>name</em> tags can shown on the page.</p>
+<p>到这里细心的读者会发现上文的概率和等式并没有关系，那是不是用来判断是否能套利的呢？猜对了！接下来就来证明存在套利的条件是什么，而且也可以更简化上面 X 的计算过程。</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">Blogroll</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Freshman</span>
-        <span class="na">href</span><span class="pi">:</span> <span class="s">http://yulijia.net/freshman</span>
-        <span class="na">title</span><span class="pi">:</span> <span class="s">Another Jekyll blog theme</span>
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">author's website</span>
-        <span class="na">href</span><span class="pi">:</span> <span class="s">http://yulijia.net/</span>
-        <span class="na">title</span><span class="pi">:</span> <span class="s">Lijia Yu's website</span></code></pre></figure>
+<h3 id="一个错误的例子">一个错误的例子</h3>
 
-<p><strong>Part5</strong>, Build settings</p>
+<p>首先，让我们随便试个场景，上面的 0.88，1.05 太难计算了，我们不妨假设 A 站赔率是 1.5:1，也即用一块可能净赚 0.5 元也可能亏掉这 1 块，B 站赔率是 2:1，同样，把这些值代入[1]中，有\(0.5/1 - X = -1 + X/1\)，解得\(X = \frac 3 4\)，但当你把 X 代入算的时候发现，等式是负值，这也就说明实际没有套利可能的，那么问题出在哪呢？</p>
 
-<figure class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="na">markdown</span><span class="pi">:</span> <span class="s">kramdown</span>
-<span class="na">highlighter</span><span class="pi">:</span> <span class="s">pygments</span> <span class="c1"># highlight</span>
-<span class="na">paginate</span><span class="pi">:</span> <span class="m">5</span>  <span class="c1"># how many post can seen in the main page</span></code></pre></figure>
+<h3 id="证明">证明</h3>
 
-<p>=====</p>
-
-<ul style="list-style-type:none;"> 
-<li id="[1]"> [1], you can set those info at <strong>Part3</strong> or just delete the <q>aboutme.html</q> at <q>sidebar.html</q> in <code>_include</code> folder. </li>
-</ul>
-
-<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-2"</span><span class="nt">&gt;</span>
-  <span class="c">&lt;!--{ % include Aboutme.html % }--&gt;</span>
-   { % include Copyright_Notice.html % }
-   { % include Recent_Posts.html % }
-   { % include Categories.html % }
-   { % include Tags.html % }
-   { % include Blogroll.html % }
-   { % include Archives.html % }
-<span class="nt">&lt;/div&gt;</span>                                                                                                      </code></pre></figure>
-
+<p>让我们再形式化地定义下，假设 A 站的赔率是 A:1，B 站的赔率是 B:1（这里 B 站应该是 A 站事件相反的赔率），那么有\((A-1) - X = -1 + (B-1)*X\)，化简得\(X = \frac A B\)，可把上面 A=1/0.88 和 B=1.05/0.05 代入验算，因为需要[1]式等号一边&gt;0，因此有\((A-1) - \frac A B &gt; 0\)，因为 A&gt;1，两边同时除以 A，得\(1 - (\frac 1 A + \frac 1 B)&gt;0\)，而 1/A 和 1/B 正是概率，注意这里 A 站和 B 站事件应该互补，也即前面说的概率相加&lt;1，即存在套利的可能。</p>
 
   </article>
   <hr />
@@ -217,10 +201,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/2014/12/how-to-install.html" title="How to install this theme">&larr; Older</a></li>
+    <li class="previous"><a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/2015/09/machine-die-in-cloudera.html" title="记一次cloudera机器重装">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -237,8 +221,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2014/12/how-to-set-the-config-file.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2014/12/how-to-set-the-config-file.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2020/12/president-arbitrage.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2020/12/president-arbitrage.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

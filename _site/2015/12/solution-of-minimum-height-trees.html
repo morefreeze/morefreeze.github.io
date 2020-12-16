@@ -175,7 +175,7 @@ find the longest path depends on problem description with DFS.</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// TLE</span>
 <span class="k">class</span> <span class="nc">BruteForceSolution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
             <span class="kt">int</span> <span class="n">min_len</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
@@ -227,7 +227,7 @@ find the longest path depends on problem description with DFS.</p>
 
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// cut every leaf, again and again, until left one or two node</span>
 <span class="k">class</span> <span class="nc">CutSolution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
                 <span class="n">VI</span> <span class="n">ans</span><span class="p">;</span>
@@ -266,7 +266,7 @@ find the longest path depends on problem description with DFS.</p>
 <figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="c1">// find diameter, then find center</span>
 <span class="c1">// slower than Solution</span>
 <span class="k">class</span> <span class="nc">SolutionDiameter</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
             <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
@@ -384,11 +384,11 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <span class="c1">//conversion</span>
 <span class="c1">//------------------------------------------</span>
 <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">toInt</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span><span class="kt">int</span> <span class="n">v</span><span class="p">;</span> <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="n">sin</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span><span class="k">return</span> <span class="n">v</span><span class="p">;}</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="n">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="nf">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
 
 <span class="c1">//math</span>
 <span class="c1">//-------------------------------------------</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="nf">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
 
 <span class="c1">//typedef</span>
 <span class="c1">//------------------------------------------</span>
@@ -431,7 +431,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <span class="c1">// d1 cur node second longest path without longest path</span>
 <span class="c1">// ret[cur] = max(d0[cur], go up through father longest path)</span>
 <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-    <span class="k">public</span><span class="o">:</span>
+    <span class="nl">public:</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findMinHeightTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">PII</span><span class="o">&gt;&amp;</span> <span class="n">edges</span><span class="p">)</span> <span class="p">{</span>
             <span class="n">VVI</span> <span class="n">a</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
             <span class="n">REP</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">SZ</span><span class="p">(</span><span class="n">edges</span><span class="p">))</span> <span class="p">{</span>
@@ -456,7 +456,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
             <span class="c1">// go up through father node which longest path</span>
             <span class="kt">int</span> <span class="n">up_path</span><span class="p">;</span>
             <span class="k">if</span> <span class="p">(</span><span class="n">fa</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="n">up_path</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="p">{</span>
+            <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">d0</span><span class="p">[</span><span class="n">cur</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span> <span class="o">==</span> <span class="n">d0</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="p">{</span>
                 <span class="n">up_path</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">fa_up_path</span><span class="p">,</span> <span class="n">d1</span><span class="p">[</span><span class="n">fa</span><span class="p">])</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span>
             <span class="c1">// &lt;=</span>
@@ -574,6 +574,10 @@ The lastest is just enumerating every node to find the longest path, then pick t
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -589,17 +593,13 @@ The lastest is just enumerating every node to find the longest path, then pick t
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -617,7 +617,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -625,7 +625,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -709,7 +709,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -718,6 +718,8 @@ The lastest is just enumerating every node to find the longest path, then pick t
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -733,6 +735,13 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

@@ -144,25 +144,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="ch31-basic-regular-expressions">CH31 Basic Regular Expressions</h3>
 <ol>
-  <li><code class="highlighter-rouge">/</code>和<code class="highlighter-rouge">?</code>，前者向后找，后者向前找</li>
+  <li><code class="language-plaintext highlighter-rouge">/</code>和<code class="language-plaintext highlighter-rouge">?</code>，前者向后找，后者向前找</li>
 </ol>
 
 <h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
 <ol>
-  <li><code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="highlighter-rouge">:cwindow</code>查看<code class="highlighter-rouge">quickfix</code>窗口</li>
-  <li>以上还有一点要修改，如果光标在一个<code class="highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
-  <li>但上面对于光标有单引号的不启作用，用<code class="highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
-  <li>最终版本<code class="highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="highlighter-rouge">:copen</code>打开结果页</li>
+  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="language-plaintext highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="language-plaintext highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="language-plaintext highlighter-rouge">:cwindow</code>查看<code class="language-plaintext highlighter-rouge">quickfix</code>窗口</li>
+  <li>以上还有一点要修改，如果光标在一个<code class="language-plaintext highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="language-plaintext highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
+  <li>但上面对于光标有单引号的不启作用，用<code class="language-plaintext highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
+  <li>最终版本<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="language-plaintext highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="language-plaintext highlighter-rouge">:copen</code>打开结果页</li>
 </ol>
 
 <h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
-<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="highlighter-rouge">Test</code>
+<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="language-plaintext highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="language-plaintext highlighter-rouge">Test</code>
 <a class="anchor" id="read-more"></a></p>
 
 <ol>
-  <li>这里函数名后面有个<code class="highlighter-rouge">g@</code>，表示这是个<code class="highlighter-rouge">operatorfunc</code>，就是说后面可以跟动作，比如<code class="highlighter-rouge">iw</code>表示光标所在的单词，<code class="highlighter-rouge">i(</code>表示光标所在的圆括号，<code class="highlighter-rouge">g@</code>后可以跟<code class="highlighter-rouge">line</code>,<code class="highlighter-rouge">char</code>,<code class="highlighter-rouge">block</code>表示动作类型，这个也体现在上面函数的参数<code class="highlighter-rouge">type</code>上</li>
-  <li>再给visual模式加个命令，加上<code class="highlighter-rouge">vnoremap &lt;leader&gt;g :&lt;c-u&gt;call GrepOperator(visualmode())&lt;cr&gt;</code>，解释下这个<code class="highlighter-rouge">&lt;c-u&gt;</code>，和shell中的<code class="highlighter-rouge">&lt;c-u&gt;</code>一样删除光标前内容直到行首，如果进入选择模式后，这时按<code class="highlighter-rouge">:</code>，会发现命令行自带了<code class="highlighter-rouge">:'&lt;,'&gt;</code>，这时如果按<code class="highlighter-rouge">&lt;c-u&gt;</code>就会“删掉从光标位置到开头的内容”，只剩<code class="highlighter-rouge">:</code>，正是我们想要的，这里的参数<code class="highlighter-rouge">visualmode()</code>是表示进的哪种visual模式，比如字节型就是<code class="highlighter-rouge">v</code>，行选择就是<code class="highlighter-rouge">V</code>，块选择就是<code class="highlighter-rouge">&lt;c-v&gt;</code></li>
-  <li>上面把函数体改成<code class="highlighter-rouge">echom a:type</code>后，会有几种情况，<code class="highlighter-rouge">viw&lt;leader&gt;g</code>显示<code class="highlighter-rouge">v</code>，<code class="highlighter-rouge">vjj&lt;leader&gt;g</code>显示<code class="highlighter-rouge">V</code>，<code class="highlighter-rouge">&lt;leader&gt;gviw</code>显示<code class="highlighter-rouge">char</code>，<code class="highlighter-rouge">&lt;leader&gt;gG</code>显示<code class="highlighter-rouge">line</code></li>
+  <li>这里函数名后面有个<code class="language-plaintext highlighter-rouge">g@</code>，表示这是个<code class="language-plaintext highlighter-rouge">operatorfunc</code>，就是说后面可以跟动作，比如<code class="language-plaintext highlighter-rouge">iw</code>表示光标所在的单词，<code class="language-plaintext highlighter-rouge">i(</code>表示光标所在的圆括号，<code class="language-plaintext highlighter-rouge">g@</code>后可以跟<code class="language-plaintext highlighter-rouge">line</code>,<code class="language-plaintext highlighter-rouge">char</code>,<code class="language-plaintext highlighter-rouge">block</code>表示动作类型，这个也体现在上面函数的参数<code class="language-plaintext highlighter-rouge">type</code>上</li>
+  <li>再给visual模式加个命令，加上<code class="language-plaintext highlighter-rouge">vnoremap &lt;leader&gt;g :&lt;c-u&gt;call GrepOperator(visualmode())&lt;cr&gt;</code>，解释下这个<code class="language-plaintext highlighter-rouge">&lt;c-u&gt;</code>，和shell中的<code class="language-plaintext highlighter-rouge">&lt;c-u&gt;</code>一样删除光标前内容直到行首，如果进入选择模式后，这时按<code class="language-plaintext highlighter-rouge">:</code>，会发现命令行自带了<code class="language-plaintext highlighter-rouge">:'&lt;,'&gt;</code>，这时如果按<code class="language-plaintext highlighter-rouge">&lt;c-u&gt;</code>就会“删掉从光标位置到开头的内容”，只剩<code class="language-plaintext highlighter-rouge">:</code>，正是我们想要的，这里的参数<code class="language-plaintext highlighter-rouge">visualmode()</code>是表示进的哪种visual模式，比如字节型就是<code class="language-plaintext highlighter-rouge">v</code>，行选择就是<code class="language-plaintext highlighter-rouge">V</code>，块选择就是<code class="language-plaintext highlighter-rouge">&lt;c-v&gt;</code></li>
+  <li>上面把函数体改成<code class="language-plaintext highlighter-rouge">echom a:type</code>后，会有几种情况，<code class="language-plaintext highlighter-rouge">viw&lt;leader&gt;g</code>显示<code class="language-plaintext highlighter-rouge">v</code>，<code class="language-plaintext highlighter-rouge">vjj&lt;leader&gt;g</code>显示<code class="language-plaintext highlighter-rouge">V</code>，<code class="language-plaintext highlighter-rouge">&lt;leader&gt;gviw</code>显示<code class="language-plaintext highlighter-rouge">char</code>，<code class="language-plaintext highlighter-rouge">&lt;leader&gt;gG</code>显示<code class="language-plaintext highlighter-rouge">line</code></li>
 </ol>
 
 <h3 id="ch34-case-study-grep-operator-part-three">CH34 Case Study: Grep Operator, Part Three</h3>
@@ -173,30 +173,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  <span class="nb">let</span> @@ <span class="o">=</span> saved_unnamed_register
 </code></pre></div>    </div>
   </li>
-  <li>当你真正要写一个vim脚本时，最好使用命名空间，之前的函数改为<code class="highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=&lt;SID&gt;GrepOperator&lt;cr&gt;g@</code>，这时函数名前加了<code class="highlighter-rouge">&lt;SID&gt;</code>，同时，函数定义改为<code class="highlighter-rouge">function! s:GrepOperator(type)</code></li>
-  <li><code class="highlighter-rouge">&lt;SID&gt;</code>应该相当于是Script ID，加上这个会在执行的时候替换为<code class="highlighter-rouge">&lt;SNR&gt;12_func</code>这种形式，另外在脚本内部使用时，前面加<code class="highlighter-rouge">s:</code>即可，但如果是一个map外部调用，应该使用<code class="highlighter-rouge">&lt;SID&gt;</code></li>
+  <li>当你真正要写一个vim脚本时，最好使用命名空间，之前的函数改为<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=&lt;SID&gt;GrepOperator&lt;cr&gt;g@</code>，这时函数名前加了<code class="language-plaintext highlighter-rouge">&lt;SID&gt;</code>，同时，函数定义改为<code class="language-plaintext highlighter-rouge">function! s:GrepOperator(type)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;SID&gt;</code>应该相当于是Script ID，加上这个会在执行的时候替换为<code class="language-plaintext highlighter-rouge">&lt;SNR&gt;12_func</code>这种形式，另外在脚本内部使用时，前面加<code class="language-plaintext highlighter-rouge">s:</code>即可，但如果是一个map外部调用，应该使用<code class="language-plaintext highlighter-rouge">&lt;SID&gt;</code></li>
 </ol>
 
 <h3 id="ch35-lists">CH35 Lists</h3>
 <ol>
   <li>vim的list下标是从0开始，用-1表示最后一个元素，-2表示倒数第二个</li>
-  <li>使用<code class="highlighter-rouge">l[0:2]</code>表示切片，这里注意是表示从第0个到第2个元素（闭区间），支持<code class="highlighter-rouge">[-2:-1]</code>写法，如果下界大于上界则显示空list</li>
-  <li>字符串也可以进行list的操作，但要注意<code class="highlighter-rouge">"abcd"[-2]</code>这种只用一个负数的操作会显示为空字符串，而用<code class="highlighter-rouge">"abcd"[-2:]</code>才能显示为”cd”</li>
-  <li><code class="highlighter-rouge">add(['a'], 'b')</code>将<code class="highlighter-rouge">b</code>插入末尾，注意这些命令在normal模式下用要写成<code class="highlighter-rouge">:call add(xxx)</code></li>
-  <li><code class="highlighter-rouge">extend(list, [1,2])</code>将两个list合成一个</li>
-  <li><code class="highlighter-rouge">len(list)</code>求长度</li>
-  <li><code class="highlighter-rouge">get(list, 0, 'default')</code>取list[0]，如果不存在则返回”default”</li>
-  <li><code class="highlighter-rouge">index(list, 'a')</code>返回a在list中第一次出现的位置，没有返回-1</li>
-  <li><code class="highlighter-rouge">join(list, glue)</code>类似php的<code class="highlighter-rouge">implode</code>，将list用glue连接成字符串</li>
-  <li><code class="highlighter-rouge">reverse(list)</code><strong>就地</strong>倒排list</li>
-  <li><code class="highlighter-rouge">unlet list[3:]</code>删除list的3到最后</li>
-  <li><code class="highlighter-rouge">:let l = remove(list, 3, -1)</code>返回删完的list</li>
-  <li><code class="highlighter-rouge">filter(list, 'v:val !~ "x"')</code>移除元素中带<code class="highlighter-rouge">x</code>的，后面表达式为真将被留下</li>
-  <li>list用<code class="highlighter-rouge">+</code>号连接，也可以<code class="highlighter-rouge">+=</code></li>
-  <li>直接写<code class="highlighter-rouge">b = a</code>相当于b是a的引用，对a操作同时也会作用于b，复制可以用<code class="highlighter-rouge">b = copy(a)</code>，或者<code class="highlighter-rouge">b = a[:]</code>，但是上面这个只对一维有效，如果<code class="highlighter-rouge">a[0][1] = 'aa'</code>，这时会发现b[0]也变了，深度复制用<code class="highlighter-rouge">b = deepcopy(a)</code>（最多能复制100层）</li>
-  <li>用<code class="highlighter-rouge">:echo a is b</code>来判断是不是同一个list，而<code class="highlighter-rouge">a == b</code>是从值上比较的，有个例外是，<code class="highlighter-rouge">:echo 4 == "4"</code>显示是1，而<code class="highlighter-rouge">:echo [4] == ["4"]</code>显示是0</li>
-  <li>支持分别赋值，如<code class="highlighter-rouge">:let [var1, var2] = list</code>，如果只需要前几个值，可以这样<code class="highlighter-rouge">:let [var1, var2; rest] = mylist</code>，这里rest一定要有，否则会报错</li>
-  <li>使用<code class="highlighter-rouge">for item in mylist</code>进行循环，如果是多层，则用<code class="highlighter-rouge">for [lnum, col] in [[1, 3], [2, 8], [3, 0]]</code>，后面的list必须每项个数一致</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">l[0:2]</code>表示切片，这里注意是表示从第0个到第2个元素（闭区间），支持<code class="language-plaintext highlighter-rouge">[-2:-1]</code>写法，如果下界大于上界则显示空list</li>
+  <li>字符串也可以进行list的操作，但要注意<code class="language-plaintext highlighter-rouge">"abcd"[-2]</code>这种只用一个负数的操作会显示为空字符串，而用<code class="language-plaintext highlighter-rouge">"abcd"[-2:]</code>才能显示为”cd”</li>
+  <li><code class="language-plaintext highlighter-rouge">add(['a'], 'b')</code>将<code class="language-plaintext highlighter-rouge">b</code>插入末尾，注意这些命令在normal模式下用要写成<code class="language-plaintext highlighter-rouge">:call add(xxx)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">extend(list, [1,2])</code>将两个list合成一个</li>
+  <li><code class="language-plaintext highlighter-rouge">len(list)</code>求长度</li>
+  <li><code class="language-plaintext highlighter-rouge">get(list, 0, 'default')</code>取list[0]，如果不存在则返回”default”</li>
+  <li><code class="language-plaintext highlighter-rouge">index(list, 'a')</code>返回a在list中第一次出现的位置，没有返回-1</li>
+  <li><code class="language-plaintext highlighter-rouge">join(list, glue)</code>类似php的<code class="language-plaintext highlighter-rouge">implode</code>，将list用glue连接成字符串</li>
+  <li><code class="language-plaintext highlighter-rouge">reverse(list)</code><strong>就地</strong>倒排list</li>
+  <li><code class="language-plaintext highlighter-rouge">unlet list[3:]</code>删除list的3到最后</li>
+  <li><code class="language-plaintext highlighter-rouge">:let l = remove(list, 3, -1)</code>返回删完的list</li>
+  <li><code class="language-plaintext highlighter-rouge">filter(list, 'v:val !~ "x"')</code>移除元素中带<code class="language-plaintext highlighter-rouge">x</code>的，后面表达式为真将被留下</li>
+  <li>list用<code class="language-plaintext highlighter-rouge">+</code>号连接，也可以<code class="language-plaintext highlighter-rouge">+=</code></li>
+  <li>直接写<code class="language-plaintext highlighter-rouge">b = a</code>相当于b是a的引用，对a操作同时也会作用于b，复制可以用<code class="language-plaintext highlighter-rouge">b = copy(a)</code>，或者<code class="language-plaintext highlighter-rouge">b = a[:]</code>，但是上面这个只对一维有效，如果<code class="language-plaintext highlighter-rouge">a[0][1] = 'aa'</code>，这时会发现b[0]也变了，深度复制用<code class="language-plaintext highlighter-rouge">b = deepcopy(a)</code>（最多能复制100层）</li>
+  <li>用<code class="language-plaintext highlighter-rouge">:echo a is b</code>来判断是不是同一个list，而<code class="language-plaintext highlighter-rouge">a == b</code>是从值上比较的，有个例外是，<code class="language-plaintext highlighter-rouge">:echo 4 == "4"</code>显示是1，而<code class="language-plaintext highlighter-rouge">:echo [4] == ["4"]</code>显示是0</li>
+  <li>支持分别赋值，如<code class="language-plaintext highlighter-rouge">:let [var1, var2] = list</code>，如果只需要前几个值，可以这样<code class="language-plaintext highlighter-rouge">:let [var1, var2; rest] = mylist</code>，这里rest一定要有，否则会报错</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">for item in mylist</code>进行循环，如果是多层，则用<code class="language-plaintext highlighter-rouge">for [lnum, col] in [[1, 3], [2, 8], [3, 0]]</code>，后面的list必须每项个数一致</li>
 </ol>
 
 <h3 id="ch36-looping">CH36 Looping</h3>
@@ -214,23 +214,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  :endwhile
 </code></pre></div>    </div>
   </li>
-  <li>有点要注意的是，当<code class="highlighter-rouge">for i in mylist</code>时，在对当前元素执行命令前，vim会保存下一个的引用，所以这时即使删除mylist的当前元素也是OK的，但删除之后的元素会导致vim找不到它</li>
+  <li>有点要注意的是，当<code class="language-plaintext highlighter-rouge">for i in mylist</code>时，在对当前元素执行命令前，vim会保存下一个的引用，所以这时即使删除mylist的当前元素也是OK的，但删除之后的元素会导致vim找不到它</li>
 </ol>
 
 <h3 id="ch37-dictionaries">CH37 Dictionaries</h3>
 <ol>
-  <li><code class="highlighter-rouge">:echo {'a': 1, 100: 'foo',}</code>这是定义一个字典，同时最好保留后面的逗号，防止在多行时出错</li>
+  <li><code class="language-plaintext highlighter-rouge">:echo {'a': 1, 100: 'foo',}</code>这是定义一个字典，同时最好保留后面的逗号，防止在多行时出错</li>
   <li>vim的字典只能是字符串，写成数字也会被转成字符串</li>
-  <li>还可以用<code class="highlighter-rouge">:echo {}.a</code>的形式</li>
-  <li>用<code class="highlighter-rouge">remove(dict, 'a')</code>或<code class="highlighter-rouge">unlet(dict.b)</code>来删除元素，十分推荐用<code class="highlighter-rouge">remove</code>，因为它的作用比<code class="highlighter-rouge">unlet</code>大</li>
-  <li>可以用<code class="highlighter-rouge">:for key in keys(mydict)</code>来循环得到key值，同理，<code class="highlighter-rouge">:for v in values(mydict)</code>循环value，还可以<code class="highlighter-rouge">:for [key, value] in items(mydict)</code>两个都循环</li>
-  <li>可以用<code class="highlighter-rouge">has_key()</code>验证一个key是不是在字典中</li>
+  <li>还可以用<code class="language-plaintext highlighter-rouge">:echo {}.a</code>的形式</li>
+  <li>用<code class="language-plaintext highlighter-rouge">remove(dict, 'a')</code>或<code class="language-plaintext highlighter-rouge">unlet(dict.b)</code>来删除元素，十分推荐用<code class="language-plaintext highlighter-rouge">remove</code>，因为它的作用比<code class="language-plaintext highlighter-rouge">unlet</code>大</li>
+  <li>可以用<code class="language-plaintext highlighter-rouge">:for key in keys(mydict)</code>来循环得到key值，同理，<code class="language-plaintext highlighter-rouge">:for v in values(mydict)</code>循环value，还可以<code class="language-plaintext highlighter-rouge">:for [key, value] in items(mydict)</code>两个都循环</li>
+  <li>可以用<code class="language-plaintext highlighter-rouge">has_key()</code>验证一个key是不是在字典中</li>
   <li>字典的函数和上面list的函数类似</li>
 </ol>
 
 <h3 id="ch38-toggling">CH38 Toggling</h3>
 <ol>
-  <li>之前学过用<code class="highlighter-rouge">:setlocal nu!</code>是可以开头某个布尔值的，下面来看下对于非布尔怎么做</li>
+  <li>之前学过用<code class="language-plaintext highlighter-rouge">:setlocal nu!</code>是可以开头某个布尔值的，下面来看下对于非布尔怎么做</li>
   <li>比如可以检测值满足某个条件A时，设为x，满足条件B时，设为y这样，例如
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;f :call FoldColumnToggle<span class="o">()</span>&lt;cr&gt;
  <span class="k">function</span><span class="o">!</span> FoldColumnToggle<span class="o">()</span>
@@ -242,7 +242,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
  endfunction
 </code></pre></div>    </div>
   </li>
-  <li>或者打开或关闭某个窗口，如<code class="highlighter-rouge">:copen</code>和<code class="highlighter-rouge">:cclose</code>，这时可以用全局变量标识
+  <li>或者打开或关闭某个窗口，如<code class="language-plaintext highlighter-rouge">:copen</code>和<code class="language-plaintext highlighter-rouge">:cclose</code>，这时可以用全局变量标识
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;q :call QuickfixToggle<span class="o">()</span>&lt;cr&gt;
  <span class="k">function</span><span class="o">!</span> QuickfixToggle<span class="o">()</span>
      <span class="k">if </span>g:quickfix_is_open
@@ -256,7 +256,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </code></pre></div>    </div>
     <p>这里只有一点不太完美，如果用户手动打开了窗口，则全局变量是不会更新的，但这里要花大工夫来完成，得不偿失</p>
   </li>
-  <li>这里还有一点是在打开多个文件再使用<code class="highlighter-rouge">&lt;leader&gt;q</code>时，如果在quick-fix窗口中使用，则会返回上一个split的窗口，而不是之前<code class="highlighter-rouge">copen</code>时所在的窗口，所以要做以下修改，同时这也是个约定俗成的写法
+  <li>这里还有一点是在打开多个文件再使用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;q</code>时，如果在quick-fix窗口中使用，则会返回上一个split的窗口，而不是之前<code class="language-plaintext highlighter-rouge">copen</code>时所在的窗口，所以要做以下修改，同时这也是个约定俗成的写法
     <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> nnoremap &lt;leader&gt;q :call QuickfixToggle<span class="o">()</span>&lt;cr&gt;
  <span class="nb">let </span>g:quickfix_is_open <span class="o">=</span> 0
  <span class="k">function</span><span class="o">!</span> QuickfixToggle<span class="o">()</span>
@@ -295,27 +295,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="ch40-paths">CH40 Paths</h3>
 <ol>
   <li>为啥这章和上章函数式编程没有一点关系了……</li>
-  <li>获取绝对路径，<code class="highlighter-rouge">:echom expand('%:p')</code>或<code class="highlighter-rouge">:echom fnamemodify('foo.txt', ':p')</code>，但第二个必须手写foo.txt（可以是个不存在的文件）</li>
-  <li>列出当前文件夹下的文件<code class="highlighter-rouge">:echo globpath('.', '*')</code>，还可以递归地显示文件<code class="highlighter-rouge">:echo split(globpath('.', '**'), '\n')</code>，递归地查找某个文件<code class="highlighter-rouge">:echo split(globpath('.', '**/*.py'), '\n')</code></li>
-  <li><code class="highlighter-rouge">expand(expr[, nosuf[, list]])</code>，expr可以以
+  <li>获取绝对路径，<code class="language-plaintext highlighter-rouge">:echom expand('%:p')</code>或<code class="language-plaintext highlighter-rouge">:echom fnamemodify('foo.txt', ':p')</code>，但第二个必须手写foo.txt（可以是个不存在的文件）</li>
+  <li>列出当前文件夹下的文件<code class="language-plaintext highlighter-rouge">:echo globpath('.', '*')</code>，还可以递归地显示文件<code class="language-plaintext highlighter-rouge">:echo split(globpath('.', '**'), '\n')</code>，递归地查找某个文件<code class="language-plaintext highlighter-rouge">:echo split(globpath('.', '**/*.py'), '\n')</code></li>
+  <li><code class="language-plaintext highlighter-rouge">expand(expr[, nosuf[, list]])</code>，expr可以以
     <ul>
-      <li><code class="highlighter-rouge">%</code> 当前文件</li>
-      <li><code class="highlighter-rouge">#</code> 另一个文件</li>
-      <li><code class="highlighter-rouge">#n</code> 另n个文件</li>
+      <li><code class="language-plaintext highlighter-rouge">%</code> 当前文件</li>
+      <li><code class="language-plaintext highlighter-rouge">#</code> 另一个文件</li>
+      <li><code class="language-plaintext highlighter-rouge">#n</code> 另n个文件</li>
     </ul>
 
     <p>后面还可以接修饰符</p>
     <ul>
-      <li><code class="highlighter-rouge">:p</code> 扩展成全路径</li>
-      <li><code class="highlighter-rouge">:h</code> 会把最后一部分去掉（这个可以接在一些修饰符后面，比如’:p:h’就相当于全路径的文件夹名，如果只用’:h’可能只显示’.’）</li>
-      <li><code class="highlighter-rouge">:t</code> 只保留路径最后一部分</li>
-      <li><code class="highlighter-rouge">:r</code> 移除扩展名的全路径</li>
-      <li><code class="highlighter-rouge">:e</code> 文件扩展名</li>
+      <li><code class="language-plaintext highlighter-rouge">:p</code> 扩展成全路径</li>
+      <li><code class="language-plaintext highlighter-rouge">:h</code> 会把最后一部分去掉（这个可以接在一些修饰符后面，比如’:p:h’就相当于全路径的文件夹名，如果只用’:h’可能只显示’.’）</li>
+      <li><code class="language-plaintext highlighter-rouge">:t</code> 只保留路径最后一部分</li>
+      <li><code class="language-plaintext highlighter-rouge">:r</code> 移除扩展名的全路径</li>
+      <li><code class="language-plaintext highlighter-rouge">:e</code> 文件扩展名</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">simplify(filename)</code> 尽可能简化路径，会把<code class="highlighter-rouge">.././/</code>这种简化掉，快捷方式或链接不解析</li>
-  <li><code class="highlighter-rouge">resolve(filename)</code> 可以解析快捷方式或链接，并返回简化后的全路径</li>
-  <li>关于通配符，可以有<code class="highlighter-rouge">?</code>,<code class="highlighter-rouge">*</code>,<code class="highlighter-rouge">**</code>,<code class="highlighter-rouge">[abc]</code>，这里注意在win下比较蛋疼，如果要实际匹配字面值<code class="highlighter-rouge">path[abc]</code>写<code class="highlighter-rouge">path\[abc]</code>会认为反斜杠是目录分隔符，避免这样，可以写成<code class="highlighter-rouge">path\[[]abc]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">simplify(filename)</code> 尽可能简化路径，会把<code class="language-plaintext highlighter-rouge">.././/</code>这种简化掉，快捷方式或链接不解析</li>
+  <li><code class="language-plaintext highlighter-rouge">resolve(filename)</code> 可以解析快捷方式或链接，并返回简化后的全路径</li>
+  <li>关于通配符，可以有<code class="language-plaintext highlighter-rouge">?</code>,<code class="language-plaintext highlighter-rouge">*</code>,<code class="language-plaintext highlighter-rouge">**</code>,<code class="language-plaintext highlighter-rouge">[abc]</code>，这里注意在win下比较蛋疼，如果要实际匹配字面值<code class="language-plaintext highlighter-rouge">path[abc]</code>写<code class="language-plaintext highlighter-rouge">path\[abc]</code>会认为反斜杠是目录分隔符，避免这样，可以写成<code class="language-plaintext highlighter-rouge">path\[[]abc]</code></li>
 </ol>
 
 <p>看到这你一定觉得这破文章可算完了，其实你错了，如果看了原文你会发现居然还有10+章，所以预告下期会是一个番外，可以说是一次 vim script 的最佳实践，是时候检验学习成果了！</p>
@@ -403,6 +403,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -418,17 +422,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -446,7 +446,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -454,7 +454,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -538,7 +538,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -547,6 +547,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -562,6 +564,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

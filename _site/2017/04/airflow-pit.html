@@ -156,7 +156,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h2 id="celery-worker">celery worker</h2>
 <p>部到生产环境当然要用 celery 来接任务，再由它进行处理，用 celery 的一个明显好处是 worker 不够的话，
-随时加机器扩充 celery 就好，数据的同步放在数据库上处理，简单快捷，而且还有 <code class="highlighter-rouge">/flower</code> 随时查看worker状况，
+随时加机器扩充 celery 就好，数据的同步放在数据库上处理，简单快捷，而且还有 <code class="language-plaintext highlighter-rouge">/flower</code> 随时查看worker状况，
 在 airflow 自带的看运行任务里，subDAG 的执行是不会显示的，如果开了6个worker，
 可能会出现 Task Instance 列表里只有4个任务，但无法 run 新任务，这就是因为有 2 个 subDAG 也有 worker 在跑，
 虽然它的作用只是不断轮询等待子任务跑结果。</p>
@@ -203,12 +203,12 @@ A 和 B一起执行而没人相让的话就会陷入死锁。airflow 也存在�
 <ol>
   <li>任务的 start_date 是否正确，有时候上线时要提个 PR，也许 review 就花了些时间，
 最终上线已经距 start_date 好久了，这就要注意是不是真的要重跑这段时间的任务</li>
-  <li>仍然要再强调一下，如果改了 <code class="highlighter-rouge">schedule_interval</code> 也一定要改 dag_id，这就相当于新 DAG 了，
+  <li>仍然要再强调一下，如果改了 <code class="language-plaintext highlighter-rouge">schedule_interval</code> 也一定要改 dag_id，这就相当于新 DAG 了，
 记得检查上一条</li>
   <li>如果有 SensorOperator 要检查多天（比如一次要检查 7 天）的任务情况，在保证程序正常运行的前提下，
 可以将检查天数设为 0，在有足够多的任务时（比如程序已经正常执行了 7 天），再将 SensorOperator 的检查改回 7 天，
-这几天只能人工密切关注任务是否成功了，另一个办法是手动人工<code class="highlighter-rouge">Mark success</code></li>
-  <li>subDAG 里不提倡有 <code class="highlighter-rouge">depends_on_past</code>，这可能会导致一些奇怪的问题</li>
+这几天只能人工密切关注任务是否成功了，另一个办法是手动人工<code class="language-plaintext highlighter-rouge">Mark success</code></li>
+  <li>subDAG 里不提倡有 <code class="language-plaintext highlighter-rouge">depends_on_past</code>，这可能会导致一些奇怪的问题</li>
 </ol>
 
 <h2 id="扩展-operator">扩展 Operator</h2>
@@ -219,7 +219,7 @@ A 和 B一起执行而没人相让的话就会陷入死锁。airflow 也存在�
 <h2 id="目录结构">目录结构</h2>
 <p>上一篇说了任务结构一般都在 dags 下建各级目录来区分，但随着业务越来越多，如果只把 python 文件作为 dag_id 名很容易就重了，
 而且在新写任务的时候，还要关心新 dag 是否会和别的目录下的 dag 重名，这就很不爽了
-（千万别说你们 dag_id 都是手动起的），目前我们采取<code class="highlighter-rouge">{dir}.{file_name}</code>的形式给 dag 命名，
+（千万别说你们 dag_id 都是手动起的），目前我们采取<code class="language-plaintext highlighter-rouge">{dir}.{file_name}</code>的形式给 dag 命名，
 但缺点是如果目录层数变多，还要写一个比较复杂的函数去取到 dags 根目录位置。</p>
 
 <h2 id="jinja2-执行-shell-脚本">Jinja2 执行 shell 脚本</h2>
@@ -228,12 +228,12 @@ A 和 B一起执行而没人相让的话就会陷入死锁。airflow 也存在�
 
 <h2 id="头疼的中文">头疼的中文</h2>
 <p>看起来 BashOperator 没法正常地在有中文的情况下工作，因为 bash_command 需要接收一个 unicode，
-而且在 render 时，由于使用 <code class="highlighter-rouge">{}.format()</code> 的输出方式，在有中文的情况下就无法正常输出，
+而且在 render 时，由于使用 <code class="language-plaintext highlighter-rouge">{}.format()</code> 的输出方式，在有中文的情况下就无法正常输出，
 这似乎是一个死局。目前的解决办法是在脚本头加上</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
 <span class="nb">reload</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
-<span class="n">sys</span><span class="o">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+<span class="n">sys</span><span class="p">.</span><span class="n">setdefaultencoding</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
 </code></pre></div></div>
 <p>但要注意这会影响到其他脚本的 defaultencoding，当然可以在结束时再设置回来。</p>
 
@@ -330,6 +330,10 @@ scheduler 显示更易懂的信息。</p>
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -345,17 +349,13 @@ scheduler 显示更易懂的信息。</p>
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -373,7 +373,7 @@ scheduler 显示更易懂的信息。</p>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -381,7 +381,7 @@ scheduler 显示更易懂的信息。</p>
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -465,7 +465,7 @@ scheduler 显示更易懂的信息。</p>
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -474,6 +474,8 @@ scheduler 显示更易懂的信息。</p>
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -489,6 +491,13 @@ scheduler 显示更易懂的信息。</p>
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

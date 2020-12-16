@@ -18,8 +18,7 @@ h1, h2, h3, h4, p, blockquote, pre, ul, ol, dl, figure { margin-bottom: 7.5px; }
 /*two columns*/
 .col-sm-8, .col-sm-2 { position: relative; min-height: 1px; margin: 0px 15px; }
 
-@media screen and (min-width: 600px) { .col-sm-8 { float: left; width: 65%; }
-  .col-sm-2 { float: right; width: 25%; } }
+@media screen and (min-width: 600px) { .col-sm-8 { float: left; width: 65%; } .col-sm-2 { float: right; width: 25%; } }
 
 /** Images */
 img { max-width: 100%; vertical-align: middle; }
@@ -120,13 +119,7 @@ cite { font-style: italic; text-decoration: underline; }
 
 .site-nav a:hover { color: #111; text-decoration: none; }
 
-@media screen and (max-width: 600px) { .site-nav { position: relative; background-color: #f9f9f9; border: 1px solid #e8e8e8; border-radius: 5px; text-align: center; }
-  .site-nav .menu-icon { display: block; line-height: 0; text-align: center; }
-  .site-nav .menu-icon > svg { width: 18px; height: 30px; }
-  .site-nav .menu-icon > svg path { fill: #424242; }
-  .site-nav .trigger { clear: both; display: none; }
-  .site-nav:hover .trigger { display: block; padding-bottom: 5px; }
-  .site-nav .page-link { display: block; padding: 5px 10px; } }
+@media screen and (max-width: 600px) { .site-nav { position: relative; background-color: #f9f9f9; border: 1px solid #e8e8e8; border-radius: 5px; text-align: center; } .site-nav .menu-icon { display: block; line-height: 0; text-align: center; } .site-nav .menu-icon > svg { width: 18px; height: 30px; } .site-nav .menu-icon > svg path { fill: #424242; } .site-nav .trigger { clear: both; display: none; } .site-nav:hover .trigger { display: block; padding-bottom: 5px; } .site-nav .page-link { display: block; padding: 5px 10px; } }
 
 /** Sidebar */
 .sidebar-module { padding: 15px; margin: 0 -15px 15px; font-size: 14px; }

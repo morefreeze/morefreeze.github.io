@@ -142,105 +142,105 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       
 <h3 id="ch41-creating-a-full-plugin">CH41 Creating a Full Plugin</h3>
 <ol>
-  <li>看到这里你可以停了，因为前面的姿势足够你完善自己的<code class="highlighter-rouge">~/.vimrc</code>脚本，去修复别人脚本的bug了，绝无讽刺的意思</li>
+  <li>看到这里你可以停了，因为前面的姿势足够你完善自己的<code class="language-plaintext highlighter-rouge">~/.vimrc</code>脚本，去修复别人脚本的bug了，绝无讽刺的意思</li>
   <li>往下学之前，建议先玩下<a href="http://perl11.org/potion/index.html">Potion</a>语言，这是个很小的语言，使用它的目的是为了辅助我们写vim script</li>
 </ol>
 
 <h3 id="ch42-plugin-layout-in-the-dark-ages">CH42 Plugin Layout in the Dark Ages</h3>
 <ol>
-  <li><code class="highlighter-rouge">~/.vim/colors/</code>在这里的文件记录了vim的颜色主题，如果运行<code class="highlighter-rouge">:color xxx</code>就能看<code class="highlighter-rouge">~/.vim/colors/xxx.vim</code>的配色方案了，查看当前配色都有哪些用<code class="highlighter-rouge">:hi</code></li>
-  <li><code class="highlighter-rouge">~/.vim/plugin/</code>在这里的文件每次vim启动都会运行一次</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/colors/</code>在这里的文件记录了vim的颜色主题，如果运行<code class="language-plaintext highlighter-rouge">:color xxx</code>就能看<code class="language-plaintext highlighter-rouge">~/.vim/colors/xxx.vim</code>的配色方案了，查看当前配色都有哪些用<code class="language-plaintext highlighter-rouge">:hi</code></li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/plugin/</code>在这里的文件每次vim启动都会运行一次</li>
   <li>
-    <p><code class="highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="highlighter-rouge">ft</code>的意思是<code class="highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong>
+    <p><code class="language-plaintext highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="language-plaintext highlighter-rouge">ft</code>的意思是<code class="language-plaintext highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="language-plaintext highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong>
 <a class="anchor" id="read-more"></a></p>
   </li>
-  <li><code class="highlighter-rouge">~/.vim/ftplugin/</code>这里的名字<strong>非常重要</strong>，如果你<code class="highlighter-rouge">:set filetype=derp</code>，则会找<code class="highlighter-rouge">~/.vim/ftplugin/derp.vim</code>，有就运行它，同时也支持目录，也会在<code class="highlighter-rouge">~/.vim/ftplugin/derp/</code>下找，这样有利于分组</li>
-  <li><code class="highlighter-rouge">~/.vim/indent/</code>这里的文件是用于不同ft的缩进排版的，文件名规律同<code class="highlighter-rouge">ftplugin</code>，这里只能设置<strong>local-buffer</strong>，这个实际和<code class="highlighter-rouge">ftplugin</code>没啥区别，但分开放有利于理解</li>
-  <li><code class="highlighter-rouge">~/.vim/compiler/</code>这个和<code class="highlighter-rouge">indent</code>又非常相像，只是它做的是编译器相关的</li>
-  <li><code class="highlighter-rouge">~/.vim/after/</code>这个是在<code class="highlighter-rouge">~/.vim/plugin/</code>启动后启动，这个作用就是有的插件为了防止和其他插件的快捷键冲突又重定义一下</li>
-  <li><code class="highlighter-rouge">~/.vim/autoload/</code>这个比较复杂了，后面会讲</li>
-  <li><code class="highlighter-rouge">~/.vim/doc/</code>放插件文档的地方</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/ftplugin/</code>这里的名字<strong>非常重要</strong>，如果你<code class="language-plaintext highlighter-rouge">:set filetype=derp</code>，则会找<code class="language-plaintext highlighter-rouge">~/.vim/ftplugin/derp.vim</code>，有就运行它，同时也支持目录，也会在<code class="language-plaintext highlighter-rouge">~/.vim/ftplugin/derp/</code>下找，这样有利于分组</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/indent/</code>这里的文件是用于不同ft的缩进排版的，文件名规律同<code class="language-plaintext highlighter-rouge">ftplugin</code>，这里只能设置<strong>local-buffer</strong>，这个实际和<code class="language-plaintext highlighter-rouge">ftplugin</code>没啥区别，但分开放有利于理解</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/compiler/</code>这个和<code class="language-plaintext highlighter-rouge">indent</code>又非常相像，只是它做的是编译器相关的</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/after/</code>这个是在<code class="language-plaintext highlighter-rouge">~/.vim/plugin/</code>启动后启动，这个作用就是有的插件为了防止和其他插件的快捷键冲突又重定义一下</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/autoload/</code>这个比较复杂了，后面会讲</li>
+  <li><code class="language-plaintext highlighter-rouge">~/.vim/doc/</code>放插件文档的地方</li>
 </ol>
 
 <h3 id="ch43-a-new-hope-plugin-layout-with-pathogen">CH43 A New Hope: Plugin Layout with Pathogen</h3>
 <ol>
   <li>上面是以前的vim文件布局，新装插件需要手动解压然后BLABLA，如果作者删个文件你咋办？如果有个脚本（比如在autoload下）重名你是不是SB了？现在我们有了<a href="http://www.vim.org/scripts/script.php?script_id=2332">Pathogen</a>简直就是屌</li>
-  <li>vim有个变量<code class="highlighter-rouge">runtimepath</code>，在搜索文件的时候也会去这里找，比如<code class="highlighter-rouge">syntax/</code>下的文件</li>
-  <li>Pathogen会自动将<code class="highlighter-rouge">~/.vim/bundle/</code>下的目录加进<code class="highlighter-rouge">runtimepath</code>里，在这里的每个目录下都会包含一些vim的目录，比如<code class="highlighter-rouge">colors/</code>，如果你在这下面用了版本控制，比如Git,那你直接<code class="highlighter-rouge">git pull orgin master</code>就行了啊</li>
+  <li>vim有个变量<code class="language-plaintext highlighter-rouge">runtimepath</code>，在搜索文件的时候也会去这里找，比如<code class="language-plaintext highlighter-rouge">syntax/</code>下的文件</li>
+  <li>Pathogen会自动将<code class="language-plaintext highlighter-rouge">~/.vim/bundle/</code>下的目录加进<code class="language-plaintext highlighter-rouge">runtimepath</code>里，在这里的每个目录下都会包含一些vim的目录，比如<code class="language-plaintext highlighter-rouge">colors/</code>，如果你在这下面用了版本控制，比如Git,那你直接<code class="language-plaintext highlighter-rouge">git pull orgin master</code>就行了啊</li>
   <li>译注，整篇文章成文较早，当时vim 的插件管理并不像现在这么多，有兴趣的可以看看<a href="https://vi.stackexchange.com/questions/388/what-is-the-difference-between-the-vim-plugin-managers">这里</a></li>
 </ol>
 
 <h3 id="ch44-detecting-filetypes">CH44 Detecting Filetypes</h3>
 <ol>
-  <li>我们要针对一种编程语言<code class="highlighter-rouge">potion</code>进行一些插件设置，首先新建一个<code class="highlighter-rouge">~/.vim/ftdetect/potion.vim</code>，输入<code class="highlighter-rouge">au BufNewFile,BufRead *.pn set filetype=potion</code>，这就告诉vim对于任何 pn 结尾的文件，设置<code class="highlighter-rouge">filetype=potion</code></li>
-  <li>可以<code class="highlighter-rouge">:set filetype=c.doxygen</code>，点号用来分隔两种文件类型，会先用c，再用doxygen</li>
-  <li>一般会用<code class="highlighter-rouge">:setfiletype</code>而不是<code class="highlighter-rouge">:set filetype</code>，因为前者设完后会只载入一次插件或语法文件</li>
+  <li>我们要针对一种编程语言<code class="language-plaintext highlighter-rouge">potion</code>进行一些插件设置，首先新建一个<code class="language-plaintext highlighter-rouge">~/.vim/ftdetect/potion.vim</code>，输入<code class="language-plaintext highlighter-rouge">au BufNewFile,BufRead *.pn set filetype=potion</code>，这就告诉vim对于任何 pn 结尾的文件，设置<code class="language-plaintext highlighter-rouge">filetype=potion</code></li>
+  <li>可以<code class="language-plaintext highlighter-rouge">:set filetype=c.doxygen</code>，点号用来分隔两种文件类型，会先用c，再用doxygen</li>
+  <li>一般会用<code class="language-plaintext highlighter-rouge">:setfiletype</code>而不是<code class="language-plaintext highlighter-rouge">:set filetype</code>，因为前者设完后会只载入一次插件或语法文件</li>
 </ol>
 
 <h3 id="ch45-basic-syntax-highlighting">CH45 Basic Syntax Highlighting</h3>
 <ol>
-  <li>新建一个语法文件<code class="highlighter-rouge">~/.vim/syntax/potion.vim</code>
-    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> exists<span class="p">(</span><span class="s2">"b:current_syntax"</span><span class="p">)</span>
+  <li>新建一个语法文件<code class="language-plaintext highlighter-rouge">~/.vim/syntax/potion.vim</code>
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="nb">exists</span><span class="p">(</span><span class="s2">"b:current_syntax"</span><span class="p">)</span>
      <span class="k">finish</span>
  <span class="k">endif</span>
  <span class="k">echom</span> <span class="s2">"Our syntax highlighting code will go here."</span>
  <span class="k">let</span> <span class="nv">b:current_syntax</span> <span class="p">=</span> <span class="s2">"potion"</span>
 </code></pre></div>    </div>
-    <p>注意用<code class="highlighter-rouge">b:current_syntax</code>保证互斥，不会被载入两次</p>
+    <p>注意用<code class="language-plaintext highlighter-rouge">b:current_syntax</code>保证互斥，不会被载入两次</p>
   </li>
   <li>加入
-    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax keyword potionKeyword <span class="k">to</span> times
- highlight link potionKeyword Keyword
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">syntax</span> keyword potionKeyword <span class="k">to</span> times
+ <span class="nb">highlight</span> link potionKeyword Keyword
 </code></pre></div>    </div>
-    <p>定义<code class="highlighter-rouge">to</code>,<code class="highlighter-rouge">times</code>是关键词，然后连接potion关键词到关键词组（这个XX组就是决定了一套配色，比如函数是蓝色）</p>
+    <p>定义<code class="language-plaintext highlighter-rouge">to</code>,<code class="language-plaintext highlighter-rouge">times</code>是关键词，然后连接potion关键词到关键词组（这个XX组就是决定了一套配色，比如函数是蓝色）</p>
   </li>
-  <li>上面<code class="highlighter-rouge">syntax keyword {group-name} [{options}] {keyword} ... [{options}]</code>，注意syntax后的keyword是固定的，接着是自定义的组名，再接着是关键词，关键词要满足<code class="highlighter-rouge">iskeyword</code></li>
+  <li>上面<code class="language-plaintext highlighter-rouge">syntax keyword {group-name} [{options}] {keyword} ... [{options}]</code>，注意syntax后的keyword是固定的，接着是自定义的组名，再接着是关键词，关键词要满足<code class="language-plaintext highlighter-rouge">iskeyword</code></li>
 </ol>
 
 <h3 id="ch46-advanced-syntax-highlighting">CH46 Advanced Syntax Highlighting</h3>
 <ol>
-  <li>由于一般注释都是用<code class="highlighter-rouge">#</code>，而<code class="highlighter-rouge">#</code>又不是<code class="highlighter-rouge">iskeyword</code>，所以我们要用正则去匹配及它后面的内容
-    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax <span class="k">match</span> potionComment <span class="s2">"\v#.*$"</span>
- highlight link potionComment Comment
+  <li>由于一般注释都是用<code class="language-plaintext highlighter-rouge">#</code>，而<code class="language-plaintext highlighter-rouge">#</code>又不是<code class="language-plaintext highlighter-rouge">iskeyword</code>，所以我们要用正则去匹配及它后面的内容
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">syntax</span> <span class="k">match</span> potionComment <span class="s2">"\v#.*$"</span>
+ <span class="nb">highlight</span> link potionComment Comment
 </code></pre></div>    </div>
-    <p><code class="highlighter-rouge">\v</code>表示”very magic”，对于<code class="highlighter-rouge">|()</code>这种就不需要加<code class="highlighter-rouge">\</code>转义了，这里还要注意<code class="highlighter-rouge">syntax match</code>是不支持放在组里的</p>
+    <p><code class="language-plaintext highlighter-rouge">\v</code>表示”very magic”，对于<code class="language-plaintext highlighter-rouge">|()</code>这种就不需要加<code class="language-plaintext highlighter-rouge">\</code>转义了，这里还要注意<code class="language-plaintext highlighter-rouge">syntax match</code>是不支持放在组里的</p>
   </li>
-  <li><code class="highlighter-rouge">hi link</code>的位置可以任意放，放匹配前面也可以</li>
-  <li>优先级是先按最后匹配的来，然后<code class="highlighter-rouge">Keyword</code>大于<code class="highlighter-rouge">Match</code>和<code class="highlighter-rouge">Region</code>，最后(匹配开始较前的)优先于(匹配开始较后的)</li>
+  <li><code class="language-plaintext highlighter-rouge">hi link</code>的位置可以任意放，放匹配前面也可以</li>
+  <li>优先级是先按最后匹配的来，然后<code class="language-plaintext highlighter-rouge">Keyword</code>大于<code class="language-plaintext highlighter-rouge">Match</code>和<code class="language-plaintext highlighter-rouge">Region</code>，最后(匹配开始较前的)优先于(匹配开始较后的)</li>
   <li>匹配的两端必须保证是一样的字符，比如可以是+”+（这和正则的匹配规则是一致的）</li>
 </ol>
 
 <h3 id="ch47-even-more-advanced-syntax-highlighting">CH47 Even More Advanced Syntax Highlighting</h3>
 <ol>
-  <li>想学习更高端的语法文件配置是继续读<code class="highlighter-rouge">:h syntax</code>或者看别人写的</li>
-  <li>这次我们用<code class="highlighter-rouge">syntax region</code>来匹配字符串
-    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> syntax region potionString <span class="k">start</span><span class="p">=</span><span class="sr">/\v"/</span> skip<span class="p">=</span><span class="sr">/\v\\./</span> <span class="k">end</span><span class="p">=</span><span class="sr">/\v"/</span>
- highlight link potionString String
+  <li>想学习更高端的语法文件配置是继续读<code class="language-plaintext highlighter-rouge">:h syntax</code>或者看别人写的</li>
+  <li>这次我们用<code class="language-plaintext highlighter-rouge">syntax region</code>来匹配字符串
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">syntax</span> region potionString start<span class="p">=</span><span class="sr">/\v"/</span> skip<span class="p">=</span><span class="sr">/\v\\./</span> end<span class="p">=</span><span class="sr">/\v"/</span>
+ <span class="nb">highlight</span> link potionString String
 </code></pre></div>    </div>
-    <p><code class="highlighter-rouge">skip</code>是用来跳过字符串中所有以反斜杠和一个任意字符的（当然也包括引号），其实这里用<code class="highlighter-rouge">skip=/\v\\"/</code>也可以，但应该是为了兼顾单引号的情况（这样就不用改skip了）就写成<code class="highlighter-rouge">\\.</code>了，比如这可以正确匹配<code class="highlighter-rouge">"She said: \"Vimscript is tricky, but useful\"!"</code>，</p>
+    <p><code class="language-plaintext highlighter-rouge">skip</code>是用来跳过字符串中所有以反斜杠和一个任意字符的（当然也包括引号），其实这里用<code class="language-plaintext highlighter-rouge">skip=/\v\\"/</code>也可以，但应该是为了兼顾单引号的情况（这样就不用改skip了）就写成<code class="language-plaintext highlighter-rouge">\\.</code>了，比如这可以正确匹配<code class="language-plaintext highlighter-rouge">"She said: \"Vimscript is tricky, but useful\"!"</code>，</p>
   </li>
 </ol>
 
 <h3 id="ch48-basic-folding">CH48 Basic Folding</h3>
 
 <ol>
-  <li>手动折叠，保存在内存中，关了就没了，你可以用<code class="highlighter-rouge">:mkview [1|2...]</code>来保存，用<code class="highlighter-rouge">:loadview [1|2...]</code>来载入，都保存在<code class="highlighter-rouge">~/.vim/view</code>中，参看<code class="highlighter-rouge">:h viewdir</code></li>
-  <li>Marker折叠，这种是文本中带有<code class="highlighter-rouge">// {{{</code>和<code class="highlighter-rouge">// }}}</code>的会自动折叠，但比如在JS里<code class="highlighter-rouge">{</code>和<code class="highlighter-rouge">}</code>也会折叠</li>
+  <li>手动折叠，保存在内存中，关了就没了，你可以用<code class="language-plaintext highlighter-rouge">:mkview [1|2...]</code>来保存，用<code class="language-plaintext highlighter-rouge">:loadview [1|2...]</code>来载入，都保存在<code class="language-plaintext highlighter-rouge">~/.vim/view</code>中，参看<code class="language-plaintext highlighter-rouge">:h viewdir</code></li>
+  <li>Marker折叠，这种是文本中带有<code class="language-plaintext highlighter-rouge">// {{{</code>和<code class="language-plaintext highlighter-rouge">// }}}</code>的会自动折叠，但比如在JS里<code class="language-plaintext highlighter-rouge">{</code>和<code class="language-plaintext highlighter-rouge">}</code>也会折叠</li>
   <li>Diff折叠，这个只有在对比文件中才有用</li>
   <li>Expr折叠，这是最强大的自定义折叠功能，但工作量也多，下章讲</li>
   <li>Indent折叠，按缩写折叠，以及一些空行</li>
   <li>折叠快捷键
     <ul>
-      <li><code class="highlighter-rouge">zf[old]</code>是创建一个折叠</li>
-      <li><code class="highlighter-rouge">zc[close]</code>是关闭所在光标折叠</li>
-      <li><code class="highlighter-rouge">zo[pen]</code>是打开所在光标折叠</li>
-      <li><code class="highlighter-rouge">zm[ore]</code>是进行一层折叠</li>
-      <li><code class="highlighter-rouge">zr[educe]</code>是减少一层（即统一打开一层折叠）</li>
+      <li><code class="language-plaintext highlighter-rouge">zf[old]</code>是创建一个折叠</li>
+      <li><code class="language-plaintext highlighter-rouge">zc[close]</code>是关闭所在光标折叠</li>
+      <li><code class="language-plaintext highlighter-rouge">zo[pen]</code>是打开所在光标折叠</li>
+      <li><code class="language-plaintext highlighter-rouge">zm[ore]</code>是进行一层折叠</li>
+      <li><code class="language-plaintext highlighter-rouge">zr[educe]</code>是减少一层（即统一打开一层折叠）</li>
       <li>以上第二个字母都可以换成大写使用，表示为全部做某事</li>
     </ul>
   </li>
-  <li><code class="highlighter-rouge">foldlevel</code>大于这个的所有折叠将被折叠，如果是0就表示关闭所有折叠（相当于执行了<code class="highlighter-rouge">zM</code>)，<code class="highlighter-rouge">foldlevelstart</code>是当你打开一个新文件时的<code class="highlighter-rouge">foldlevel</code></li>
-  <li><code class="highlighter-rouge">foldminlines</code>表示折叠后至少要展示的行数，也就是说少于等于这个行数就不折叠了，如果你仍然要折叠，那会认为更大一段要折叠，比如一个缩进只有2行，这时<code class="highlighter-rouge">:set foldminlines=2</code>，那这2行死活是不会折叠的，如果你在两行中按<code class="highlighter-rouge">zc</code>，则会将周围的上一层缩进一起折叠了</li>
+  <li><code class="language-plaintext highlighter-rouge">foldlevel</code>大于这个的所有折叠将被折叠，如果是0就表示关闭所有折叠（相当于执行了<code class="language-plaintext highlighter-rouge">zM</code>)，<code class="language-plaintext highlighter-rouge">foldlevelstart</code>是当你打开一个新文件时的<code class="language-plaintext highlighter-rouge">foldlevel</code></li>
+  <li><code class="language-plaintext highlighter-rouge">foldminlines</code>表示折叠后至少要展示的行数，也就是说少于等于这个行数就不折叠了，如果你仍然要折叠，那会认为更大一段要折叠，比如一个缩进只有2行，这时<code class="language-plaintext highlighter-rouge">:set foldminlines=2</code>，那这2行死活是不会折叠的，如果你在两行中按<code class="language-plaintext highlighter-rouge">zc</code>，则会将周围的上一层缩进一起折叠了</li>
 </ol>
 
 <h3 id="ch49-advanced-folding">CH49 Advanced Folding</h3>
@@ -253,12 +253,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>如果一个层数X被折叠，则所有相邻大于等于X的行都会被折叠进来</li>
     </ul>
   </li>
-  <li>你可以用<code class="highlighter-rouge">:echo foldlevel(line_num)</code>来显示第几行的折叠层数</li>
-  <li>有个技巧是，如果你自定义的一个foldlevel函数返回了<code class="highlighter-rouge">-1</code>，则会告诉vim这是未定义的折叠层数，vim会使用这行上面或下面的一行中<strong>较小</strong>的作为这行的foldlevel</li>
-  <li>如果上面函数返回<code class="highlighter-rouge">&gt;n</code>，就表示这是个大于n的折叠层数</li>
+  <li>你可以用<code class="language-plaintext highlighter-rouge">:echo foldlevel(line_num)</code>来显示第几行的折叠层数</li>
+  <li>有个技巧是，如果你自定义的一个foldlevel函数返回了<code class="language-plaintext highlighter-rouge">-1</code>，则会告诉vim这是未定义的折叠层数，vim会使用这行上面或下面的一行中<strong>较小</strong>的作为这行的foldlevel</li>
+  <li>如果上面函数返回<code class="language-plaintext highlighter-rouge">&gt;n</code>，就表示这是个大于n的折叠层数</li>
   <li>一般自己定义一个按Indent的层数函数可以这样写
     <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">function</span><span class="p">!</span> IndentLevel<span class="p">(</span>lnum<span class="p">)</span>
-     <span class="k">return</span> indent<span class="p">(</span><span class="nv">a:lnum</span><span class="p">)</span> / &amp;shiftwidth
+     <span class="k">return</span> <span class="nb">indent</span><span class="p">(</span><span class="nv">a:lnum</span><span class="p">)</span> / &amp;<span class="nb">shiftwidth</span>
  <span class="k">endfunction</span>
 </code></pre></div>    </div>
   </li>
@@ -266,50 +266,50 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h3 id="ch50-section-movement-theory">CH50 Section Movement Theory</h3>
 <ol>
-  <li>这章讲了<code class="highlighter-rouge">[[</code>,<code class="highlighter-rouge">[]</code>,<code class="highlighter-rouge">][</code>,<code class="highlighter-rouge">]]</code>起源于<code class="highlighter-rouge">nroff</code>语言（一个类似Latex的文本语言）的宏</li>
-  <li><code class="highlighter-rouge">[</code>和<code class="highlighter-rouge">]</code>分别是向前或向后寻找，第二位的<code class="highlighter-rouge">[</code>,<code class="highlighter-rouge">]</code>表示寻找<code class="highlighter-rouge">{</code>还是<code class="highlighter-rouge">}</code>，在C语言里就是跳到上（或下，取决于第一位是<code class="highlighter-rouge">[</code>还是<code class="highlighter-rouge">]</code>）一个函数的开始或结尾</li>
+  <li>这章讲了<code class="language-plaintext highlighter-rouge">[[</code>,<code class="language-plaintext highlighter-rouge">[]</code>,<code class="language-plaintext highlighter-rouge">][</code>,<code class="language-plaintext highlighter-rouge">]]</code>起源于<code class="language-plaintext highlighter-rouge">nroff</code>语言（一个类似Latex的文本语言）的宏</li>
+  <li><code class="language-plaintext highlighter-rouge">[</code>和<code class="language-plaintext highlighter-rouge">]</code>分别是向前或向后寻找，第二位的<code class="language-plaintext highlighter-rouge">[</code>,<code class="language-plaintext highlighter-rouge">]</code>表示寻找<code class="language-plaintext highlighter-rouge">{</code>还是<code class="language-plaintext highlighter-rouge">}</code>，在C语言里就是跳到上（或下，取决于第一位是<code class="language-plaintext highlighter-rouge">[</code>还是<code class="language-plaintext highlighter-rouge">]</code>）一个函数的开始或结尾</li>
 </ol>
 
 <h3 id="ch51-potion-section-movement">CH51 Potion Section Movement</h3>
 <ol>
-  <li>这章为Potion语言打造了一个自制的section跳转（实现<code class="highlighter-rouge">[[</code>,<code class="highlighter-rouge">[]</code>,<code class="highlighter-rouge">][</code>,<code class="highlighter-rouge">]]</code>），代码太多，直接看<a href="http://learnvimscriptthehardway.stevelosh.com/chapters/51.html">原文</a>吧</li>
+  <li>这章为Potion语言打造了一个自制的section跳转（实现<code class="language-plaintext highlighter-rouge">[[</code>,<code class="language-plaintext highlighter-rouge">[]</code>,<code class="language-plaintext highlighter-rouge">][</code>,<code class="language-plaintext highlighter-rouge">]]</code>），代码太多，直接看<a href="http://learnvimscriptthehardway.stevelosh.com/chapters/51.html">原文</a>吧</li>
 </ol>
 
 <h3 id="ch52-external-commands">CH52 External Commands</h3>
 <ol>
-  <li>这章实现了一个自动编译的功能，新建<code class="highlighter-rouge">~/.vim/ftplugin/potion/running.vim</code>
-    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">!</span>exists<span class="p">(</span><span class="s2">"g:potion_command"</span><span class="p">)</span>
+  <li>这章实现了一个自动编译的功能，新建<code class="language-plaintext highlighter-rouge">~/.vim/ftplugin/potion/running.vim</code>
+    <div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">if</span> <span class="p">!</span><span class="nb">exists</span><span class="p">(</span><span class="s2">"g:potion_command"</span><span class="p">)</span>
      <span class="k">let</span> <span class="nv">g:potion_command</span> <span class="p">=</span> <span class="s2">"potion"</span>
  <span class="k">endif</span>
  <span class="k">function</span><span class="p">!</span> PotionCompileAndRunFile<span class="p">()</span>
-     <span class="k">silent</span> <span class="p">!</span><span class="k">clear</span>
-     execute <span class="s2">"!"</span> <span class="p">.</span> <span class="nv">g:potion_command</span> <span class="p">.</span> <span class="s2">" "</span> <span class="p">.</span> bufname<span class="p">(</span><span class="s2">"%"</span><span class="p">)</span>
+     <span class="k">silent</span> <span class="p">!</span>clear
+     <span class="nb">execute</span> <span class="s2">"!"</span> <span class="p">.</span> <span class="nv">g:potion_command</span> <span class="p">.</span> <span class="s2">" "</span> <span class="p">.</span> <span class="nb">bufname</span><span class="p">(</span><span class="s2">"%"</span><span class="p">)</span>
  <span class="k">endfunction</span>
- nnoremap <span class="p">&lt;</span>buffer<span class="p">&gt;</span> <span class="p">&lt;</span>localleader<span class="p">&gt;</span><span class="k">r</span> <span class="p">:</span><span class="k">call</span> PotionCompileAndRunFile<span class="p">()&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
+ nnoremap <span class="p">&lt;</span><span class="k">buffer</span><span class="p">&gt;</span> <span class="p">&lt;</span>localleader<span class="p">&gt;</span><span class="k">r</span> <span class="p">:</span><span class="k">call</span> PotionCompileAndRunFile<span class="p">()&lt;</span><span class="k">cr</span><span class="p">&gt;</span>
 </code></pre></div>    </div>
-    <p>这里需要设置<code class="highlighter-rouge">g:potion_command</code>的值</p>
+    <p>这里需要设置<code class="language-plaintext highlighter-rouge">g:potion_command</code>的值</p>
   </li>
-  <li>介绍下<code class="highlighter-rouge">system(expr[, input])</code>函数，expr是命令，input是之后输入的内容，比如有的命令支持从stdin读取数据，input就是那里的内容</li>
-  <li>给那些想用vim做任何事的人看<code class="highlighter-rouge">:h design-not</code></li>
-  <li><code class="highlighter-rouge">:read expr</code>是在当前光标下插入expr文件内容，<code class="highlighter-rouge">:read !expr</code>是插入执行命令的结果</li>
+  <li>介绍下<code class="language-plaintext highlighter-rouge">system(expr[, input])</code>函数，expr是命令，input是之后输入的内容，比如有的命令支持从stdin读取数据，input就是那里的内容</li>
+  <li>给那些想用vim做任何事的人看<code class="language-plaintext highlighter-rouge">:h design-not</code></li>
+  <li><code class="language-plaintext highlighter-rouge">:read expr</code>是在当前光标下插入expr文件内容，<code class="language-plaintext highlighter-rouge">:read !expr</code>是插入执行命令的结果</li>
 </ol>
 
 <h3 id="ch53-autoloading">CH53 Autoloading</h3>
 <ol>
-  <li>对于一些小的插件，在载入时全部载入还是OK的，但如果比较大的就会花费一些时间，这时就要延迟载入，用<code class="highlighter-rouge">:call somefile#Hello()</code>，有了这个的函数，vim会从<code class="highlighter-rouge">~/.vim/autoload/somefile.vim</code>中找这个函数，如果有多个<code class="highlighter-rouge">#</code>，比如<code class="highlighter-rouge">path#a#b()</code>会从<code class="highlighter-rouge">~/.vim/autoload/path/a.vim</code>中找，然后多次调用不会重新载入这个文件，所以你作了修改也没用，但如果你调用<code class="highlighter-rouge">:call somefile#BadFunction()</code>，那就会重新载入了，并且<code class="highlighter-rouge">#Hello()</code>的更新也生效了</li>
+  <li>对于一些小的插件，在载入时全部载入还是OK的，但如果比较大的就会花费一些时间，这时就要延迟载入，用<code class="language-plaintext highlighter-rouge">:call somefile#Hello()</code>，有了这个的函数，vim会从<code class="language-plaintext highlighter-rouge">~/.vim/autoload/somefile.vim</code>中找这个函数，如果有多个<code class="language-plaintext highlighter-rouge">#</code>，比如<code class="language-plaintext highlighter-rouge">path#a#b()</code>会从<code class="language-plaintext highlighter-rouge">~/.vim/autoload/path/a.vim</code>中找，然后多次调用不会重新载入这个文件，所以你作了修改也没用，但如果你调用<code class="language-plaintext highlighter-rouge">:call somefile#BadFunction()</code>，那就会重新载入了，并且<code class="language-plaintext highlighter-rouge">#Hello()</code>的更新也生效了</li>
   <li>一般会把map的函数以这种命名放在autoload里，这样只有第一次使用这个map时才会load这个文件</li>
   <li><a href="http://learnvimscriptthehardway.stevelosh.com/chapters/53.html">本章</a>最终产物是potion 插件的自动载入，依然都是代码，自行查看原文</li>
 </ol>
 
 <h3 id="ch54-documentation">CH54 Documentation</h3>
 <ol>
-  <li>每个插件都最好有个文档来说明，这个文件放在<code class="highlighter-rouge">~/.vim/doc/</code>下，与插件名同名的.txt 文件</li>
-  <li>编辑完文件后，用<code class="highlighter-rouge">:Helptags</code>把这个文件加入索引，然后就可以用<code class="highlighter-rouge">:h xxx</code>来查看了</li>
+  <li>每个插件都最好有个文档来说明，这个文件放在<code class="language-plaintext highlighter-rouge">~/.vim/doc/</code>下，与插件名同名的.txt 文件</li>
+  <li>编辑完文件后，用<code class="language-plaintext highlighter-rouge">:Helptags</code>把这个文件加入索引，然后就可以用<code class="language-plaintext highlighter-rouge">:h xxx</code>来查看了</li>
   <li>你可以用<a href="http://www.figlet.org/">figlet</a>来生成一个字符的立体画，非常酷炫</li>
   <li>哪些需要放在doc中说明呢
     <ul>
       <li>Introduction 这是放整个插件的概览</li>
-      <li>Usage 告诉用户应该怎么用，比如有哪些map，如果mapping太多，建议你单独开一个<code class="highlighter-rouge">Mappings</code>章节来放</li>
+      <li>Usage 告诉用户应该怎么用，比如有哪些map，如果mapping太多，建议你单独开一个<code class="language-plaintext highlighter-rouge">Mappings</code>章节来放</li>
       <li>Mappings 见上</li>
       <li>Configuration 这里应该列出所有需要用户修改的值，及它的<strong>效果</strong>和<strong>默认值</strong></li>
       <li>License 只要包含license的url就行，千万别包含整个文本</li>
@@ -319,7 +319,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li>Credits 这里可以包含自己的名字，以及一些给你启发的脚本名，贡献者们</li>
     </ul>
   </li>
-  <li>帮助文档中，一排的<code class="highlighter-rouge">=</code>可以分隔章节，<code class="highlighter-rouge">-</code>分隔小章节，用<code class="highlighter-rouge">*xxx*</code>来生成tag，这样能被help索引到，用<code class="highlighter-rouge">|</code>包围的单词是一个跳转的链接，在这些词上按<code class="highlighter-rouge">&lt;c-]&gt;</code>可以跳到对应的tag上，用单引号<code class="highlighter-rouge">'</code>来表示一个选项名，用波浪号<code class="highlighter-rouge">~</code>放在一行结尾，如<code class="highlighter-rouge">Heading~</code>将会高亮整行，用<code class="highlighter-rouge">&gt; xxxx \n yyyy &lt;</code>表示一段代码，中间可以换行，还有些自动高亮的单词，如<code class="highlighter-rouge">Todo</code>,<code class="highlighter-rouge">Error</code>是<code class="highlighter-rouge">~/.vim/syntax/help.vim</code>下配置的</li>
+  <li>帮助文档中，一排的<code class="language-plaintext highlighter-rouge">=</code>可以分隔章节，<code class="language-plaintext highlighter-rouge">-</code>分隔小章节，用<code class="language-plaintext highlighter-rouge">*xxx*</code>来生成tag，这样能被help索引到，用<code class="language-plaintext highlighter-rouge">|</code>包围的单词是一个跳转的链接，在这些词上按<code class="language-plaintext highlighter-rouge">&lt;c-]&gt;</code>可以跳到对应的tag上，用单引号<code class="language-plaintext highlighter-rouge">'</code>来表示一个选项名，用波浪号<code class="language-plaintext highlighter-rouge">~</code>放在一行结尾，如<code class="language-plaintext highlighter-rouge">Heading~</code>将会高亮整行，用<code class="language-plaintext highlighter-rouge">&gt; xxxx \n yyyy &lt;</code>表示一段代码，中间可以换行，还有些自动高亮的单词，如<code class="language-plaintext highlighter-rouge">Todo</code>,<code class="language-plaintext highlighter-rouge">Error</code>是<code class="language-plaintext highlighter-rouge">~/.vim/syntax/help.vim</code>下配置的</li>
   <li>有些好的例子可以参考下
     <ul>
       <li><a href="https://github.com/sjl/clam.vim/blob/master/doc/clam.txt">Clam</a> 一个简单的例子</li>
@@ -328,7 +328,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><a href="https://github.com/sjl/splice.vim/blob/master/doc/splice.txt">Splice</a> 这里用了ASCII画的形式来描述</li>
     </ul>
   </li>
-  <li>可以使用<code class="highlighter-rouge">:left</code>,<code class="highlighter-rouge">:center</code>,<code class="highlighter-rouge">:right</code>来达到左中右对齐的效果</li>
+  <li>可以使用<code class="language-plaintext highlighter-rouge">:left</code>,<code class="language-plaintext highlighter-rouge">:center</code>,<code class="language-plaintext highlighter-rouge">:right</code>来达到左中右对齐的效果</li>
 </ol>
 
 <h3 id="ch55-distribution">CH55 Distribution</h3>
@@ -341,26 +341,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <p>以下内容在你闲得蛋疼可以看（但作为译者我保证每次看完你都会有所收获）</p>
 
 <ul>
-  <li><code class="highlighter-rouge">:h highlight</code> 你可以发现一些内置的配色方案，可以用在之后的插件中</li>
-  <li><code class="highlighter-rouge">:h user-commands</code> 学习怎样创建一个你自己的Ex命令，类似<code class="highlighter-rouge">:command</code></li>
-  <li><code class="highlighter-rouge">:h ins-completion</code> 这就是插入模式下的自动补全啊，进阶阅读<code class="highlighter-rouge">:h omnifunc</code>和<code class="highlighter-rouge">:h compl-omni</code>（这里原作者打成<code class="highlighter-rouge">:h coml-omni</code>了）</li>
-  <li><code class="highlighter-rouge">:h quickfix.txt</code> vim还可以和编译器进一步地互动，阅读这个吧</li>
-  <li><code class="highlighter-rouge">:h Python</code> <code class="highlighter-rouge">:h Ruby</code> <code class="highlighter-rouge">:h Lua</code> vim居然还支持这些语言的接口</li>
+  <li><code class="language-plaintext highlighter-rouge">:h highlight</code> 你可以发现一些内置的配色方案，可以用在之后的插件中</li>
+  <li><code class="language-plaintext highlighter-rouge">:h user-commands</code> 学习怎样创建一个你自己的Ex命令，类似<code class="language-plaintext highlighter-rouge">:command</code></li>
+  <li><code class="language-plaintext highlighter-rouge">:h ins-completion</code> 这就是插入模式下的自动补全啊，进阶阅读<code class="language-plaintext highlighter-rouge">:h omnifunc</code>和<code class="language-plaintext highlighter-rouge">:h compl-omni</code>（这里原作者打成<code class="language-plaintext highlighter-rouge">:h coml-omni</code>了）</li>
+  <li><code class="language-plaintext highlighter-rouge">:h quickfix.txt</code> vim还可以和编译器进一步地互动，阅读这个吧</li>
+  <li><code class="language-plaintext highlighter-rouge">:h Python</code> <code class="language-plaintext highlighter-rouge">:h Ruby</code> <code class="language-plaintext highlighter-rouge">:h Lua</code> vim居然还支持这些语言的接口</li>
   <li>以下是些更有趣的内容
     <ul>
-      <li><code class="highlighter-rouge">:help various-motions</code></li>
-      <li><code class="highlighter-rouge">:help sign-support</code></li>
-      <li><code class="highlighter-rouge">:help virtualedit</code></li>
-      <li><code class="highlighter-rouge">:help map-alt-keys</code></li>
-      <li><code class="highlighter-rouge">:help error-messages</code></li>
-      <li><code class="highlighter-rouge">:help development</code></li>
-      <li><code class="highlighter-rouge">:help tips</code></li>
-      <li><code class="highlighter-rouge">:help 24.8</code></li>
-      <li><code class="highlighter-rouge">:help 24.9</code></li>
-      <li><code class="highlighter-rouge">:help usr_12.txt</code></li>
-      <li><code class="highlighter-rouge">:help usr_26.txt</code></li>
-      <li><code class="highlighter-rouge">:help usr_32.txt</code></li>
-      <li><code class="highlighter-rouge">:help usr_42.txt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help various-motions</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help sign-support</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help virtualedit</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help map-alt-keys</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help error-messages</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help development</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help tips</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help 24.8</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help 24.9</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help usr_12.txt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help usr_26.txt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help usr_32.txt</code></li>
+      <li><code class="language-plaintext highlighter-rouge">:help usr_42.txt</code></li>
     </ul>
   </li>
 </ul>
@@ -450,6 +450,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -465,17 +469,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -493,7 +493,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -501,7 +501,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -585,7 +585,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -594,6 +594,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -609,6 +611,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

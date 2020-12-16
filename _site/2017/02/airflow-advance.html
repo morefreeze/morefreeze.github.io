@@ -173,9 +173,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 之后如果有其它业务的 dag 要进来再新建子目录就行，同时别忘了把 airflow 配置的 dag 目录设置在这。</p>
 
 <h2 id="环境变量">环境变量</h2>
-<p>环境变量总是一个让人头疼却又绕不开的东西，因为业务代码用了 conda，所以至少要设置一下<code class="highlighter-rouge">PYTHONPATH</code>，
+<p>环境变量总是一个让人头疼却又绕不开的东西，因为业务代码用了 conda，所以至少要设置一下<code class="language-plaintext highlighter-rouge">PYTHONPATH</code>，
 但这个变量其实应该是由外部部署程序决定的（比如我们用的ansible部署），也许还会分机房有不同配置，
-所以这里建议写一个类似<code class="highlighter-rouge">const.py.j2</code>的文件，把这些由外部决定的变量放进去，
+所以这里建议写一个类似<code class="language-plaintext highlighter-rouge">const.py.j2</code>的文件，把这些由外部决定的变量放进去，
 在部署时由程序生成出来。一个可能的写法像这样：</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># const.py.j2
@@ -184,7 +184,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </code></pre></div></div>
 <p>但这样写在调试程序时就比较麻烦，只能每个人自己写一份自己的配置文件（就像自己生成配置文件）。</p>
 
-<p>当然，如果线上部署不会根据机房机器发生变化的话，那直接写一个<code class="highlighter-rouge">const.py</code>也是没问题的。</p>
+<p>当然，如果线上部署不会根据机房机器发生变化的话，那直接写一个<code class="language-plaintext highlighter-rouge">const.py</code>也是没问题的。</p>
 
 <h2 id="代码规范">代码规范</h2>
 <p>dag 文件只要按照 PEP 8 的标准来写就行，而且一般行数也不多，大部分是在描述，
@@ -192,7 +192,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <ol>
   <li>脚本最好有明确的时间参数，执行后只更新那个时间点（段）的数据，
-并且在 dags 中也显式地指定执行的时间。可以用<code class="highlighter-rouge">{{ macros.ds_add(ds, 1) }}</code>来对时间进行偏移。</li>
+并且在 dags 中也显式地指定执行的时间。可以用<code class="language-plaintext highlighter-rouge">{{ macros.ds_add(ds, 1) }}</code>来对时间进行偏移。</li>
   <li>脚本如果只需要当前时间执行的，那最好有个上游函数(PythonBranchOperator)来判断是否需要继续执行，
 如果 execute_time 过了当前时间一段时间了那就直接跳过不执行了。</li>
   <li>每个脚本的功能做到”Do one thing and do it well.”，不要把一堆操作放在一个地方，
@@ -203,7 +203,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </ol>
 
 <h2 id="调试">调试</h2>
-<p>最大问题还是上面说的环境变量问题，在自己机器上维护一份<code class="highlighter-rouge">const.py</code>且不入库，
+<p>最大问题还是上面说的环境变量问题，在自己机器上维护一份<code class="language-plaintext highlighter-rouge">const.py</code>且不入库，
 然后搭一套 airflow 还是很快的，执行只要用默认的顺序执行器就好，写完 dag 直接在界面或者用命令去测都可以。
 因为有些测试服只有内网能访问，而且又没法改 nginx 配置的话，可以用 ssh 隧道把端口映射到本机，</p>
 <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh <span class="nt">-N</span> <span class="nt">-f</span> <span class="nt">-L</span> local_port:127.0.0.1:remote_port user@host
@@ -228,10 +228,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <ol>
   <li>使用 BashOperator 时，因为 jinja2 的关系，在脚本的最后要留一个<strong>空格</strong>，否则会报一个诡异的 jinja2 错误。</li>
-  <li>使用 BahsOperator 如果 command 要使用 python 字符串命名变量的形式（如<code class="highlighter-rouge">'{foo}_{bar}'.format(bar=bar, foo=foo)</code>），
-并且要用模板变量时，命令就要写成类似这样 <code class="highlighter-rouge">'python {file} "{{{{ ds }}}}"'.format(file=file)</code>
-正常的字符串替换用一层<code class="highlighter-rouge">{}</code>，模板变量用四层<code class="highlighter-rouge">{}</code>。
-另外一个小提示是，ds 这种时间变量两边要带上引号，否则<code class="highlighter-rouge">2017-02-13 00:00:00</code>的变量会被 shell 认为是两个参数，
+  <li>使用 BahsOperator 如果 command 要使用 python 字符串命名变量的形式（如<code class="language-plaintext highlighter-rouge">'{foo}_{bar}'.format(bar=bar, foo=foo)</code>），
+并且要用模板变量时，命令就要写成类似这样 <code class="language-plaintext highlighter-rouge">'python {file} "{{{{ ds }}}}"'.format(file=file)</code>
+正常的字符串替换用一层<code class="language-plaintext highlighter-rouge">{}</code>，模板变量用四层<code class="language-plaintext highlighter-rouge">{}</code>。
+另外一个小提示是，ds 这种时间变量两边要带上引号，否则<code class="language-plaintext highlighter-rouge">2017-02-13 00:00:00</code>的变量会被 shell 认为是两个参数，
 当然这可不是 airflow 的锅。</li>
   <li>如果要修改 dag 的开始时间或运行间隔，一定要顺便改下 dag_id，例如改成 my_dag_v1, my_dag_v2，
 否则会出现各种诡异的问题，因为 scheduler 会监视目录下的文件改变，鬼知道新的 dag 会更新成什么样。</li>
@@ -348,6 +348,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -363,17 +367,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -391,7 +391,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -399,7 +399,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -483,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -492,6 +492,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -507,6 +509,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

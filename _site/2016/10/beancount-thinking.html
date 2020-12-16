@@ -176,19 +176,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h3 id="beancount">beancount</h3>
 <p>接着介绍这个 beancount，这是个软件。它可以从你的账本里读取每条账目，生成你想要的数据，
 包括查询当前余额，开销情况，甚至支持 sql 语句实现自定义查询。你的账本实际只是一个简单的文本文件，
-你可以用你喜欢的编辑器去编辑它，运气好的话还有人已经为它开发了插件，比如<code class="highlighter-rouge">vim-beancount</code>。
+你可以用你喜欢的编辑器去编辑它，运气好的话还有人已经为它开发了插件，比如<code class="language-plaintext highlighter-rouge">vim-beancount</code>。
 每条账目看起来像这样：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-05 * "微信支付(Tenpay):滴滴出行" "滴滴"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2016-10-05 * "微信支付(Tenpay):滴滴出行" "滴滴"
             Liabilities:CMBC:CreditCard
             Expenses:Transport:Taxi                     10.50 CNY
 </code></pre></div></div>
-<p>第一行依次为 日期，确认与否（存在争议为<code class="highlighter-rouge">!</code>），概述，收款人，
+<p>第一行依次为 日期，确认与否（存在争议为<code class="language-plaintext highlighter-rouge">!</code>），概述，收款人，
 之后每行为一个账户名，表示钱从这个账户转到另一个账户中去，上例表示我用信用卡打了次滴滴，
 花了 10.50 RMB。</p>
 
 <h3 id="分析">分析</h3>
-<p>当你如此这般记了些时间的账后，就到了分析了，你可以用 <code class="highlighter-rouge">bean-web</code> 来生成你的账单，
+<p>当你如此这般记了些时间的账后，就到了分析了，你可以用 <code class="language-plaintext highlighter-rouge">bean-web</code> 来生成你的账单，
 也可以用<a href="https://github.com/aumayr/fava">fava</a>来生成更酷炫的账单。在这里，
 我建议你可以先关注下你的每月花销在什么地方，收入 + 花销（学了复式你会知道为什么用加号）
 最后剩下多少钱你可以任意支配。更高端的分析我决定留到下篇写。</p>
@@ -216,7 +216,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 逐个对照每条账目（通常账单是从近到远排序，所以你可能要从下往上看），这时你要做的是：</p>
 
 <ol>
-  <li>确认你记得有这笔支出，打上<code class="highlighter-rouge">*</code>，不记得就打上<code class="highlighter-rouge">!</code>，这时你可能需要翻看一些聊天记录或网站的购物记录</li>
+  <li>确认你记得有这笔支出，打上<code class="language-plaintext highlighter-rouge">*</code>，不记得就打上<code class="language-plaintext highlighter-rouge">!</code>，这时你可能需要翻看一些聊天记录或网站的购物记录</li>
   <li>为这条账目找一个合适的账户，显然一边是你的信用卡，另一边是花费，具体是哪项花费由你决定（当然可能有例外）</li>
   <li>一般信用卡会有收款人，这个一定程度也可以代替这笔花费的内容，但你也可以加一些，
 比如我在网上买了些宠物用品，信用卡账单可能显示是个人卖家，我就需要补充上这些信息。</li>
@@ -348,6 +348,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -363,17 +367,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -391,7 +391,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -399,7 +399,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -483,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -492,6 +492,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -507,6 +509,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   

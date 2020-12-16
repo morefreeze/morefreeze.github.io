@@ -145,19 +145,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
-<p>Today I want to share a code snippet. It used for reminding me run <code class="highlighter-rouge">rake preview</code> before <code class="highlighter-rouge">git commit</code>.
+<p>Today I want to share a code snippet. It used for reminding me run <code class="language-plaintext highlighter-rouge">rake preview</code> before <code class="language-plaintext highlighter-rouge">git commit</code>.
 <a class="anchor" id="read-more"></a></p>
 
-<p>TL;DR. Because I use <code class="highlighter-rouge">jeklly</code> to generate my blog static pages, <code class="highlighter-rouge">jeklly</code> is a generator of static blog.
-I can write a markdown file (just like this one) and run <code class="highlighter-rouge">rake preview</code>, <code class="highlighter-rouge">jeklly</code> could help me
+<p>TL;DR. Because I use <code class="language-plaintext highlighter-rouge">jeklly</code> to generate my blog static pages, <code class="language-plaintext highlighter-rouge">jeklly</code> is a generator of static blog.
+I can write a markdown file (just like this one) and run <code class="language-plaintext highlighter-rouge">rake preview</code>, <code class="language-plaintext highlighter-rouge">jeklly</code> could help me
 generate the html files from markdown. So I must remeber run this command before commit changes.
 But I often review my articles and found some mistakes in them, I make a tiny hotfix and commit quickly.
-In this case, I forgot to re-generate pages. So I made a hook before <code class="highlighter-rouge">git commit</code> which runs this command
+In this case, I forgot to re-generate pages. So I made a hook before <code class="language-plaintext highlighter-rouge">git commit</code> which runs this command
 automatically and detects some changes occur. The hook will failed when I forget run the command.</p>
 
 <p>Here it is:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./_gen_wiki.sh  # My blog contains a wiki, so it need be generated.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./_gen_wiki.sh  # My blog contains a wiki, so it need be generated.
 jekyll build
 git diff --quiet --exit-code _site/  # Detect uncached changes.
 ret=$?
@@ -252,6 +252,10 @@ exit $ret
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
+  </li>
+  
+  <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
   </li>
   
@@ -267,17 +271,13 @@ exit $ret
   <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
   </li>
   
-  <li>
-  <a href="/2017/07/apply_defaults.html" title="airflow apply_defaults 赏析" rel="bookmark">airflow apply_defaults 赏析</a>
-  </li>
-  
 </div>
 
 
 <div class="sidebar-module">
   <h4>Categories</h4>
   
-  <li><a href="/categories/#game" title="game" rel="6">game (6)</a></li>
+  <li><a href="/categories/#game" title="game" rel="7">game (7)</a></li>
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
@@ -295,7 +295,7 @@ exit $ret
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#game, thinking" title="game, thinking" rel="1">game, thinking (1)</a></li>
+  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
   
 </div>
 
@@ -303,7 +303,7 @@ exit $ret
 <div class="sidebar-module">
   <h4>Tags</h4>
   
-    <a href="/tags/#game" title="game" rel="5">game</a> &nbsp;
+    <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
     <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
   
@@ -387,7 +387,7 @@ exit $ret
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -396,6 +396,8 @@ exit $ret
     <a href="/tags/#workout" title="workout" rel="1">workout</a> &nbsp;
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
+  
+    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
   
 </div>
 
@@ -411,6 +413,13 @@ exit $ret
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2020" > <a href="/archives/#2020">2020</a></li>
+  
   
   
   
