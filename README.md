@@ -29,10 +29,10 @@ Clone gh-pages branch:
 
 ```
 # please make sure you have already installed git tools and ruby tools(gem)
-$ gem install sass
-$ gem install jekyll
-$ git clone https://github.com/yulijia/freshman21.git
-$ mv freshman21/ yourblogname.github.io/
+# make sure use pyenv activate environment
+$ gem install sass webrick
+$ gem install jekyll jekyll-paginate
+$ pip install simiki
 ```
 
 ### A Summary of Features
