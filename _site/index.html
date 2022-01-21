@@ -128,18 +128,85 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
+        <a itemprop="url" class="post-link" href="/2022/01/split-cake.html">如何公平地分蛋糕</a>
       </h1>
-      <meta itemprop="keywords" content="ariticles" />
+      <meta itemprop="keywords" content="hard,solution,howto" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#probability, thinking, solution">probability, thinking, solution</a>&nbsp;
+      <a href="/categories/#howto">howto</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#ariticles" title="ariticles">ariticles </a>
+      <a href="/tags/#hard" title="hard">hard </a>, 
+      
+      <a href="/tags/#solution" title="solution">solution </a>, 
+      
+      <a href="/tags/#howto" title="howto">howto </a>
+      
+      
+      <time itemprop="datePublished" datetime="2022-01-21">
+      on Jan 21, 2022
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<ul id="markdown-toc">
+  <li><a href="#假设" id="markdown-toc-假设">假设</a></li>
+  <li><a href="#移动刀法" id="markdown-toc-移动刀法">移动刀法</a></li>
+  <li><a href="#三人公平的解" id="markdown-toc-三人公平的解">三人公平的解</a></li>
+  <li><a href="#b如何来切δz" id="markdown-toc-b如何来切δz">B如何来切Δz</a></li>
+</ul>
+
+<p>最近看了<a href="https://www.youtube.com/watch?v=I8d13Jxzafk">李永乐老师的视频</a>，讲如何 2 个或 3 个公平地分蛋糕，2 人其实很简单，一个人切 1 刀另一个选就完了，3 个人就会比较复杂，这题建议有娃的父母都掌握，因为国家现在开放三胎了，将来生日聚会用得上（狗头）。这个复杂的分法实际我早在 <a href="http://www.matrix67.com/blog/archives/3944">matrix67 大牛blog</a> 就看过，不过也忘得差不多了，在此也回顾下。</p>
+
+<h1 id="假设">假设</h1>
+
+<p>首先我们还是要明确一些假设，蛋糕是任意可分的，虽然可以是不同形状，还是假设是长条比较方便，各人认为每段蛋糕价值（效用）可以不同，比如 A 按面积平分成两份，B 认为左边有草莓所以更好（&gt;1/2），对A两边都是1/2，俩人都不觉得吃亏（甚至B觉得自己占了便宜）。并且各人要诚实，真实表达自己想法。还有效用函数应该随着面积单调递增，谁会拒绝一份更大的蛋糕呢？每人都倾向于确定，比如不存在一个人故意切大小不均，去赌另一个人会选择自己认为小的那块。</p>
+
+<h1 id="移动刀法">移动刀法</h1>
+
+<p>回到3人分蛋糕，这个简单分法叫移动刀法，由A拿刀从左到右平移，3人可以在达到自己满意的程度喊停，喊的人拿刀切下去左边，剩下两人一人切一人选就可以。在第一刀时假设A拿刀，分别考察AB的情况，AC情况类似，如果A已经满足了，那A应该喊停，不这样做，剩下的部分肯定对A小于2/3，A 能拿多拿少还不一定，对于确定的1/3，假设A更偏向于确定，因此A先满足就会先喊停。B也是同理，看起来和谁拿刀没什么关系，最先满足自己1/3期望的先喊就可以了。</p>
+
+<p>上面的分法看起来是公平的，但细究的话也有破绽，这种分法可能让人产生嫉妒，比如A先喊后，B和C分，然后B再喊，这时对BC来说俩人是平分的，并且他们也不认为A的那块比他们的好（要不他们应该先喊），但A可能认为C的好，你看你让我满足1/3时就喊，但C的那块有草莓，我爱吃草莓，所以这块的价值对我有1/2，凭什么C拿的（在我看来）比我多。那有没有更公平的分法呢？</p>
+
+<h1 id="三人公平的解">三人公平的解</h1>
+
+<p>首先由A先将蛋糕按他的理解平分成三份，每份都是1/3，假设3块蛋糕分别叫x,y,z，然后由B和C分别选，这里分2种情况：（1）如果BC选的不同，皆大欢喜，A拿剩下的1/3，没人觉得不公平，也没人嫉妒 （2）BC选的相同，比如都选了z（也许是有草莓），BC的一人（比如B）这时将选的这块z切下一小块（带草莓这块切下来）叫Δz，剩下的叫z’，对B来说Δz应该是3z-1/2（后面会有证明），问C还要不要，再分2种情况：（2-1）C要了z’，那B就从剩下前2块选1块，A选剩下的一块，假设C选了z‘，B选了y，A选了x，这时只有A满意了，但B（可能x,y都≤1/3）C（可能z’不满1/3但已经是最大的）未必满意，这时由B来分Δz成3份，按CAB的顺序依次选取，因为对B来说 x≤y≤z，那Δz≥(1-3x)，那么B拿到的y+Δz/3≥x+(1-3x)/3≥1/3，对C也可以应用同样的证明，A不用说更高兴了，所有人都满足了（2-2）C觉得z’小了，因此选了y，这里规定如果发生这种情况，B必须选自己切的这个z’，可以把切z的行为理解为B的自损，如果C不接受这个损失，那必须由B来承担。然后由C来分Δz，按BAC的顺序依次选取，这样大家又平衡了。</p>
+
+<h1 id="b如何来切δz">B如何来切Δz</h1>
+
+<p>假设x≤y，当B需要切z时，他可能面临z’和y较小者再+Δz/3的局面，但他要至少保证拿到z’+Δz/3≥1/3，由z’+Δz=z可得Δz≥(3z-1)/2。实际为了做到不嫉妒，每人都应该按等号来取，这样才能保证别人不可能比自己多，于是大家最终都拿到自己认为的1/3。</p>
+
+        
+        
+
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
+      </h1>
+      <meta itemprop="keywords" content="probability,thinking,solution" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#knowledge">knowledge</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#probability" title="probability">probability </a>, 
+      
+      <a href="/tags/#thinking" title="thinking">thinking </a>, 
+      
+      <a href="/tags/#solution" title="solution">solution </a>
       
       
       <time itemprop="datePublished" datetime="2020-12-16">
@@ -295,53 +362,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/10/airflow-priority_weight.html">airflow priority_weight 计算方法</a>
-      </h1>
-      <meta itemprop="keywords" content="airflow,python" />
-      <p class="post-meta">
-      Posted in
-      
-      
-      and tagged
-      
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
-      
-      <a href="/tags/#python" title="python">python </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-10-12">
-      on Oct 12, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。</p>
-
-<p>以最新的稳定版(v1.8-stable)为例，代码总共就这么<a href="https://github.com/apache/incubator-airflow/blob/v1-8-stable/airflow/models.py#L2161-L2166">一小段</a></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="nb">property</span>
-    <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
-            <span class="n">t</span><span class="p">.</span><span class="n">priority_weight</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_flat_relatives</span><span class="p">(</span><span class="n">upstream</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">priority_weight</span>
-</code></pre></div></div>
-
-
-        
-        
-
-        
-        <p><a href="/2017/10/airflow-priority_weight.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -402,6 +422,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
+  </li>
+  
+  <li>
   <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
@@ -417,10 +441,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
   </li>
   
-  <li>
-  <a href="/2017/10/airflow-priority_weight.html" title="airflow priority_weight 计算方法" rel="bookmark">airflow priority_weight 计算方法</a>
-  </li>
-  
 </div>
 
 
@@ -431,7 +451,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#articles" title="articles" rel="3">articles (3)</a></li>
   
-  <li><a href="/categories/#howto" title="howto" rel="1">howto (1)</a></li>
+  <li><a href="/categories/#howto" title="howto" rel="2">howto (2)</a></li>
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
@@ -445,7 +465,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
-  <li><a href="/categories/#probability, thinking, solution" title="probability, thinking, solution" rel="1">probability, thinking, solution (1)</a></li>
+  <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
   
 </div>
 
@@ -469,7 +489,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#leetcode" title="leetcode" rel="1">leetcode</a> &nbsp;
   
-    <a href="/tags/#solution" title="solution" rel="1">solution</a> &nbsp;
+    <a href="/tags/#solution" title="solution" rel="3">solution</a> &nbsp;
   
     <a href="/tags/#dp" title="dp" rel="1">dp</a> &nbsp;
   
@@ -529,7 +549,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#platformer" title="platformer" rel="1">platformer</a> &nbsp;
   
-    <a href="/tags/#hard" title="hard" rel="1">hard</a> &nbsp;
+    <a href="/tags/#hard" title="hard" rel="2">hard</a> &nbsp;
   
     <a href="/tags/#vim" title="vim" rel="2">vim</a> &nbsp;
   
@@ -537,7 +557,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#apply_defaults" title="apply_defaults" rel="1">apply_defaults</a> &nbsp;
   
-    <a href="/tags/#thinking" title="thinking" rel="1">thinking</a> &nbsp;
+    <a href="/tags/#thinking" title="thinking" rel="2">thinking</a> &nbsp;
   
     <a href="/tags/#functional" title="functional" rel="1">functional</a> &nbsp;
   
@@ -547,7 +567,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#ns" title="ns" rel="1">ns</a> &nbsp;
   
-    <a href="/tags/#ariticles" title="ariticles" rel="1">ariticles</a> &nbsp;
+    <a href="/tags/#probability" title="probability" rel="1">probability</a> &nbsp;
+  
+    <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
 </div>
 
@@ -563,6 +585,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2022" > <a href="/archives/#2022">2022</a></li>
+  
   
   
   

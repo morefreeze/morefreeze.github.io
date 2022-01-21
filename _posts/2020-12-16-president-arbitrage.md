@@ -2,9 +2,9 @@
 layout: post
 title: "如何优雅地从总统竞选中套利"
 description: ""
-category: probability, thinking, solution
+category: knowledge
 comments: true
-tags: [ariticles]
+tags: [probability, thinking, solution]
 ---
 
 {% include JB/setup %}
