@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /** Reset some basic elements */
-@import url("http://fonts.googleapis.com/css?family=Open+Sans");
-@import url("http://fonts.googleapis.com/css?family=Lato");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Lato");
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 body, h1, h2, h3, h4, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; padding: 0; }
 
