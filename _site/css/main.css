@@ -1,10 +1,12 @@
 @charset "UTF-8";
 /** Reset some basic elements */
-@import url("http://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 body, h1, h2, h3, h4, p, blockquote, pre, hr, dl, dd, ol, ul, figure { margin: 0; padding: 0; }
 
 /** Basic styling */
-body { font-family: "Open Sans", Helvetica, Arial, sans-serif !important; font-size: 16px; line-height: 1.6em; font-weight: 300; color: #111; background-color: #f9f9f9; -webkit-text-size-adjust: 100%; }
+body { font-family: "Lato", "Open Sans", Helvetica, Arial, sans-serif !important; font-size: 16px; line-height: 1.6em; font-weight: 300; color: #111; background-color: #f9f9f9; -webkit-text-size-adjust: 100%; }
 
 /** Set `margin-bottom` to maintain vertical rhythm */
 h1, h2, h3, h4, p, blockquote, pre, ul, ol, dl, figure { margin-bottom: 7.5px; }
