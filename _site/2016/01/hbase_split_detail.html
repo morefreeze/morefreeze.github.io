@@ -122,16 +122,16 @@
 以下基本翻译自<a href="http://hortonworks.com/blog/apache-hbase-region-splitting-and-merging/">这里</a>。</p>
 
 <ol>
-  <li>region server决定开始split，在zk上创建新节点<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
+  <li>region server决定开始split，在zk上创建新节点<code class="language-plaintext highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLITTING</code></li>
   <li>Master通过监测这个节点得知父region（这时称要split的region为父，
 分出来的新的region为女儿region）要split了</li>
-  <li>region server在HDFS目录下创建一个子目录<code class="highlighter-rouge">.splits</code>，如<code class="highlighter-rouge">.../parent-region-name/.splits</code></li>
-  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="highlighter-rouge">NotServingRegionException</code>的异常，
+  <li>region server在HDFS目录下创建一个子目录<code class="language-plaintext highlighter-rouge">.splits</code>，如<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits</code></li>
+  <li>region server关闭父region，这时所有到父region的请求都会返回<code class="language-plaintext highlighter-rouge">NotServingRegionException</code>的异常，
 需要客户端自己进行重试</li>
-  <li>在刚才创建的<code class="highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
-<code class="highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
+  <li>在刚才创建的<code class="language-plaintext highlighter-rouge">.splits</code>目录下，创建两个女儿目录的引用，如
+<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits/daughterA</code>和<code class="language-plaintext highlighter-rouge">.../parent-region-name/.splits/daughterB</code>，
 其中文件都引用自父region，引用文件标记出开始和结束位置</li>
-  <li>region server在HDFS中创建实际的女儿region目录，如<code class="highlighter-rouge">.../daughterA/</code>，再将刚才创建的
+  <li>region server在HDFS中创建实际的女儿region目录，如<code class="language-plaintext highlighter-rouge">.../daughterA/</code>，再将刚才创建的
 引用文件移到这个目录中</li>
   <li>region server发送一个PUT请求给META信息表，加入女儿region信息，并将父region下线。
 注意这时client扫描META表并不能发现新的region，因为还没上线。
@@ -140,7 +140,7 @@
   <li>region server允许女儿region的写入</li>
   <li>region server将女儿信息在META中上线，客户端这时可以发现新的region。注意将缓存的
 region信息重新更新</li>
-  <li>将zk中的节点，改为<code class="highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
+  <li>将zk中的节点，改为<code class="language-plaintext highlighter-rouge">/hbase/region-in-transition/parent-region-name:SPLIT</code>，这样
 Master就知道split完成</li>
   <li>现在，HDFS中存的仍然是女儿region到父region的引用，要等compaction操作去将引用
 的数据重写到新文件，当新文件都重写完后，才会完全删掉父region</li>

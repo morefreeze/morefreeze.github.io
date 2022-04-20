@@ -117,9 +117,9 @@
 
   <article class="post-content" itemprop="articleBody">
     
-<p>先上结论：<strong>线上机器千万别没事<code class="highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
+<p>先上结论：<strong>线上机器千万别没事<code class="language-plaintext highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
 
-<p>上周五由于跑数据发现某个软件需要更新，需要<code class="highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
+<p>上周五由于跑数据发现某个软件需要更新，需要<code class="language-plaintext highlighter-rouge">yum update</code>下，于是手贱把需要更新的都更新了，
 结果周一过来发现启动不了了，内核升级了，OP看了半天，实际后来发现这台机器确实因为某个原因，
 各方面素质差很多，同样的拉数据，别的机器不挂，它一会就挂了，娇贵得很。得出结论是只能重装。这台机器的角色还挺多，
 包括所有导入数据脚本，跑每天的统计，保存的数据结果，同时还有作为HDFS的NameNode和

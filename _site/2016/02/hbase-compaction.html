@@ -147,11 +147,11 @@
 
 <p>这个值的意思对于某个文件，它的大小是a，如果比它小的所有文件大小加起来是b，如果</p>
 
-<script type="math/tex; mode=display">b * ratio > a</script>
+\[b * ratio &gt; a\]
 
 <p>那么a将被加进compaction中，否则会按照上面4个参数的限制继续追加。之所以有这个参数应该是防止有一批在范围内的文件（即不胖不瘦），这样总是不会触发compaction，加入这个参数后情况就变了，将会有些文件不得不被compaction，比如第一个文件加入后，后面的文件即使满足条件，但因为有最小文件数的限制，不得不再加入一些。</p>
 
-<p>值得注意的是<code class="highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
+<p>值得注意的是<code class="language-plaintext highlighter-rouge">ratio</code>的值越大(&gt;1)，越容易产生较大的文件（因为文件更容易被compaction）。</p>
 
 
   </article>
