@@ -384,11 +384,11 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <span class="c1">//conversion</span>
 <span class="c1">//------------------------------------------</span>
 <span class="kr">inline</span> <span class="kt">int</span> <span class="nf">toInt</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span><span class="kt">int</span> <span class="n">v</span><span class="p">;</span> <span class="n">istringstream</span> <span class="n">sin</span><span class="p">(</span><span class="n">s</span><span class="p">);</span><span class="n">sin</span><span class="o">&gt;&gt;</span><span class="n">v</span><span class="p">;</span><span class="k">return</span> <span class="n">v</span><span class="p">;}</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="nf">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">string</span> <span class="n">toString</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="n">ostringstream</span> <span class="n">sout</span><span class="p">;</span><span class="n">sout</span><span class="o">&lt;&lt;</span><span class="n">x</span><span class="p">;</span><span class="k">return</span> <span class="n">sout</span><span class="p">.</span><span class="n">str</span><span class="p">();}</span>
 
 <span class="c1">//math</span>
 <span class="c1">//-------------------------------------------</span>
-<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="nf">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
+<span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">&gt;</span> <span class="kr">inline</span> <span class="n">T</span> <span class="n">sqr</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="p">;}</span>
 
 <span class="c1">//typedef</span>
 <span class="c1">//------------------------------------------</span>
@@ -570,6 +570,10 @@ The lastest is just enumerating every node to find the longest path, then pick t
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
+  </li>
+  
+  <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
   </li>
   
@@ -583,10 +587,6 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
   <li>
   <a href="/2018/03/peek-functional-programming.html" title="初探函数式编程" rel="bookmark">初探函数式编程</a>
-  </li>
-  
-  <li>
-  <a href="/2018/01/dead-cell.html" title="《死亡细胞》——总有一款玩法适合你" rel="bookmark">《死亡细胞》——总有一款玩法适合你</a>
   </li>
   
 </div>
@@ -603,7 +603,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="1">algorithm (1)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="2">algorithm (2)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -643,7 +643,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="1">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -651,7 +651,7 @@ The lastest is just enumerating every node to find the longest path, then pick t
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="1">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -733,6 +733,13 @@ The lastest is just enumerating every node to find the longest path, then pick t
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
   
   
   
