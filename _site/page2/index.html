@@ -130,6 +130,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2018/03/peek-functional-programming.html">初探函数式编程</a>
+      </h1>
+      <meta itemprop="keywords" content="functional,python,monad" />
+      <p class="post-meta">
+      Posted in
+      
+      
+      and tagged
+      
+      <a href="/tags/#functional" title="functional">functional </a>, 
+      
+      <a href="/tags/#python" title="python">python </a>, 
+      
+      <a href="/tags/#monad" title="monad">monad </a>
+      
+      
+      <time itemprop="datePublished" datetime="2018-03-30">
+      on Mar 30, 2018
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+
+<p>最近遇到了一些函数式编程的概念，心想我用 <code class="language-plaintext highlighter-rouge">Python</code> 的 <code class="language-plaintext highlighter-rouge">map</code> <code class="language-plaintext highlighter-rouge">reduce</code> 不就是在函数式编程嘛，
+但看了半天仍然一头雾水，什么是 <code class="language-plaintext highlighter-rouge">UnitBox</code>？<code class="language-plaintext highlighter-rouge">flatMap</code> 和 <code class="language-plaintext highlighter-rouge">map</code> 差在哪里？于是先学了阮老师的<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html">函数式编程入门教程</a>，
+唉哟喂，和我原来想的还不一样，<code class="language-plaintext highlighter-rouge">Python</code> 这些操作虽然算是函数式编程，但要系统地理解为什么能这样，
+还得从头说起。</p>
+
+
+        
+        
+
+        
+        <p><a href="/2018/03/peek-functional-programming.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2018/01/dead-cell.html">《死亡细胞》——总有一款玩法适合你</a>
       </h1>
       <meta itemprop="keywords" content="game,thinking" />
@@ -306,53 +349,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-c.html">learn vim script the hard way 笔记（下）</a>
-      </h1>
-      <meta itemprop="keywords" content="" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#note">note</a>&nbsp;
-      
-      
-      <time itemprop="datePublished" datetime="2017-06-18">
-      on Jun 18, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p><a href="/2017/06/learn-vim-script-the-hard-way-b.html">上一篇</a></p>
-
-<h3 id="ch31-basic-regular-expressions">CH31 Basic Regular Expressions</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">/</code>和<code class="language-plaintext highlighter-rouge">?</code>，前者向后找，后者向前找</li>
-</ol>
-
-<h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="language-plaintext highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="language-plaintext highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="language-plaintext highlighter-rouge">:cwindow</code>查看<code class="language-plaintext highlighter-rouge">quickfix</code>窗口</li>
-  <li>以上还有一点要修改，如果光标在一个<code class="language-plaintext highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="language-plaintext highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
-  <li>但上面对于光标有单引号的不启作用，用<code class="language-plaintext highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
-  <li>最终版本<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="language-plaintext highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="language-plaintext highlighter-rouge">:copen</code>打开结果页</li>
-</ol>
-
-<h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
-<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="language-plaintext highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="language-plaintext highlighter-rouge">Test</code></p>
-
-        
-        
-
-        
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-c.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -413,6 +409,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
   </li>
   
@@ -426,10 +426,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
-  </li>
-  
-  <li>
-  <a href="/2018/03/peek-functional-programming.html" title="初探函数式编程" rel="bookmark">初探函数式编程</a>
   </li>
   
 </div>
@@ -446,7 +442,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="2">algorithm (2)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="3">algorithm (3)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -562,6 +558,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
+    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+  
+    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+  
 </div>
 
 
@@ -582,6 +582,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   

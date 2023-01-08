@@ -130,6 +130,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-c.html">learn vim script the hard way 笔记（下）</a>
+      </h1>
+      <meta itemprop="keywords" content="" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#note">note</a>&nbsp;
+      
+      
+      <time itemprop="datePublished" datetime="2017-06-18">
+      on Jun 18, 2017
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<p><a href="/2017/06/learn-vim-script-the-hard-way-b.html">上一篇</a></p>
+
+<h3 id="ch31-basic-regular-expressions">CH31 Basic Regular Expressions</h3>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">/</code>和<code class="language-plaintext highlighter-rouge">?</code>，前者向后找，后者向前找</li>
+</ol>
+
+<h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="language-plaintext highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="language-plaintext highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="language-plaintext highlighter-rouge">:cwindow</code>查看<code class="language-plaintext highlighter-rouge">quickfix</code>窗口</li>
+  <li>以上还有一点要修改，如果光标在一个<code class="language-plaintext highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="language-plaintext highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
+  <li>但上面对于光标有单引号的不启作用，用<code class="language-plaintext highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
+  <li>最终版本<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="language-plaintext highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="language-plaintext highlighter-rouge">:copen</code>打开结果页</li>
+</ol>
+
+<h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
+<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="language-plaintext highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="language-plaintext highlighter-rouge">Test</code></p>
+
+        
+        
+
+        
+        <p><a href="/2017/06/learn-vim-script-the-hard-way-c.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-b.html">learn vim script the hard way 笔记（中）</a>
       </h1>
       <meta itemprop="keywords" content="vim" />
@@ -318,48 +365,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/03/witcher-3.html">巫师 3</a>
-      </h1>
-      <meta itemprop="keywords" content="game,RPG,ACT" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#game">game</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#game" title="game">game </a>, 
-      
-      <a href="/tags/#RPG" title="RPG">RPG </a>, 
-      
-      <a href="/tags/#ACT" title="ACT">ACT </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-03-22">
-      on Mar 22, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近把拖了一年多的游戏《巫师3:狂猎》通关了，不愧为 <a href="https://zh.wikipedia.org/wiki/%E6%B8%B8%E6%88%8F%E5%A4%A7%E5%A5%96#.E8.AF.84.E5.A7.94.E4.BC.9A.E8.AF.84.E9.80.89.E5.A5.96.E9.A1.B9">2016 最佳角色扮演游戏</a>，
-总体来说
-主线剧情体验很好，石之心剧情有些俗套且短，血与酒剧情整体不错，杰洛特最终过上了幸福的生活。</p>
-
-        
-        
-
-        
-        <p><a href="/2017/03/witcher-3.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -420,6 +425,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
   </li>
   
@@ -433,10 +442,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2019/12/ns-ring-con.html" title="《健身环大冒险》——也许能让你养成健身好习惯" rel="bookmark">《健身环大冒险》——也许能让你养成健身好习惯</a>
-  </li>
-  
-  <li>
-  <a href="/2018/03/peek-functional-programming.html" title="初探函数式编程" rel="bookmark">初探函数式编程</a>
   </li>
   
 </div>
@@ -453,7 +458,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="2">algorithm (2)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="3">algorithm (3)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -569,6 +574,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
+    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+  
+    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+  
 </div>
 
 
@@ -589,6 +598,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   
