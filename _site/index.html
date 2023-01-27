@@ -130,6 +130,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2023/01/trio.html">Knuth 的 2022 圣诞三重奏终章</a>
+      </h1>
+      <meta itemprop="keywords" content="kunth,combinatorial,permutation,tree" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#kunth" title="kunth">kunth </a>, 
+      
+      <a href="/tags/#combinatorial" title="combinatorial">combinatorial </a>, 
+      
+      <a href="/tags/#permutation" title="permutation">permutation </a>, 
+      
+      <a href="/tags/#tree" title="tree">tree </a>
+      
+      
+      <time itemprop="datePublished" datetime="2023-01-25">
+      on Jan 25, 2023
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
+<p>经过了前面三篇（
+<a href="/2023/01/twintree.html">一 twintree 树</a>，<a href="/2023/01/baxter.html">二 baxter 数</a>，<a href="/2023/01/floorplan.html">三 floorplan 画</a>）
+看似“毫无关系”的介绍，关子也到此结束，终于要揭露他们之间的关系了。相信看完这篇你也能感受到这些数据结构和数学的奇妙之处。</p>
+
+<h1 id="floorplan---baxter">Floorplan -&gt; Baxter</h1>
+<p><img src="/images/floorplan-twintree-baxter.drawio.svg" alt="baxter-floorplan" /></p>
+
+
+        
+        
+
+        
+        <p><a href="/2023/01/trio.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2023/01/floorplan.html">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
       </h1>
       <meta itemprop="keywords" content="floor,alphabet" />
@@ -154,9 +209,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <article class="post-content" itemprop="articleBody">
         
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
 <p>这次是三重奏的最后一篇，这篇依然和前两篇（<a href="/2023/01/twintree.html">一 twintree</a>，<a href="/2023/01/baxter.html">二 Baxter</a>）看起来没什么关系。</p>
 
 <p>这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻只能边相邻，不允许角相邻，也就是说不允许组成一个十字的缝隙，只允许出现 T 字形缝隙，4 种方向如 \(\vdash\) \(\dashv\) \(\bot\) \(\top\)。如下是一个 floorplan 的划分</p>
+
 
         
         
@@ -194,14 +257,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <article class="post-content" itemprop="articleBody">
         
-<p><a href="/2023/01/twintree.html">上一篇</a> 讲了 twintree 是一种数据结构，这篇来介绍一个组合数学上的排列。</p>
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
 
-<p><a href="https://en.wikipedia.org/wiki/Baxter_permutation">Baxter permutation</a> 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，比如 3142 就不符合，因为 3 和 2 之间的 14 应当像 32 一样递减，这个被 Knuth 称为 pi permutation，因为它是 3.1415 的近似，另一个不符合的是 2413。给出更形式化的定义像这样，\(\sigma(i)\)表示数字 i 的下标：
+<p><a href="/2023/01/twintree.html">上一篇</a> 讲了 twintree 是一种数据结构，这篇来介绍一个离散数学上的排列。</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Baxter_permutation">Baxter permutation</a> 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，<del>那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，</del>那么所有（如果有）比 j 小的必须排在比 j+1 大（如果有）的前面，反之大的排在小的前面，但小的和小的及大的和大的之间顺序并不重要，比如 3142 就不符合，因为 3 和 2 之间的 14 应当像 32 一样递减，这个被 Knuth 称为 pi permutation，因为它是 3.1415 的近似，另一个不符合的是 2413。给出更形式化的定义像这样，\(\sigma(i)\)表示数字 i 的下标：
 \(i &lt; j &lt; k, \sigma(j) &lt; \sigma(i)&lt;\sigma(k)&lt;\sigma(j+1) \text{ or }\sigma(j+1) &lt; \sigma(k)&lt;\sigma(i)&lt;\sigma(j)\)</p>
 
-<p>上面两个排列是 1 到 4 的排列中唯二不符合的排列，因此 4 以内是 Baxter permutation 的个数是 \(4!-2=22\)，实际的计算公式可以在 wiki 上看到，这里就不贴了。</p>
+<p>上面两个排列是 1 到 4 的排列中唯二不符合的排列，因此 4 以内是 baxter permutation 的个数是 \(4!-2=22\)，实际的计算公式可以在 wiki 上看到，这里就不贴了。</p>
 
 <p>这篇介绍非常短，这个排列有啥用呢，深呼吸，<a href="/2023/01/floorplan.html">第三篇</a>会长一些，但我们快接近真相了。</p>
+
 
         
         
@@ -237,10 +308,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <article class="post-content" itemprop="articleBody">
         
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
 <h1 id="引言">引言</h1>
 
 <p>Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐”。感兴趣的可以直接观看原视频。</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/zg6YRqT4Duo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
 
         
         
@@ -302,51 +381,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
-      </h1>
-      <meta itemprop="keywords" content="probability,thinking,solution" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#knowledge">knowledge</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#probability" title="probability">probability </a>, 
-      
-      <a href="/tags/#thinking" title="thinking">thinking </a>, 
-      
-      <a href="/tags/#solution" title="solution">solution </a>
-      
-      
-      <time itemprop="datePublished" datetime="2020-12-16">
-      on Dec 16, 2020
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近看了篇<a href="https://computersciencealgorithms.wordpress.com/2020/11/22/exploiting-arbitrage-opportunities-in-betting-markets/">很有趣的文章</a>，
-讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注，
-拜登胜出则你拿到 1 块，净赚 0.12，输则什么都没有亏掉那 0.88。B 网站允许你看空，看空拜登胜出（也就是认为拜登不会胜），
-赔率就比较高了，是 1.05:0.05，就是你只要出 5 分钱（这里其实包含 1 分钱看空费，简化就不提了，感兴趣可以看原文），如果拜登没有当选，
-那你拿到 1.05 净赚 1 块，输则损失掉 0.05。
-<img src="/images/predictit-221120.png" alt="image" /></p>
-
-        
-        
-
-        
-        <p><a href="/2020/12/president-arbitrage.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -403,6 +437,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
   </li>
   
@@ -416,10 +454,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
-  
-  <li>
-  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
 </div>
@@ -436,7 +470,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="4">algorithm (4)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -476,7 +510,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="3">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -552,13 +586,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
-    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+    <a href="/tags/#combinatorial" title="combinatorial" rel="2">combinatorial</a> &nbsp;
   
-    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+    <a href="/tags/#permutation" title="permutation" rel="2">permutation</a> &nbsp;
   
     <a href="/tags/#floor" title="floor" rel="1">floor</a> &nbsp;
   
     <a href="/tags/#alphabet" title="alphabet" rel="1">alphabet</a> &nbsp;
+  
+    <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
 </div>
 
@@ -580,6 +616,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   

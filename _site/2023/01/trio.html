@@ -7,24 +7,24 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="Knuth 的 2023 圣诞三重奏其三 Floorplan">
-<title>Knuth 的 2023 圣诞三重奏其三 Floorplan</title>
-<meta property="og:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻...">
-<meta property="og:url" content="http://localhost:4000/2023/01/floorplan.html">
+<meta property="og:title" content="Knuth 的 2022 圣诞三重奏终章">
+<title>Knuth 的 2022 圣诞三重奏终章</title>
+<meta property="og:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章经过了前面三篇（一 twintree 树，二 baxter 数，三 floorplan 画）看似“毫无关系”的介绍，关子也到此结束，终于要揭露他们之间的关系了。相信看完这篇你也能感受到这些数据结构和数学的奇...">
+<meta property="og:url" content="http://localhost:4000/2023/01/trio.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
-<meta name="twitter:title" content="Knuth 的 2023 圣诞三重奏其三 Floorplan">
-<meta name="twitter:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻...">
-<meta name="twitter:url" content="http://localhost:4000/2023/01/floorplan.html">
+<meta name="twitter:title" content="Knuth 的 2022 圣诞三重奏终章">
+<meta name="twitter:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章经过了前面三篇（一 twintree 树，二 baxter 数，三 floorplan 画）看似“毫无关系”的介绍，关子也到此结束，终于要揭露他们之间的关系了。相信看完这篇你也能感受到这些数据结构和数学的奇...">
+<meta name="twitter:url" content="http://localhost:4000/2023/01/trio.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/2023/01/floorplan.html">
+<link rel="canonical" href="http://localhost:4000/2023/01/trio.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
@@ -126,8 +126,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">Knuth 的 2023 圣诞三重奏其三 Floorplan</h1>
-    <meta itemprop="keywords" content="floor,alphabet" />
+    <h1 itemprop="name" class="post-title">Knuth 的 2022 圣诞三重奏终章</h1>
+    <meta itemprop="keywords" content="kunth,combinatorial,permutation,tree" />
     <p class="post-meta">
     Posted in
     
@@ -136,13 +136,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     and tagged
     
-    <a href="/tags/#floor" title="floor">floor </a>, 
+    <a href="/tags/#kunth" title="kunth">kunth </a>, 
     
-    <a href="/tags/#alphabet" title="alphabet">alphabet </a>
+    <a href="/tags/#combinatorial" title="combinatorial">combinatorial </a>, 
+    
+    <a href="/tags/#permutation" title="permutation">permutation </a>, 
+    
+    <a href="/tags/#tree" title="tree">tree </a>
     
     
-    <time itemprop="datePublished" datetime="2023-01-12">
-    on Jan 12, 2023
+    <time itemprop="datePublished" datetime="2023-01-25">
+    on Jan 25, 2023
     </time>
     </p>
   </header>
@@ -156,50 +160,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <li><a href="/2023/01/trio.html">三重奏终章</a></li>
 </ol>
 
-<p>这次是三重奏的最后一篇，这篇依然和前两篇（<a href="/2023/01/twintree.html">一 twintree</a>，<a href="/2023/01/baxter.html">二 Baxter</a>）看起来没什么关系。</p>
+<p>经过了前面三篇（
+<a href="/2023/01/twintree.html">一 twintree 树</a>，<a href="/2023/01/baxter.html">二 baxter 数</a>，<a href="/2023/01/floorplan.html">三 floorplan 画</a>）
+看似“毫无关系”的介绍，关子也到此结束，终于要揭露他们之间的关系了。相信看完这篇你也能感受到这些数据结构和数学的奇妙之处。</p>
 
-<p>这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻只能边相邻，不允许角相邻，也就是说不允许组成一个十字的缝隙，只允许出现 T 字形缝隙，4 种方向如 \(\vdash\) \(\dashv\) \(\bot\) \(\top\)。如下是一个 floorplan 的划分<a class="anchor" id="read-more"></a>，\(h0-h6\) 是 7 条水平线，\(v0-v5\) 是 6 条竖直线。</p>
+<h1 id="floorplan---baxter">Floorplan -&gt; Baxter</h1>
+<p><img src="/images/floorplan-twintree-baxter.drawio.svg" alt="baxter-floorplan" />
+<a class="anchor" id="read-more"></a></p>
 
-<p><img src="/images/floorplan-basic.drawio.svg" alt="basic" /></p>
+<p>继续摆出上次的划分，注意从左下角到右上角我们依次写出字母，这也是当时重画图形的顺序，\(EDFACIHJGB\)，这本身就是一个 baxter 排列，
+再来复习下它的定义（我发现之前第二篇理解错了，已经更正）：对于任意的 j 在 j+1 之前之间的数（字母），它们之间的【比 j 小的】都排在【比 j+1 大的】之 <strong>前</strong>，反之亦然。
+可以发现连续 3 个及以下一定满足，我们只要检验 4 个或以上的就行，比如 \(F\) 和 \(G\) 之间有 \(ACIHJ\)，比 \(F\) 小的 \(AC\) 排在比 \(G\) 大的 \(IHJ\) 的前面，再比如 \(D\) 和 \(C\) 之间（这是递减）有 \(FA\)，比 \(D\) 大的 \(F\) 排在比 \(C\) 小的 \(A\) 之前，也是递减。你可以验证所有的组合，所以 floorplan 可以转换成 baxter 表示。</p>
 
-<p>实际上对于一种划分我们只需要关注各个小长方形之间位置关系，以及对应的水平和竖直的线的标号(\(h_i\) 或 \(v_j\)），我尝试给出一个不太标准的定义：对于两个 floorplan 的划分，如果他俩的每个小长方形横向和纵向的起止标号一样，且 <strong>完整共享边</strong> 的关系一样（比如 C 的左边是 A，上边是 B，右边和下边因为不止一个字母共享 ，在此不考虑），那么我们可以说这两个划分是 <strong>同构</strong> 的。</p>
+<h1 id="baxter---twintree---floorplan">Baxter &lt;-&gt; Twintree -&gt; Floorplan</h1>
+<p>同时，这个 baxter 也可以表示成 twintree 的形式，我们正向和反向的顺序分别插入二叉树，如下图 (点击可看大图)
+<a href="/images/floorplan-twintree-baxter-baxter-twintree.drawio.svg"><img src="/images/floorplan-twintree-baxter-baxter-twintree.drawio.svg" alt="baxter-twintree（点击可看大图）" /></a>
+注意到 T0 的节点左上角和它的左子树呈 \(\vdash\) 关系，比如树和图里的 \(ED\)，而节点的右下角和它的右子树呈 \(\bot\) 关系，同理，T1 的左右子树分别在右上角和左下角呈 \(\top\) 和 \(\dashv\)。这说明 baxter 排列和 twintree 可以相互转换，twintree 也能表示成 floorplan。</p>
 
-<p>下面我们介绍一种标准化的表示方式，通过这种标准化的划分，当且仅当两个图同构时，他们的标准化划分也一定完全一样。该划分步骤如：</p>
+<p>另外提一句，观察 T0 从 \(E\) 开始的右子树是 \(EFIJ\)，它们恰好是图上以底边为下边界的 4 个长方形，而左子树 \(EDA\) 恰好是左边向上的一排。</p>
 
-<ol>
-  <li>沿右下向左上对角线依次写出每个字母并在字母的右边或上边加画一条线</li>
-  <li>先写下左下角的字母</li>
-  <li>观察该字母右上角的 T 形朝向，只有 2 种情况，即 \(\dashv\) 和 \(\top\)
-    <ol>
-      <li>对于 \(\dashv\)，将字母的上边压缩至底（参看 step1），并在字母上边划一横线</li>
-      <li>对于 \(\top\)，将字母的右边压缩至左边（参看 step2），并在字母右边划一竖线</li>
-    </ol>
-  </li>
-  <li>形成新的左下角字母，从 2 继续，直到所有字母都写上</li>
-  <li>参考原图将各字母边上的线延长补齐</li>
-</ol>
+<p>细心的同学发现原来 floorplan 图里的坐标在树上体现不出来，确实如此，我在这里<a href="https://viewer.diagrams.net/?tags=%7B%7D&amp;highlight=0000ff&amp;edit=_blank&amp;layers=1&amp;nav=1&amp;title=editable-fig#Uhttps%3A%2F%2Fraw.githubusercontent.com%2Fmorefreeze%2FStudy%2Fmaster%2Feditable-fig">分享原图</a>，感兴趣的同学可以在树的基础上标记出来，看看你能新发现什么。</p>
 
-<p><img src="/images/floorplan-step1.gif" alt="step1" title="step1" /></p>
-
-<p><em>左下角是 E，右上角是 \(\dashv\)，尝试将右边压缩是不行的，只能将上边压缩至底，在上边画一横线</em></p>
-
-<p><img src="/images/floorplan-step2.gif" alt="step2" title="step2" /></p>
-
-<p><em>接着左下角是 D，右上角是 \(\top\)，将右边压缩至左边界，在右边画一竖线</em></p>
-
-<p><img src="/images/floorplan-step3.gif" alt="step3" title="step3" /></p>
-
-<p><em>然后左下角是 F，右上角是 \(\dashv\)，将上边压缩至底，在上边画一横线，注意这里实际操作是将 AC 下边拉到底</em></p>
-
-<p><img src="/images/floorplan-step4.gif" alt="step4" title="step4" /></p>
-
-<p><em>左下角是 A，右上角是 \(\top\)，将右边压缩至左边界，在右边画一竖线，实际操作 BC</em></p>
-
-<p><img src="/images/floorplan-basic-canonical2.drawio.svg" alt="canonical" /></p>
-
-<p>最终画出来的顺序就是 \(EDFACIHJGB\)，红色粗线就是每个字母标记的线。</p>
-
-<p>实际从 4 个角都可以作为标准化的开始，作为这次的作业，你可以试一下从左上角开始看右下角形状，以及从右上角开始看左下角形状，观察下最终画出来的图形有什么不同。<a href="/2023/01/trio.html">下一篇终章</a>会证明这些努力的价值。</p>
+<h1 id="小结">小结</h1>
+<p>通过上面不太严谨的表达，我们已经可以看到这三个看似无关的表达，其实却是互通的，每个都可以转化成另一种形式。事实上，根据<a href="https://mathweb.ucsd.edu/~ronspubs/03_03_floorplan.pdf">这篇论文</a>
+n 个长方形所组成的 floorplan（准确地说是 mosaic floorplan，区别于 slicing floorplan）的个数和 baxter 数是一样的。
+另外在 <a href="https://youtu.be/zg6YRqT4Duo?t=4090">Knuth 视频的最后</a>也展示了这三种表达能通过程序相互转化（不包括 floorplan 的坐标）。
+这就是 Knuth 圣诞三重奏所有要讲的，视频里也不忘推荐下他将要出版的 TAOCP 4B，出现在第 7 章的大量练习中，期待中文译本国内也能尽快买到。</p>
 
 
   </article>
@@ -210,10 +196,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="pager">
   <ul>
     
-    <li class="previous"><a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation">&larr; Older</a></li>
+    <li class="previous"><a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan">&larr; Older</a></li>
     
     
-    <li class="next"><a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章">Newer &rarr;</a></li>
+    <li class="disabled"><a>Newer &rarr;</a>
     
   </ul>
 </section>
@@ -230,8 +216,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
      */
     var disqus_config = function () {
-        this.page.url = "https://morefreeze.github.io/2023/01/floorplan.html";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "https://morefreeze.github.io/2023/01/floorplan.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://morefreeze.github.io/2023/01/trio.html";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "https://morefreeze.github.io/2023/01/trio.html"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

@@ -132,6 +132,51 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
+      </h1>
+      <meta itemprop="keywords" content="probability,thinking,solution" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#knowledge">knowledge</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#probability" title="probability">probability </a>, 
+      
+      <a href="/tags/#thinking" title="thinking">thinking </a>, 
+      
+      <a href="/tags/#solution" title="solution">solution </a>
+      
+      
+      <time itemprop="datePublished" datetime="2020-12-16">
+      on Dec 16, 2020
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<p>最近看了篇<a href="https://computersciencealgorithms.wordpress.com/2020/11/22/exploiting-arbitrage-opportunities-in-betting-markets/">很有趣的文章</a>，
+讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注，
+拜登胜出则你拿到 1 块，净赚 0.12，输则什么都没有亏掉那 0.88。B 网站允许你看空，看空拜登胜出（也就是认为拜登不会胜），
+赔率就比较高了，是 1.05:0.05，就是你只要出 5 分钱（这里其实包含 1 分钱看空费，简化就不提了，感兴趣可以看原文），如果拜登没有当选，
+那你拿到 1.05 净赚 1 块，输则损失掉 0.05。
+<img src="/images/predictit-221120.png" alt="image" /></p>
+
+        
+        
+
+        
+        <p><a href="/2020/12/president-arbitrage.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+    
+    
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="/2019/12/ns-ring-con.html">《健身环大冒险》——也许能让你养成健身好习惯</a>
       </h1>
       <meta itemprop="keywords" content="game,workout,ns" />
@@ -305,52 +350,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     
     
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/07/apply_defaults.html">airflow apply_defaults 赏析</a>
-      </h1>
-      <meta itemprop="keywords" content="airflow,python,decorator,apply_defaults" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
-      
-      <a href="/tags/#python" title="python">python </a>, 
-      
-      <a href="/tags/#decorator" title="decorator">decorator </a>, 
-      
-      <a href="/tags/#apply_defaults" title="apply_defaults">apply_defaults </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-07-13">
-      on Jul 13, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近在写 airflow 的脚本时遇到一个问题，出于方便把 <code class="language-plaintext highlighter-rouge">BaseSensorOperator</code> 包了一层，
-后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 <code class="language-plaintext highlighter-rouge">Operator</code> 都有个 <code class="language-plaintext highlighter-rouge">apply_defaults</code>
-的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当导致的，
-所以就不放问题代码了，但我会在分析后给出一些使用方面要注意的地方和建议。</p>
-
-
-        
-        
-
-        
-        <p><a href="/2017/07/apply_defaults.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
   </div>
   <div class="gcse">
       <!--Google Custom Search-->
@@ -411,6 +410,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
   </li>
   
@@ -424,10 +427,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
-  
-  <li>
-  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
 </div>
@@ -444,7 +443,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="4">algorithm (4)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -484,7 +483,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="3">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -560,13 +559,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
-    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+    <a href="/tags/#combinatorial" title="combinatorial" rel="2">combinatorial</a> &nbsp;
   
-    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+    <a href="/tags/#permutation" title="permutation" rel="2">permutation</a> &nbsp;
   
     <a href="/tags/#floor" title="floor" rel="1">floor</a> &nbsp;
   
     <a href="/tags/#alphabet" title="alphabet" rel="1">alphabet</a> &nbsp;
+  
+    <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
 </div>
 
@@ -588,6 +589,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   

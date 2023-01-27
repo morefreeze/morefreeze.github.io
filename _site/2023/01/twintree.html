@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="Knuth 的2023圣诞三重奏其一 Twintree">
 <title>Knuth 的2023圣诞三重奏其一 Twintree</title>
-<meta property="og:description" content="引言Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐”。感兴趣的可以直接观看原视频。">
+<meta property="og:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章引言Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐...">
 <meta property="og:url" content="http://localhost:4000/2023/01/twintree.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="Knuth 的2023圣诞三重奏其一 Twintree">
-<meta name="twitter:description" content="引言Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐”。感兴趣的可以直接观看原视频。">
+<meta name="twitter:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章引言Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐...">
 <meta name="twitter:url" content="http://localhost:4000/2023/01/twintree.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -149,6 +149,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
 <h1 id="引言">引言</h1>
 
 <p>Knuth 今年圣诞在 Standford 做了一次演讲，讲了三种看似毫无关联的主题，但最终能相互转换，这系列文章将会分成 4 部分依次介绍这 3 个主题，最后再将这些“调料”烩在一起组成一道“圣诞大餐”。感兴趣的可以直接观看原视频。</p>
@@ -165,7 +172,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h1 id="twintree">Twintree</h1>
 
 <p>Twintree 是一种二叉树的表达，对于 1 到 n 的任意排列，按照该排列进行二叉树插入，我们称这棵树为蓝树，然后反转排列再次进行二叉树插入，称这棵树为红树，比如演讲中提到的排列 \(71532846\) 和它的反转 \(64823517\)，插入的二叉树如下图：
-<img src="/images/twintree.drawio.png" alt="image" /></p>
+<img src="/images/twintree.drawio.svg" alt="image" /></p>
 
 <h2 id="叶子和非叶">叶子和非叶</h2>
 <p>注意到蓝树的叶子节点在红树一定是非叶节点，反之亦然，比如 7 在蓝树有 2 个子树，在红树就是叶子节点，那么我们可以列出一个关于左右子树的表格，并把每个节点的左右子树序号填进去，这样没有重复没有遗漏，如下表：</p>
@@ -222,6 +229,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <h1 id="未完待续">未完待续</h1>
 <p>到这 Twintree 就讲完了，构造就是按照排列正着插入二叉树，再反着插入一遍，两个性质从图和表格上看也很容易理解，<a href="/2023/01/baxter.html">下一篇</a>会介绍 Baxter permutation。</p>
+
 
   </article>
   <hr />
@@ -302,6 +310,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
   </li>
   
@@ -315,10 +327,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
-  
-  <li>
-  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
 </div>
@@ -335,7 +343,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="4">algorithm (4)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -375,7 +383,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="3">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -451,13 +459,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
-    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+    <a href="/tags/#combinatorial" title="combinatorial" rel="2">combinatorial</a> &nbsp;
   
-    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+    <a href="/tags/#permutation" title="permutation" rel="2">permutation</a> &nbsp;
   
     <a href="/tags/#floor" title="floor" rel="1">floor</a> &nbsp;
   
     <a href="/tags/#alphabet" title="alphabet" rel="1">alphabet</a> &nbsp;
+  
+    <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
 </div>
 
@@ -479,6 +489,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   
