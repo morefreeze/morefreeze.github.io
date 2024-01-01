@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="Knuth 的 2023 圣诞三重奏其三 Floorplan">
 <title>Knuth 的 2023 圣诞三重奏其三 Floorplan</title>
-<meta property="og:description" content="这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻只能边相邻，不允许角相邻，也就是说不允许组成一个十字的缝隙，只允许出现 T 字形缝隙，4 种方向如 \(\v...">
+<meta property="og:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻...">
 <meta property="og:url" content="http://localhost:4000/2023/01/floorplan.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="Knuth 的 2023 圣诞三重奏其三 Floorplan">
-<meta name="twitter:description" content="这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻只能边相邻，不允许角相邻，也就是说不允许组成一个十字的缝隙，只允许出现 T 字形缝隙，4 种方向如 \(\v...">
+<meta name="twitter:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章这次是三重奏的最后一篇，这篇依然和前两篇（一 twintree，二 Baxter）看起来没什么关系。这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻...">
 <meta name="twitter:url" content="http://localhost:4000/2023/01/floorplan.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -28,15 +28,15 @@
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
-<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-688213545');
+</script>
 <script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
@@ -149,6 +149,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
 <p>这次是三重奏的最后一篇，这篇依然和前两篇（<a href="/2023/01/twintree.html">一 twintree</a>，<a href="/2023/01/baxter.html">二 Baxter</a>）看起来没什么关系。</p>
 
 <p>这次研究的是在一个长方形的地板上进行划分小长方形的方法，首先排除“榻榻米”划分，是指每两个小长方形如果相邻只能边相邻，不允许角相邻，也就是说不允许组成一个十字的缝隙，只允许出现 T 字形缝隙，4 种方向如 \(\vdash\) \(\dashv\) \(\bot\) \(\top\)。如下是一个 floorplan 的划分<a class="anchor" id="read-more"></a>，\(h0-h6\) 是 7 条水平线，\(v0-v5\) 是 6 条竖直线。</p>
@@ -192,7 +199,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <p>最终画出来的顺序就是 \(EDFACIHJGB\)，红色粗线就是每个字母标记的线。</p>
 
-<p>实际从 4 个角都可以作为标准化的开始，作为这次的作业，你可以试一下从左上角开始看右下角形状，以及从右上角开始看左下角形状，观察下最终画出来的图形有什么不同。</p>
+<p>实际从 4 个角都可以作为标准化的开始，作为这次的作业，你可以试一下从左上角开始看右下角形状，以及从右上角开始看左下角形状，观察下最终画出来的图形有什么不同。<a href="/2023/01/trio.html">下一篇终章</a>会证明这些努力的价值。</p>
+
 
   </article>
   <hr />
@@ -205,7 +213,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <li class="previous"><a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation">&larr; Older</a></li>
     
     
-    <li class="disabled"><a>Newer &rarr;</a>
+    <li class="next"><a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章">Newer &rarr;</a></li>
     
   </ul>
 </section>
@@ -273,6 +281,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
   </li>
   
@@ -286,10 +298,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
-  
-  <li>
-  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
 </div>
@@ -306,7 +314,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="4">algorithm (4)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -346,7 +354,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="3">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -422,13 +430,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
-    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+    <a href="/tags/#combinatorial" title="combinatorial" rel="2">combinatorial</a> &nbsp;
   
-    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+    <a href="/tags/#permutation" title="permutation" rel="2">permutation</a> &nbsp;
   
     <a href="/tags/#floor" title="floor" rel="1">floor</a> &nbsp;
   
     <a href="/tags/#alphabet" title="alphabet" rel="1">alphabet</a> &nbsp;
+  
+    <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
 </div>
 
@@ -450,6 +460,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   

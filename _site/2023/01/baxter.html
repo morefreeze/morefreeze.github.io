@@ -9,7 +9,7 @@
 
 <meta property="og:title" content="Knuth 的 2023 圣诞三重奏其二 Baxter permutation">
 <title>Knuth 的 2023 圣诞三重奏其二 Baxter permutation</title>
-<meta property="og:description" content="上一篇 讲了 twintree 是一种数据结构，这篇来介绍一个组合数学上的排列。Baxter permutation 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，比如 3142 就不符合，因为 3 和 2 之间的 ...">
+<meta property="og:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章上一篇 讲了 twintree 是一种数据结构，这篇来介绍一个离散数学上的排列。Baxter permutation 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩...">
 <meta property="og:url" content="http://localhost:4000/2023/01/baxter.html">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
@@ -17,7 +17,7 @@
 <meta name="twitter:site" content="@">
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="Knuth 的 2023 圣诞三重奏其二 Baxter permutation">
-<meta name="twitter:description" content="上一篇 讲了 twintree 是一种数据结构，这篇来介绍一个组合数学上的排列。Baxter permutation 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，比如 3142 就不符合，因为 3 和 2 之间的 ...">
+<meta name="twitter:description" content="  三重奏其一 twintree  三重奏其二 baxter  三重奏其三 floorplan  三重奏终章上一篇 讲了 twintree 是一种数据结构，这篇来介绍一个离散数学上的排列。Baxter permutation 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩...">
 <meta name="twitter:url" content="http://localhost:4000/2023/01/baxter.html">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
@@ -28,15 +28,15 @@
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-P6VTG4"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-P6VTG4');</script>
-<!-- End Google Tag Manager -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-688213545');
+</script>
 <script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
@@ -149,14 +149,22 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <article class="post-content" itemprop="articleBody">
       
-<p><a href="/2023/01/twintree.html">上一篇</a> 讲了 twintree 是一种数据结构，这篇来介绍一个组合数学上的排列。</p>
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
 
-<p><a href="https://en.wikipedia.org/wiki/Baxter_permutation">Baxter permutation</a> 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，比如 3142 就不符合，因为 3 和 2 之间的 14 应当像 32 一样递减，这个被 Knuth 称为 pi permutation，因为它是 3.1415 的近似，另一个不符合的是 2413。给出更形式化的定义像这样，\(\sigma(i)\)表示数字 i 的下标：
+<p><a href="/2023/01/twintree.html">上一篇</a> 讲了 twintree 是一种数据结构，这篇来介绍一个离散数学上的排列。</p>
+
+<p><a href="https://en.wikipedia.org/wiki/Baxter_permutation">Baxter permutation</a> 是这样一种排列，对于每一对 j 和 j+1的位置关系，如果 j 排在 j+1 前，<del>那它俩之间的数字必须严格递增，反之它俩之间的数字必须严格递减，</del>那么所有（如果有）比 j 小的必须排在比 j+1 大（如果有）的前面，反之大的排在小的前面，但小的和小的及大的和大的之间顺序并不重要，比如 3142 就不符合，因为 3 和 2 之间的 14 应当像 32 一样递减，这个被 Knuth 称为 pi permutation，因为它是 3.1415 的近似，另一个不符合的是 2413。给出更形式化的定义像这样，\(\sigma(i)\)表示数字 i 的下标：
 \(i &lt; j &lt; k, \sigma(j) &lt; \sigma(i)&lt;\sigma(k)&lt;\sigma(j+1) \text{ or }\sigma(j+1) &lt; \sigma(k)&lt;\sigma(i)&lt;\sigma(j)\)</p>
 
-<p>上面两个排列是 1 到 4 的排列中唯二不符合的排列，因此 4 以内是 Baxter permutation 的个数是 \(4!-2=22\)，实际的计算公式可以在 wiki 上看到，这里就不贴了。</p>
+<p>上面两个排列是 1 到 4 的排列中唯二不符合的排列，因此 4 以内是 baxter permutation 的个数是 \(4!-2=22\)，实际的计算公式可以在 wiki 上看到，这里就不贴了。</p>
 
 <p>这篇介绍非常短，这个排列有啥用呢，深呼吸，<a href="/2023/01/floorplan.html">第三篇</a>会长一些，但我们快接近真相了。</p>
+
 
   </article>
   <hr />
@@ -237,6 +245,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <h4>Recent Posts</h4>
   
   <li>
+  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  </li>
+  
+  <li>
   <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
   </li>
   
@@ -250,10 +262,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li>
   <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
-  
-  <li>
-  <a href="/2020/12/president-arbitrage.html" title="如何优雅地从总统竞选中套利" rel="bookmark">如何优雅地从总统竞选中套利</a>
   </li>
   
 </div>
@@ -270,7 +278,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="4">algorithm (4)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
@@ -310,7 +318,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#dfs" title="dfs" rel="1">dfs</a> &nbsp;
   
-    <a href="/tags/#tree" title="tree" rel="2">tree</a> &nbsp;
+    <a href="/tags/#tree" title="tree" rel="3">tree</a> &nbsp;
   
     <a href="/tags/#Hadoop" title="Hadoop" rel="3">Hadoop</a> &nbsp;
   
@@ -386,13 +394,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
     <a href="/tags/#howto" title="howto" rel="1">howto</a> &nbsp;
   
-    <a href="/tags/#combinatorial" title="combinatorial" rel="1">combinatorial</a> &nbsp;
+    <a href="/tags/#combinatorial" title="combinatorial" rel="2">combinatorial</a> &nbsp;
   
-    <a href="/tags/#permutation" title="permutation" rel="1">permutation</a> &nbsp;
+    <a href="/tags/#permutation" title="permutation" rel="2">permutation</a> &nbsp;
   
     <a href="/tags/#floor" title="floor" rel="1">floor</a> &nbsp;
   
     <a href="/tags/#alphabet" title="alphabet" rel="1">alphabet</a> &nbsp;
+  
+    <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
 </div>
 
@@ -414,6 +424,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   
   
   <li id="2023" > <a href="/archives/#2023">2023</a></li>
+  
+  
+  
   
   
   
