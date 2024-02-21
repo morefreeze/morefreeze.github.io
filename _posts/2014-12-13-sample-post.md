@@ -137,4 +137,9 @@ click below to reveal
 Spoiler -->                                                                               Not really, this is a just an example
 ```
 
+<details>
+  <summary>Spoiler</summary>
+  Here's nothing
+</details>
+
 click above to reveal
