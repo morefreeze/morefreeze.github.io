@@ -104,7 +104,7 @@ Syntax highlighting via Pygments
 {% endhighlight %}
 
 
-#### highlight with line number.
+#### highlight with line number
 
 {% highlight ruby linenos  %}
 def foo
@@ -126,3 +126,11 @@ here is a \<q\> q tag \</q\>
 
 
 here is a <q> q tag </q>
+
+## Hint tag
+
+click below to reveal
+
+<div class="meta_for_parser tablespecs" style="visibility:hidden">can you see me?</div>
+
+click above to reveal
