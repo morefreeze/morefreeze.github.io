@@ -70,25 +70,21 @@ LuHHHdLuHFLLLFHdLLLLFHHdLLu  # 字母表示
 
 这里要依赖按先点数后花色排序，这个正则做不了，假设 hand 是个字符串存了手牌，例如：`JD TD 9C 8D 7H`，这就简单了，只要把花色删除留下点数，判断是否连续
 
-```python
 {% highlight python linenos  %}
 def is_straight(hand):
   h = re.sub(r'[ SHDC]', '', hand)  // SHDC表示4种花色
   return re.search(h, 'AKQJT98765432')
 {% endhighlight %}
-```
 
 ### 判断四条
 
 四条的判断有点奇妙，首先只留下点数，按程序语言的思路然后判断是否有数字出现了 4 次，但正则是不能计数的，所以这里要重新思考怎么判断 4 次，注意到出现 4 次的点数不在第一位就必定在第二位，那么：
 
-```python
 {% highlight python linenos  %}
 def is_four_of_kind(hand):
   h = re.sub(r'[^2-9TJQKA]', '', hand)  # 只留下点数，其他都删掉
   return re.search(h, r'^.?(.)(.*\1){3}')
 {% endhighlight %}
-```
 
 解释下第三行的正则， `^.?` 用于匹配多余的那一个点数，接着第一个捕获组捕获重复的点数，第二个捕获组 `(.*\1)` 用 `\1` 表示第一捕获组，`.*` 用来捕获的多余点数，例如 63666，第二捕获组在第一次（后面有个{3}意思要匹配三次，这次是第一次）会匹配到 36，也相当于有了一个 6。细心的你可能发现这样写对于 6363666 也可以，但别忘了德扑最多 5 张牌。
 
@@ -134,7 +130,6 @@ def is_four_of_kind(hand):
 
 这里为了可读性，用了多行模式，空格需要用`\`或者`[ ]`写法来和正则的空格区分，答案有点长：
 
-```python
 {% highlight python linenos  %}
 pat = re.compile(r"""
  ^
@@ -146,11 +141,9 @@ pat = re.compile(r"""
 $
 """, re.VERBOSE)
 {% endhighlight %}
-```
 
 这个神奇的正则居然能匹配出斐波那契数列的 ¥，但如作者所言，这个正则有个弱点，它只能匹配所有奇数开始的 3 个数是否符合[1]+[2]=[3]，不能匹配偶数开始的，例如`¥(1) ¥¥(2) ¥¥¥(3) ¥¥¥¥(4) ¥¥¥¥¥¥¥(7)`，可以看到奇数开始的是 1+2=3，3+4=7，而偶数开始 2+3<>4，所以这里还要借助 Python 处理一下：
 
-```python
 {% highlight python linenos  %}
 pat = re.compile(....)
 def is_fib(s):
@@ -158,7 +151,6 @@ def is_fib(s):
   match2 = re.search(pat, s.split(' ', 1)[1])
   return match1 and match2
 {% endhighlight %}
-```
 
 `s.split(' ', 1)[1]` 相当于剃掉第一个空格（含）之前的内容，也就是检查原串的所有偶数开始的序列，到此，这个斐波那契数列判断完满解决。
 
@@ -196,7 +188,6 @@ def is_fib(s):
 
 整理下思路，验证涉及到三组，我们称为 g1,g2,g1g2，我们需要一次只消耗 g1 这组，剩下的 g2, g1g2 就全在前行断言里，当这三组满足后，向后移动一组继续匹配（因为只消耗了一组），于是有了下面的表达式，为了可读性，我用了`(?P<g1>)` 命名捕获组叫 g1，用`(?P=g1)`使用 g1 匹配到的内容，代码如下：
 
-```python
 {% highlight python linenos  %}
 pat2 = re.compile(r'''
     ^(
@@ -213,7 +204,6 @@ pat2 = re.compile(r'''
     $''',
     re.VERBOSE)
 {% endhighlight %}
-```
 
 ## 参考
 
