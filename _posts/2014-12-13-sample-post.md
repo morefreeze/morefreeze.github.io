@@ -131,8 +131,10 @@ here is a <q> q tag </q>
 
 click below to reveal
 
-<div class="meta_for_parser tablespecs" style="visibility:hidden">can you see me?</div>
-
 >! Spoiler text
+
+```hint
+Spoiler -->                                                                               Not really, this is a just an example
+```
 
 click above to reveal
