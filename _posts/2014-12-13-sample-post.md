@@ -18,7 +18,7 @@ Below is just about everything you'll need to style in the theme. Check the sour
 
 ## Heading
 
-```
+```plain
 # Heading 1
 
 ## Heading 2
@@ -95,7 +95,7 @@ width: 100%;
 }
 {% endhighlight %}
 
-#### highlight with line number
+### highlight with line number
 
 {% highlight ruby linenos  %}
 def foo
