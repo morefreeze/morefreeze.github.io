@@ -53,7 +53,7 @@
   gtagScript.async = true;
   gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-688213545';
 
-  var firstScript = document.getElementsByTagName('script')[1];
+  var firstScript = document.getElementsByTagName('script')[0];
   firstScript.parentNode.insertBefore(gtagScript,firstScript);
   gtag('js', new Date());
 
