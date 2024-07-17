@@ -61,4 +61,4 @@ tags: [link, sudoku, pentomino]
 ## 总结
 Dancing Link 并不神秘，它指的就是用四向链表的移除和恢复操作来达到快速迭代 algorithm X 的过程。
 
-[^1]: https://github.com/morefreeze/SapientialPyramid
+[^1]: <https://github.com/morefreeze/SapientialPyramid>
