@@ -11,8 +11,8 @@ tags: [link, sudoku, pentomino]
 
 
 ## 引言
-我以前玩过一个叫智慧金字塔的儿童益智玩具，后来我发现它居然早在 [NOI 2005 就出现过](https://www.luogu.com.cn/problem/P4205)了，
-我还写了一个程序[^1]专门来解这些题目，
+我以前玩过一个叫智慧金字塔的儿童益智玩具，后来我发现它居然早在 NOI 2005 就出现过[^1]了，
+我还写了一个程序[^2]专门来解这些题目，
 上回说到将双向链表和 Algorithm X 结合起来就是 Dancing link了，
 这次我们就来看看最关键的建模方法。
 <!--more-->
@@ -42,7 +42,7 @@ tags: [link, sudoku, pentomino]
 |--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
 | 1| 0| 0|..| 1| 0|..| 1| 1| 1|..| 0| 0| 0| 0| 1|..|
 
-这个矩阵的行数就是所有形状的所有可能放入底板的集合个数。
+这个矩阵的行数就是**所有形状的所有可能放入底板的集合个数**。
 
 ### 精准匹配
 构造完矩阵这个题就解决了一半，剩下就是一个精准匹配问题：
@@ -59,6 +59,8 @@ tags: [link, sudoku, pentomino]
 那就可以做到快速地移除和恢复，对应到 algorithm X 就相当与快速地选择一行并处理，以及回退。
 
 ## 总结
-Dancing Link 并不神秘，它指的就是用四向链表的移除和恢复操作来达到快速迭代 algorithm X 的过程。
+Dancing Link 并不神秘，它指的就是用四向链表的移除和恢复操作来达到快速迭代 algorithm X 的过程。我没有相当这篇居然只有这么点，因为脏活都在上一篇[^3]介绍过了，所以这篇只要理解了如何建模，那么各种图形摆放都不成问题。
 
-[^1]: <https://github.com/morefreeze/SapientialPyramid>
+[^1]: <https://www.luogu.com.cn/problem/P4205>
+[^2]: <https://github.com/morefreeze/SapientialPyramid>
+[^3]: </2024/07/exact-cover.html>
