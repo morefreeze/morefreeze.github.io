@@ -59,8 +59,8 @@ tags: [link, sudoku, pentomino]
 那就可以做到快速地移除和恢复，对应到 algorithm X 就相当与快速地选择一行并处理，以及回退。
 
 ## 总结
-Dancing Link 并不神秘，它指的就是用四向链表的移除和恢复操作来达到快速迭代 algorithm X 的过程。我没有相当这篇居然只有这么点，因为脏活都在上一篇[^3]介绍过了，所以这篇只要理解了如何建模，那么各种图形摆放都不成问题。
+Dancing Link 并不神秘，它指的就是用四向链表的移除和恢复操作来达到快速迭代 algorithm X 的过程。我没有相当这篇居然只有这么点，因为脏活都在[上一篇][last]介绍过了，所以这篇只要理解了如何建模，那么各种图形摆放都不成问题。
 
+[last]: /2024/07/exact-cover.html
 [^1]: <https://www.luogu.com.cn/problem/P4205>
 [^2]: <https://github.com/morefreeze/SapientialPyramid>
-[^3]: </2024/07/exact-cover.html>
