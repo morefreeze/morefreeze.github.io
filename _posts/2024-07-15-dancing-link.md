@@ -20,10 +20,10 @@ tags: [link, sudoku, pentomino]
 ## 智慧珠
 
 ### 题目背景
-![alt text](../images/dancing_shapes.png)
+![alt text](/images/dancing_shapes.png)
 智慧金字塔在那年的题目里叫智慧珠，它有总共 12 种形状，这些形状
 可以通过旋转和翻转来合理地放到底板上，只要尺寸合适，例如下图就是一种摆法：
-![alt text](../images/dancing_solution.png)
+![alt text](/images/dancing_solution.png)
 
 这个题最直接的思路是将所有形状可能的摆放枚举出来，
 然后将底板坐标化，如图按第一象限标记，左下角是(0, 0)，右顶点就是(0, 9)，上顶点是(9, 0)，总共有 55 个点可以摆放。

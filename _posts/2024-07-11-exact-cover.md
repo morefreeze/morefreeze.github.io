@@ -82,7 +82,7 @@ tags: [link, puzzle, sudoku]
 
 ## 双向链表 Doubly Linked Lists
 双向链表大家在数据结构课上都学过吧。咱们也可以把上面的矩阵转换成链表来表示。当是 1 的时候就加入一个链表节点，是 0 就不加，每个节点都要记录自己在矩阵里的坐标。这里可不光是左右双向，还是上下双向。再给每一列增加一个头指针，就像这样：
-![double link](../images/doubly_link.png)
+![double link](/images/doubly_link.png)
 对于水平或竖直方向的链表移除操作非常简单：
 
 ```python
@@ -102,8 +102,8 @@ x.left.right = x
 一切准备就绪，接下来将这些合在一起就是Dancing Link了，
 Dancing Link是一个奇妙的建模方法，
 它不仅可以解数独，如果建模得当还能解决各种拼图问题，比如
-![alt text](../images/pentomino.png)
-![alt text](../images/heximonds.png)
+![alt text](/images/pentomino.png)
+![alt text](/images/heximonds.png)
 
 不过我觉得这篇文章我已经讲的够多了，
 我决定留到下一篇再说。
