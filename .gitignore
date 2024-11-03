@@ -4,3 +4,7 @@ _site/wiki/index.html
 
 .ropeproject
 .jekyll-cache
+
+__pycache__
+.hypothesis
+.vscode
