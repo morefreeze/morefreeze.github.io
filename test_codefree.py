@@ -95,5 +95,14 @@ def test_caching():
     result2 = find_prime_codes(n, alphabet)
     assert result1 == result2
 
+# Test specific case for find_prime_codes
+def test_find_prime_codes_specific():
+    n = 4
+    alphabet = '012'
+    expected_result = ['0001', '0002', '0011', '0012', '0021', '0022', '0102', '0111', '0112', '0121', '0122', '0211', '0212', '0221', '0222', '1112', '1122', '1222']
+    result = find_prime_codes(n, alphabet)
+    assert len(result) == 18
+    assert sorted(result) == sorted(expected_result)  # Compare sorted lists to ignore order
+
 if __name__ == "__main__":
     pytest.main([__file__]) 
