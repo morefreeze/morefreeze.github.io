@@ -2,7 +2,7 @@
 layout: post
 title: "从零单排回溯算法 algorithm B"
 description: ""
-category: article
+category: algorithm
 comments: true
 tags: [backtrack, knuth]
 ---
