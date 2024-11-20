@@ -2,7 +2,7 @@
 layout: post
 title: "反方向的回溯——Walker算法"
 description: ""
-category: article
+category: algorithm
 comments: true
 tags: [backtrack, knuth, walker]
 ---
