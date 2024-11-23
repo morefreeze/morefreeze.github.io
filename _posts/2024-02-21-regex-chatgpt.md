@@ -57,7 +57,7 @@ LuHHHdLuHFLLLFHdLLLLFHHdLLu  # 字母表示
 
 <details>
   <summary>建议你先自己想一想，再往下看答案。</summary>
- 这题的诀窍是每次考虑相邻的两个符号，枚举所有的可能`^(((?=LL|Lu|LF|HH|Hd|HF|uH|dL|FH|FL)|(?=.$))[LHudF])+$`
+ 这题的诀窍是每次考虑相邻的两个符号，枚举所有的可能<pre>^(((?=LL|Lu|LF|HH|Hd|HF|uH|dL|FH|FL)|(?=.$))[LHudF])+$</pre>
 </details>
 
 ## 难题 13 德扑
