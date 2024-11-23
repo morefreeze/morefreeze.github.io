@@ -7,20 +7,18 @@ comments: true
 tags: [sample-post]
 ---
 
-* Table of Contents
-{:toc}
-
+- Table of Contents
+  {:toc}
 
 This is a sample post.
 
 Below is just about everything you'll need to style in the theme. Check the source code to see the many embedded elements within paragraphs.
+
 <!--more-->
-
-
 
 ## Heading
 
-~~~
+```
 # Heading 1
 
 ## Heading 2
@@ -28,9 +26,7 @@ Below is just about everything you'll need to style in the theme. Check the sour
 ### Heading 3
 
 #### Heading 4
-~~~
-
-
+```
 
 ## Body text
 
@@ -40,26 +36,24 @@ This is figure
 
 ![Elaphurus davidianus](https://i.imgur.com/Mdc4szJl.jpg "Père David's deer")
 
-*This is emphasized*.
+_This is emphasized_.
 
- 53 = 125. Water is H<sub>2</sub>O. 
+53 = 125. Water is H<sub>2</sub>O.
 
-The New York Times <cite>(That’s a citation)</cite>. 
+The New York Times <cite>(That’s a citation)</cite>.
 
-<u>Underline</u>. 
+<u>Underline</u>.
 
-
-<del>HTML and CSS are our tools</del>. 
+<del>HTML and CSS are our tools</del>.
 
 ## Blockquotes
 
 > Justification:
-> This species is listed as Extinct in the Wild, as all populations are still under captive management. The captive population in China has increased in recent years, and the possibility remains that free-ranging populations can be established some time in the near future. When that happens, its Red List status will need to be reassessed. 
+> This species is listed as Extinct in the Wild, as all populations are still under captive management. The captive population in China has increased in recent years, and the possibility remains that free-ranging populations can be established some time in the near future. When that happens, its Red List status will need to be reassessed.
 
 > I follow up the quest. Despite of day and night and death and hell.
+>
 > <center> -- Idylls of the King, Tennyson </center>
-
-
 
 ## List Types
 
@@ -73,23 +67,21 @@ The New York Times <cite>(That’s a citation)</cite>.
 
 ### Unordered Lists
 
-* Item one
-* Item two
-* Item three
+- Item one
+- Item two
+- Item three
 
 ## Tables
 
 | Header1 | Header2 | Header3 |
-|:--------|:-------:|--------:|
-| cell1   | cell2   | cell3   |
-| cell4   | cell5   | cell6   |
-| cell7   | cell8   | cell9   |
+| :------ | :-----: | ------: |
+| cell1   |  cell2  |   cell3 |
+| cell4   |  cell5  |   cell6 |
+| cell7   |  cell8  |   cell9 |
 
-
-| Kingdom | Phylum  | Class | Order | Family |
-|:------:|:------:|:------:|:------:|:------:| 
-|ANIMALIA|CHORDATA|MAMMALIA|CETARTIODACTYLA|CERVIDAE|
-
+| Kingdom  |  Phylum  |  Class   |      Order      |  Family  |
+| :------: | :------: | :------: | :-------------: | :------: |
+| ANIMALIA | CHORDATA | MAMMALIA | CETARTIODACTYLA | CERVIDAE |
 
 ## Code Snippets
 
@@ -97,33 +89,29 @@ Syntax highlighting via Pygments
 
 {% highlight css %}
 #container {
-  float: left;
-  margin: 0 -240px 0 0;
-  width: 100%;
+float: left;
+margin: 0 -240px 0 0;
+width: 100%;
 }
 {% endhighlight %}
-
 
 #### highlight with line number
 
 {% highlight ruby linenos  %}
 def foo
-  puts 'foo'
+puts 'foo'
 end
 {% endhighlight %}
 
-
-## $$\LaTeX$$ 
+## $$\LaTeX$$
 
 you can use latex with <q>double $$ </q>
 
 $$e^{i\pi}+1=0$$
 
-
 ## \<q\> tag
 
 here is a \<q\> q tag \</q\>
-
 
 here is a <q> q tag </q>
 
@@ -131,7 +119,9 @@ here is a <q> q tag </q>
 
 click below to reveal
 
->! Spoiler text
+> ! Spoiler text
+
+click above to reveal
 
 ```hint
 Spoiler -->                                                                               Not really, this is a just an example
@@ -141,5 +131,3 @@ Spoiler -->                                                                     
   <summary>Spoiler</summary>
   Here's nothing
 </details>
-
-click above to reveal

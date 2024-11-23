@@ -23,7 +23,7 @@
     "ol-prefix": false,
     "strong-style": false,
     "MD033": {
-      "allowed_elements": ["iframe", "span", "div", "q", "center"]
+      "allowed_elements": ["iframe", "span", "div", "q", "center", "details", "summary"]
     },
     "ul-indent": false
 
