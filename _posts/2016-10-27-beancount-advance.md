@@ -8,6 +8,7 @@ tags: [beancount, double-entry]
 ---
 {% include JB/setup %}
 
+* Table of Contents
 {:toc}
 
 [上一篇](/2016/10/beancount-thinking.html)介绍了 beancount 的一般使用方法，以及我个人的记账套路。

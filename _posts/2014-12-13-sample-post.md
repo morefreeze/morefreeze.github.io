@@ -7,8 +7,8 @@ comments: true
 tags: [sample-post]
 ---
 
-- Table of Contents
-  {:toc}
+* Table of Contents
+{:toc}
 
 This is a sample post.
 
