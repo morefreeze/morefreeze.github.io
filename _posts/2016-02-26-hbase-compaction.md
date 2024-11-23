@@ -11,7 +11,7 @@ tags: [HBase, Hadoop]
 Merge
 ---
 
-接着上回的[Split](/tech/2015/12/28/hbase-split.html)说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看[OnlineMerge][1]和[Master initiated automatic region merge][2]。
+接着上回的[Split](/2015/12/hbase-split.html)说，既然有split，那应该对应的有merge吧。然而并没有，也不是完全没有，只是对merge的支持并不像split这么自然，有一些不太稳(kao)定(pu)的工具，可以看[OnlineMerge][1]和[Master initiated automatic region merge][2]。
 <!--more-->
 
 Compaction

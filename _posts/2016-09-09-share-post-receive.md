@@ -8,7 +8,7 @@ tags: [git]
 ---
 {% include JB/setup %}
 
-I had shared a precommit [here](/tech/2016/05/11/share-precommit-hook.html) which help you check your code before your commit.
+I had shared a precommit [here](/2016/05/share-precommit-hook.html) which help you check your code before your commit.
 If you want to deploy it on test machine even production machine, you may need this.
 <!--more-->
 
