@@ -26,5 +26,6 @@
         "addWords": true,
         "scope": "workspace"
       }
-    }
+    },
+    "cSpell.ignoreWords": []
 }

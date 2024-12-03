@@ -1,22 +1,26 @@
 ---
 layout: post
 title: "再战commafree code——暴力挑选"
-description: "介绍"
+description: "介绍如何通过暴力搜索和回溯算法来构建无逗号码集合"
 category: algorithm
 comments: true
 tags: [algorithm, knuth, code]
 ---
 
 {% include JB/setup %}
-## 引言
-书接上文，上次我们生成了 m 等于 3， n 等于 4 时，所有可能的 commafree 码，接下来我们要做的就是从这 18 个码中挑选出一批特定的码，来组成一个 commafree 集合，使得这个集合里面任意的两个码相连后，除去前 n 个和末 n 个字母组成的词后，中间所有的长度为 n 的词都不出现在集合里。
-因为选出的码自己可以和自己拼接，比如选出 0001，那么 00010001 中间所有的长度为 4 的词（即 0010，0100，1000）都不会出现在集合里，也就是说 0001 的所有移位都不可能再加进集合了，所以我们只需要对于每个主码，从它的 4 个移位中挑选一个出来加入集合。
 
+## 引言
+
+在[上一篇文章](/2024/10/commafree-code-first.html)中，我们生成了参数 m=3、n=4 时的所有可能 commafree code。本文将介绍如何从这18个码中挑选出一个最大的子集，使其满足 commafree code 的性质：当集合中任意两个码相连接时，不考虑首尾各n个字母后，中间所有长度为n的子串都不在这个集合中。
+
+由于一个码可以和自身连接，比如选择0001后，序列00010001中的所有长度为4的中间子串(0010、0100、1000)都不能出现在最终集合中。这意味着如果我们选择了某个码，它的所有循环移位都不能再加入集合。因此，对每个主码，我们只需要从它的4个循环移位中选择一个加入集合。
 <!--more-->
 
-## 暴力搜索
-我们能想到的最简单的方法就是暴力搜索，对于每个主码，从它的 4 个移位中挑选一个出来，然后检查是否满足条件，如果满足，则加入集合，最后输出最大的集合。
-我们用伪码描述一下这个选择过程：
+## 暴力搜索方法
+
+最直接的方法是采用暴力搜索。对每个主码，我们尝试从它的4个循环移位中选择一个，然后验证是否满足 commafree code 的条件。如果满足，就将其加入结果集合。
+
+以下是搜索过程的伪代码：
 
 ```python
 def pick_code(codes):
@@ -24,38 +28,44 @@ def pick_code(codes):
         if len(result) > max_result:
             max_result = result
         return
-    for each code in codes:
-        for each shift in shifts:
-            if is_commafree(code + shift):
-                add shift to result
+        
+    for code in codes:
+        for shift in get_shifts(code):
+            if is_commafree(result + [shift]):
+                result.append(shift)
                 pick_code(codes - {code})
+                result.pop()
 ```
 
-通过暴力搜索，我们发现如果选得好，可以很快一路确定下去，比如第一步选0001，第二步选0011，接下来我们可以看到分别在第 3 步到 第 7 步只能选0002，0021，0111，0211和2111。
+通过实践发现，如果选择策略得当，搜索过程可以快速收敛。例如，按以下顺序选择：
+1. 第一步选择0001
+2. 第二步选择0011
+3. 接下来只能依次选择0002、0021、0111、0211和2111
 
-## 回溯
-每一步的移位选择是一个很有技术的 trade off, 如果选得好，可以很快一路确定下去，如果选得不好，则需要很多步才能确定。
-### 稀疏集合
-我们引入一个数据结构来记录每一步做出的选择，一个链表有HEAD和TAIL指针，他们中间记录了一个集合，实际在链表中的位置并不是从小到大，同时还有一个反向数组记录元素对应指针的位置，如下图：
-![alt text](/images/commafree-sparse_set.png)
+## 优化搜索策略
 
+### 稀疏集合数据结构
+
+为了高效地记录和更新搜索过程中的选择，我们引入稀疏集合(Sparse Set)这个数据结构。它包含HEAD和TAIL指针，用于维护一个动态集合，同时使用反向数组记录元素在集合中的位置。
 它支持快速的添加和删除元素，以及遍历功能。下面简单描述下它的底层数据结构和操作：
 
-#### 底层数据结构
 分配两组内存中连续的空间，空间大小取决于集合最大个数和集合元素的范围，比如我们只需要存 0~M-1，
-那只需要分配2个M长的内存空间就够了。我们用 `MEM[HEAD]` 表示集合开头，`MEM[TAIL]` 表示集合结束后的一个位置，
-`MEM[IHEAD]` 表示0对应在集合的位置，以此类推 `MEM[IHEAD+M-1]` 是最后的M-1对应的位置。
+那只需要分配2个M长的内存空间就够了。我们用 `MEM[HEAD]` 表示集合开头，`MEM[TAIL]` 表示
+集合结束后的一个位置，
+`MEM[IHEAD]` 表示0对应在集合的位置，以此类推 `MEM[IHEAD+M-1]` 是最后的M-1对应的位
+置。
+![稀疏集合示意图](/images/commafree-sparse_set.png)
 
-#### 添加元素进集合
-比如现在集合是391，添加进4，那么我们只要把4加到`TAIL`，并让`MEM[IHEAD+4]`指向TAIL，`TAIL+=1`就好，
-整理成伪码分为3步：
+#### 核心操作
+
+1. **添加元素**
 
 ```python
-def add_set(mem, head, tail, ihead, x):
-    if head <= mem[ihead+x] < tail:
+def add_to_set(mem, head, tail, ihead, x):
+    if head <= mem[ihead + x] < tail:
         return
     mem[tail] = x
-    mem[ihead+x] = tail
+    mem[ihead + x] = tail
     tail += 1
 ```
 
@@ -65,27 +75,49 @@ def add_set(mem, head, tail, ihead, x):
 比如现在要删除集合中的9，那么我们要把9交换到`MEM[TAIL-1]`位置，更新`MEM[IHEAD]`，然后`TAIL-=1`就好，
 
 ```python
-def del_set(mem, head, tail, ihead, x):
-    if not (head <= mem[ihead+x] < tail):
+def remove_from_set(mem, head, tail, ihead, x):
+    if not (head <= mem[ihead + x] < tail):
         return
     if head == tail:
         return
-    p = mem[ihead+x] # 记录即将被删元素的指针
+    p = mem[ihead + x] # 记录即将被删元素的指针
     tail -= 1
     if p != tail:
         y = mem[tail]
         mem[tail], mem[p] = mem[p], y # 交换被删元素和末尾元素
-        mem[ihead+x], mem[ihead+y] = tail, p # 交换被删元素和末尾元素反向指针
+        mem[ihead + x], mem[ihead + y] = tail, p # 交换被删元素和末尾元素反向指针
 ```
 
 完成的样子如下：
 ![alt text](/images/commafree-del_sparse.png)
 
 ### 红蓝绿
+当m=3时，只有18个主串需要考虑，搜索空间还不大（注意复杂度时指数级的，因为常数小所以我们说它不大），
+但当m=4时事情就变得完全不一样了，因为有60个主串了，看起来时间不可接受了？接下来我们来看看如何只用少量内存空间来完成搜索的更新和回溯。
 
+首先我们有一个函数alpha，它可以正确地将长度n的词转成十进制，比如$alpha(0102)_3$=11。
+然后MEM的0~M-1记录了颜色:
+- 红色代表不能选
+- 绿色代表选择
+- 蓝色代表待定
 
-## 参考
+我们使用7个稀疏集合来维护状态：
+- P1(x)、P2(x)、P3(x)：记录蓝色词的前缀匹配 $x_1\star \star \star$，$x_1x_2 \star \star$，$x_1x_2x_3 \star$；
+- S1(x)、S2(x)、S3(x)：记录蓝色词的后缀匹配 $\star \star \star x_4$，$\star 
+\star x_3x_4$，$\star x_2x_3x_4$；
+- CL(x)：记录蓝色词的循环移位集合 $\{x_1x_2x_3x_4,x_2x_3x_4x_1,x_3x_4x_1x_2,
+x_4x_1x_2x_3\}$；
 
-[a sparse-set representation][sparse]
+每个集合有3个数组，除了上面介绍必备的链表和反向数组外，还有一个数组用来记录TAIL指针。
 
-[sparse]: <[a sparse-set representation](https://dl.acm.org/doi/10.1145/176454.176484)>
+#### 举个栗子
+这么讲有点抽象，还是来看个例子
+![alt text](/images/commafree-ex.png)
+
+## 小结
+
+本文介绍了构建 commafree code 集合的基本思路和关键数据结构。在下一篇文章中，我们将详细讨论具体的搜索算法实现。
+
+## 参考资料
+
+- [A Sparse-Set Representation](https://dl.acm.org/doi/10.1145/176454.176484)
