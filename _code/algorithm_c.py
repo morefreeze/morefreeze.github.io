@@ -1,93 +1,154 @@
+from collections import defaultdict
+from sparse_set import SparseSet
+
+
+BLUE = 0
+GREEN = 1
+RED = 2
+
+class Alpha:
+    def __init__(self, x: int, m: int):
+        self.x = x
+        self.m = m
+        self._s = None
+
+    @staticmethod
+    def from_str(s, m):
+        return Alpha(int(s, m), m)
+    
+    def to_str(self):
+        '''convert to m bit string'''
+        if self._s is None:
+            if self.x == 0:
+                self._s = '0'
+                return self._s
+            x = self.x
+            s = ''
+            while x > 0:
+                s = str(x % self.m) + s
+                x = x // self.m
+            self._s = s
+        return self._s
+    
+    def to_int(self):
+        return self.x
+    
+    def to_hex(self) -> int:
+        hex_str = self.to_str()
+        return int(hex_str, 16)
+
 class CommaFreeCode:
-    def __init__(self, base, g):
-        self.base = base
-        self.base_power_4 = base ** 4
-        self.code_length = (self.base_power_4 - base ** 2) // 4
+    def __init__(self, m, g):
+        self.m = m
+        self.base_power_4 = m ** 4
+        self.code_length = (self.base_power_4 - m ** 2) // 4
         self.memory_size = int(23.5 * self.base_power_4)
-        self.memory = [0] * self.memory_size
-        self.timestamp = [0] * self.memory_size
-        self.undo_stack = []
-        self.undo_pointer = 0
-        self.current_stamp = 0
-        self.free_list = list(range(self.code_length))
-        self.index_free_list = list(range(self.code_length))
-        self.solution_vector = [0] * (self.code_length + 1)
-        self.current_index = [0] * (self.code_length + 1)
-        self.current_state = [0] * (self.code_length + 1)
-        self.undo_stack_pointer = [0] * (self.code_length + 1)
-        self.free_index = self.code_length
-        self.state_index = self.code_length - g
+        self.state = [BLUE] * self.base_power_4
+        self.p1 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.p2 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.p3 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.s1 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.s2 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.s3 = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.cl = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.alf = [0] * 16**3 * self.m
+        self.stamp = [0] * self.memory_size
+        self.sigma = 0
         self.poison_value = 22 * self.base_power_4
         self.poison_pointer = self.poison_value - 1
         self.initialize()
 
+
     def initialize(self):
         # Initialize ALF, timestamp, and other structures
-        for a in range(self.base):
-            for b in range(self.base):
-                for c in range(self.base):
-                    for d in range(self.base):
-                        alpha = (a << 12) + (b << 8) + (c << 4) + d
-                        self.memory[alpha] = (a * self.base ** 3) + (b * self.base ** 2) + (c * self.base) + d
-        self.memory[self.poison_pointer] = self.poison_value
-        self.free_list = list(range(self.code_length))
-        self.index_free_list = list(range(self.code_length))
-        self.level = 1
-        self.trial_word = 0x0001
-        self.trial_class = 0
-        self.slack = self.code_length - self.state_index
-        self.free_index = self.code_length
-        self.undo_pointer = 0
-
-    def search(self):
-        while True:
-            if self.level > self.code_length:
-                self.visit_solution()
-                self.level -= 1
-                if self.level == 0:
-                    break
-                self.trial_word = self.solution_vector[self.level]
-                self.trial_class = self.current_index[self.level]
-                self.free_index += 1
-                if self.trial_word < 0:
-                    continue
-                self.slack = self.current_state[self.level]
-                self.undo_to(self.undo_stack_pointer[self.level])
-                self.bump_stamp()
-                self.redden(self.trial_word)
+        for i in range(self.base_power_4):
+            alf = Alpha(i, self.m)
+            a = alf.to_str()
+            if a[:2] == a[-2:]:
+                self.state[i] = RED
             else:
-                self.undo_stack_pointer[self.level] = self.undo_pointer
-                self.current_stamp += 1
-                if self.trial_word < 0:
-                    if self.slack == 0 or self.level == 1:
-                        self.level -= 1
-                        if self.level == 0:
-                            break
-                        self.trial_word = self.solution_vector[self.level]
-                        self.trial_class = self.current_index[self.level]
-                        self.free_index += 1
-                        if self.trial_word < 0:
-                            continue
-                        self.slack = self.current_state[self.level]
-                        self.undo_to(self.undo_stack_pointer[self.level])
-                        self.bump_stamp()
-                        self.redden(self.trial_word)
-                    else:
-                        self.slack -= 1
-                else:
-                    self.make_green(self.trial_word)
-                    self.solution_vector[self.level] = self.trial_word
-                    self.current_index[self.level] = self.trial_class
-                    self.current_state[self.level] = self.slack
-                    p = self.index_free_list[self.trial_class]
-                    self.free_index -= 1
-                    if p != self.free_index:
-                        y = self.free_list[self.free_index]
-                        self.free_list[p] = y
-                        self.index_free_list[y] = p
-                        self.free_list[self.free_index] = self.trial_class
-                        self.index_free_list[self.trial_class] = self.free_index
-                    self.level += 1
+                self.state[i] = BLUE
+            tt = alf.to_hex()
+            self.alf[tt] = alf
+        # 0100 is red because I've chosen 0001
+        self.state[Alpha.from_str('0100', self.m).to_int()] = RED
+        for i in range(self.base_power_4):
+            if self.state[i] != RED:
+                al = Alpha(i, self.m)
+                alf = self.prefix(al.to_hex())
+                self.p1[alf].add(i)
+
+    def prefix(self, alpha):
+        return (alpha & 0xF000)
+
+    def prefix2(self, alpha):
+        return (alpha & 0xFF00)
+
+    def prefix3(self, alpha):
+        return (alpha & 0xFFF0)
+
+    def suffix(self, alpha):
+        return (alpha & 0x000F) << 12
+
+    def suffix2(self, alpha):
+        return (alpha & 0x00FF) << 8
+
+    def suffix3(self, alpha):
+        return (alpha & 0x0FFF) << 4
+
+    def cl(self, alpha):
+        # Implement the logic to calculate cl(alpha)
+        pass
+
+    # def search(self):
+        # while True:
+        #     if self.level > self.code_length:
+        #         self.visit_solution()
+        #         self.level -= 1
+        #         if self.level == 0:
+        #             break
+        #         self.trial_word = self.solution_vector[self.level]
+        #         self.trial_class = self.current_index[self.level]
+        #         self.free_index += 1
+        #         if self.trial_word < 0:
+        #             continue
+        #         self.slack = self.current_state[self.level]
+        #         self.undo_to(self.undo_stack_pointer[self.level])
+        #         self.bump_stamp()
+        #         self.redden(self.trial_word)
+        #     else:
+        #         self.undo_stack_pointer[self.level] = self.undo_pointer
+        #         self.current_stamp += 1
+        #         if self.trial_word < 0:
+        #             if self.slack == 0 or self.level == 1:
+        #                 self.level -= 1
+        #                 if self.level == 0:
+        #                     break
+        #                 self.trial_word = self.solution_vector[self.level]
+        #                 self.trial_class = self.current_index[self.level]
+        #                 self.free_index += 1
+        #                 if self.trial_word < 0:
+        #                     continue
+        #                 self.slack = self.current_state[self.level]
+        #                 self.undo_to(self.undo_stack_pointer[self.level])
+        #                 self.bump_stamp()
+        #                 self.redden(self.trial_word)
+        #             else:
+        #                 self.slack -= 1
+        #         else:
+        #             self.make_green(self.trial_word)
+        #             self.solution_vector[self.level] = self.trial_word
+        #             self.current_index[self.level] = self.trial_class
+        #             self.current_state[self.level] = self.slack
+        #             p = self.index_free_list[self.trial_class]
+        #             self.free_index -= 1
+        #             if p != self.free_index:
+        #                 y = self.free_list[self.free_index]
+        #                 self.free_list[p] = y
+        #                 self.index_free_list[y] = p
+        #                 self.free_list[self.free_index] = self.trial_class
+        #                 self.index_free_list[self.trial_class] = self.free_index
+        #             self.level += 1
 
     def visit_solution(self):
         # Process the solution found
@@ -113,8 +174,10 @@ class CommaFreeCode:
         self.current_stamp += 1
         if self.current_stamp == 0:
             self.current_stamp = 1
-            self.timestamp = [0] * len(self.timestamp)
+            self.stamp = [0] * len(self.stamp)
 
-# Example usage
-code = CommaFreeCode(base=4, g=57)
-code.search()
+if __name__ == '__main__':
+    # Example usage
+    code = CommaFreeCode(m=4, g=57)
+    code.initialize()
+    # code.search()
