@@ -38,6 +38,66 @@ class Alpha:
         hex_str = self.to_str()
         return int(hex_str, 16)
 
+class ThreeLines:
+    def __init__(self, m, mask):
+        # if mask starts with 1, it is a prefix set
+        # if mask starts with 0, it is a suffix set
+        self.m = m
+        self.base_power_4 = m ** 4
+        self.index = [-1] * self.base_power_4
+        self.mem = [0] * self.base_power_4
+        self.tail = [0] * self.base_power_4
+        self.mask = mask
+        self.shift = self.calculate_shift(mask)
+
+    def calculate_shift(self, mask):
+        if mask == 0x000F:
+            return 12
+        elif mask == 0x00FF:
+            return 8
+        elif mask == 0x0FFF:
+            return 4
+        return 0
+
+    def start(self, x):
+        alf = Alpha(x, self.m)
+        hex_st = alf.to_hex() & self.mask if self.mask & 0x8000 else (alf.to_hex() & self.mask) << self.shift
+        alf = Alpha(hex_st, 16)
+        return int(alf.to_str(), self.m)
+
+    def add(self, x):
+        # x is hex number
+        if self.index[x] == -1:
+            st = self.start(x)
+            self.index[x] = st + self.tail[st]
+            self.mem[self.index[x]] = x
+            self.tail[st] += 1
+
+    def __len__(self):
+        return sum([self.mem[i] != -1 for i in range(self.base_power_4)])
+    
+    def remove(self, x):
+        if self.index[x] != -1:
+            st = self.start(x)
+            last_element = self.mem[self.tail[st] - 1]
+            pos = self.index[x]
+            self.mem[pos] = last_element
+            self.index[last_element] = pos
+            self.index[x] = -1
+            self.tail[st] -= 1
+
+    def ss_len(self, x):
+        st = self.start(x)
+        return self.tail[st]
+
+    def __iter__(self):
+        for i in range(self.base_power_4):
+            if self.index[i] != -1:
+                yield self.mem[i]
+
+    def __contains__(self, x):
+        return self.index[x] != -1
+
 class CommaFreeCode:
     def __init__(self, m, g):
         self.m = m
@@ -45,18 +105,24 @@ class CommaFreeCode:
         self.code_length = (self.base_power_4 - m ** 2) // 4
         self.memory_size = int(23.5 * self.base_power_4)
         self.state = [BLUE] * self.base_power_4
-        self.p1 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.p2 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.p3 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.s1 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.s2 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.s3 = defaultdict(lambda : SparseSet(self.base_power_4))
-        self.cl = defaultdict(lambda : SparseSet(self.base_power_4))
+        self.p1 = ThreeLines(m, 0xF000)
+        self.p2 = ThreeLines(m, 0xFF00)
+        self.p3 = ThreeLines(m, 0xFFF0)
+        self.s1 = ThreeLines(m, 0x000F)
+        self.s2 = ThreeLines(m, 0x00FF)
+        self.s3 = ThreeLines(m, 0x0FFF)
+        # self.cl = ThreeLines(m, 0xFFFF)
         self.alf = [0] * 16**3 * self.m
         self.stamp = [0] * self.memory_size
         self.sigma = 0
         self.poison_value = 22 * self.base_power_4
         self.poison_pointer = self.poison_value - 1
+        self.free = [0] * self.code_length
+        self.ifree = [0] * self.code_length
+        self.level = 0
+        self.x = 0 # x is trial word
+        self.trial_class = 0
+        self.solution = []
         self.initialize()
 
 
@@ -77,13 +143,30 @@ class CommaFreeCode:
         for i in range(self.base_power_4):
             if self.state[i] != RED:
                 al = Alpha(i, self.m)
-                self.p1[self.prefix(al.to_hex())].add(i)
-                self.p2[self.prefix2(al.to_hex())].add(i)
-                self.p3[self.prefix3(al.to_hex())].add(i)
-                self.s1[self.suffix(al.to_hex())].add(i)
-                self.s2[self.suffix2(al.to_hex())].add(i)
-                self.s3[self.suffix3(al.to_hex())].add(i)
+                self.p1.add(i)
+                self.p2.add(i)
+                self.p3.add(i)
+                self.s1.add(i)
+                self.s2.add(i)
+                self.s3.add(i)
+        # for i in range(self.base_power_4):
+        #     if self.state[i] != BLUE or self.
                 # self.cl[self.cl(al.to_hex())].add(i)
+        
+        for i in range(self.code_length):
+            self.free[i] = i
+            self.ifree[i] = i
+
+        # New initialization for search-related arrays
+        self.solution_vector = [-1] * (self.code_length + 1)
+        self.current_index = [0] * (self.code_length + 1)
+        self.current_state = [0] * (self.code_length + 1)
+        self.free_list = list(range(self.code_length))
+        self.index_free_list = list(range(self.code_length))
+        self.free_index = self.code_length
+        self.undo_stack = []
+        self.undo_pointer = 0
+        self.current_stamp = 1
 
     def prefix(self, alpha):
         return (alpha & 0xF000)
@@ -107,55 +190,71 @@ class CommaFreeCode:
         # Implement the logic to calculate cl(alpha)
         return alpha
 
-    # def search(self):
-        # while True:
-        #     if self.level > self.code_length:
-        #         self.visit_solution()
-        #         self.level -= 1
-        #         if self.level == 0:
-        #             break
-        #         self.trial_word = self.solution_vector[self.level]
-        #         self.trial_class = self.current_index[self.level]
-        #         self.free_index += 1
-        #         if self.trial_word < 0:
-        #             continue
-        #         self.slack = self.current_state[self.level]
-        #         self.undo_to(self.undo_stack_pointer[self.level])
-        #         self.bump_stamp()
-        #         self.redden(self.trial_word)
-        #     else:
-        #         self.undo_stack_pointer[self.level] = self.undo_pointer
-        #         self.current_stamp += 1
-        #         if self.trial_word < 0:
-        #             if self.slack == 0 or self.level == 1:
-        #                 self.level -= 1
-        #                 if self.level == 0:
-        #                     break
-        #                 self.trial_word = self.solution_vector[self.level]
-        #                 self.trial_class = self.current_index[self.level]
-        #                 self.free_index += 1
-        #                 if self.trial_word < 0:
-        #                     continue
-        #                 self.slack = self.current_state[self.level]
-        #                 self.undo_to(self.undo_stack_pointer[self.level])
-        #                 self.bump_stamp()
-        #                 self.redden(self.trial_word)
-        #             else:
-        #                 self.slack -= 1
-        #         else:
-        #             self.make_green(self.trial_word)
-        #             self.solution_vector[self.level] = self.trial_word
-        #             self.current_index[self.level] = self.trial_class
-        #             self.current_state[self.level] = self.slack
-        #             p = self.index_free_list[self.trial_class]
-        #             self.free_index -= 1
-        #             if p != self.free_index:
-        #                 y = self.free_list[self.free_index]
-        #                 self.free_list[p] = y
-        #                 self.index_free_list[y] = p
-        #                 self.free_list[self.free_index] = self.trial_class
-        #                 self.index_free_list[self.trial_class] = self.free_index
-        #             self.level += 1
+    def search(self):
+        self.level = 1
+        while True:
+            if self.level > self.code_length:
+                self.visit_solution()
+                self.backtrack()
+            else:
+                self.enter_level()
+                if self.trial_word < 0:
+                    self.try_again()
+                else:
+                    self.make_move()
+
+    def enter_level(self):
+        if self.level > self.code_length:
+            self.visit_solution()
+        else:
+            self.level += 1
+            self.try_candidate()
+            self.level -= 1
+        self.backtrack()
+
+    def try_candidate(self):
+        self.trial_word = self.free_list[self.free_index]
+        self.trial_class = self.index_free_list[self.free_index]
+        self.free_index -= 1
+        self.slack = self.current_state[self.level]
+        self.undo_pointer = self.undo_stack_pointer[self.level]
+        self.bump_stamp()
+        self.make_red(self.trial_word)
+
+    def try_again(self):
+        if self.slack == 0 or self.level == 1:
+            self.backtrack()
+        else:
+            self.slack -= 1
+
+    def make_move(self):
+        self.make_green(self.trial_word)
+        self.solution_vector[self.level] = self.trial_word
+        self.current_index[self.level] = self.trial_class
+        self.current_state[self.level] = self.slack
+        p = self.index_free_list[self.trial_class]
+        self.free_index -= 1
+        if p != self.free_index:
+            y = self.free_list[self.free_index]
+            self.free_list[p] = y
+            self.index_free_list[y] = p
+            self.free_list[self.free_index] = self.trial_class
+            self.index_free_list[self.trial_class] = self.free_index
+        self.level += 1
+
+    def backtrack(self):
+        self.level -= 1
+        if self.level == 0:
+            return
+        self.trial_word = self.solution_vector[self.level]
+        self.trial_class = self.current_index[self.level]
+        self.free_index += 1
+        if self.trial_word < 0:
+            return
+        self.slack = self.current_state[self.level]
+        self.undo_to(self.undo_stack_pointer[self.level])
+        self.bump_stamp()
+        self.make_red(self.trial_word)
 
     def visit_solution(self):
         # Process the solution found
@@ -163,11 +262,15 @@ class CommaFreeCode:
 
     def make_green(self, x):
         # Update data structures to make x green
-        pass
+        self.state[x] = GREEN
+        # Additional logic to update other structures if needed
+        print(f"Word {x} is now GREEN.")
 
-    def redden(self, x):
+    def make_red(self, x):
         # Update data structures to make x red
-        pass
+        self.state[x] = RED
+        # Additional logic to update other structures if needed
+        print(f"Word {x} is now RED.")
 
     def undo_to(self, u0):
         while self.undo_pointer > u0:

@@ -13,12 +13,12 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.prefix(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.p1[alf], f"Value {i} not found in p1[{alf}]")
-                self.assertGreater(len(code.p1[alf]), 0, f"p1[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.p1, f"Value {i} not found in p1[{alf}]")
+                self.assertGreater(len(code.p1), 0, f"p1[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.p1[alf], f"Unexpected value {i} found in p1[{alf}]")
-        self.assertEqual(len(code.p1[Alpha(0x0, 16).to_hex()]), 5)
-        self.assertEqual(len(code.p1[Alpha(0x1000, 16).to_hex()]), 5)
+                self.assertNotIn(i, code.p1, f"Unexpected value {i} found in p1[{alf}]")
+        self.assertEqual(code.p1.ss_len(0), 5)
+        self.assertEqual(code.p1.ss_len(0b1000), 5)
 
     def test_p2_addition(self):
         m = 2
@@ -31,14 +31,14 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.prefix2(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.p2[alf], f"Value {i} not found in p2[{alf}]")
-                self.assertGreater(len(code.p2[alf]), 0, f"p2[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.p2, f"Value {i} not found in p2[{alf}]")
+                self.assertGreater(len(code.p2), 0, f"p2[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.p2[alf], f"Unexpected value {i} found in p2[{alf}]")
-        self.assertEqual(len(code.p2[Alpha(0x0, 16).to_hex()]), 3)
-        self.assertEqual(len(code.p2[Alpha(0x0100, 16).to_hex()]), 2)
-        self.assertEqual(len(code.p2[Alpha(0x1000, 16).to_hex()]), 2)
-        self.assertEqual(len(code.p2[Alpha(0x1100, 16).to_hex()]), 3)
+                self.assertNotIn(i, code.p2, f"Unexpected value {i} found in p2[{alf}]")
+        self.assertEqual(code.p2.ss_len(0), 3)
+        self.assertEqual(code.p2.ss_len(0b0100), 2)
+        self.assertEqual(code.p2.ss_len(0b1000), 2)
+        self.assertEqual(code.p2.ss_len(0b1100), 3)
 
     def test_p3_addition(self):
         m = 2
@@ -51,17 +51,17 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.prefix3(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.p3[alf], f"Value {i} not found in p3[{alf}]")
-                self.assertGreater(len(code.p3[alf]), 0, f"p3[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.p3, f"Value {i} not found in p3[{alf}]")
+                self.assertGreater(len(code.p3), 0, f"p3[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.p3[alf], f"Unexpected value {i} found in p3[{alf}]")
-        self.assertEqual(len(code.p3[Alpha(0x0, 16).to_hex()]), 1)
-        self.assertEqual(len(code.p3[Alpha(0x0010, 16).to_hex()]), 2)
-        self.assertEqual(len(code.p3[Alpha(0x0110, 16).to_hex()]), 2)
-        self.assertEqual(len(code.p3[Alpha(0x1000, 16).to_hex()]), 1)
-        self.assertEqual(len(code.p3[Alpha(0x1010, 16).to_hex()]), 1)
-        self.assertEqual(len(code.p3[Alpha(0x1100, 16).to_hex()]), 2)
-        self.assertEqual(len(code.p3[Alpha(0x1110, 16).to_hex()]), 1)
+                self.assertNotIn(i, code.p3, f"Unexpected value {i} found in p3[{alf}]")
+        self.assertEqual(code.p3.ss_len(0), 1)
+        self.assertEqual(code.p3.ss_len(0b0010), 2)
+        self.assertEqual(code.p3.ss_len(0b0110), 2)
+        self.assertEqual(code.p3.ss_len(0b1000), 1)
+        self.assertEqual(code.p3.ss_len(0b1010), 1)
+        self.assertEqual(code.p3.ss_len(0b1100), 2)
+        self.assertEqual(code.p3.ss_len(0b1110), 1)
 
     def test_s1_addition(self):
         m = 2
@@ -74,12 +74,14 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.suffix(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.s1[alf], f"Value {i} not found in s1[{alf}]")
-                self.assertGreater(len(code.s1[alf]), 0, f"s1[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.s1, f"Value {i} not found in s1[{alf}]")
+                self.assertGreater(len(code.s1), 0, f"s1[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.s1[alf], f"Unexpected value {i} found in s1[{alf}]")
-        self.assertEqual(len(code.s1[Alpha(0x0, 16).to_hex()]), 4)
-        self.assertEqual(len(code.s1[Alpha(0x1000, 16).to_hex()]), 6)
+                self.assertNotIn(i, code.s1, f"Unexpected value {i} found in s1[{alf}]")
+        self.assertEqual(code.s1.ss_len(0b0010), 4)
+        self.assertEqual(code.s1.ss_len(0b1100), 4)
+        self.assertEqual(code.s1.ss_len(0b1), 6)
+        self.assertEqual(code.s1.ss_len(0b111), 6)
 
     def test_s2_addition(self):
         m = 2
@@ -92,14 +94,14 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.suffix2(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.s2[alf], f"Value {i} not found in s2[{alf}]")
-                self.assertGreater(len(code.s2[alf]), 0, f"s2[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.s2, f"Value {i} not found in s2[{alf}]")
+                self.assertGreater(len(code.s2), 0, f"s2[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.s2[alf], f"Unexpected value {i} found in s2[{alf}]")
-        self.assertEqual(len(code.s2[Alpha(0x0, 16).to_hex()]), 1)
-        self.assertEqual(len(code.s2[Alpha(0x0100, 16).to_hex()]), 3)
-        self.assertEqual(len(code.s2[Alpha(0x1000, 16).to_hex()]), 3)
-        self.assertEqual(len(code.s2[Alpha(0x1100, 16).to_hex()]), 3)
+                self.assertNotIn(i, code.s2, f"Unexpected value {i} found in s2[{alf}]")
+        self.assertEqual(code.s2.ss_len(0b1100), 1)
+        self.assertEqual(code.s2.ss_len(0b1), 3)
+        self.assertEqual(code.s2.ss_len(0b10), 3)
+        self.assertEqual(code.s2.ss_len(0b11), 3)
 
     def test_s3_addition(self):
         m = 2
@@ -112,17 +114,17 @@ class TestCommaFreeCode(unittest.TestCase):
             al = Alpha(i, m)
             alf = code.suffix3(al.to_hex())
             if code.state[i] != RED:
-                self.assertIn(i, code.s3[alf], f"Value {i} not found in s3[{alf}]")
-                self.assertGreater(len(code.s3[alf]), 0, f"s3[{alf}] is unexpectedly empty")
+                self.assertIn(i, code.s3, f"Value {i} not found in s3[{alf}]")
+                self.assertGreater(len(code.s3), 0, f"s3[{alf}] is unexpectedly empty")
             else:
-                self.assertNotIn(i, code.s3[alf], f"Unexpected value {i} found in s3[{alf}]")
-        self.assertEqual(len(code.s3[Alpha(0x0010, 16).to_hex()]), 2)
-        self.assertEqual(len(code.s3[Alpha(0x0100, 16).to_hex()]), 1)
-        self.assertEqual(len(code.s3[Alpha(0x0110, 16).to_hex()]), 2)
-        self.assertEqual(len(code.s3[Alpha(0x1000, 16).to_hex()]), 1)
-        self.assertEqual(len(code.s3[Alpha(0x1010, 16).to_hex()]), 1)
-        self.assertEqual(len(code.s3[Alpha(0x1100, 16).to_hex()]), 2)
-        self.assertEqual(len(code.s3[Alpha(0x1110, 16).to_hex()]), 1)
+                self.assertNotIn(i, code.s3, f"Unexpected value {i} found in s3[{alf}]")
+        self.assertEqual(code.s3.ss_len(0b1), 2)
+        self.assertEqual(code.s3.ss_len(0b0010), 1)
+        self.assertEqual(code.s3.ss_len(0b11), 2)
+        self.assertEqual(code.s3.ss_len(0b1100), 1)
+        self.assertEqual(code.s3.ss_len(0b1101), 1)
+        self.assertEqual(code.s3.ss_len(0b110), 2)
+        self.assertEqual(code.s3.ss_len(0b0111), 1)
 
 if __name__ == '__main__':
     unittest.main() 
