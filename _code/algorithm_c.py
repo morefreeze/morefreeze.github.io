@@ -5,6 +5,7 @@ from sparse_set import SparseSet
 BLUE = 0
 GREEN = 1
 RED = 2
+n = 4 # number of bits in the code
 
 class Alpha:
     def __init__(self, x: int, m: int):
@@ -20,14 +21,14 @@ class Alpha:
         '''convert to m bit string'''
         if self._s is None:
             if self.x == 0:
-                self._s = '0'
+                self._s = '0000'
                 return self._s
             x = self.x
             s = ''
             while x > 0:
                 s = str(x % self.m) + s
                 x = x // self.m
-            self._s = s
+            self._s = s.zfill(n)
         return self._s
     
     def to_int(self):
@@ -72,11 +73,17 @@ class CommaFreeCode:
             self.alf[tt] = alf
         # 0100 is red because I've chosen 0001
         self.state[Alpha.from_str('0100', self.m).to_int()] = RED
+        self.state[Alpha.from_str('1000', self.m).to_int()] = RED
         for i in range(self.base_power_4):
             if self.state[i] != RED:
                 al = Alpha(i, self.m)
-                alf = self.prefix(al.to_hex())
-                self.p1[alf].add(i)
+                self.p1[self.prefix(al.to_hex())].add(i)
+                self.p2[self.prefix2(al.to_hex())].add(i)
+                self.p3[self.prefix3(al.to_hex())].add(i)
+                self.s1[self.suffix(al.to_hex())].add(i)
+                self.s2[self.suffix2(al.to_hex())].add(i)
+                self.s3[self.suffix3(al.to_hex())].add(i)
+                # self.cl[self.cl(al.to_hex())].add(i)
 
     def prefix(self, alpha):
         return (alpha & 0xF000)
@@ -98,7 +105,7 @@ class CommaFreeCode:
 
     def cl(self, alpha):
         # Implement the logic to calculate cl(alpha)
-        pass
+        return alpha
 
     # def search(self):
         # while True:

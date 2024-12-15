@@ -10,6 +10,9 @@ class SparseSet:
             self.index[x] = self.tail
             self.tail += 1
 
+    def __len__(self):
+        return self.tail
+
     def remove(self, x):
         if self.index[x] != -1:
             last_element = self.mem[self.tail - 1]
@@ -22,3 +25,6 @@ class SparseSet:
     def __iter__(self):
         for i in range(self.tail):
             yield self.mem[i]
+
+    def __contains__(self, x):
+        return self.index[x] != -1

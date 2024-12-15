@@ -63,5 +63,20 @@ class TestSparseSet(unittest.TestCase):
             self.sparse_set.add(elem)
         self.assertEqual(set(self.sparse_set), set(elements))
 
+    def test_len(self):
+        self.assertEqual(len(self.sparse_set), 0)
+        self.sparse_set.add(1)
+        self.sparse_set.add(2)
+        self.assertEqual(len(self.sparse_set), 2)
+        self.sparse_set.remove(1)
+        self.assertEqual(len(self.sparse_set), 1)
+
+    def test_contains(self):
+        self.assertNotIn(1, self.sparse_set)
+        self.sparse_set.add(1)
+        self.assertIn(1, self.sparse_set)
+        self.sparse_set.remove(1)
+        self.assertNotIn(1, self.sparse_set)
+
 if __name__ == '__main__':
     unittest.main()
