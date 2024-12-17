@@ -37,6 +37,18 @@ class Alpha:
     def to_hex(self) -> int:
         hex_str = self.to_str()
         return int(hex_str, 16)
+    
+    def shift1(self):
+        '''shift x as hex left by 1 bit and add the prefix'''
+        shifted_str = self.to_str()
+        shifted_str = shifted_str[1:] + shifted_str[0]
+        return Alpha.from_str(shifted_str, self.m)
+    
+    def rshift1(self):
+        '''shift x as hex right by 1 bit and add the suffix'''
+        shifted_str = self.to_str()
+        shifted_str = shifted_str[-1] + shifted_str[:-1]
+        return Alpha.from_str(shifted_str, self.m)
 
 class ThreeLines:
     def __init__(self, m, mask):
@@ -46,7 +58,7 @@ class ThreeLines:
         self.base_power_4 = m ** 4
         self.index = [-1] * self.base_power_4
         self.mem = [0] * self.base_power_4
-        self.tail = [0] * self.base_power_4
+        self.len = [0] * self.base_power_4 # 0 for empty list, -1 for closed list
         self.mask = mask
         self.shift = self.calculate_shift(mask)
 
@@ -69,9 +81,9 @@ class ThreeLines:
         # x is hex number
         if self.index[x] == -1:
             st = self.start(x)
-            self.index[x] = st + self.tail[st]
+            self.index[x] = st + self.len[st]
             self.mem[self.index[x]] = x
-            self.tail[st] += 1
+            self.len[st] += 1
 
     def __len__(self):
         return sum([self.mem[i] != -1 for i in range(self.base_power_4)])
@@ -79,16 +91,16 @@ class ThreeLines:
     def remove(self, x):
         if self.index[x] != -1:
             st = self.start(x)
-            last_element = self.mem[self.tail[st] - 1]
+            last_element = self.mem[self.len[st] - 1]
             pos = self.index[x]
             self.mem[pos] = last_element
             self.index[last_element] = pos
             self.index[x] = -1
-            self.tail[st] -= 1
+            self.len[st] -= 1
 
     def ss_len(self, x):
         st = self.start(x)
-        return self.tail[st]
+        return self.len[st]
 
     def __iter__(self):
         for i in range(self.base_power_4):
@@ -98,6 +110,40 @@ class ThreeLines:
     def __contains__(self, x):
         return self.index[x] != -1
 
+class CL(ThreeLines):
+    def __init__(self, m):
+        super().__init__(m, 0xFFFF)
+        self._st = [-1] * self.base_power_4
+        self._mem = [-1] * self.base_power_4
+        for i in range(self.base_power_4):
+            if self._st[i] != -1:
+                continue
+            st_alf = self.start_alpha(i)
+            st_idx = st_alf.to_int() // 4 * 4
+            candidates = []
+            for j in range(4):
+                candidates.append(st_alf.to_int())
+                st_alf = st_alf.shift1()
+            if len(set(candidates)) != 4:
+                continue
+            while self._mem[st_idx] != -1:
+                st_idx += 4
+            for i, candidate in enumerate(candidates):
+                self._mem[st_idx+i] = candidate
+                self._st[candidate] = st_idx
+
+    def start_alpha(self, x):
+        alf = Alpha(x, self.m)
+        min_alf = alf
+        for i in range(n-1):
+            alf = alf.shift1()
+            if alf.to_hex() < min_alf.to_hex():
+                min_alf = alf
+        return min_alf
+    
+    def start(self, x):
+        return self._st[x]
+    
 class CommaFreeCode:
     def __init__(self, m, g):
         self.m = m
@@ -111,7 +157,7 @@ class CommaFreeCode:
         self.s1 = ThreeLines(m, 0x000F)
         self.s2 = ThreeLines(m, 0x00FF)
         self.s3 = ThreeLines(m, 0x0FFF)
-        # self.cl = ThreeLines(m, 0xFFFF)
+        self.cl = CL(m)
         self.alf = [0] * 16**3 * self.m
         self.stamp = [0] * self.memory_size
         self.sigma = 0
@@ -149,9 +195,12 @@ class CommaFreeCode:
                 self.s1.add(i)
                 self.s2.add(i)
                 self.s3.add(i)
-        # for i in range(self.base_power_4):
-        #     if self.state[i] != BLUE or self.
-                # self.cl[self.cl(al.to_hex())].add(i)
+                pr_code = self.cl.start_alpha(i)
+                self.cl.add(pr_code.to_int())
+                for j in range(n-1):
+                    pr_code = pr_code.shift1()
+                    if self.state[pr_code.to_int()] != RED:
+                        self.cl.add(pr_code.to_int())
         
         for i in range(self.code_length):
             self.free[i] = i
@@ -185,10 +234,6 @@ class CommaFreeCode:
 
     def suffix3(self, alpha):
         return (alpha & 0x0FFF) << 4
-
-    def cl(self, alpha):
-        # Implement the logic to calculate cl(alpha)
-        return alpha
 
     def search(self):
         self.level = 1
