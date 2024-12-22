@@ -13,9 +13,24 @@ class Alpha:
         self.m = m
         self._s = None
 
+    def __eq__(self, value):
+        if not isinstance(value, Alpha):
+            return False
+        return self.to_int() == value.to_int()
+
     @staticmethod
     def from_str(s, m):
         return Alpha(int(s, m), m)
+    
+    @staticmethod
+    def from_hex(hex_str, m):
+        hex_int = int(hex_str, 16)
+        x, p = 0, 1
+        while hex_int > 0:
+            x += p * (hex_int % 16)
+            hex_int = hex_int // 16
+            p *= m
+        return Alpha(x, m)
     
     def to_str(self):
         '''convert to m bit string'''
@@ -165,8 +180,8 @@ class CommaFreeCode:
         self.poison_pointer = self.poison_value - 1
         self.free = [0] * self.code_length
         self.ifree = [0] * self.code_length
-        self.level = 0
-        self.x = 0 # x is trial word
+        self.level = 1
+        self.x = Alpha.from_hex('0001', m)
         self.trial_class = 0
         self.solution = []
         self.initialize()
@@ -235,71 +250,15 @@ class CommaFreeCode:
     def suffix3(self, alpha):
         return (alpha & 0x0FFF) << 4
 
-    def search(self):
-        self.level = 1
-        while True:
-            if self.level > self.code_length:
-                self.visit_solution()
-                self.backtrack()
-            else:
-                self.enter_level()
-                if self.trial_word < 0:
-                    self.try_again()
-                else:
-                    self.make_move()
-
     def enter_level(self):
         if self.level > self.code_length:
             self.visit_solution()
-        else:
-            self.level += 1
-            self.try_candidate()
-            self.level -= 1
-        self.backtrack()
-
-    def try_candidate(self):
-        self.trial_word = self.free_list[self.free_index]
-        self.trial_class = self.index_free_list[self.free_index]
-        self.free_index -= 1
-        self.slack = self.current_state[self.level]
-        self.undo_pointer = self.undo_stack_pointer[self.level]
-        self.bump_stamp()
-        self.make_red(self.trial_word)
-
-    def try_again(self):
-        if self.slack == 0 or self.level == 1:
+            return
+        for cur_candidate in self.try_candidate():
+            self.make_move()
+            self.enter_level()
             self.backtrack()
-        else:
-            self.slack -= 1
 
-    def make_move(self):
-        self.make_green(self.trial_word)
-        self.solution_vector[self.level] = self.trial_word
-        self.current_index[self.level] = self.trial_class
-        self.current_state[self.level] = self.slack
-        p = self.index_free_list[self.trial_class]
-        self.free_index -= 1
-        if p != self.free_index:
-            y = self.free_list[self.free_index]
-            self.free_list[p] = y
-            self.index_free_list[y] = p
-            self.free_list[self.free_index] = self.trial_class
-            self.index_free_list[self.trial_class] = self.free_index
-        self.level += 1
-
-    def backtrack(self):
-        self.level -= 1
-        if self.level == 0:
-            return
-        self.trial_word = self.solution_vector[self.level]
-        self.trial_class = self.current_index[self.level]
-        self.free_index += 1
-        if self.trial_word < 0:
-            return
-        self.slack = self.current_state[self.level]
-        self.undo_to(self.undo_stack_pointer[self.level])
-        self.bump_stamp()
-        self.make_red(self.trial_word)
 
     def visit_solution(self):
         # Process the solution found
@@ -335,4 +294,4 @@ if __name__ == '__main__':
     # Example usage
     code = CommaFreeCode(m=4, g=57)
     code.initialize()
-    # code.search()
+    code.enter_level()
