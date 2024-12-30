@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "再战commafree code——暴力挑选"
+title: "再战commafree code——暴力挑选&优化"
 description: "介绍如何通过暴力搜索和回溯算法来构建无逗号码集合"
 category: algorithm
 comments: true
@@ -95,7 +95,7 @@ def remove_from_set(mem, head, tail, ihead, x):
 当m=3时，只有18个主串需要考虑，搜索空间还不大（注意复杂度时指数级的，因为常数小所以我们说它不大），
 但当m=4时事情就变得完全不一样了，因为有60个主串了，看起来时间不可接受了？接下来我们来看看如何只用少量内存空间来完成搜索的更新和回溯。
 
-首先我们有一个函数alpha，它可以正确地将长度n的词转成十进制，比如$alpha(0102)_3$=11。
+首先我们有一个函数alpha，它可以正确地将长度n的词转成十进制，比如 $(alpha(0102))_3 = 11$。
 然后MEM的0~M-1记录了颜色:
 - 红色代表不能选
 - 绿色代表选择
@@ -105,14 +105,13 @@ def remove_from_set(mem, head, tail, ihead, x):
 - P1(x)、P2(x)、P3(x)：记录蓝色词的前缀匹配 $x_1\star \star \star$，$x_1x_2 \star \star$，$x_1x_2x_3 \star$；
 - S1(x)、S2(x)、S3(x)：记录蓝色词的后缀匹配 $\star \star \star x_4$，$\star 
 \star x_3x_4$，$\star x_2x_3x_4$；
-- CL(x)：记录蓝色词的循环移位集合 $\{x_1x_2x_3x_4,x_2x_3x_4x_1,x_3x_4x_1x_2,
-x_4x_1x_2x_3\}$；
+- CL(x)：记录蓝色词的循环移位集合 $\{(x_1x_2x_3x_4),(x_2x_3x_4x_1),(x_3x_4x_1x_2),(x_4x_1x_2x_3)\}$；
 
 每个集合有3个数组，除了上面介绍必备的链表和反向数组外，还有一个数组用来记录TAIL指针。
 
 #### 举个栗子
 这么讲有点抽象，还是来看个例子
-![alt text](/images/commafree-ex.png)
+![alt text](/images/commafree-ex.png)先有个印象，在下篇文章我会详细解释这张图。
 
 ## 小结
 
