@@ -111,4 +111,4 @@ Dancing Link是一个奇妙的建模方法，
 不过我觉得这篇文章我已经讲的够多了，
 我决定留到下一篇再说。
 
->> 图片均出自[Dancing Link 论文](https://arxiv.org/pdf/cs/0011047)
+> 图片均出自[Dancing Link 论文](https://arxiv.org/pdf/cs/0011047)
