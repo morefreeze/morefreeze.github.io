@@ -2,7 +2,7 @@
 layout: post
 title: "commafree code初次见面——生成"
 description: ""
-category: note
+category: algorithm
 comments: true
 tags: [algorithm, knuth, code]
 ---
@@ -11,7 +11,7 @@ tags: [algorithm, knuth, code]
 
 ## 引言
 
-commafree code是一种编码方式，就像Huffman编码一样，在一个由m个字母构成的长度为n的单词集合D中，如果相邻的两个单词之间的任意长度为n的字串不在D中出现，那么这个D最多可以由多少个不同的单词组成就是要研究的问题。但这里我们先把问题简化，考虑n=4的情况，比如likethis就符合条件，因为iket、keth、ethi就不是单词。另外，自身循环的也不考虑，比如dodo，如果是两个dodo拼接，那么dodo一定会出现在中间的子串中。
+commafree code是一种编码方式，就像Huffman编码一样，在一个由m个字母构成的长度为n的单词集合D中，如果任意的两个单词之间的任意长度为n的字串不在D中出现，那么这个D最多可以由多少个不同的单词组成就是要研究的问题。但这里我们先把问题简化，考虑n=4的情况，比如likethis就符合条件，因为iket、keth、ethi就不是单词。另外，自身循环的也不考虑，比如dodo，如果是两个dodo拼接，那么dodo一定会出现在中间的子串中。
 
 <!--more-->
 
@@ -49,4 +49,4 @@ def find_prime_codes(n, alphabet_str):
     return tuple(sorted(codes)) 
 {% endhighlight %}
 
-简单分析下时间复杂度，候选集alphabet_str长度的n次方，即`len(alphabet_str)^n`，看起来还可以接受是吧。但当我们将问题变成文章开头提到的D时，复杂度就完全不一样了，我将在下篇文章中给出一般解法。
+简单分析下时间复杂度，候选集alphabet_str长度的n次方，即`len(alphabet_str)^n`，看起来还可以接受是吧。但当我们将问题变成文章开头提到的从候选集D中选取一批词使它们满足commafree时，复杂度就完全不一样了，我将在下篇文章中给出一般解法。

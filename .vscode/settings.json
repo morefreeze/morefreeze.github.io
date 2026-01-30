@@ -15,7 +15,17 @@
       "LLLLFH",
       "SHDC",
       "tablespecs",
+      "TAOCP",
       "TJQKA",
       "Twintree"
-    ]
+    ],
+    "cSpell.customDictionaries": {
+      "custom-dictionary-workspace": {
+        "name": "custom-dictionary-workspace",
+        "path": "${workspaceFolder:morefreeze.github.io}/.cspell/custom-dictionary-workspace.txt",
+        "addWords": true,
+        "scope": "workspace"
+      }
+    },
+    "cSpell.ignoreWords": []
 }
