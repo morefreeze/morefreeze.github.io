@@ -5,6 +5,21 @@ layout: default
 
   <header class="post-header">
     <h1 itemprop="name" class="post-title">{{ page.title }}</h1>
+    
+    <!-- Language Switcher for Posts -->
+    <div class="post-language-switcher">
+      {% assign current_lang = 'cn' %}
+      {% if page.basename contains '_en' %}
+        {% assign current_lang = 'en' %}
+      {% endif %}
+      
+      {% assign has_en = page | has_english_version %}
+      {% if current_lang == 'cn' and has_en %}
+        <a href="{{ page.url | replace: '.html', '_en.html' }}" class="lang-link">English Version</a>
+      {% elsif current_lang == 'en' %}
+        <a href="{{ page.url | replace: '_en.html', '.html' }}" class="lang-link">中文版本</a>
+      {% endif %}
+    </div>
     <meta itemprop="keywords" content="{{ page.tags | join: ',' }}" />
     <p class="post-meta">
     {{ site.locales[site.default_locale].PostedInCategories }}

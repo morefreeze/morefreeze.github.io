@@ -1,9 +1,52 @@
 <header class="site-header">
 
   <div class="wrapper">
-
-    <h1 class="site-title"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
-    <h3 class="site-meta">{{ site.tagline }}</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 class="site-title"><a href="{{ site.baseurl }}/">{{ site.title }}</a></h1>
+        <h3 class="site-meta">{{ site.tagline }}</h3>
+      </div>
+      
+      <!-- 语言切换器 - 移动到右上角 -->
+      <div class="language-switcher" style="position: absolute; top: 20px; right: 20px;">
+        <button onclick="toggleLanguage()">{% if site.default_locale == 'en' %}中文{% else %}English{% endif %}</button>
+      </div>
+      
+      <script>
+        function toggleLanguage() {
+          // 获取当前语言设置
+          var currentLang = localStorage.getItem('default_locale') || '{{ site.default_locale }}';
+          // 切换语言
+          var newLang = currentLang === 'en' ? 'cn' : 'en';
+          // 保存到localStorage
+          localStorage.setItem('default_locale', newLang);
+          // 刷新页面以应用新语言设置
+          location.reload();
+        }
+      </script>
+    </div>
+    
+    <script>
+      // 设置默认语言的函数
+      function switchDefaultLocale(locale) {
+        localStorage.setItem('default_locale', locale);
+      }
+      
+      // 检查无翻译版本的点击事件
+      document.addEventListener('DOMContentLoaded', function() {
+        const noTranslationLinks = document.querySelectorAll('.no-translation');
+        noTranslationLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isChinese = link.textContent.includes('无中文版本');
+            alert(isChinese ? '此页面暂无中文版本，5秒后将返回当前页面' : 'No English version available, returning to current page in 5 seconds');
+            setTimeout(function() {
+              window.location.reload();
+            }, 5000);
+          });
+        });
+      });
+    </script>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">

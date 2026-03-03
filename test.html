@@ -1,0 +1,12 @@
+---
+layout: default
+paginate: true
+---
+
+<h1>测试Paginator</h1>
+<p>总共有 {{ paginator.posts.size }} 篇文章</p>
+
+<h2>所有文章：</h2>
+{% for post in paginator.posts %}
+  <p>{{ post.title }} - basename: {{ post.basename }} (英文: {% if post.basename contains '_en' %}是{% else %}否{% endif %})</p>
+{% endfor %}

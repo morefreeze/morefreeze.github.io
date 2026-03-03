@@ -1,0 +1,33 @@
+---
+layout: default
+---
+
+<h1>调试信息</h1>
+
+<h2>站点配置</h2>
+<ul>
+  <li>default_locale: {{ site.default_locale }}</li>
+  <li>paginate: {{ site.paginate }}</li>
+  <li>paginate_path: {{ site.paginate_path }}</li>
+</ul>
+
+<h2>分页信息</h2>
+<ul>
+  <li>paginator.posts 数量: {{ paginator.posts | size }}</li>
+  <li>paginator.total_posts: {{ paginator.total_posts }}</li>
+  <li>paginator.per_page: {{ paginator.per_page }}</li>
+  <li>paginator.total_pages: {{ paginator.total_pages }}</li>
+  <li>paginator.page: {{ paginator.page }}</li>
+  <li>site.posts 数量: {{ site.posts | size }}</li>
+</ul>
+
+<h2>所有文章</h2>
+{% for post in site.posts %}
+  <div style="border: 1px solid #ccc; margin: 10px 0; padding: 10px;">
+    <h3>{{ post.title }}</h3>
+    <p>文件名: {{ post.path | split: '/' | last }}</p>
+    <p>是否英文: {% if post.path contains '_en' %}是{% else %}否{% endif %}</p>
+    <p>日期: {{ post.date }}</p>
+    <p>URL: {{ post.url }}</p>
+  </div>
+{% endfor %}

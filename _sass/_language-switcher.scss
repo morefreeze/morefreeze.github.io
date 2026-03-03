@@ -1,0 +1,97 @@
+// Language Switcher Styles
+.language-switcher-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-family: $base-font-family;
+  
+  .lang-link {
+    color: $brand-color;
+    text-decoration: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: $brand-color;
+      color: white;
+      text-decoration: none;
+    }
+    
+    &.active {
+      background-color: $brand-color;
+      color: white;
+      cursor: default;
+      
+      &:hover {
+        background-color: $brand-color;
+      }
+    }
+  }
+  
+  .lang-separator {
+    color: $grey-color;
+    margin: 0 2px;
+  }
+}
+
+// Post-specific language switcher
+.post-language-switcher {
+  margin: 10px 0;
+  text-align: right;
+  
+  .lang-link {
+    color: $brand-color;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 12px;
+    border: 1px solid $brand-color;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: $brand-color;
+      color: white;
+      text-decoration: none;
+    }
+  }
+}
+
+// Responsive design for language switcher
+@include media-query($on-palm) {
+  .language-switcher-container {
+    position: static;
+    margin: 10px 0;
+    text-align: center;
+  }
+  
+  .language-switcher {
+    justify-content: center;
+  }
+  
+  .post-language-switcher {
+    text-align: center;
+    margin: 15px 0;
+  }
+}
+
+// Adjust header positioning to accommodate language switcher
+.site-header .wrapper {
+  position: relative;
+  padding-top: 40px;
+  
+  @include media-query($on-palm) {
+    padding-top: 20px;
+  }
+}
+
+.site-title {
+  margin-top: 0;
+}

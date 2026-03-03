@@ -27,7 +27,65 @@
 <link rel="canonical" href="http://localhost:4000/page3/">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$']],
+      processEscapes: true
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- 语言偏好设置 -->
+<script>
+  // 页面加载时检查localStorage中的语言设置
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedLocale = localStorage.getItem('default_locale');
+    console.log('Current locale in localStorage:', savedLocale);
+    
+    // 在主页上，我们需要手动过滤显示的文章
+    if (window.location.pathname === '/') {
+      // 获取所有的文章元素
+      const postElements = document.querySelectorAll('.post-content, .post-header, hr');
+      
+      // 如果有保存的语言设置，根据设置过滤文章
+      if (savedLocale) {
+        // 遍历所有文章元素组（每个文章包含header、content和hr）
+        let currentPost = [];
+        let postLanguage = 'cn'; // 默认语言
+        
+        for (let i = 0; i < postElements.length; i++) {
+          currentPost.push(postElements[i]);
+          
+          // 当收集到三个元素（header、content、hr）时，处理一个完整的文章
+          if (currentPost.length === 3) {
+            // 尝试从文章标题或内容中判断语言
+            const titleElement = currentPost[0].querySelector('.post-title');
+            if (titleElement && /[\u4e00-\u9fa5]/.test(titleElement.textContent)) {
+              postLanguage = 'cn';
+            } else {
+              postLanguage = 'en';
+            }
+            
+            // 根据保存的语言设置显示或隐藏文章
+            const shouldShow = (savedLocale === 'en' && postLanguage === 'en') || 
+                              (savedLocale !== 'en' && postLanguage === 'cn');
+            
+            currentPost.forEach(element => {
+              element.style.display = shouldShow ? '' : 'none';
+            });
+            
+            currentPost = [];
+          }
+        }
+      }
+    }
+  });
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>
 <script>
@@ -37,7 +95,6 @@
 
   gtag('config', 'AW-688213545');
 </script>
-<script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 
@@ -50,9 +107,52 @@
   <header class="site-header">
 
   <div class="wrapper">
-
-    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
-    <h3 class="site-meta">MoreFreeze's blog</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+        <h3 class="site-meta">MoreFreeze's blog</h3>
+      </div>
+      
+      <!-- 语言切换器 - 移动到右上角 -->
+      <div class="language-switcher" style="position: absolute; top: 20px; right: 20px;">
+        <button onclick="toggleLanguage()">中文</button>
+      </div>
+      
+      <script>
+        function toggleLanguage() {
+          // 获取当前语言设置
+          var currentLang = localStorage.getItem('default_locale') || 'en';
+          // 切换语言
+          var newLang = currentLang === 'en' ? 'cn' : 'en';
+          // 保存到localStorage
+          localStorage.setItem('default_locale', newLang);
+          // 刷新页面以应用新语言设置
+          location.reload();
+        }
+      </script>
+    </div>
+    
+    <script>
+      // 设置默认语言的函数
+      function switchDefaultLocale(locale) {
+        localStorage.setItem('default_locale', locale);
+      }
+      
+      // 检查无翻译版本的点击事件
+      document.addEventListener('DOMContentLoaded', function() {
+        const noTranslationLinks = document.querySelectorAll('.no-translation');
+        noTranslationLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isChinese = link.textContent.includes('无中文版本');
+            alert(isChinese ? '此页面暂无中文版本，5秒后将返回当前页面' : 'No English version available, returning to current page in 5 seconds');
+            setTimeout(function() {
+              window.location.reload();
+            }, 5000);
+          });
+        });
+      });
+    </script>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -81,6 +181,8 @@
         
         
         
+        
+        
         <a class="page-link" href="/tags/">Tags</a>
         
         
@@ -93,7 +195,13 @@
         
         
         
+        
+        
         <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
         
         
         
@@ -126,252 +234,1500 @@
 
   <div class="page-content col-sm-8">
     <div class="home">
-  <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
-    
-    
+  <h1 class="page-heading">Posts</h1>
   
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/07/apply_defaults.html">airflow apply_defaults 赏析</a>
-      </h1>
-      <meta itemprop="keywords" content="airflow,python,decorator,apply_defaults" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
-      
-      <a href="/tags/#python" title="python">python </a>, 
-      
-      <a href="/tags/#decorator" title="decorator">decorator </a>, 
-      
-      <a href="/tags/#apply_defaults" title="apply_defaults">apply_defaults </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-07-13">
-      on Jul 13, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近在写 airflow 的脚本时遇到一个问题，出于方便把 <code class="language-plaintext highlighter-rouge">BaseSensorOperator</code> 包了一层，
-后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 <code class="language-plaintext highlighter-rouge">Operator</code> 都有个 <code class="language-plaintext highlighter-rouge">apply_defaults</code>
-的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当导致的，
-所以就不放问题代码了，但我会在分析后给出一些使用方面要注意的地方和建议。</p>
-
-
-        
-        
-
-        
-        <p><a href="/2017/07/apply_defaults.html#read-more">Read more</a></p>
-        
-    </article> <hr />
+  <ul class="post-list" id="posts-container">
     
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 3, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/12/algorithm-c_en.html">Comma-Free Code Algorithm Implementation (English)</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#Algorithm">Algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#comma-free">comma-free</a>, 
+        
+          <a href="/tags/#algorithm">algorithm</a>, 
+        
+          <a href="/tags/#python">python</a>, 
+        
+          <a href="/tags/#backtracking">backtracking</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-extra.html">learn vim script the hard way 笔记（番外）</a>
-      </h1>
-      <meta itemprop="keywords" content="" />
-      <p class="post-meta">
-      Posted in
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 3, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/12/algorithm-c.html">决战commafree code——Algorithm C</a>
+      </h2>
       
-      <a href="/categories/#note">note</a>&nbsp;
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
       
       
-      <time itemprop="datePublished" datetime="2017-06-22">
-      on Jun 22, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
+      <div class="post-tags">
+        Tags: 
         
-<h3 id="ch41-creating-a-full-plugin">CH41 Creating a Full Plugin</h3>
-<ol>
-  <li>看到这里你可以停了，因为前面的姿势足够你完善自己的<code class="language-plaintext highlighter-rouge">~/.vimrc</code>脚本，去修复别人脚本的bug了，绝无讽刺的意思</li>
-  <li>往下学之前，建议先玩下<a href="http://perl11.org/potion/index.html">Potion</a>语言，这是个很小的语言，使用它的目的是为了辅助我们写vim script</li>
-</ol>
-
-<h3 id="ch42-plugin-layout-in-the-dark-ages">CH42 Plugin Layout in the Dark Ages</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/colors/</code>在这里的文件记录了vim的颜色主题，如果运行<code class="language-plaintext highlighter-rouge">:color xxx</code>就能看<code class="language-plaintext highlighter-rouge">~/.vim/colors/xxx.vim</code>的配色方案了，查看当前配色都有哪些用<code class="language-plaintext highlighter-rouge">:hi</code></li>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/plugin/</code>在这里的文件每次vim启动都会运行一次</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="language-plaintext highlighter-rouge">ft</code>的意思是<code class="language-plaintext highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="language-plaintext highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong></li>
-</ol>
-
+          <a href="/tags/#algorithm">algorithm</a>, 
         
+          <a href="/tags/#knuth">knuth</a>, 
         
-
+          <a href="/tags/#code">code</a>
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-extra.html#read-more">Read more</a></p>
-        
-    </article> <hr />
+      </div>
+      
+      <hr>
+    </li>
     
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Nov 16, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/11/commafree-code-gen.html">再战commafree code——暴力挑选&优化</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#algorithm">algorithm</a>, 
+        
+          <a href="/tags/#knuth">knuth</a>, 
+        
+          <a href="/tags/#code">code</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-c.html">learn vim script the hard way 笔记（下）</a>
-      </h1>
-      <meta itemprop="keywords" content="" />
-      <p class="post-meta">
-      Posted in
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Oct 9, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/10/commafree-code-first.html">commafree code初次见面——生成</a>
+      </h2>
       
-      <a href="/categories/#note">note</a>&nbsp;
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
       
       
-      <time itemprop="datePublished" datetime="2017-06-18">
-      on Jun 18, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
+      <div class="post-tags">
+        Tags: 
         
-<p><a href="/2017/06/learn-vim-script-the-hard-way-b.html">上一篇</a></p>
-
-<h3 id="ch31-basic-regular-expressions">CH31 Basic Regular Expressions</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">/</code>和<code class="language-plaintext highlighter-rouge">?</code>，前者向后找，后者向前找</li>
-</ol>
-
-<h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="language-plaintext highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="language-plaintext highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="language-plaintext highlighter-rouge">:cwindow</code>查看<code class="language-plaintext highlighter-rouge">quickfix</code>窗口</li>
-  <li>以上还有一点要修改，如果光标在一个<code class="language-plaintext highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="language-plaintext highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
-  <li>但上面对于光标有单引号的不启作用，用<code class="language-plaintext highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
-  <li>最终版本<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="language-plaintext highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="language-plaintext highlighter-rouge">:copen</code>打开结果页</li>
-</ol>
-
-<h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
-<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="language-plaintext highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="language-plaintext highlighter-rouge">Test</code></p>
-
+          <a href="/tags/#algorithm">algorithm</a>, 
         
+          <a href="/tags/#knuth">knuth</a>, 
         
-
+          <a href="/tags/#code">code</a>
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-c.html#read-more">Read more</a></p>
-        
-    </article> <hr />
+      </div>
+      
+      <hr>
+    </li>
     
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Sep 16, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/09/langford.html">利用链表回溯生成 Langford 对</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#algorithm">algorithm</a>, 
+        
+          <a href="/tags/#knuth">knuth</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-b.html">learn vim script the hard way 笔记（中）</a>
-      </h1>
-      <meta itemprop="keywords" content="vim" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#note">note</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#vim" title="vim">vim </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-06-12">
-      on Jun 12, 2017
-      </time>
-      </p>
-    </header>
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Sep 3, 2024</span>
 
-    <article class="post-content" itemprop="articleBody">
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/09/walker's-method.html">反方向的回溯——Walker算法</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
         
-<p><a href="/2017/06/learn-vim-script-the-hard-way.html">上一篇</a></p>
-
-<h3 id="ch13-buffer-local-abbreviations">CH13 Buffer-Local Abbreviations</h3>
-<ol>
-  <li>这章就是说<code class="language-plaintext highlighter-rouge">iabbrev</code>也能用<code class="language-plaintext highlighter-rouge">&lt;buffer&gt;</code>来修饰</li>
-  <li>你想记住某个新的snippet最好办法就是disable掉原来的命令，比如<code class="language-plaintext highlighter-rouge">iabbrev &lt;buffer&gt; return NOPENOPENOPE</code></li>
-</ol>
-
-<h3 id="ch14-autocommand-groups">CH14 Autocommand Groups</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">autocmd</code>是不会替换原先的命令的，假如使用两次同样的命令，那触发autocmd时会进行两次命令</li>
-  <li>特别要注意在你<code class="language-plaintext highlighter-rouge">source $MYVIMRC</code>时，autocmd会再载入一次！</li>
-  <li>可以用<code class="language-plaintext highlighter-rouge">augroup testgroup autocmd xxx augroup END</code>，这时如果你运行下<code class="language-plaintext highlighter-rouge">augroup testgroup autocmd yyy augroup END</code>，你猜<code class="language-plaintext highlighter-rouge">xxx</code>还会执行吗？耶，答案是会！</li>
-  <li>你可以在augroup里用<code class="language-plaintext highlighter-rouge">autocmd!</code>来清空augroup</li>
-</ol>
-
+          <a href="/categories/#algorithm">algorithm</a>
         
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
         
-
+          <a href="/tags/#backtrack">backtrack</a>, 
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-b.html#read-more">Read more</a></p>
+          <a href="/tags/#knuth">knuth</a>, 
         
-    </article> <hr />
+          <a href="/tags/#walker">walker</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Aug 13, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/08/backtrack.html">从零单排回溯算法 algorithm B</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#backtrack">backtrack</a>, 
+        
+          <a href="/tags/#knuth">knuth</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way.html">learn vim script the hard way 笔记（上）</a>
-      </h1>
-      <meta itemprop="keywords" content="vim" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#note">note</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#vim" title="vim">vim </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-06-07">
-      on Jun 7, 2017
-      </time>
-      </p>
-    </header>
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jul 15, 2024</span>
 
-    <article class="post-content" itemprop="articleBody">
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/07/dancing-link.html">Dancing link大的要来喽</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
         
-<h3 id="ch02">CH02</h3>
-
-<ol>
-  <li>布尔型变量可以用<code class="language-plaintext highlighter-rouge">:set [no]number</code>这样来设置，<code class="language-plaintext highlighter-rouge">:set number!</code>表示取反，<code class="language-plaintext highlighter-rouge">:set number?</code>获取当前状态（实际<code class="language-plaintext highlighter-rouge">:set nonumber?</code>也可以哟）</li>
-  <li>数值型用<code class="language-plaintext highlighter-rouge">:set numberwidth=10</code>来设置，同理<code class="language-plaintext highlighter-rouge">:set numberwidth?</code>获取当前值</li>
-  <li><code class="language-plaintext highlighter-rouge">relativenumber</code>或者<code class="language-plaintext highlighter-rouge">rnu</code>用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</li>
-</ol>
-
-<h3 id="ch03">CH03</h3>
-
-<ol>
-  <li>注释用<code class="language-plaintext highlighter-rouge">"</code>来标记</li>
-  <li>注意注释不要写在<code class="language-plaintext highlighter-rouge">map</code>后面，这样会当成命令去执行<code class="language-plaintext highlighter-rouge">map a dd "comment</code></li>
-</ol>
-
-<h3 id="ch04">CH04</h3>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">map</code>,<code class="language-plaintext highlighter-rouge">nmap</code>,<code class="language-plaintext highlighter-rouge">vmap</code>,<code class="language-plaintext highlighter-rouge">imap</code>都知道什么意思吧</li>
-</ol>
-
-
+          <a href="/categories/#algorithm">algorithm</a>
         
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
         
-
+          <a href="/tags/#link">link</a>, 
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way.html#read-more">Read more</a></p>
+          <a href="/tags/#sudoku">sudoku</a>, 
         
-    </article> <hr />
+          <a href="/tags/#pentomino">pentomino</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jul 11, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/07/exact-cover.html">Knuth 在 2018 圣诞节上竟然戴着锁链跳舞？</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#link">link</a>, 
+        
+          <a href="/tags/#puzzle">puzzle</a>, 
+        
+          <a href="/tags/#sudoku">sudoku</a>
+        
+      </div>
+      
+      <hr>
+    </li>
     
-  
-  </div>
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Apr 28, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/04/beancount-flow.html">精通Beancount：我的财务管理工作流</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#beancount">beancount</a>, 
+        
+          <a href="/tags/#double-entry">double-entry</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Mar 5, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/03/wordhoop-coze.html">用 coze 解决 WordHoop</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#ai">ai</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#GPT">GPT</a>, 
+        
+          <a href="/tags/#AI">AI</a>, 
+        
+          <a href="/tags/#Puzzle">Puzzle</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Feb 21, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/02/regex-chatgpt.html">《挑战24个正则表达式难题》读后感</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#technology">technology</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#正则">正则</a>, 
+        
+          <a href="/tags/#GPT">GPT</a>, 
+        
+          <a href="/tags/#AI">AI</a>, 
+        
+          <a href="/tags/#Puzzle">Puzzle</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 1, 2024</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2024/01/how-big-y2b.html">如何测算Youtube视频总数</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#technology">technology</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Youtube">Youtube</a>, 
+        
+          <a href="/tags/#随机抽样">随机抽样</a>, 
+        
+          <a href="/tags/#统计">统计</a>, 
+        
+          <a href="/tags/#编程">编程</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 25, 2023</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2023/01/trio.html">Knuth 的 2022 圣诞三重奏终章</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#kunth">kunth</a>, 
+        
+          <a href="/tags/#combinatorial">combinatorial</a>, 
+        
+          <a href="/tags/#permutation">permutation</a>, 
+        
+          <a href="/tags/#tree">tree</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 12, 2023</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2023/01/floorplan.html">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#floor">floor</a>, 
+        
+          <a href="/tags/#alphabet">alphabet</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 8, 2023</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2023/01/baxter.html">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#combinatorial">combinatorial</a>, 
+        
+          <a href="/tags/#permutation">permutation</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 2, 2023</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2023/01/twintree.html">Knuth 的2023圣诞三重奏其一 Twintree</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#tree">tree</a>, 
+        
+          <a href="/tags/#algorithm">algorithm</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 21, 2022</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2022/01/split-cake.html">如何公平地分蛋糕</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#howto">howto</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#hard">hard</a>, 
+        
+          <a href="/tags/#solution">solution</a>, 
+        
+          <a href="/tags/#howto">howto</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 16, 2020</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#knowledge">knowledge</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#probability">probability</a>, 
+        
+          <a href="/tags/#thinking">thinking</a>, 
+        
+          <a href="/tags/#solution">solution</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 7, 2019</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2019/12/ns-ring-con.html">《健身环大冒险》——也许能让你养成健身好习惯</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#workout">workout</a>, 
+        
+          <a href="/tags/#ns">ns</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Mar 30, 2018</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2018/03/peek-functional-programming.html">初探函数式编程</a>
+      </h2>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#functional">functional</a>, 
+        
+          <a href="/tags/#python">python</a>, 
+        
+          <a href="/tags/#monad">monad</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 29, 2018</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2018/01/dead-cell.html">《死亡细胞》——总有一款玩法适合你</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#thinking">thinking</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Oct 12, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/10/airflow-priority_weight.html">airflow priority_weight 计算方法</a>
+      </h2>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#airflow">airflow</a>, 
+        
+          <a href="/tags/#python">python</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jul 13, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/07/apply_defaults.html">airflow apply_defaults 赏析</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#airflow">airflow</a>, 
+        
+          <a href="/tags/#python">python</a>, 
+        
+          <a href="/tags/#decorator">decorator</a>, 
+        
+          <a href="/tags/#apply_defaults">apply_defaults</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 22, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/06/learn-vim-script-the-hard-way-extra.html">learn vim script the hard way 笔记（番外）</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 18, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/06/learn-vim-script-the-hard-way-c.html">learn vim script the hard way 笔记（下）</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 12, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/06/learn-vim-script-the-hard-way-b.html">learn vim script the hard way 笔记（中）</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#vim">vim</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 7, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/06/learn-vim-script-the-hard-way.html">learn vim script the hard way 笔记（上）</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#vim">vim</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 6, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/06/shio.html">《汐》游玩体验</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#platformer">platformer</a>, 
+        
+          <a href="/tags/#hard">hard</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Apr 17, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/04/airflow-pit.html">airflow 踩坑集锦</a>
+      </h2>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#tech">tech</a>, 
+        
+          <a href="/tags/#airflow">airflow</a>, 
+        
+          <a href="/tags/#pit">pit</a>, 
+        
+          <a href="/tags/#python">python</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Mar 22, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/03/witcher-3.html">巫师 3</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#RPG">RPG</a>, 
+        
+          <a href="/tags/#ACT">ACT</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Feb 13, 2017</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2017/02/airflow-advance.html">airflow 进阶</a>
+      </h2>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#tech">tech</a>, 
+        
+          <a href="/tags/#airflow">airflow</a>, 
+        
+          <a href="/tags/#python">python</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 16, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/12/airflow.html">airflow 简明指南</a>
+      </h2>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#tech">tech</a>, 
+        
+          <a href="/tags/#airflow">airflow</a>, 
+        
+          <a href="/tags/#pip">pip</a>, 
+        
+          <a href="/tags/#python">python</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 6, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/12/rise-of-the-tomb-raider.html">Rise of the Tomb Raider</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#fps">fps</a>, 
+        
+          <a href="/tags/#adventure">adventure</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Oct 27, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/10/beancount-advance.html">beancount 进阶</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#beancount">beancount</a>, 
+        
+          <a href="/tags/#double-entry">double-entry</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Oct 8, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/10/beancount-thinking.html">beancount 起步</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#beancount">beancount</a>, 
+        
+          <a href="/tags/#double-entry">double-entry</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Sep 9, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/09/share-post-receive.html">Share post receive hook</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#git">git</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Sep 2, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/09/dice-con.html">Dice Con 2016一日游</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#board-game">board-game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#board-game">board-game</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Aug 16, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/08/parallel.html">parallel</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#linux">linux</a>, 
+        
+          <a href="/tags/#parallel">parallel</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Aug 10, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/08/tlou.html">The Last Of Us</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#PS4">PS4</a>, 
+        
+          <a href="/tags/#fps">fps</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jul 31, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/07/namiya-general-store.html">解忧杂货铺</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#book">book</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Note">Note</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jul 16, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/07/the-song-of-distant-earth.html">The Song Of Distant Earth</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#book">book</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Note">Note</a>, 
+        
+          <a href="/tags/#Arthur C. Clarke">Arthur C. Clarke</a>, 
+        
+          <a href="/tags/#Sci-fi">Sci-fi</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 24, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/06/the-end-of-eternity.html">The End of Eternity</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#book">book</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Note">Note</a>, 
+        
+          <a href="/tags/#Isaac Asimov">Isaac Asimov</a>, 
+        
+          <a href="/tags/#Sci-fi">Sci-fi</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 12, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/06/learning-how-to-learn.html">Learning how to learn</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#note">note</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#note">note</a>, 
+        
+          <a href="/tags/#learning">learning</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">May 22, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/05/LevelDB-Summarize.html">LevelDB实现总结</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#algorithm">algorithm</a>, 
+        
+          <a href="/tags/#database">database</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">May 11, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/05/share-precommit-hook.html">Share precommit hook</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#git">git</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Feb 26, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/02/hbase-compaction.html">HBase Compaction</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#HBase">HBase</a>, 
+        
+          <a href="/tags/#Hadoop">Hadoop</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jan 10, 2016</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2016/01/hbase_split_detail.html">HBase Split detail</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Hadoop">Hadoop</a>, 
+        
+          <a href="/tags/#HBase">HBase</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 28, 2015</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2015/12/hbase-split.html">HBase Split</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#tech">tech</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#Hadoop">Hadoop</a>, 
+        
+          <a href="/tags/#HBase">HBase</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 13, 2015</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2015/12/solution-of-minimum-height-trees.html">Solution of Minimum Height Trees</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#algorithm">algorithm</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#leetcode">leetcode</a>, 
+        
+          <a href="/tags/#solution">solution</a>, 
+        
+          <a href="/tags/#dp">dp</a>, 
+        
+          <a href="/tags/#dfs">dfs</a>, 
+        
+          <a href="/tags/#tree">tree</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Sep 23, 2015</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2015/09/machine-die-in-cloudera.html">记一次cloudera机器重装</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#work">work</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#crash">crash</a>, 
+        
+          <a href="/tags/#trap">trap</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 19, 2014</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#articles">articles</a>, 
+        
+          <a href="/categories/#howto">howto</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#configure">configure</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 18, 2014</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#articles">articles</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#sample-post">sample-post</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Dec 13, 2014</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2014/12/sample-post.html">Sample Post</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#articles">articles</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#sample-post">sample-post</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+    <li class="post-item" data-language="cn">
+      <span class="post-meta">Jun 19, 2012</span>
+
+      <h2 class="post-header">
+        <a class="post-link" href="/2012/06/portal-2.html">Portal 2</a>
+      </h2>
+      
+      <div class="post-categories">
+        Categories: 
+        
+          <a href="/categories/#game">game</a>
+        
+      </div>
+      
+      
+      <div class="post-tags">
+        Tags: 
+        
+          <a href="/tags/#game">game</a>, 
+        
+          <a href="/tags/#puzzle">puzzle</a>, 
+        
+          <a href="/tags/#fps">fps</a>
+        
+      </div>
+      
+      <hr>
+    </li>
+    
+  </ul>
+
+  <p class="rss-subscribe">subscribe <a href="/feed.xml">via RSS</a></p>
+
   <div class="gcse">
       <!--Google Custom Search-->
       <script>
@@ -389,6 +1745,29 @@
       <!-- End Google Custom Search -->
   </div>
 </div>
+
+<script>
+  // 页面加载时根据保存的语言偏好过滤文章
+  document.addEventListener('DOMContentLoaded', function() {
+    // 获取保存的语言偏好
+    var savedLocale = localStorage.getItem('default_locale') || 'en';
+    
+    // 过滤文章显示
+    var postItems = document.querySelectorAll('.post-item');
+    postItems.forEach(function(item) {
+      var postLanguage = item.getAttribute('data-language');
+      
+      // 根据当前语言偏好显示或隐藏文章
+      if (savedLocale === 'en' && postLanguage === 'en') {
+        item.style.display = 'block';
+      } else if (savedLocale !== 'en' && postLanguage === 'cn') {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+</script>
 
     <section class="pager">
   
@@ -431,23 +1810,23 @@
   <h4>Recent Posts</h4>
   
   <li>
-  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  <a href="/2024/12/algorithm-c_en.html" title="Comma-Free Code Algorithm Implementation (English)" rel="bookmark">Comma-Free Code Algorithm Implementation (English)</a>
   </li>
   
   <li>
-  <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
+  <a href="/2024/12/algorithm-c.html" title="决战commafree code——Algorithm C" rel="bookmark">决战commafree code——Algorithm C</a>
   </li>
   
   <li>
-  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
+  <a href="/2024/11/commafree-code-gen.html" title="再战commafree code——暴力挑选&优化" rel="bookmark">再战commafree code——暴力挑选&优化</a>
   </li>
   
   <li>
-  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
+  <a href="/2024/10/commafree-code-first.html" title="commafree code初次见面——生成" rel="bookmark">commafree code初次见面——生成</a>
   </li>
   
   <li>
-  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
+  <a href="/2024/09/langford.html" title="利用链表回溯生成 Langford 对" rel="bookmark">利用链表回溯生成 Langford 对</a>
   </li>
   
 </div>
@@ -464,17 +1843,23 @@
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="13">algorithm (13)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  <li><a href="/categories/#note" title="note" rel="8">note (8)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
   <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
+  
+  <li><a href="/categories/#technology" title="technology" rel="2">technology (2)</a></li>
+  
+  <li><a href="/categories/#ai" title="ai" rel="1">ai (1)</a></li>
+  
+  <li><a href="/categories/#Algorithm" title="Algorithm" rel="1">Algorithm (1)</a></li>
   
 </div>
 
@@ -484,7 +1869,7 @@
   
     <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#puzzle" title="puzzle" rel="2">puzzle</a> &nbsp;
   
     <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
   
@@ -512,7 +1897,7 @@
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="7">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -536,9 +1921,9 @@
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="3">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="3">double-entry</a> &nbsp;
   
     <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
   
@@ -548,7 +1933,7 @@
   
     <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
   
-    <a href="/tags/#python" title="python" rel="6">python</a> &nbsp;
+    <a href="/tags/#python" title="python" rel="7">python</a> &nbsp;
   
     <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
   
@@ -590,6 +1975,40 @@
   
     <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
+    <a href="/tags/#Youtube" title="Youtube" rel="1">Youtube</a> &nbsp;
+  
+    <a href="/tags/#随机抽样" title="随机抽样" rel="1">随机抽样</a> &nbsp;
+  
+    <a href="/tags/#统计" title="统计" rel="1">统计</a> &nbsp;
+  
+    <a href="/tags/#编程" title="编程" rel="1">编程</a> &nbsp;
+  
+    <a href="/tags/#正则" title="正则" rel="1">正则</a> &nbsp;
+  
+    <a href="/tags/#GPT" title="GPT" rel="2">GPT</a> &nbsp;
+  
+    <a href="/tags/#AI" title="AI" rel="2">AI</a> &nbsp;
+  
+    <a href="/tags/#Puzzle" title="Puzzle" rel="2">Puzzle</a> &nbsp;
+  
+    <a href="/tags/#link" title="link" rel="2">link</a> &nbsp;
+  
+    <a href="/tags/#sudoku" title="sudoku" rel="2">sudoku</a> &nbsp;
+  
+    <a href="/tags/#pentomino" title="pentomino" rel="1">pentomino</a> &nbsp;
+  
+    <a href="/tags/#backtrack" title="backtrack" rel="2">backtrack</a> &nbsp;
+  
+    <a href="/tags/#knuth" title="knuth" rel="6">knuth</a> &nbsp;
+  
+    <a href="/tags/#walker" title="walker" rel="1">walker</a> &nbsp;
+  
+    <a href="/tags/#code" title="code" rel="3">code</a> &nbsp;
+  
+    <a href="/tags/#comma-free" title="comma-free" rel="1">comma-free</a> &nbsp;
+  
+    <a href="/tags/#backtracking" title="backtracking" rel="1">backtracking</a> &nbsp;
+  
 </div>
 
 
@@ -604,6 +2023,49 @@
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2024" > <a href="/archives/#2024">2024</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

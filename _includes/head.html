@@ -24,7 +24,65 @@
 <link rel="canonical" href="{{ page.url | replace:'index.html','' |  prepend: site.url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.url }}" />
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$']],
+      processEscapes: true
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- 语言偏好设置 -->
+<script>
+  // 页面加载时检查localStorage中的语言设置
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedLocale = localStorage.getItem('default_locale');
+    console.log('Current locale in localStorage:', savedLocale);
+    
+    // 在主页上，我们需要手动过滤显示的文章
+    if (window.location.pathname === '/') {
+      // 获取所有的文章元素
+      const postElements = document.querySelectorAll('.post-content, .post-header, hr');
+      
+      // 如果有保存的语言设置，根据设置过滤文章
+      if (savedLocale) {
+        // 遍历所有文章元素组（每个文章包含header、content和hr）
+        let currentPost = [];
+        let postLanguage = 'cn'; // 默认语言
+        
+        for (let i = 0; i < postElements.length; i++) {
+          currentPost.push(postElements[i]);
+          
+          // 当收集到三个元素（header、content、hr）时，处理一个完整的文章
+          if (currentPost.length === 3) {
+            // 尝试从文章标题或内容中判断语言
+            const titleElement = currentPost[0].querySelector('.post-title');
+            if (titleElement && /[\u4e00-\u9fa5]/.test(titleElement.textContent)) {
+              postLanguage = 'cn';
+            } else {
+              postLanguage = 'en';
+            }
+            
+            // 根据保存的语言设置显示或隐藏文章
+            const shouldShow = (savedLocale === 'en' && postLanguage === 'en') || 
+                              (savedLocale !== 'en' && postLanguage === 'cn');
+            
+            currentPost.forEach(element => {
+              element.style.display = shouldShow ? '' : 'none';
+            });
+            
+            currentPost = [];
+          }
+        }
+      }
+    }
+  });
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>
 <script>

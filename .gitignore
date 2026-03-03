@@ -8,3 +8,4 @@ _site/wiki/index.html
 __pycache__
 .hypothesis
 .vscode
+_site/*

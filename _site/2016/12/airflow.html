@@ -27,7 +27,65 @@
 <link rel="canonical" href="http://localhost:4000/2016/12/airflow.html">
 <link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript">
+  MathJax = {
+    tex: {
+      inlineMath: [['$', '$']],
+      processEscapes: true
+    },
+    svg: {
+      fontCache: 'global'
+    }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- 语言偏好设置 -->
+<script>
+  // 页面加载时检查localStorage中的语言设置
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedLocale = localStorage.getItem('default_locale');
+    console.log('Current locale in localStorage:', savedLocale);
+    
+    // 在主页上，我们需要手动过滤显示的文章
+    if (window.location.pathname === '/') {
+      // 获取所有的文章元素
+      const postElements = document.querySelectorAll('.post-content, .post-header, hr');
+      
+      // 如果有保存的语言设置，根据设置过滤文章
+      if (savedLocale) {
+        // 遍历所有文章元素组（每个文章包含header、content和hr）
+        let currentPost = [];
+        let postLanguage = 'cn'; // 默认语言
+        
+        for (let i = 0; i < postElements.length; i++) {
+          currentPost.push(postElements[i]);
+          
+          // 当收集到三个元素（header、content、hr）时，处理一个完整的文章
+          if (currentPost.length === 3) {
+            // 尝试从文章标题或内容中判断语言
+            const titleElement = currentPost[0].querySelector('.post-title');
+            if (titleElement && /[\u4e00-\u9fa5]/.test(titleElement.textContent)) {
+              postLanguage = 'cn';
+            } else {
+              postLanguage = 'en';
+            }
+            
+            // 根据保存的语言设置显示或隐藏文章
+            const shouldShow = (savedLocale === 'en' && postLanguage === 'en') || 
+                              (savedLocale !== 'en' && postLanguage === 'cn');
+            
+            currentPost.forEach(element => {
+              element.style.display = shouldShow ? '' : 'none';
+            });
+            
+            currentPost = [];
+          }
+        }
+      }
+    }
+  });
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>
 <script>
@@ -37,7 +95,6 @@
 
   gtag('config', 'AW-688213545');
 </script>
-<script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 
@@ -50,9 +107,52 @@
   <header class="site-header">
 
   <div class="wrapper">
-
-    <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
-    <h3 class="site-meta">MoreFreeze's blog</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <h1 class="site-title"><a href="/">MoreFreeze's Sanctuary</a></h1>
+        <h3 class="site-meta">MoreFreeze's blog</h3>
+      </div>
+      
+      <!-- 语言切换器 - 移动到右上角 -->
+      <div class="language-switcher" style="position: absolute; top: 20px; right: 20px;">
+        <button onclick="toggleLanguage()">中文</button>
+      </div>
+      
+      <script>
+        function toggleLanguage() {
+          // 获取当前语言设置
+          var currentLang = localStorage.getItem('default_locale') || 'en';
+          // 切换语言
+          var newLang = currentLang === 'en' ? 'cn' : 'en';
+          // 保存到localStorage
+          localStorage.setItem('default_locale', newLang);
+          // 刷新页面以应用新语言设置
+          location.reload();
+        }
+      </script>
+    </div>
+    
+    <script>
+      // 设置默认语言的函数
+      function switchDefaultLocale(locale) {
+        localStorage.setItem('default_locale', locale);
+      }
+      
+      // 检查无翻译版本的点击事件
+      document.addEventListener('DOMContentLoaded', function() {
+        const noTranslationLinks = document.querySelectorAll('.no-translation');
+        noTranslationLinks.forEach(link => {
+          link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const isChinese = link.textContent.includes('无中文版本');
+            alert(isChinese ? '此页面暂无中文版本，5秒后将返回当前页面' : 'No English version available, returning to current page in 5 seconds');
+            setTimeout(function() {
+              window.location.reload();
+            }, 5000);
+          });
+        });
+      });
+    </script>
 
     <nav class="site-nav">
       <a href="#" class="menu-icon">
@@ -81,6 +181,8 @@
         
         
         
+        
+        
         <a class="page-link" href="/tags/">Tags</a>
         
         
@@ -93,7 +195,13 @@
         
         
         
+        
+        
         <a class="page-link" href="/wiki/">Wiki</a>
+        
+        
+        
+        
         
         
         
@@ -127,6 +235,15 @@
 
   <header class="post-header">
     <h1 itemprop="name" class="post-title">airflow 简明指南</h1>
+    
+    <!-- Language Switcher for Posts -->
+    <div class="post-language-switcher">
+      
+      
+      
+      
+      
+    </div>
     <meta itemprop="keywords" content="tech,airflow,pip,python" />
     <p class="post-meta">
     Posted in
@@ -451,23 +568,23 @@ t3 ---+
   <h4>Recent Posts</h4>
   
   <li>
-  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
+  <a href="/2024/12/algorithm-c_en.html" title="Comma-Free Code Algorithm Implementation (English)" rel="bookmark">Comma-Free Code Algorithm Implementation (English)</a>
   </li>
   
   <li>
-  <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
+  <a href="/2024/12/algorithm-c.html" title="决战commafree code——Algorithm C" rel="bookmark">决战commafree code——Algorithm C</a>
   </li>
   
   <li>
-  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
+  <a href="/2024/11/commafree-code-gen.html" title="再战commafree code——暴力挑选&优化" rel="bookmark">再战commafree code——暴力挑选&优化</a>
   </li>
   
   <li>
-  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
+  <a href="/2024/10/commafree-code-first.html" title="commafree code初次见面——生成" rel="bookmark">commafree code初次见面——生成</a>
   </li>
   
   <li>
-  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
+  <a href="/2024/09/langford.html" title="利用链表回溯生成 Langford 对" rel="bookmark">利用链表回溯生成 Langford 对</a>
   </li>
   
 </div>
@@ -484,17 +601,23 @@ t3 ---+
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="13">algorithm (13)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  <li><a href="/categories/#note" title="note" rel="8">note (8)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
   <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
+  
+  <li><a href="/categories/#technology" title="technology" rel="2">technology (2)</a></li>
+  
+  <li><a href="/categories/#ai" title="ai" rel="1">ai (1)</a></li>
+  
+  <li><a href="/categories/#Algorithm" title="Algorithm" rel="1">Algorithm (1)</a></li>
   
 </div>
 
@@ -504,7 +627,7 @@ t3 ---+
   
     <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#puzzle" title="puzzle" rel="2">puzzle</a> &nbsp;
   
     <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
   
@@ -532,7 +655,7 @@ t3 ---+
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="7">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -556,9 +679,9 @@ t3 ---+
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="3">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="3">double-entry</a> &nbsp;
   
     <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
   
@@ -568,7 +691,7 @@ t3 ---+
   
     <a href="/tags/#pip" title="pip" rel="1">pip</a> &nbsp;
   
-    <a href="/tags/#python" title="python" rel="6">python</a> &nbsp;
+    <a href="/tags/#python" title="python" rel="7">python</a> &nbsp;
   
     <a href="/tags/#RPG" title="RPG" rel="1">RPG</a> &nbsp;
   
@@ -610,6 +733,40 @@ t3 ---+
   
     <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
+    <a href="/tags/#Youtube" title="Youtube" rel="1">Youtube</a> &nbsp;
+  
+    <a href="/tags/#随机抽样" title="随机抽样" rel="1">随机抽样</a> &nbsp;
+  
+    <a href="/tags/#统计" title="统计" rel="1">统计</a> &nbsp;
+  
+    <a href="/tags/#编程" title="编程" rel="1">编程</a> &nbsp;
+  
+    <a href="/tags/#正则" title="正则" rel="1">正则</a> &nbsp;
+  
+    <a href="/tags/#GPT" title="GPT" rel="2">GPT</a> &nbsp;
+  
+    <a href="/tags/#AI" title="AI" rel="2">AI</a> &nbsp;
+  
+    <a href="/tags/#Puzzle" title="Puzzle" rel="2">Puzzle</a> &nbsp;
+  
+    <a href="/tags/#link" title="link" rel="2">link</a> &nbsp;
+  
+    <a href="/tags/#sudoku" title="sudoku" rel="2">sudoku</a> &nbsp;
+  
+    <a href="/tags/#pentomino" title="pentomino" rel="1">pentomino</a> &nbsp;
+  
+    <a href="/tags/#backtrack" title="backtrack" rel="2">backtrack</a> &nbsp;
+  
+    <a href="/tags/#knuth" title="knuth" rel="6">knuth</a> &nbsp;
+  
+    <a href="/tags/#walker" title="walker" rel="1">walker</a> &nbsp;
+  
+    <a href="/tags/#code" title="code" rel="3">code</a> &nbsp;
+  
+    <a href="/tags/#comma-free" title="comma-free" rel="1">comma-free</a> &nbsp;
+  
+    <a href="/tags/#backtracking" title="backtracking" rel="1">backtracking</a> &nbsp;
+  
 </div>
 
 
@@ -624,6 +781,49 @@ t3 ---+
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2024" > <a href="/archives/#2024">2024</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
