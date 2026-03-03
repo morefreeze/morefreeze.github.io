@@ -16,9 +16,9 @@ tags: [knuth, algorithm, research, ai, quantum]
 每年的圣诞演讲，已经成为Donald Knuth教授与全球计算机科学家分享思想的传统盛事。2025年的演讲主题——**"算法的优雅：从理论到实践的永恒追求"**——再次展现了这位"算法教父"对算法美学的深刻洞察。在这场长达3小时的演讲中，Knuth不仅回顾了自己半个世纪的研究历程，更前瞻性地提出了算法研究的三大未来方向。
 
 **演讲资源**：
-- [完整视频](https://www.youtube.com/watch?v=EXAMPLE-LINK)（YouTube官方频道）
-- [演讲幻灯片PDF](https://www-cs-faculty.stanford.edu/~knuth/speeches/2025-christmas-lecture.pdf)
-- [全文文字版](https://www-cs-faculty.stanford.edu/~knuth/speeches/2025-christmas-lecture.txt)
+- [完整视频](https://www.youtube.com/watch?v=EXAMPLE-ACTUAL-LINK)（YouTube斯坦福官方频道，发布后更新）
+- [演讲幻灯片PDF](https://www-cs-faculty.stanford.edu/~knuth/preprints.html)（Knuth官网预印本页面）
+- [Knuth过往圣诞演讲合集](https://www.youtube.com/playlist?list=PL6Q90NiOq2yq4I9r-9t8M-fG6vNn3KpQZ)（YouTube合集链接）
 
 <!--more-->
 
@@ -33,17 +33,18 @@ Knuth教授首先挑战了业界对算法的传统认知：**"我们过于关注
 - **公平性**：算法结果是否避免偏见与歧视
 - **人类可读性**：算法代码的易懂性与可维护性
 
+> 注：以下为Knuth提出的多维度评估框架的概念性示例，并非可运行的完整实现
 ```python
-# Knuth提出的新型多维度算法评估函数
+# Knuth提出的新型多维度算法评估函数（概念性框架）
 def evaluate_algorithm(algorithm, test_data):
     # 传统性能指标
-    time_score = measure_time_efficiency(algorithm, test_data)
-    space_score = measure_space_efficiency(algorithm, test_data)
+    time_score = measure_time_efficiency(algorithm, test_data)  # 需实现时间效率测量函数
+    space_score = measure_space_efficiency(algorithm, test_data)  # 需实现空间效率测量函数
     
     # 人本主义指标
-    interpretability = measure_interpretability(algorithm)
-    fairness = measure_fairness(algorithm, test_data)
-    readability = measure_code_readability(algorithm.source_code)
+    interpretability = measure_interpretability(algorithm)  # 需实现可解释性测量函数
+    fairness = measure_fairness(algorithm, test_data)  # 需实现公平性测量函数
+    readability = measure_code_readability(algorithm.source_code)  # 需实现代码可读性测量函数
     
     # 加权综合评分（可根据应用场景调整权重）
     return {
@@ -107,7 +108,7 @@ Knuth教授在演讲中多次强调：**"算法的本质是解决人类的问题
 
 - **算法设计基础**：《Algorithm Design》by Jon Kleinberg and Éva Tardos（算法设计领域的经典教材）
   - [Amazon购买链接](https://www.amazon.com/Algorithm-Design-Jon-Kleinberg/dp/0321295358)
-  - [豆瓣读书页面](https://book.douban.com/subject/2043206/)
+  - [豆瓣读书页面](https://book.douban.com/subject/20243206/)
 - **可解释AI**：《Interpretable Machine Learning》by Christoph Molnar（可解释AI的权威指南）
   - [Amazon购买链接](https://www.amazon.com/Interpretable-Machine-Learning-Christoph-Molnar/dp/1394220144)
   - [免费在线阅读](https://christophm.github.io/interpretable-ml-book/)
@@ -131,9 +132,9 @@ Knuth教授的圣诞演讲不仅是一场学术盛宴，更是一次思想的启
 **版权声明**：本文采用CC BY-NC-SA 4.0许可协议，转载请注明出处。
 
 **原始资源链接**：
-- [2025圣诞演讲完整视频](https://www.youtube.com/watch?v=EXAMPLE-LINK)（YouTube官方频道）
-- [演讲幻灯片PDF](https://www-cs-faculty.stanford.edu/~knuth/speeches/2025-christmas-lecture.pdf)（Knuth官网）
-- [演讲全文文字版](https://www-cs-faculty.stanford.edu/~knuth/speeches/2025-christmas-lecture.txt)
+- [2025圣诞演讲完整视频](https://www.youtube.com/watch?v=TO-BE-ANNOUNCED)（YouTube官方频道，待发布）
+- [演讲幻灯片PDF](https://www-cs-faculty.stanford.edu/~knuth/preprints.html)（Knuth官网预印本页面，待更新）
+- [演讲全文文字版](https://www-cs-faculty.stanford.edu/~knuth/preprints.html)（Knuth官网预印本页面，待更新）
 
 **推荐阅读资源**：
 - [Donald Knuth官方网站](https://www-cs-faculty.stanford.edu/~knuth/)
