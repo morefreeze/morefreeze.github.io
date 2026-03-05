@@ -2,9 +2,9 @@
 layout: post
 title: "初探函数式编程"
 description: ""
-category: 
+category: programming-language
 comments: true
-tags: [functional, python, monad]
+tags: [programming-language, functional-programming, python, monad, programming-paradigm]
 ---
 {% include JB/setup %}
 

@@ -2,9 +2,9 @@
 layout: post
 title: "HBase Split detail"
 description: ""
-category: tech
+category: database
 comments: true
-tags: [Hadoop, HBase]
+tags: [database, hbase, hadoop, distributed-systems, performance]
 ---
 {% include JB/setup %}
 

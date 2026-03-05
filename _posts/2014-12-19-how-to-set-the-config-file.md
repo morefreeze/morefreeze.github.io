@@ -2,10 +2,9 @@
 layout: post
 title: How to set the config.yml file
 modified: 2014-12-19
-categories: [articles, howto]
-tags: 
-  - configure
+category: devops
 comments: true
+tags: [devops, jekyll, configuration, yaml, static-site]
 ---
 
 The [config.yml file](https://github.com/yulijia/freshman21/blob/master/_config.yml) in the Freshman21 theme includes five parts. 

@@ -4,7 +4,7 @@ title: "Knuth 的 2023 圣诞三重奏其三 Floorplan"
 description: ""
 category: algorithm
 comments: true
-tags: ["floor", "alphabet"]
+tags: [algorithm, knuth, floorplan, combinatorics, programming]
 ---
 {% include JB/setup %}
 

@@ -2,9 +2,9 @@
 layout: post
 title: "airflow 进阶"
 description: ""
-category: 
+category: data-engineering
 comments: true
-tags: [tech, airflow, python]
+tags: [data-engineering, airflow, python, workflow, etl]
 ---
 {% include JB/setup %}
 

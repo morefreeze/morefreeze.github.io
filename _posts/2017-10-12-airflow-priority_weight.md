@@ -2,9 +2,9 @@
 layout: post
 title: "airflow priority_weight 计算方法"
 description: ""
-category: 
+category: data-engineering
 comments: true
-tags: [airflow, python]
+tags: [data-engineering, airflow, python, workflow, scheduling]
 ---
 {% include JB/setup %}
 

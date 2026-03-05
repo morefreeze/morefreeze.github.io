@@ -2,9 +2,9 @@
 layout: post
 title: "HBase Compaction"
 description: ""
-category: tech
+category: database
 comments: true
-tags: [HBase, Hadoop]
+tags: [database, hbase, hadoop, distributed-systems, performance-tuning]
 ---
 {% include JB/setup %}
 

@@ -1,10 +1,10 @@
 ---
 layout: post
 title: How to install this theme
-categories: articles
+category: devops
 comments: true
 description: How to install this theme, follow steps, very easy!
-tags: [sample-post]
+tags: [devops, jekyll, installation, static-site, tutorial]
 ---
 
 ## How to install Freshman theme?

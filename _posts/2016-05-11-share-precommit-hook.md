@@ -2,9 +2,9 @@
 layout: post
 title: "Share precommit hook"
 description: ""
-category: tech
+category: devops
 comments: true
-tags: [git]
+tags: [devops, git, version-control, hooks, automation]
 ---
 {% include JB/setup %}
 

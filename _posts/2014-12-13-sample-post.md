@@ -2,9 +2,9 @@
 layout: post
 title: Sample Post
 excerpt: "Just about everything you'll need to style in the theme: headings, paragraphs, blockquotes, tables, code blocks, and more."
-categories: articles
+category: writing
 comments: true
-tags: [sample-post]
+tags: [writing, markdown, jekyll, formatting, sample-content]
 ---
 
 * Table of Contents

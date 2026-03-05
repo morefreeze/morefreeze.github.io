@@ -4,7 +4,7 @@ title: "learn vim script the hard way 笔记（中）"
 description: ""
 category: note
 comments: true
-tags: [vim]
+tags: [vim, vimscript, programming, text-editing, tutorial]
 ---
 {% include JB/setup %}
 
