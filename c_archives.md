@@ -19,7 +19,20 @@ permalink: /archives/
 <time datetime="{{ post.date | date:"%Y-%m-%d" }}">
 {{ post.date | date:"%Y-%m-%d" }}
 </time>
-&raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a><br />
+&raquo; <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+{% if post.url contains '_en.html' %}
+  <span class="language-tag en-tag">English</span>
+{% else %}
+  {% capture zh_url %}{{ post.url }}{% endcapture %}
+  {% capture en_url %}{{ zh_url | replace: '.html', '_en.html' }}{% endcapture %}
+  {% for p in site.posts %}
+    {% capture p_url %}{{ p.url }}{% endcapture %}
+    {% if p_url == en_url %}
+      <span class="language-tag zh-tag">中文</span>
+      {% break %}
+    {% endif %}
+  {% endfor %}
+{% endif %}<br />
 {% endfor %}
 
 {% else %}
