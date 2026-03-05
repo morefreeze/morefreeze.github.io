@@ -4,8 +4,12 @@ layout: default
 <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">{{ page.title }}</h1>
+    <h1 itemprop="name" class="post-title">
+      {{ page.title }}
+      {% include language_switcher.html %}
+    </h1>
     <meta itemprop="keywords" content="{{ page.tags | join: ',' }}" />
+    {% include language_switcher_script.html %}
     <p class="post-meta">
     {{ site.locales[site.default_locale].PostedInCategories }}
     {% for cat in page.categories %}

@@ -1,9 +1,16 @@
 ---
+category: lessons
+last_updated: '2026-03-04T11:15:24.608396'
 layout: post
-category : lessons
-tagline: "Supporting tagline"
-tags : [intro, beginner, jekyll, tutorial]
+status: pipeline_completed
+tagline: Supporting tagline
+tags:
+- intro
+- beginner
+- jekyll
+- tutorial
 ---
+
 {% include JB/setup %}
 
 

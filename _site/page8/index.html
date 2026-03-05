@@ -10,7 +10,7 @@
 <meta property="og:title" content="MoreFreeze's Sanctuary">
 <title>MoreFreeze's Sanctuary</title>
 <meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="http://localhost:4000/page8/">
+<meta property="og:url" content="/page8/">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,17 @@
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="MoreFreeze's Sanctuary">
 <meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="http://localhost:4000/page8/">
+<meta name="twitter:url" content="/page8/">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/page8/">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/page8/">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<!-- SEO alternate language links (simplified) -->
+
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google tag (gtag.js) -->
@@ -37,7 +40,6 @@
 
   gtag('config', 'AW-688213545');
 </script>
-<script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 
@@ -114,6 +116,12 @@
         
         
         
+        
+        
+        
+        
+        
+        
       </div>
     </nav>
 
@@ -129,12 +137,96 @@
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
     
     
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/12/hbase-split.html">HBase Split</a>
+        <a itemprop="url" class="post-link" href="/2016/10/beancount-advance.html">beancount 进阶</a>
       </h1>
-      <meta itemprop="keywords" content="Hadoop,HBase" />
+      <meta itemprop="keywords" content="beancount,double-entry" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#note">note</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#beancount" title="beancount">beancount </a>, 
+      
+      <a href="/tags/#double-entry" title="double-entry">double-entry </a>
+      
+      
+      <time itemprop="datePublished" datetime="2016-10-27">
+      on Oct 27, 2016
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+
+<p><a href="/2016/10/beancount-thinking.html">上一篇</a>介绍了 beancount 的一般使用方法，以及我个人的记账套路。
+但仍然有许多细节没有涉及，这篇文章正是为此而作。</p>
+
+        
+        
+
+        
+        <p><a href="/2016/10/beancount-advance.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+      
+    
+      
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2016/10/beancount-thinking.html">beancount 起步</a>
+      </h1>
+      <meta itemprop="keywords" content="beancount,double-entry" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#note">note</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#beancount" title="beancount">beancount </a>, 
+      
+      <a href="/tags/#double-entry" title="double-entry">double-entry </a>
+      
+      
+      <time itemprop="datePublished" datetime="2016-10-08">
+      on Oct 8, 2016
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+
+<p>我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，
+也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，
+名字已经不记得了，但我仍然记得大一的某个下午，我郑重地记录了第一顿晚饭。</p>
+
+        
+        
+
+        
+        <p><a href="/2016/10/beancount-thinking.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+      
+    
+      
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2016/09/share-post-receive.html">Share post receive hook</a>
+      </h1>
+      <meta itemprop="keywords" content="git" />
       <p class="post-meta">
       Posted in
       
@@ -143,205 +235,114 @@
       
       and tagged
       
-      <a href="/tags/#Hadoop" title="Hadoop">Hadoop </a>, 
-      
-      <a href="/tags/#HBase" title="HBase">HBase </a>
+      <a href="/tags/#git" title="git">git </a>
       
       
-      <time itemprop="datePublished" datetime="2015-12-28">
-      on Dec 28, 2015
+      <time itemprop="datePublished" datetime="2016-09-09">
+      on Sep 9, 2016
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<h2 id="split是什么">split是什么？</h2>
-
-<p>HBase的某个或多个region上的文件量达到一定规模，或者人工想拆分，就会进行split，
-就是将各个region上的数据拆成两份（一定是一分为二，如果想分成三份就需要进行两次split），
-拆分一定是按某个key值，从key这里一切为二，小于key的在前面，大于等于key的在后面。</p>
+<p>I had shared a precommit <a href="/2016/05/share-precommit-hook.html">here</a> which help you check your code before your commit.
+If you want to deploy it on test machine even production machine, you may need this.</p>
 
         
         
 
         
-        <p><a href="/2015/12/hbase-split.html#read-more">Read more</a></p>
+        <p><a href="/2016/09/share-post-receive.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/12/solution-of-minimum-height-trees.html">Solution of Minimum Height Trees</a>
+        <a itemprop="url" class="post-link" href="/2016/09/dice-con.html">Dice Con 2016一日游</a>
       </h1>
-      <meta itemprop="keywords" content="leetcode,solution,dp,dfs,tree" />
+      <meta itemprop="keywords" content="board-game" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#algorithm">algorithm</a>&nbsp;
+      <a href="/categories/#board-game">board-game</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#leetcode" title="leetcode">leetcode </a>, 
-      
-      <a href="/tags/#solution" title="solution">solution </a>, 
-      
-      <a href="/tags/#dp" title="dp">dp </a>, 
-      
-      <a href="/tags/#dfs" title="dfs">dfs </a>, 
-      
-      <a href="/tags/#tree" title="tree">tree </a>
+      <a href="/tags/#board-game" title="board-game">board-game </a>
       
       
-      <time itemprop="datePublished" datetime="2015-12-13">
-      on Dec 13, 2015
+      <time itemprop="datePublished" datetime="2016-09-02">
+      on Sep 2, 2016
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p>I have trained my algorithm on <a href="http://leetcode.com/">leetcode</a> a period of time.</p>
 
-<p>Today, I will explain my solution about <a href="https://leetcode.com/problems/minimum-height-trees/">Minimum Height Trees</a>.
-My solution beat ~95% against others but it is hard to explain what is I do.
-Please allow me to introduce the solution from easy to hard. If you only need the
-last solution, jump to</p>
+<p>上周末去了一天今年的Dice Con，总体来说感觉更多面向纯新手和桌游老手或桌游店老板，
+对于我这种玩过一些桌游但不精通的人来说，纯粹是凑个热闹，开阔下见识。</p>
+
+<p>因为记错了时间，原打算赶早去就没赶上，中午吃完饭才到场馆，进去后，发现根本没位置。
+场馆分了几部分，刚进去一排架子是展示 &amp; 售卖桌游的，旁边是几排桌子，用于体验桌上的桌游，
+每桌都是满满的人。</p>
+
+<p>往里走是各桌游厂商的展览，</p>
 
         
         
 
         
-        <p><a href="/2015/12/solution-of-minimum-height-trees.html#read-more">Read more</a></p>
+        <p><a href="/2016/09/dice-con.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2015/09/machine-die-in-cloudera.html">记一次cloudera机器重装</a>
+        <a itemprop="url" class="post-link" href="/2016/08/parallel.html">parallel</a>
       </h1>
-      <meta itemprop="keywords" content="crash,trap" />
+      <meta itemprop="keywords" content="linux,parallel" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#work">work</a>&nbsp;
+      <a href="/categories/#tech">tech</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#crash" title="crash">crash </a>, 
+      <a href="/tags/#linux" title="linux">linux </a>, 
       
-      <a href="/tags/#trap" title="trap">trap </a>
+      <a href="/tags/#parallel" title="parallel">parallel </a>
       
       
-      <time itemprop="datePublished" datetime="2015-09-23">
-      on Sep 23, 2015
+      <time itemprop="datePublished" datetime="2016-08-16">
+      on Aug 16, 2016
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p>先上结论：<strong>线上机器千万别没事<code class="language-plaintext highlighter-rouge">yum update</code>以及同类的升级操作</strong></p>
+<p>I spend some day to learn a powerful tool that is called <em>parallel</em>.
+It can help you split several tasks into multiple groups to run them <strong>parallel</strong>.
+Get into the car!</p>
 
         
         
 
         
-        <p><a href="/2015/09/machine-die-in-cloudera.html#read-more">Read more</a></p>
+        <p><a href="/2016/08/parallel.html#read-more">Read more</a></p>
         
     </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-set-the-config-file.html">How to set the config.yml file</a>
-      </h1>
-      <meta itemprop="keywords" content="configure" />
-      <p class="post-meta">
-      Posted in
       
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      <a href="/categories/#howto">howto</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#configure" title="configure">configure </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-19">
-      on Dec 19, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        <p>The <a href="https://github.com/yulijia/freshman21/blob/master/_config.yml">config.yml file</a> in the Freshman21 theme includes five parts.</p>
-
-<p><strong>First part</strong> is the site info.</p>
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-set-the-config-file.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2014/12/how-to-install.html">How to install this theme</a>
-      </h1>
-      <meta itemprop="keywords" content="sample-post" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#articles">articles</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#sample-post" title="sample-post">sample-post </a>
-      
-      
-      <time itemprop="datePublished" datetime="2014-12-18">
-      on Dec 18, 2014
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        <h2 id="how-to-install-freshman-theme">How to install Freshman theme?</h2>
-
-<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="code"><pre><span class="c"># please make sure you have already installed git tools and ruby tools(gem)</span>
-<span class="nv">$ </span>gem <span class="nb">install </span>sass
-<span class="nv">$ </span>gem <span class="nb">install </span>jekyll
-<span class="nv">$ </span>git clone https://github.com/yulijia/freshman21.git
-</pre></td></tr></tbody></table></code></pre></figure>
-
-
-        
-        
-
-        
-        <p><a href="/2014/12/how-to-install.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
     
   
   </div>
@@ -403,25 +404,31 @@ last solution, jump to</p>
 <div class="sidebar-module">
   <h4>Recent Posts</h4>
   
-  <li>
-  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
-  </li>
+    
   
-  <li>
-  <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
-  </li>
+    
+    <li>
+    <a href="/2026/03/polymarket-trading-strategies.html" title="Polymarket量化交易指南：运用数学与统计学构建交易优势" rel="bookmark">Polymarket量化交易指南：运用数学与统计学构建交易优势</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
-  </li>
+    
+    <li>
+    <a href="/2024/12/algorithm-c.html" title="从指数级到高效：Knuth Algorithm C 构建 Commafree Code" rel="bookmark">从指数级到高效：Knuth Algorithm C 构建 Commafree Code</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
-  </li>
+    
+    <li>
+    <a href="/2024/11/commafree-code-gen.html" title="再战commafree code——暴力挑选&优化" rel="bookmark">再战commafree code——暴力挑选&优化</a>
+    </li>
+    
   
-  <li>
-  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
+    
+    <li>
+    <a href="/2024/10/commafree-code-first.html" title="commafree code初次见面——生成" rel="bookmark">commafree code初次见面——生成</a>
+    </li>
+    
   
 </div>
 
@@ -437,17 +444,21 @@ last solution, jump to</p>
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="13">algorithm (13)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  <li><a href="/categories/#note" title="note" rel="8">note (8)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
   <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
+  
+  <li><a href="/categories/#technology" title="technology" rel="2">technology (2)</a></li>
+  
+  <li><a href="/categories/#ai" title="ai" rel="1">ai (1)</a></li>
   
 </div>
 
@@ -457,7 +468,7 @@ last solution, jump to</p>
   
     <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#puzzle" title="puzzle" rel="2">puzzle</a> &nbsp;
   
     <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
   
@@ -485,7 +496,7 @@ last solution, jump to</p>
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="6">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -509,9 +520,9 @@ last solution, jump to</p>
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="3">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="3">double-entry</a> &nbsp;
   
     <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
   
@@ -563,6 +574,62 @@ last solution, jump to</p>
   
     <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
+    <a href="/tags/#Youtube" title="Youtube" rel="1">Youtube</a> &nbsp;
+  
+    <a href="/tags/#随机抽样" title="随机抽样" rel="1">随机抽样</a> &nbsp;
+  
+    <a href="/tags/#统计" title="统计" rel="1">统计</a> &nbsp;
+  
+    <a href="/tags/#编程" title="编程" rel="1">编程</a> &nbsp;
+  
+    <a href="/tags/#正则" title="正则" rel="1">正则</a> &nbsp;
+  
+    <a href="/tags/#GPT" title="GPT" rel="2">GPT</a> &nbsp;
+  
+    <a href="/tags/#AI" title="AI" rel="2">AI</a> &nbsp;
+  
+    <a href="/tags/#Puzzle" title="Puzzle" rel="2">Puzzle</a> &nbsp;
+  
+    <a href="/tags/#link" title="link" rel="2">link</a> &nbsp;
+  
+    <a href="/tags/#sudoku" title="sudoku" rel="2">sudoku</a> &nbsp;
+  
+    <a href="/tags/#pentomino" title="pentomino" rel="1">pentomino</a> &nbsp;
+  
+    <a href="/tags/#backtrack" title="backtrack" rel="2">backtrack</a> &nbsp;
+  
+    <a href="/tags/#knuth" title="knuth" rel="6">knuth</a> &nbsp;
+  
+    <a href="/tags/#walker" title="walker" rel="1">walker</a> &nbsp;
+  
+    <a href="/tags/#code" title="code" rel="3">code</a> &nbsp;
+  
+    <a href="/tags/#backtracking" title="backtracking" rel="1">backtracking</a> &nbsp;
+  
+    <a href="/tags/#sparse-sets" title="sparse-sets" rel="1">sparse-sets</a> &nbsp;
+  
+    <a href="/tags/#combinatorial-algorithms" title="combinatorial-algorithms" rel="1">combinatorial-algorithms</a> &nbsp;
+  
+    <a href="/tags/#TAOCP" title="TAOCP" rel="1">TAOCP</a> &nbsp;
+  
+    <a href="/tags/#Polymarket" title="Polymarket" rel="2">Polymarket</a> &nbsp;
+  
+    <a href="/tags/#量化交易" title="量化交易" rel="1">量化交易</a> &nbsp;
+  
+    <a href="/tags/#预测市场" title="预测市场" rel="1">预测市场</a> &nbsp;
+  
+    <a href="/tags/#数学模型" title="数学模型" rel="1">数学模型</a> &nbsp;
+  
+    <a href="/tags/#交易策略" title="交易策略" rel="1">交易策略</a> &nbsp;
+  
+    <a href="/tags/#Quantitative Trading" title="Quantitative Trading" rel="1">Quantitative Trading</a> &nbsp;
+  
+    <a href="/tags/#Prediction Markets" title="Prediction Markets" rel="1">Prediction Markets</a> &nbsp;
+  
+    <a href="/tags/#Mathematical Models" title="Mathematical Models" rel="1">Mathematical Models</a> &nbsp;
+  
+    <a href="/tags/#Trading Strategies" title="Trading Strategies" rel="1">Trading Strategies</a> &nbsp;
+  
 </div>
 
 
@@ -577,6 +644,56 @@ last solution, jump to</p>
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2026" > <a href="/archives/#2026">2026</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2024" > <a href="/archives/#2024">2024</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

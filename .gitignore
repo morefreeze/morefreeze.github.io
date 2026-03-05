@@ -1,6 +1,7 @@
 #_site
 .sass-cache
-_site/wiki/index.html
+_site/
+_drafts/
 
 .ropeproject
 .jekyll-cache
@@ -8,3 +9,4 @@ _site/wiki/index.html
 __pycache__
 .hypothesis
 .vscode
+.claude

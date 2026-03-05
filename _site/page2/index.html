@@ -10,7 +10,7 @@
 <meta property="og:title" content="MoreFreeze's Sanctuary">
 <title>MoreFreeze's Sanctuary</title>
 <meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="http://localhost:4000/page2/">
+<meta property="og:url" content="/page2/">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,17 @@
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="MoreFreeze's Sanctuary">
 <meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="http://localhost:4000/page2/">
+<meta name="twitter:url" content="/page2/">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/page2/">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/page2/">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<!-- SEO alternate language links (simplified) -->
+
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google tag (gtag.js) -->
@@ -37,7 +40,6 @@
 
   gtag('config', 'AW-688213545');
 </script>
-<script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 
@@ -114,6 +116,12 @@
         
         
         
+        
+        
+        
+        
+        
+        
       </div>
     </nav>
 
@@ -129,225 +137,238 @@
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
     
     
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2020/12/president-arbitrage.html">如何优雅地从总统竞选中套利</a>
+        <a itemprop="url" class="post-link" href="/2024/09/langford.html">利用链表回溯生成 Langford 对</a>
       </h1>
-      <meta itemprop="keywords" content="probability,thinking,solution" />
+      <meta itemprop="keywords" content="algorithm,knuth" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#knowledge">knowledge</a>&nbsp;
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#probability" title="probability">probability </a>, 
+      <a href="/tags/#algorithm" title="algorithm">algorithm </a>, 
       
-      <a href="/tags/#thinking" title="thinking">thinking </a>, 
-      
-      <a href="/tags/#solution" title="solution">solution </a>
+      <a href="/tags/#knuth" title="knuth">knuth </a>
       
       
-      <time itemprop="datePublished" datetime="2020-12-16">
-      on Dec 16, 2020
+      <time itemprop="datePublished" datetime="2024-09-16">
+      on Sep 16, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p>最近看了篇<a href="https://computersciencealgorithms.wordpress.com/2020/11/22/exploiting-arbitrage-opportunities-in-betting-markets/">很有趣的文章</a>，
-讲了有两个网站 A 和 B，都对 2020 年美国总统大选开了赌局，A 网站拜登胜出的赔率是 1:0.88，也就是说你可以花 0.88 买一注，
-拜登胜出则你拿到 1 块，净赚 0.12，输则什么都没有亏掉那 0.88。B 网站允许你看空，看空拜登胜出（也就是认为拜登不会胜），
-赔率就比较高了，是 1.05:0.05，就是你只要出 5 分钱（这里其实包含 1 分钱看空费，简化就不提了，感兴趣可以看原文），如果拜登没有当选，
-那你拿到 1.05 净赚 1 块，输则损失掉 0.05。
-<img src="/images/predictit-221120.png" alt="image" /></p>
+<h2 id="引言">引言</h2>
+
+<p>我发现在以前的回溯算法中，很少提到链表的使用，虽然 Dancing link 算法已经用的炉火纯青了，但介绍它属于是“跳级”了，咱们既然从零单排回溯算法，那还要从链表在回溯中的简单用法讲起，这就要提 Langford 对的生成了。</p>
+
+<p>Langford 对是一个组合数学中的概念。给定一个正整数 ，Langford 对是将数字 1 到 n 的每个数字重复两次，并以一种特定的方式排列，使得两个相同的数字之间恰好间隔等于该数字的位置数。
+例如，对于 n=4，一种可能的 Langford 对排列是 23421314。在这里，每个数字重复两次，且两个 1 之间间隔 1 个位置；两个 2 之间间隔 2 个位置；以此类推。</p>
+
 
         
         
 
         
-        <p><a href="/2020/12/president-arbitrage.html#read-more">Read more</a></p>
+        <p><a href="/2024/09/langford.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2019/12/ns-ring-con.html">《健身环大冒险》——也许能让你养成健身好习惯</a>
+        <a itemprop="url" class="post-link" href="/2024/09/walker's-method.html">反方向的回溯——Walker算法</a>
       </h1>
-      <meta itemprop="keywords" content="game,workout,ns" />
+      <meta itemprop="keywords" content="backtrack,knuth,walker" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#game">game</a>&nbsp;
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#game" title="game">game </a>, 
+      <a href="/tags/#backtrack" title="backtrack">backtrack </a>, 
       
-      <a href="/tags/#workout" title="workout">workout </a>, 
+      <a href="/tags/#knuth" title="knuth">knuth </a>, 
       
-      <a href="/tags/#ns" title="ns">ns </a>
+      <a href="/tags/#walker" title="walker">walker </a>
       
       
-      <time itemprop="datePublished" datetime="2019-12-07">
-      on Dec 7, 2019
+      <time itemprop="datePublished" datetime="2024-09-03">
+      on Sep 3, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p><img src="/images/my_ring_con.jpg" alt="my ring con achievement" />
-最近从同事那借(bai)来(piao)了NS的《健身环大冒险》，连续打了三周，马上推到世界9，
-感觉按剧情的尿性后面还要至少还有4关，可能又要拖2周，也应该了解了所有要素，就简单来聊聊吧。</p>
+<h2 id="引言">引言</h2>
+
+<p>如果你看懂了<a href="/2024/07/exact-cover.html">上一篇</a>的回溯基本法，那这篇更是小菜一碟，我将尝试在 read more 之前讲明白它。</p>
+
+<p>相比基本法每次尝试是从$D_l$依次取一个然后验证，如果为假则剪枝，否则即等待成立，Walker 则从另一个角度出发，每次从$S_l$取完最小元素$x_l$后，直接更新下次的 $S_{l+1}$，把不符合条件从集合中删掉，然后接着往下走直到$l&gt;n$。回溯时则直接令$S_l\leftarrow S_l \backslash x_l$ 去除$x_l$，然后接着选下一个。</p>
+
 
         
         
 
         
-        <p><a href="/2019/12/ns-ring-con.html#read-more">Read more</a></p>
+        <p><a href="/2024/09/walker's-method.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2018/03/peek-functional-programming.html">初探函数式编程</a>
+        <a itemprop="url" class="post-link" href="/2024/08/backtrack.html">从零单排回溯算法 algorithm B</a>
       </h1>
-      <meta itemprop="keywords" content="functional,python,monad" />
+      <meta itemprop="keywords" content="backtrack,knuth" />
       <p class="post-meta">
       Posted in
+      
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#functional" title="functional">functional </a>, 
+      <a href="/tags/#backtrack" title="backtrack">backtrack </a>, 
       
-      <a href="/tags/#python" title="python">python </a>, 
-      
-      <a href="/tags/#monad" title="monad">monad </a>
+      <a href="/tags/#knuth" title="knuth">knuth </a>
       
       
-      <time itemprop="datePublished" datetime="2018-03-30">
-      on Mar 30, 2018
+      <time itemprop="datePublished" datetime="2024-08-13">
+      on Aug 13, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
+<h2 id="引言">引言</h2>
 
-<p>最近遇到了一些函数式编程的概念，心想我用 <code class="language-plaintext highlighter-rouge">Python</code> 的 <code class="language-plaintext highlighter-rouge">map</code> <code class="language-plaintext highlighter-rouge">reduce</code> 不就是在函数式编程嘛，
-但看了半天仍然一头雾水，什么是 <code class="language-plaintext highlighter-rouge">UnitBox</code>？<code class="language-plaintext highlighter-rouge">flatMap</code> 和 <code class="language-plaintext highlighter-rouge">map</code> 差在哪里？于是先学了阮老师的<a href="http://www.ruanyifeng.com/blog/2017/02/fp-tutorial.html">函数式编程入门教程</a>，
-唉哟喂，和我原来想的还不一样，<code class="language-plaintext highlighter-rouge">Python</code> 这些操作虽然算是函数式编程，但要系统地理解为什么能这样，
-还得从头说起。</p>
+<p>当我要介绍 Knuth 在 23 年圣诞节时的演讲 Dancing cell 时，我发现我缺少了太多的上下文，算法虽然不难讲清楚，但为什么要这么做，这个算法有什么应用价值我并不清楚，视频中提到了这是从 Knuth 的经典著作《The Art of Computer Programming》(TAOCP)第 7 章开始的。出于好奇，我翻看了整个第 7 章，发现整章都在讲述回溯算法（Backtrack），包括我之前提到的 Dancing Link 实际上是一个比较优化的算法。</p>
 
 
         
         
 
         
-        <p><a href="/2018/03/peek-functional-programming.html#read-more">Read more</a></p>
+        <p><a href="/2024/08/backtrack.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2018/01/dead-cell.html">《死亡细胞》——总有一款玩法适合你</a>
+        <a itemprop="url" class="post-link" href="/2024/07/dancing-link.html">Dancing link大的要来喽</a>
       </h1>
-      <meta itemprop="keywords" content="game,thinking" />
+      <meta itemprop="keywords" content="link,sudoku,pentomino" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#game">game</a>&nbsp;
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#game" title="game">game </a>, 
+      <a href="/tags/#link" title="link">link </a>, 
       
-      <a href="/tags/#thinking" title="thinking">thinking </a>
+      <a href="/tags/#sudoku" title="sudoku">sudoku </a>, 
+      
+      <a href="/tags/#pentomino" title="pentomino">pentomino </a>
       
       
-      <time itemprop="datePublished" datetime="2018-01-29">
-      on Jan 29, 2018
+      <time itemprop="datePublished" datetime="2024-07-15">
+      on Jul 15, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p>周末在家肝了一天《死亡细胞》，第一次双塔流过了刺客，看了下 Steam 游戏时间记录，
-我已经打了 60 个小时了，和《以撒》的 200+ 小时数比起来，简直不值一提。
-强忍着“再开一把”的心情关上电脑，第一次通关一款游戏用这么长的时间，
-当然这其中有这款游戏现在还是 EA 阶段，难度设计还需要调整的锅，
-不过我想从另一方面来谈谈这款游戏给我的不一样的感受。</p>
+<h2 id="引言">引言</h2>
+<p>我以前玩过一个叫智慧金字塔的儿童益智玩具，后来我发现它居然早在 NOI 2005 就出现过<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>了，
+我还写了一个程序<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>专门来解这些题目，
+上回说到将双向链表和 Algorithm X 结合起来就是 Dancing link了，
+这次我们就来看看最关键的建模方法。</p>
 
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p><a href="https://www.luogu.com.cn/problem/P4205">https://www.luogu.com.cn/problem/P4205</a> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p><a href="https://github.com/morefreeze/SapientialPyramid">https://github.com/morefreeze/SapientialPyramid</a> <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
         
         
 
         
-        <p><a href="/2018/01/dead-cell.html#read-more">Read more</a></p>
+        <p><a href="/2024/07/dancing-link.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/10/airflow-priority_weight.html">airflow priority_weight 计算方法</a>
+        <a itemprop="url" class="post-link" href="/2024/07/exact-cover.html">Knuth 在 2018 圣诞节上竟然戴着锁链跳舞？</a>
       </h1>
-      <meta itemprop="keywords" content="airflow,python" />
+      <meta itemprop="keywords" content="link,puzzle,sudoku" />
       <p class="post-meta">
       Posted in
+      
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
+      <a href="/tags/#link" title="link">link </a>, 
       
-      <a href="/tags/#python" title="python">python </a>
+      <a href="/tags/#puzzle" title="puzzle">puzzle </a>, 
+      
+      <a href="/tags/#sudoku" title="sudoku">sudoku </a>
       
       
-      <time itemprop="datePublished" datetime="2017-10-12">
-      on Oct 12, 2017
+      <time itemprop="datePublished" datetime="2024-07-11">
+      on Jul 11, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p>最近发现 airflow 任务执行顺序有些奇怪，于是看了下 airflow 关于权重的处理，解答了心中的疑问。</p>
+<h2 id="引言">引言</h2>
 
-<p>以最新的稳定版(v1.8-stable)为例，代码总共就这么<a href="https://github.com/apache/incubator-airflow/blob/v1-8-stable/airflow/models.py#L2161-L2166">一小段</a></p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="o">@</span><span class="nb">property</span>
-    <span class="k">def</span> <span class="nf">priority_weight_total</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">sum</span><span class="p">([</span>
-            <span class="n">t</span><span class="p">.</span><span class="n">priority_weight</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">.</span><span class="n">get_flat_relatives</span><span class="p">(</span><span class="n">upstream</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-        <span class="p">])</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">priority_weight</span>
-</code></pre></div></div>
-
+<p>我在翻看 <a href="https://www-cs-faculty.stanford.edu/~knuth/news.html">Knuth 最近的更新</a>时，发现他每年圣诞节都会跑到斯坦福去做演讲，去年我也写(ken)了他的<a href="/2023/01/twintree.html">圣诞三重奏</a>，
+2023年圣诞的主题是 Dancing Cell，我瞅了一眼，发现要搞懂这个就得先弄明白 Dancing Link。这个算法我早在 2011 年就听说过，只晓得用它解数独超快，但具体咋做、我也从来没实现过。所以呀，我决定先从 Dancing Link 开始学起。</p>
 
         
         
 
         
-        <p><a href="/2017/10/airflow-priority_weight.html#read-more">Read more</a></p>
+        <p><a href="/2024/07/exact-cover.html#read-more">Read more</a></p>
         
     </article> <hr />
-    
+      
     
   
   </div>
@@ -409,25 +430,31 @@
 <div class="sidebar-module">
   <h4>Recent Posts</h4>
   
-  <li>
-  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
-  </li>
+    
   
-  <li>
-  <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
-  </li>
+    
+    <li>
+    <a href="/2026/03/polymarket-trading-strategies.html" title="Polymarket量化交易指南：运用数学与统计学构建交易优势" rel="bookmark">Polymarket量化交易指南：运用数学与统计学构建交易优势</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
-  </li>
+    
+    <li>
+    <a href="/2024/12/algorithm-c.html" title="从指数级到高效：Knuth Algorithm C 构建 Commafree Code" rel="bookmark">从指数级到高效：Knuth Algorithm C 构建 Commafree Code</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
-  </li>
+    
+    <li>
+    <a href="/2024/11/commafree-code-gen.html" title="再战commafree code——暴力挑选&优化" rel="bookmark">再战commafree code——暴力挑选&优化</a>
+    </li>
+    
   
-  <li>
-  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
+    
+    <li>
+    <a href="/2024/10/commafree-code-first.html" title="commafree code初次见面——生成" rel="bookmark">commafree code初次见面——生成</a>
+    </li>
+    
   
 </div>
 
@@ -443,17 +470,21 @@
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="13">algorithm (13)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  <li><a href="/categories/#note" title="note" rel="8">note (8)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
   <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
+  
+  <li><a href="/categories/#technology" title="technology" rel="2">technology (2)</a></li>
+  
+  <li><a href="/categories/#ai" title="ai" rel="1">ai (1)</a></li>
   
 </div>
 
@@ -463,7 +494,7 @@
   
     <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#puzzle" title="puzzle" rel="2">puzzle</a> &nbsp;
   
     <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
   
@@ -491,7 +522,7 @@
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="6">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -515,9 +546,9 @@
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="3">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="3">double-entry</a> &nbsp;
   
     <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
   
@@ -569,6 +600,62 @@
   
     <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
+    <a href="/tags/#Youtube" title="Youtube" rel="1">Youtube</a> &nbsp;
+  
+    <a href="/tags/#随机抽样" title="随机抽样" rel="1">随机抽样</a> &nbsp;
+  
+    <a href="/tags/#统计" title="统计" rel="1">统计</a> &nbsp;
+  
+    <a href="/tags/#编程" title="编程" rel="1">编程</a> &nbsp;
+  
+    <a href="/tags/#正则" title="正则" rel="1">正则</a> &nbsp;
+  
+    <a href="/tags/#GPT" title="GPT" rel="2">GPT</a> &nbsp;
+  
+    <a href="/tags/#AI" title="AI" rel="2">AI</a> &nbsp;
+  
+    <a href="/tags/#Puzzle" title="Puzzle" rel="2">Puzzle</a> &nbsp;
+  
+    <a href="/tags/#link" title="link" rel="2">link</a> &nbsp;
+  
+    <a href="/tags/#sudoku" title="sudoku" rel="2">sudoku</a> &nbsp;
+  
+    <a href="/tags/#pentomino" title="pentomino" rel="1">pentomino</a> &nbsp;
+  
+    <a href="/tags/#backtrack" title="backtrack" rel="2">backtrack</a> &nbsp;
+  
+    <a href="/tags/#knuth" title="knuth" rel="6">knuth</a> &nbsp;
+  
+    <a href="/tags/#walker" title="walker" rel="1">walker</a> &nbsp;
+  
+    <a href="/tags/#code" title="code" rel="3">code</a> &nbsp;
+  
+    <a href="/tags/#backtracking" title="backtracking" rel="1">backtracking</a> &nbsp;
+  
+    <a href="/tags/#sparse-sets" title="sparse-sets" rel="1">sparse-sets</a> &nbsp;
+  
+    <a href="/tags/#combinatorial-algorithms" title="combinatorial-algorithms" rel="1">combinatorial-algorithms</a> &nbsp;
+  
+    <a href="/tags/#TAOCP" title="TAOCP" rel="1">TAOCP</a> &nbsp;
+  
+    <a href="/tags/#Polymarket" title="Polymarket" rel="2">Polymarket</a> &nbsp;
+  
+    <a href="/tags/#量化交易" title="量化交易" rel="1">量化交易</a> &nbsp;
+  
+    <a href="/tags/#预测市场" title="预测市场" rel="1">预测市场</a> &nbsp;
+  
+    <a href="/tags/#数学模型" title="数学模型" rel="1">数学模型</a> &nbsp;
+  
+    <a href="/tags/#交易策略" title="交易策略" rel="1">交易策略</a> &nbsp;
+  
+    <a href="/tags/#Quantitative Trading" title="Quantitative Trading" rel="1">Quantitative Trading</a> &nbsp;
+  
+    <a href="/tags/#Prediction Markets" title="Prediction Markets" rel="1">Prediction Markets</a> &nbsp;
+  
+    <a href="/tags/#Mathematical Models" title="Mathematical Models" rel="1">Mathematical Models</a> &nbsp;
+  
+    <a href="/tags/#Trading Strategies" title="Trading Strategies" rel="1">Trading Strategies</a> &nbsp;
+  
 </div>
 
 
@@ -583,6 +670,56 @@
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2026" > <a href="/archives/#2026">2026</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2024" > <a href="/archives/#2024">2024</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   

@@ -10,7 +10,7 @@
 <meta property="og:title" content="MoreFreeze's Sanctuary">
 <title>MoreFreeze's Sanctuary</title>
 <meta property="og:description" content="morefreeze's blog">
-<meta property="og:url" content="http://localhost:4000/page3/">
+<meta property="og:url" content="/page3/">
 <meta property="og:site_name" content="MoreFreeze's Sanctuary">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary">
@@ -18,14 +18,17 @@
 <meta name="twitter:creator" content="@">
 <meta name="twitter:title" content="MoreFreeze's Sanctuary">
 <meta name="twitter:description" content="morefreeze's blog">
-<meta name="twitter:url" content="http://localhost:4000/page3/">
+<meta name="twitter:url" content="/page3/">
 
 <meta name="keywords" content="Jekyll, theme, Freshman21">
 
 <link rel="icon" href="/images/favicon.ico">
 <link rel="stylesheet" href="/css/main.css">
-<link rel="canonical" href="http://localhost:4000/page3/">
-<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="http://localhost:4000/feed.xml" />
+<link rel="canonical" href="/page3/">
+<link rel="alternate" type="application/atom+xml" title="MoreFreeze's Sanctuary" href="/feed.xml" />
+
+<!-- SEO alternate language links (simplified) -->
+
 
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google tag (gtag.js) -->
@@ -37,7 +40,6 @@
 
   gtag('config', 'AW-688213545');
 </script>
-<script data-ad-client="ca-pub-2381247712289178" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </head>
 
 
@@ -114,6 +116,12 @@
         
         
         
+        
+        
+        
+        
+        
+        
       </div>
     </nav>
 
@@ -129,147 +137,13 @@
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
     
     
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/07/apply_defaults.html">airflow apply_defaults 赏析</a>
+        <a itemprop="url" class="post-link" href="/2024/04/beancount-flow.html">精通Beancount：我的财务管理工作流</a>
       </h1>
-      <meta itemprop="keywords" content="airflow,python,decorator,apply_defaults" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#tech">tech</a>&nbsp;
-      
-      
-      and tagged
-      
-      <a href="/tags/#airflow" title="airflow">airflow </a>, 
-      
-      <a href="/tags/#python" title="python">python </a>, 
-      
-      <a href="/tags/#decorator" title="decorator">decorator </a>, 
-      
-      <a href="/tags/#apply_defaults" title="apply_defaults">apply_defaults </a>
-      
-      
-      <time itemprop="datePublished" datetime="2017-07-13">
-      on Jul 13, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p>最近在写 airflow 的脚本时遇到一个问题，出于方便把 <code class="language-plaintext highlighter-rouge">BaseSensorOperator</code> 包了一层，
-后来想改下超时时间和优先级等参数，发现改了没用，于是看了下源码，发现 <code class="language-plaintext highlighter-rouge">Operator</code> 都有个 <code class="language-plaintext highlighter-rouge">apply_defaults</code>
-的装饰器，细看一看，实现挺巧妙，也解释了我遇到的问题。因为我的问题属于个人使用不当导致的，
-所以就不放问题代码了，但我会在分析后给出一些使用方面要注意的地方和建议。</p>
-
-
-        
-        
-
-        
-        <p><a href="/2017/07/apply_defaults.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-extra.html">learn vim script the hard way 笔记（番外）</a>
-      </h1>
-      <meta itemprop="keywords" content="" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#note">note</a>&nbsp;
-      
-      
-      <time itemprop="datePublished" datetime="2017-06-22">
-      on Jun 22, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<h3 id="ch41-creating-a-full-plugin">CH41 Creating a Full Plugin</h3>
-<ol>
-  <li>看到这里你可以停了，因为前面的姿势足够你完善自己的<code class="language-plaintext highlighter-rouge">~/.vimrc</code>脚本，去修复别人脚本的bug了，绝无讽刺的意思</li>
-  <li>往下学之前，建议先玩下<a href="http://perl11.org/potion/index.html">Potion</a>语言，这是个很小的语言，使用它的目的是为了辅助我们写vim script</li>
-</ol>
-
-<h3 id="ch42-plugin-layout-in-the-dark-ages">CH42 Plugin Layout in the Dark Ages</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/colors/</code>在这里的文件记录了vim的颜色主题，如果运行<code class="language-plaintext highlighter-rouge">:color xxx</code>就能看<code class="language-plaintext highlighter-rouge">~/.vim/colors/xxx.vim</code>的配色方案了，查看当前配色都有哪些用<code class="language-plaintext highlighter-rouge">:hi</code></li>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/plugin/</code>在这里的文件每次vim启动都会运行一次</li>
-  <li><code class="language-plaintext highlighter-rouge">~/.vim/ftdetect/</code>这里的文件每次启动也会运行一次，<code class="language-plaintext highlighter-rouge">ft</code>的意思是<code class="language-plaintext highlighter-rouge">filetype</code>，这里的文件应该是包含<code class="language-plaintext highlighter-rouge">autocmd</code>用来切换filetype的，所以一般就<strong>一行</strong></li>
-</ol>
-
-        
-        
-
-        
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-extra.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-c.html">learn vim script the hard way 笔记（下）</a>
-      </h1>
-      <meta itemprop="keywords" content="" />
-      <p class="post-meta">
-      Posted in
-      
-      <a href="/categories/#note">note</a>&nbsp;
-      
-      
-      <time itemprop="datePublished" datetime="2017-06-18">
-      on Jun 18, 2017
-      </time>
-      </p>
-    </header>
-
-    <article class="post-content" itemprop="articleBody">
-        
-<p><a href="/2017/06/learn-vim-script-the-hard-way-b.html">上一篇</a></p>
-
-<h3 id="ch31-basic-regular-expressions">CH31 Basic Regular Expressions</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">/</code>和<code class="language-plaintext highlighter-rouge">?</code>，前者向后找，后者向前找</li>
-</ol>
-
-<h3 id="ch32-case-study-grep-operator-part-one">CH32 Case Study: Grep Operator, Part One</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R &lt;cWORD&gt; .&lt;cr&gt;</code>可以搜索<code class="language-plaintext highlighter-rouge">&lt;cWORD&gt;</code>，表示光标下的单词（包括连字符，比<code class="language-plaintext highlighter-rouge">&lt;cword&gt;</code>更大），之后可以用<code class="language-plaintext highlighter-rouge">:cwindow</code>查看<code class="language-plaintext highlighter-rouge">quickfix</code>窗口</li>
-  <li>以上还有一点要修改，如果光标在一个<code class="language-plaintext highlighter-rouge">foo;ls</code>下，使用后实际会执行<code class="language-plaintext highlighter-rouge">ls</code>命令，原理和SQL注入类似，所以需要用单引号保证字面值，<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :grep -R '&lt;cWORD&gt;' .&lt;cr&gt;</code></li>
-  <li>但上面对于光标有单引号的不启作用，用<code class="language-plaintext highlighter-rouge">:echom shellescape(expand("&lt;cWORD&gt;"))</code>可以显示shellescape后的值</li>
-  <li>最终版本<code class="language-plaintext highlighter-rouge">:nnoremap &lt;leader&gt;g :silent execute "grep! -R " . shellescape(expand("&lt;cWORD&gt;")) . " ."&lt;cr&gt;:copen&lt;cr&gt;</code> ，前面加个<code class="language-plaintext highlighter-rouge">:silent</code>可以防止搜索时的输出，最后再<code class="language-plaintext highlighter-rouge">:copen</code>打开结果页</li>
-</ol>
-
-<h3 id="ch33-case-study-grep-operator-part-two">CH33 Case Study: Grep Operator, Part Two</h3>
-<p>进入.vim/plugin/下，新建一个文件”grep-operator.vim”，写上<code class="language-plaintext highlighter-rouge">nnoremap &lt;leader&gt;g :set operatorfunc=GrepOperator&lt;cr&gt;g@</code>和<code class="language-plaintext highlighter-rouge">function! GrepOperator(type) | echom "Test" | endfunction</code>，这时用<code class="language-plaintext highlighter-rouge">&lt;leader&gt;giw</code>会发现打出了<code class="language-plaintext highlighter-rouge">Test</code></p>
-
-        
-        
-
-        
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-c.html#read-more">Read more</a></p>
-        
-    </article> <hr />
-    
-    
-  
-    <header class="post-header">
-      <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way-b.html">learn vim script the hard way 笔记（中）</a>
-      </h1>
-      <meta itemprop="keywords" content="vim" />
+      <meta itemprop="keywords" content="beancount,double-entry" />
       <p class="post-meta">
       Posted in
       
@@ -278,97 +152,227 @@
       
       and tagged
       
-      <a href="/tags/#vim" title="vim">vim </a>
+      <a href="/tags/#beancount" title="beancount">beancount </a>, 
+      
+      <a href="/tags/#double-entry" title="double-entry">double-entry </a>
       
       
-      <time itemprop="datePublished" datetime="2017-06-12">
-      on Jun 12, 2017
+      <time itemprop="datePublished" datetime="2024-04-28">
+      on Apr 28, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<p><a href="/2017/06/learn-vim-script-the-hard-way.html">上一篇</a></p>
+<h2 id="引言">引言</h2>
 
-<h3 id="ch13-buffer-local-abbreviations">CH13 Buffer-Local Abbreviations</h3>
-<ol>
-  <li>这章就是说<code class="language-plaintext highlighter-rouge">iabbrev</code>也能用<code class="language-plaintext highlighter-rouge">&lt;buffer&gt;</code>来修饰</li>
-  <li>你想记住某个新的snippet最好办法就是disable掉原来的命令，比如<code class="language-plaintext highlighter-rouge">iabbrev &lt;buffer&gt; return NOPENOPENOPE</code></li>
-</ol>
-
-<h3 id="ch14-autocommand-groups">CH14 Autocommand Groups</h3>
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">autocmd</code>是不会替换原先的命令的，假如使用两次同样的命令，那触发autocmd时会进行两次命令</li>
-  <li>特别要注意在你<code class="language-plaintext highlighter-rouge">source $MYVIMRC</code>时，autocmd会再载入一次！</li>
-  <li>可以用<code class="language-plaintext highlighter-rouge">augroup testgroup autocmd xxx augroup END</code>，这时如果你运行下<code class="language-plaintext highlighter-rouge">augroup testgroup autocmd yyy augroup END</code>，你猜<code class="language-plaintext highlighter-rouge">xxx</code>还会执行吗？耶，答案是会！</li>
-  <li>你可以在augroup里用<code class="language-plaintext highlighter-rouge">autocmd!</code>来清空augroup</li>
-</ol>
+<p>距离我写《beancount起步》已经快6年半了，那篇文章的第一句是：我已经连续记账 4 年半了。加起来不知不觉我已经坚持记账11年了，在这些年里，我结了婚，出国旅行，生了娃，投资了股票，买了房也租了房，一个家庭会发生的财务活动我几乎都经历了</p>
 
         
         
 
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way-b.html#read-more">Read more</a></p>
+        <p><a href="/2024/04/beancount-flow.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
-    
+      
   
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
-        <a itemprop="url" class="post-link" href="/2017/06/learn-vim-script-the-hard-way.html">learn vim script the hard way 笔记（上）</a>
+        <a itemprop="url" class="post-link" href="/2024/03/wordhoop-coze.html">用 coze 解决 WordHoop</a>
       </h1>
-      <meta itemprop="keywords" content="vim" />
+      <meta itemprop="keywords" content="GPT,AI,Puzzle" />
       <p class="post-meta">
       Posted in
       
-      <a href="/categories/#note">note</a>&nbsp;
+      <a href="/categories/#ai">ai</a>&nbsp;
       
       
       and tagged
       
-      <a href="/tags/#vim" title="vim">vim </a>
+      <a href="/tags/#GPT" title="GPT">GPT </a>, 
+      
+      <a href="/tags/#AI" title="AI">AI </a>, 
+      
+      <a href="/tags/#Puzzle" title="Puzzle">Puzzle </a>
       
       
-      <time itemprop="datePublished" datetime="2017-06-07">
-      on Jun 7, 2017
+      <time itemprop="datePublished" datetime="2024-03-05">
+      on Mar 5, 2024
       </time>
       </p>
     </header>
 
     <article class="post-content" itemprop="articleBody">
         
-<h3 id="ch02">CH02</h3>
+<p>最近，我发现了一个有趣的网站，名为 <a href="https://www.wordhoop.com/">WordHoop</a>。它的规则与 Wordle 相似。你的任务是将给定的字母拼成一个单词，每个字母恰好都要被用到，根据起始词开始猜单词，直到猜到最终词为止。每两个相邻的单词之间应该有某种关联。</p>
 
-<ol>
-  <li>布尔型变量可以用<code class="language-plaintext highlighter-rouge">:set [no]number</code>这样来设置，<code class="language-plaintext highlighter-rouge">:set number!</code>表示取反，<code class="language-plaintext highlighter-rouge">:set number?</code>获取当前状态（实际<code class="language-plaintext highlighter-rouge">:set nonumber?</code>也可以哟）</li>
-  <li>数值型用<code class="language-plaintext highlighter-rouge">:set numberwidth=10</code>来设置，同理<code class="language-plaintext highlighter-rouge">:set numberwidth?</code>获取当前值</li>
-  <li><code class="language-plaintext highlighter-rouge">relativenumber</code>或者<code class="language-plaintext highlighter-rouge">rnu</code>用来显示相对行号，当前所在行显示绝对行号，两边分别从1,2,3开始显示</li>
-</ol>
-
-<h3 id="ch03">CH03</h3>
-
-<ol>
-  <li>注释用<code class="language-plaintext highlighter-rouge">"</code>来标记</li>
-  <li>注意注释不要写在<code class="language-plaintext highlighter-rouge">map</code>后面，这样会当成命令去执行<code class="language-plaintext highlighter-rouge">map a dd "comment</code></li>
-</ol>
-
-<h3 id="ch04">CH04</h3>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">map</code>,<code class="language-plaintext highlighter-rouge">nmap</code>,<code class="language-plaintext highlighter-rouge">vmap</code>,<code class="language-plaintext highlighter-rouge">imap</code>都知道什么意思吧</li>
-</ol>
-
+<p>让我们假设今天的谜题以“PLAN”（我将像这样将括号内的所有单词大写）开头，以“RETURN”结尾。第一个候选字母是[earg]。这太容易了，我们不需要 coze。答案是“gear”。然而，下一个字母包含[lvtaer]。我被这个字母“V”卡住了，</p>
 
         
         
 
         
-        <p><a href="/2017/06/learn-vim-script-the-hard-way.html#read-more">Read more</a></p>
+        <p><a href="/2024/03/wordhoop-coze.html#read-more">Read more</a></p>
         
     </article> <hr />
+      
     
+      
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2024/02/regex-chatgpt.html">《挑战24个正则表达式难题》读后感</a>
+      </h1>
+      <meta itemprop="keywords" content="正则,GPT,AI,Puzzle" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#technology">technology</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#正则" title="正则">正则 </a>, 
+      
+      <a href="/tags/#GPT" title="GPT">GPT </a>, 
+      
+      <a href="/tags/#AI" title="AI">AI </a>, 
+      
+      <a href="/tags/#Puzzle" title="Puzzle">Puzzle </a>
+      
+      
+      <time itemprop="datePublished" datetime="2024-02-21">
+      on Feb 21, 2024
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+
+<p>最近在找 ChatGPT 相关的书，偶然看到了这本《Copilot 和 ChatGPT 编程体验：挑战 24 个正则表达式难题》正好学学正则顺便看看别人怎么用 GPT。
+看完之后我的评价是正则学了一些，当然这些语法你可以在网上随便搜一下学到，但最后还是有几个有意思的例子值得揣摩。然后是关于 GPT 这部分完全是个噱头，</p>
+
+        
+        
+
+        
+        <p><a href="/2024/02/regex-chatgpt.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+      
+    
+      
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2024/01/how-big-y2b.html">如何测算Youtube视频总数</a>
+      </h1>
+      <meta itemprop="keywords" content="Youtube,随机抽样,统计,编程" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#technology">technology</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#Youtube" title="Youtube">Youtube </a>, 
+      
+      <a href="/tags/#随机抽样" title="随机抽样">随机抽样 </a>, 
+      
+      <a href="/tags/#统计" title="统计">统计 </a>, 
+      
+      <a href="/tags/#编程" title="编程">编程 </a>
+      
+      
+      <time itemprop="datePublished" datetime="2024-01-01">
+      on Jan 1, 2024
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<h2 id="tldr本段是真人写的">tl;dr（本段是真人写的）</h2>
+
+<p>欢迎您阅读这篇基于深度学习技术生成的文章。今天我们将探索如何估计Youtube的视频总量。如果您赶时间，只需记住一个数字——我们估算的Youtube视频总量为133亿。当然，若想查看实时更新的数值、发展趋势以及一些有趣的统计信息，建议您直接访问<a href="https://ethanzuckerman.com/2023/12/22/how-big-is-youtube/">原文章</a>作者的<a href="https://tubestats.org/">网站</a>。</p>
+
+<h2 id="引言">引言</h2>
+
+<p>Youtube作为全球最大的视频分享平台，其包含的视频数量是一个令人惊叹的数量。然而，无法得知具体的数量可能会令观众感到困扰。本文将详细介绍如何利用统计学原理进行估计，以对Youtube的规模有一个更深入的理解。
+醉酒拨号法
+Youtube视频的URL形式如此：<code class="language-plaintext highlighter-rouge">https://www.youtube.com/watch?v=vXPJVwwEmiM</code>
+观察发现，“watch?v=”之后是一个11位的字符串，前10位为a-z、A-Z、0-9和“_-”，而最后一位有16种可能的值。</p>
+
+        
+        
+
+        
+        <p><a href="/2024/01/how-big-y2b.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+      
+    
+      
+  
+    <header class="post-header">
+      <h1 itemprop="name" class="post-title">
+        <a itemprop="url" class="post-link" href="/2023/01/trio.html">Knuth 的 2022 圣诞三重奏终章</a>
+      </h1>
+      <meta itemprop="keywords" content="kunth,combinatorial,permutation,tree" />
+      <p class="post-meta">
+      Posted in
+      
+      <a href="/categories/#algorithm">algorithm</a>&nbsp;
+      
+      
+      and tagged
+      
+      <a href="/tags/#kunth" title="kunth">kunth </a>, 
+      
+      <a href="/tags/#combinatorial" title="combinatorial">combinatorial </a>, 
+      
+      <a href="/tags/#permutation" title="permutation">permutation </a>, 
+      
+      <a href="/tags/#tree" title="tree">tree </a>
+      
+      
+      <time itemprop="datePublished" datetime="2023-01-25">
+      on Jan 25, 2023
+      </time>
+      </p>
+    </header>
+
+    <article class="post-content" itemprop="articleBody">
+        
+<ol>
+  <li><a href="/2023/01/twintree.html">三重奏其一 twintree</a></li>
+  <li><a href="/2023/01/baxter.html">三重奏其二 baxter</a></li>
+  <li><a href="/2023/01/floorplan.html">三重奏其三 floorplan</a></li>
+  <li><a href="/2023/01/trio.html">三重奏终章</a></li>
+</ol>
+
+<p>经过了前面三篇（
+<a href="/2023/01/twintree.html">一 twintree 树</a>，<a href="/2023/01/baxter.html">二 baxter 数</a>，<a href="/2023/01/floorplan.html">三 floorplan 画</a>）
+看似“毫无关系”的介绍，关子也到此结束，终于要揭露他们之间的关系了。相信看完这篇你也能感受到这些数据结构和数学的奇妙之处。</p>
+
+<h1 id="floorplan---baxter">Floorplan -&gt; Baxter</h1>
+<p><img src="/images/floorplan-twintree-baxter.drawio.svg" alt="baxter-floorplan" /></p>
+
+
+        
+        
+
+        
+        <p><a href="/2023/01/trio.html#read-more">Read more</a></p>
+        
+    </article> <hr />
+      
     
   
   </div>
@@ -430,25 +434,31 @@
 <div class="sidebar-module">
   <h4>Recent Posts</h4>
   
-  <li>
-  <a href="/2023/01/trio.html" title="Knuth 的 2022 圣诞三重奏终章" rel="bookmark">Knuth 的 2022 圣诞三重奏终章</a>
-  </li>
+    
   
-  <li>
-  <a href="/2023/01/floorplan.html" title="Knuth 的 2023 圣诞三重奏其三 Floorplan" rel="bookmark">Knuth 的 2023 圣诞三重奏其三 Floorplan</a>
-  </li>
+    
+    <li>
+    <a href="/2026/03/polymarket-trading-strategies.html" title="Polymarket量化交易指南：运用数学与统计学构建交易优势" rel="bookmark">Polymarket量化交易指南：运用数学与统计学构建交易优势</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/baxter.html" title="Knuth 的 2023 圣诞三重奏其二 Baxter permutation" rel="bookmark">Knuth 的 2023 圣诞三重奏其二 Baxter permutation</a>
-  </li>
+    
+    <li>
+    <a href="/2024/12/algorithm-c.html" title="从指数级到高效：Knuth Algorithm C 构建 Commafree Code" rel="bookmark">从指数级到高效：Knuth Algorithm C 构建 Commafree Code</a>
+    </li>
+    
   
-  <li>
-  <a href="/2023/01/twintree.html" title="Knuth 的2023圣诞三重奏其一 Twintree" rel="bookmark">Knuth 的2023圣诞三重奏其一 Twintree</a>
-  </li>
+    
+    <li>
+    <a href="/2024/11/commafree-code-gen.html" title="再战commafree code——暴力挑选&优化" rel="bookmark">再战commafree code——暴力挑选&优化</a>
+    </li>
+    
   
-  <li>
-  <a href="/2022/01/split-cake.html" title="如何公平地分蛋糕" rel="bookmark">如何公平地分蛋糕</a>
-  </li>
+    
+    <li>
+    <a href="/2024/10/commafree-code-first.html" title="commafree code初次见面——生成" rel="bookmark">commafree code初次见面——生成</a>
+    </li>
+    
   
 </div>
 
@@ -464,17 +474,21 @@
   
   <li><a href="/categories/#work" title="work" rel="1">work (1)</a></li>
   
-  <li><a href="/categories/#algorithm" title="algorithm" rel="5">algorithm (5)</a></li>
+  <li><a href="/categories/#algorithm" title="algorithm" rel="13">algorithm (13)</a></li>
   
   <li><a href="/categories/#tech" title="tech" rel="8">tech (8)</a></li>
   
-  <li><a href="/categories/#note" title="note" rel="7">note (7)</a></li>
+  <li><a href="/categories/#note" title="note" rel="8">note (8)</a></li>
   
   <li><a href="/categories/#book" title="book" rel="3">book (3)</a></li>
   
   <li><a href="/categories/#board-game" title="board-game" rel="1">board-game (1)</a></li>
   
   <li><a href="/categories/#knowledge" title="knowledge" rel="1">knowledge (1)</a></li>
+  
+  <li><a href="/categories/#technology" title="technology" rel="2">technology (2)</a></li>
+  
+  <li><a href="/categories/#ai" title="ai" rel="1">ai (1)</a></li>
   
 </div>
 
@@ -484,7 +498,7 @@
   
     <a href="/tags/#game" title="game" rel="6">game</a> &nbsp;
   
-    <a href="/tags/#puzzle" title="puzzle" rel="1">puzzle</a> &nbsp;
+    <a href="/tags/#puzzle" title="puzzle" rel="2">puzzle</a> &nbsp;
   
     <a href="/tags/#fps" title="fps" rel="3">fps</a> &nbsp;
   
@@ -512,7 +526,7 @@
   
     <a href="/tags/#git" title="git" rel="2">git</a> &nbsp;
   
-    <a href="/tags/#algorithm" title="algorithm" rel="2">algorithm</a> &nbsp;
+    <a href="/tags/#algorithm" title="algorithm" rel="6">algorithm</a> &nbsp;
   
     <a href="/tags/#database" title="database" rel="1">database</a> &nbsp;
   
@@ -536,9 +550,9 @@
   
     <a href="/tags/#board-game" title="board-game" rel="1">board-game</a> &nbsp;
   
-    <a href="/tags/#beancount" title="beancount" rel="2">beancount</a> &nbsp;
+    <a href="/tags/#beancount" title="beancount" rel="3">beancount</a> &nbsp;
   
-    <a href="/tags/#double-entry" title="double-entry" rel="2">double-entry</a> &nbsp;
+    <a href="/tags/#double-entry" title="double-entry" rel="3">double-entry</a> &nbsp;
   
     <a href="/tags/#adventure" title="adventure" rel="1">adventure</a> &nbsp;
   
@@ -590,6 +604,62 @@
   
     <a href="/tags/#kunth" title="kunth" rel="1">kunth</a> &nbsp;
   
+    <a href="/tags/#Youtube" title="Youtube" rel="1">Youtube</a> &nbsp;
+  
+    <a href="/tags/#随机抽样" title="随机抽样" rel="1">随机抽样</a> &nbsp;
+  
+    <a href="/tags/#统计" title="统计" rel="1">统计</a> &nbsp;
+  
+    <a href="/tags/#编程" title="编程" rel="1">编程</a> &nbsp;
+  
+    <a href="/tags/#正则" title="正则" rel="1">正则</a> &nbsp;
+  
+    <a href="/tags/#GPT" title="GPT" rel="2">GPT</a> &nbsp;
+  
+    <a href="/tags/#AI" title="AI" rel="2">AI</a> &nbsp;
+  
+    <a href="/tags/#Puzzle" title="Puzzle" rel="2">Puzzle</a> &nbsp;
+  
+    <a href="/tags/#link" title="link" rel="2">link</a> &nbsp;
+  
+    <a href="/tags/#sudoku" title="sudoku" rel="2">sudoku</a> &nbsp;
+  
+    <a href="/tags/#pentomino" title="pentomino" rel="1">pentomino</a> &nbsp;
+  
+    <a href="/tags/#backtrack" title="backtrack" rel="2">backtrack</a> &nbsp;
+  
+    <a href="/tags/#knuth" title="knuth" rel="6">knuth</a> &nbsp;
+  
+    <a href="/tags/#walker" title="walker" rel="1">walker</a> &nbsp;
+  
+    <a href="/tags/#code" title="code" rel="3">code</a> &nbsp;
+  
+    <a href="/tags/#backtracking" title="backtracking" rel="1">backtracking</a> &nbsp;
+  
+    <a href="/tags/#sparse-sets" title="sparse-sets" rel="1">sparse-sets</a> &nbsp;
+  
+    <a href="/tags/#combinatorial-algorithms" title="combinatorial-algorithms" rel="1">combinatorial-algorithms</a> &nbsp;
+  
+    <a href="/tags/#TAOCP" title="TAOCP" rel="1">TAOCP</a> &nbsp;
+  
+    <a href="/tags/#Polymarket" title="Polymarket" rel="2">Polymarket</a> &nbsp;
+  
+    <a href="/tags/#量化交易" title="量化交易" rel="1">量化交易</a> &nbsp;
+  
+    <a href="/tags/#预测市场" title="预测市场" rel="1">预测市场</a> &nbsp;
+  
+    <a href="/tags/#数学模型" title="数学模型" rel="1">数学模型</a> &nbsp;
+  
+    <a href="/tags/#交易策略" title="交易策略" rel="1">交易策略</a> &nbsp;
+  
+    <a href="/tags/#Quantitative Trading" title="Quantitative Trading" rel="1">Quantitative Trading</a> &nbsp;
+  
+    <a href="/tags/#Prediction Markets" title="Prediction Markets" rel="1">Prediction Markets</a> &nbsp;
+  
+    <a href="/tags/#Mathematical Models" title="Mathematical Models" rel="1">Mathematical Models</a> &nbsp;
+  
+    <a href="/tags/#Trading Strategies" title="Trading Strategies" rel="1">Trading Strategies</a> &nbsp;
+  
 </div>
 
 
@@ -604,6 +674,56 @@
 <div class="sidebar-module">
   <h4>Archives</h4>
 
+  
+  
+  
+  
+  
+  <li id="2026" > <a href="/archives/#2026">2026</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li id="2024" > <a href="/archives/#2024">2024</a></li>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   
   
