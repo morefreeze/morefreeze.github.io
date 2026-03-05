@@ -24,6 +24,17 @@
 <link rel="canonical" href="{{ page.url | replace:'index.html','' |  prepend: site.url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.url }}" />
 
+<!-- SEO alternate language links (simplified) -->
+{% if page.url contains '_en.html' %}
+  <!-- English page - link to Chinese version -->
+  <link rel="alternate" hreflang="zh" href="{{ page.url | replace:'_en.html','.html' | prepend: site.url }}" />
+  <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}" />
+{% elsif page.title contains 'Polymarket' %}
+  <!-- Specific case for Polymarket posts since we know they have English versions -->
+  <link rel="alternate" hreflang="zh" href="{{ site.url }}{{ page.url }}" />
+  <link rel="alternate" hreflang="en" href="{{ page.url | replace:'.html','_en.html' | prepend: site.url }}" />
+{% endif %}
+
 <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-688213545"></script>

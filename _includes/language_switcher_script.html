@@ -1,0 +1,40 @@
+<script>
+  // Store language preference in localStorage
+  document.addEventListener('DOMContentLoaded', function() {
+    var switcher = document.getElementById('language-switcher');
+    if (switcher) {
+      // Store preference when switching languages
+      switcher.addEventListener('click', function(e) {
+        var isEnglish = window.location.pathname.endsWith('_en.html');
+        localStorage.setItem('preferredLanguage', isEnglish ? 'zh' : 'en');
+      });
+    }
+  });
+
+  // Check for stored preference on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    var preferredLanguage = localStorage.getItem('preferredLanguage');
+    if (preferredLanguage) {
+      var isCurrentlyEnglish = window.location.pathname.endsWith('_en.html');
+      var shouldBeEnglish = preferredLanguage === 'en';
+
+      // Redirect if current language doesn't match preference
+      if (shouldBeEnglish && !isCurrentlyEnglish) {
+        var englishUrl = window.location.pathname.replace('.html', '_en.html');
+        // Only redirect if the English page actually exists
+        fetch(englishUrl, { method: 'HEAD' })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = englishUrl;
+            }
+          })
+          .catch(error => {
+            console.error('Error checking English page existence:', error);
+          });
+      } else if (!shouldBeEnglish && isCurrentlyEnglish) {
+        var chineseUrl = window.location.pathname.replace('_en.html', '.html');
+        window.location.href = chineseUrl;
+      }
+    }
+  });
+</script>

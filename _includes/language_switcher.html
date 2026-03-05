@@ -1,0 +1,14 @@
+{% if page.title == 'Polymarket量化交易指南：运用数学与统计学构建交易优势' %}  <a href="/2026/03/polymarket-trading-strategies_en.html" class="language-switcher" id="language-switcher">EN</a>{% elsif page.title == 'Polymarket Quantitative Trading Guide: Building Trading Advantages with Mathematics and Statistics' %}  <a href="/2026/03/polymarket-trading-strategies.html" class="language-switcher" id="language-switcher">中文</a>{% endif %}
+
+<script>
+  // Store language preference in localStorage
+  document.addEventListener('DOMContentLoaded', function() {
+    var switcher = document.getElementById('language-switcher');
+    if (switcher) {
+      switcher.addEventListener('click', function(e) {
+        var isEnglish = window.location.pathname.endsWith('_en.html');
+        localStorage.setItem('preferredLanguage', isEnglish ? 'zh' : 'en');
+      });
+    }
+  });
+</script>
