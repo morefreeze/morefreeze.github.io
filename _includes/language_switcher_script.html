@@ -33,7 +33,16 @@
           });
       } else if (!shouldBeEnglish && isCurrentlyEnglish) {
         var chineseUrl = window.location.pathname.replace('_en.html', '.html');
-        window.location.href = chineseUrl;
+        // Only redirect if the Chinese page actually exists
+        fetch(chineseUrl, { method: 'HEAD' })
+          .then(response => {
+            if (response.ok) {
+              window.location.href = chineseUrl;
+            }
+          })
+          .catch(error => {
+            console.error('Error checking Chinese page existence:', error);
+          });
       }
     }
   });

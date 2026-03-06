@@ -1,7 +1,19 @@
 {% if page.url contains '_en.html' %}
   <a href="{{ page.url | replace: '_en.html', '.html' }}" class="language-switcher" id="language-switcher">中文</a>
 {% else %}
-  <a href="{{ page.url | replace: '.html', '_en.html' }}" class="language-switcher" id="language-switcher">EN</a>
+  {% assign english_url = page.url | replace: '.html', '_en.html' %}
+  {% for post in site.posts %}
+    {% if post.url == english_url %}
+      <a href="{{ english_url }}" class="language-switcher" id="language-switcher">EN</a>
+      {% break %}
+    {% endif %}
+  {% endfor %}
+  {% for page in site.pages %}
+    {% if page.url == english_url %}
+      <a href="{{ english_url }}" class="language-switcher" id="language-switcher">EN</a>
+      {% break %}
+    {% endif %}
+  {% endfor %}
 {% endif %}
 
 <script>
