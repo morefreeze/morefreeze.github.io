@@ -179,9 +179,50 @@ li.pagelist:before {
     padding: 0.5em 1em;
     border: 1px solid silver;
     background-color: #ecf5ff;
-    float: right;
     display: block;
     font-size: 90%;
+    position: fixed; /* Fix position on screen */
+    left: -300px; /* Start off-screen left */
+    top: 100px;
+    width: 280px;
+    transition: left 0.3s ease-in-out;
+    z-index: 1000;
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+.toc.toc-visible {
+    left: 20px; /* Slide in to visible position */
+}
+
+.toc.toc-hover:hover {
+    left: 20px; /* Show on hover even when hidden */
+}
+
+/* Add content padding to avoid TOC overlap */
+.post-content {
+    padding-left: 320px;
+}
+
+/* Responsive adjustments for mobile */
+@media screen and (max-width: 1024px) {
+    .toc {
+        position: relative;
+        left: 0;
+        width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        float: none;
+    }
+
+    .post-content {
+        padding-left: 0;
+    }
+
+    .toc.toc-visible,
+    .toc.toc-hover:hover {
+        left: 0;
+    }
 }
 
 .toc > .toctitle {
