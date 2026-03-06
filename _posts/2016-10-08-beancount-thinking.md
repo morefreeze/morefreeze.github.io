@@ -9,7 +9,7 @@ tags: [beancount, double-entry]
 {% include JB/setup %}
 
 * Table of Contents
-{:toc}
+{:float-toc}
 
 我已经连续记账 4 年半了，一直在寻找一种记账的最佳实践。不仅是记账，记账的目的是为了分析，
 也包括如何更高效地分析你个人的财务状况。最开始用 Nokia 的时候下了一款记账软件，

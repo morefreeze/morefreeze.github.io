@@ -1,0 +1,199 @@
+.floating-toc {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 260px;
+  max-height: 70vh;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 4px 2px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-100%) translateY(-50%);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.3s;
+  overflow: hidden;
+}
+
+.floating-toc.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) translateY(-50%);
+}
+
+.floating-toc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, rgba(37, 131, 173, 0.04) 0%, transparent 100%);
+}
+
+.floating-toc-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2583ad;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.floating-toc-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 14px;
+  background: linear-gradient(180deg, #2583ad 0%, #1a6a8f 100%);
+  border-radius: 2px;
+}
+
+.floating-toc-close {
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.floating-toc-close:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: #333;
+}
+
+.floating-toc-content {
+  padding: 12px 8px;
+  max-height: calc(70vh - 50px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(37, 131, 173, 0.3) transparent;
+}
+
+.floating-toc-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.floating-toc-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.floating-toc-content::-webkit-scrollbar-thumb {
+  background: rgba(37, 131, 173, 0.3);
+  border-radius: 2px;
+}
+
+.floating-toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.floating-toc-list li {
+  position: relative;
+  margin: 2px 0;
+}
+
+.floating-toc-list a {
+  display: block;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #555;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border-left: 2px solid transparent;
+  line-height: 1.4;
+}
+
+.floating-toc-list a:hover {
+  background: rgba(37, 131, 173, 0.08);
+  color: #2583ad;
+  border-left-color: #2583ad;
+}
+
+.floating-toc-list a.active {
+  background: rgba(37, 131, 173, 0.12);
+  color: #1a6a8f;
+  border-left-color: #2583ad;
+  font-weight: 500;
+}
+
+.floating-toc-list .toc-h2 {
+  padding-left: 12px;
+  font-size: 13px;
+}
+
+.floating-toc-list .toc-h3 {
+  padding-left: 24px;
+  font-size: 12px;
+  color: #777;
+}
+
+.floating-toc-list .toc-h4 {
+  padding-left: 36px;
+  font-size: 11px;
+  color: #888;
+}
+
+.floating-toc-hint {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 80px;
+  background: linear-gradient(90deg, rgba(37, 131, 173, 0.15) 0%, transparent 100%);
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 9998;
+}
+
+.floating-toc-hint.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.floating-toc-hint:hover {
+  width: 12px;
+  background: linear-gradient(90deg, rgba(37, 131, 173, 0.35) 0%, transparent 100%);
+}
+
+@media screen and (max-width: 768px) {
+  .floating-toc {
+    width: 220px;
+    max-height: 60vh;
+  }
+
+  .floating-toc-hint {
+    display: none;
+  }
+}
+
+@keyframes tocPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.floating-toc-hint.has-toc {
+  animation: tocPulse 2s ease-in-out infinite;
+}

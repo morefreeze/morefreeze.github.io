@@ -9,7 +9,7 @@ tags: [data-engineering, airflow, python, workflow, etl]
 {% include JB/setup %}
 
 * Table of Contents
-{:toc}
+{:float-toc}
 
 
 [上一篇](/2016/12/airflow.html)介绍了 airflow 的基本概念和操作，隔了两个月，终于觉得要写些进阶内容了，

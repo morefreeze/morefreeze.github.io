@@ -9,7 +9,7 @@ tags: [tech, airflow, pip, python]
 {% include JB/setup %}
 
 * Table of Contents
-{:toc}
+{:float-toc}
 
 Lately I've been tormented by online tasks that keep failing in various ways, causing logs to go missing or scripts to fail execution. When problems occur, I have to manually fix them - like补 missing logs or re-running failed scripts. Some scripts have dependencies between them, so running them manually is complicated. I have to check back periodically to see if a script has finished before running the next one, which seriously impacts efficiency.
 

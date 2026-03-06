@@ -9,7 +9,7 @@ tags: [programming-language, functional-programming, python, monad, programming-
 {% include JB/setup %}
 
 * Table of Contents
-{:toc}
+{:float-toc}
 
 最近遇到了一些函数式编程的概念，心想我用 `Python` 的 `map` `reduce` 不就是在函数式编程嘛，
 但看了半天仍然一头雾水，什么是 `UnitBox`？`flatMap` 和 `map` 差在哪里？于是先学了阮老师的[函数式编程入门教程][1]，

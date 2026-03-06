@@ -8,7 +8,7 @@ tags: [writing, markdown, jekyll, formatting, sample-content]
 ---
 
 * Table of Contents
-{:toc}
+{:float-toc}
 
 This is a sample post.
 

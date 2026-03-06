@@ -189,45 +189,6 @@
 
 
 
-#markdown-toc{
-  float: right;
-  width:40%;
-  background:#f4f7f8;
-  padding:20px 15px;
-  margin-left:20px;
-  margin-bottom:20px;
-  border-radius:4px;
-  li{
-    padding-top:10px;
-    position:relative;
-    list-style-type:none;
-  }
-}
-
-#markdown-toc:before{
-  content:"目录";
-  font-weight: 700;
-  padding-left:10px;
-  border-bottom:5px solid $grey-color-light !important;
-  display:block;
-  font-size:18px
-}
-
-@media screen and (min-width: 1200px) {
-  #markdown-toc {
-    width: 35%;
-  }
-}
-
-@media screen and (min-width: 1600px) {
-  #markdown-toc {
-    width: 30%;
-    margin-left:30px;
-  }
-}
-
-
-
 .post-content {
   p { padding:$spacing-unit/5 0; } 
   //margin-bottom: $spacing-unit;
