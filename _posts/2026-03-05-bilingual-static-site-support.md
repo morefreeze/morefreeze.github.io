@@ -26,6 +26,7 @@ tags: [devops, jekyll, static-site, bilingual, i18n]
 - 英文文章：`yyyy-mm-dd-title_en.md`
 
 这种命名方式的三大优点：
+<!--more-->
 - **直观易懂**：一眼就能区分文章的语言版本
 - **便于维护**：对应语言版本的文章通过文件名直接关联
 - **原生支持**：Jekyll能够自动识别并正确生成对应的URL路径

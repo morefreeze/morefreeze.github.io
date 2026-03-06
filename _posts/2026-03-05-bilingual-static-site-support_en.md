@@ -27,6 +27,7 @@ I use a simple and intuitive approach to distinguish language versions: filename
 - **English articles**: `yyyy-mm-dd-title_en.md`
 
 This approach offers three key advantages:
+<!--more-->
 - **Intuitive Recognition**: Identify language versions at a glance
 - **Simplified Maintenance**: Directly link corresponding language versions through filenames
 - **Native Support**: Works seamlessly with Jekyll without complex configuration
