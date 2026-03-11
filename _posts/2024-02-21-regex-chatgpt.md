@@ -9,7 +9,7 @@ tags: [正则, GPT, AI, Puzzle]
 
 {% include JB/setup %}
 
-* Table of Contents
+
 {:float-toc}
 
 最近在找 ChatGPT 相关的书，偶然看到了这本《Copilot 和 ChatGPT 编程体验：挑战 24 个正则表达式难题》正好学学正则顺便看看别人怎么用 GPT。

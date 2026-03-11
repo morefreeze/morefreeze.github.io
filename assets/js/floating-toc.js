@@ -25,6 +25,7 @@
     }
 
     init() {
+      if (this.isHomePage()) return;
       if (!this.hasFloatTOCTag()) return;
       this.createTOC();
       if (!this.tocList) return;
@@ -32,6 +33,11 @@
       this.bindEvents();
       this.buildIntersectionObserver();
       this.updateActiveHeading();
+    }
+
+    isHomePage() {
+      const path = window.location.pathname;
+      return path === '/' || path === '/index.html' || path.endsWith('/');
     }
 
     hasFloatTOCTag() {

@@ -8,7 +8,7 @@ tags: [devops, jekyll, static-site, bilingual, i18n]
 ---
 {% include JB/setup %}
 
-* Table of Contents
+
 {:float-toc}
 
 ## Introduction

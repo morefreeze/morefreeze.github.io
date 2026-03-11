@@ -3,11 +3,48 @@ layout: default
 ---
 
 <div class="home">
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var preferredLanguage = localStorage.getItem('preferredLanguage');
+
+    if (preferredLanguage === 'en') {
+      // 英文模式：显示英文帖子，隐藏有英文版本的中文帖子
+      var zhPosts = document.querySelectorAll('.home-post-item[data-lang="zh"]');
+      zhPosts.forEach(function(zhPost) {
+        var zhUrl = zhPost.getAttribute('data-zh-url');
+        var enUrl = zhUrl + '_en.html';
+        var hasEn = document.querySelector('.home-post-item[data-en-url="' + enUrl + '"]');
+        if (hasEn) {
+          zhPost.style.display = 'none';
+        }
+      });
+    } else {
+      // 中文模式：显示中文帖子，隐藏有中文版本的英文帖子
+      var enPosts = document.querySelectorAll('.home-post-item[data-lang="en"]');
+      enPosts.forEach(function(enPost) {
+        var enUrl = enPost.getAttribute('data-en-url');
+        var zhUrl = enUrl.replace('_en.html', '.html');
+        var hasZh = document.querySelector('.home-post-item[data-zh-url="' + zhUrl + '"]');
+        if (hasZh) {
+          enPost.style.display = 'none';
+        }
+      });
+    }
+  });
+  </script>
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
-    
+
     {% for post in paginator.posts %}
-      {% unless post.url contains '_en.html' %}
-  
+      {% assign is_english = post.url | contains: '_en.html' %}
+      {% if is_english %}
+        {% assign zh_url = post.url | replace: '_en.html', '.html' %}
+        {% assign lang = 'en' %}
+      {% else %}
+        {% assign zh_url = post.url %}
+        {% assign lang = 'zh' %}
+      {% endif %}
+
+    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{{ post.url }}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
@@ -43,9 +80,9 @@ layout: default
         <p><a href="{{ post.url }}#read-more">Read more</a></p>
         {% endif %}
     </article> <hr />
-      {% endunless %}
+    </div>
     {% endfor %}
-  
+
   </div>
   <div class="gcse">
       <!--Google Custom Search-->

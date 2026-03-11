@@ -8,7 +8,7 @@ tags: [data-engineering, airflow, python, workflow, etl]
 ---
 {% include JB/setup %}
 
-* Table of Contents
+
 {:float-toc}
 
 

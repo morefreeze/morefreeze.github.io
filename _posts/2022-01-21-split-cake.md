@@ -8,7 +8,7 @@ tags: [hard, solution, howto]
 ---
 {% include JB/setup %}
 
-* Table of Contents
+
 {:float-toc}
 
 最近看了[李永乐老师的视频](https://www.youtube.com/watch?v=I8d13Jxzafk)，讲如何 2 个或 3 个公平地分蛋糕，2 人其实很简单，一个人切 1 刀另一个选就完了，3 个人就会比较复杂，这题建议有娃的父母都掌握，因为国家现在开放三胎了，将来生日聚会用得上（狗头）。这个复杂的分法实际我早在 [matrix67 大牛blog](http://www.matrix67.com/blog/archives/3944) 就看过，不过也忘得差不多了，在此也回顾下。

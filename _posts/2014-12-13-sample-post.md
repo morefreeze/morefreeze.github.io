@@ -7,7 +7,7 @@ comments: true
 tags: [writing, markdown, jekyll, formatting, sample-content]
 ---
 
-* Table of Contents
+
 {:float-toc}
 
 This is a sample post.
