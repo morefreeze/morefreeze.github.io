@@ -35,8 +35,7 @@ layout: default
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
 
     {% for post in paginator.posts %}
-      {% assign is_english = post.url | contains: '_en.html' %}
-      {% if is_english %}
+      {% if post.url contains '_en.html' %}
         {% assign zh_url = post.url | replace: '_en.html', '.html' %}
         {% assign lang = 'en' %}
       {% else %}
@@ -44,7 +43,7 @@ layout: default
         {% assign lang = 'zh' %}
       {% endif %}
 
-    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{{ post.url }}">
+    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{% if lang == 'en' %}{{ post.url }}{% else %}{{ post.url | replace: '.html', '_en.html' }}{% endif %}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
