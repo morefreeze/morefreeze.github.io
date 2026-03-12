@@ -115,8 +115,19 @@
       let mouseInTriggerZone = false;
       let mouseInTOC = false;
 
+      // 获取导航栏高度（Bootstrap navbar 通常至少 50px 高）
+      const getNavbarHeight = () => {
+        const navbar = document.querySelector('.site-nav');
+        if (navbar) {
+          return navbar.offsetHeight;
+        }
+        return 50; // 默认 50px 作为导航栏高度
+      };
+
+      const navbarHeight = getNavbarHeight();
+
       document.addEventListener('mousemove', (e) => {
-        const inTriggerZone = e.clientX <= window.innerWidth * TOC_CONFIG.triggerZoneWidth;
+        const inTriggerZone = e.clientX <= window.innerWidth * TOC_CONFIG.triggerZoneWidth && e.clientY > navbarHeight;
         const inTOC = this.toc && this.toc.contains(e.relatedTarget);
 
         if (inTriggerZone && !mouseInTriggerZone) {

@@ -7,29 +7,24 @@ layout: default
   document.addEventListener('DOMContentLoaded', function() {
     var preferredLanguage = localStorage.getItem('preferredLanguage');
 
-    if (preferredLanguage === 'en') {
-      // 英文模式：显示英文帖子，隐藏有英文版本的中文帖子
-      var zhPosts = document.querySelectorAll('.home-post-item[data-lang="zh"]');
-      zhPosts.forEach(function(zhPost) {
-        var zhUrl = zhPost.getAttribute('data-zh-url');
-        var enUrl = zhUrl + '_en.html';
-        var hasEn = document.querySelector('.home-post-item[data-en-url="' + enUrl + '"]');
-        if (hasEn) {
-          zhPost.style.display = 'none';
-        }
-      });
-    } else {
-      // 中文模式：显示中文帖子，隐藏有中文版本的英文帖子
-      var enPosts = document.querySelectorAll('.home-post-item[data-lang="en"]');
-      enPosts.forEach(function(enPost) {
-        var enUrl = enPost.getAttribute('data-en-url');
-        var zhUrl = enUrl.replace('_en.html', '.html');
-        var hasZh = document.querySelector('.home-post-item[data-zh-url="' + zhUrl + '"]');
-        if (hasZh) {
-          enPost.style.display = 'none';
-        }
-      });
-    }
+    // 确定当前应该显示的语言（默认中文）
+    var targetLang = preferredLanguage === 'en' ? 'en' : 'zh';
+
+    // 获取所有文章
+    var allPosts = document.querySelectorAll('.home-post-item');
+
+    // 先隐藏所有文章
+    allPosts.forEach(function(post) {
+      post.style.display = 'none';
+    });
+
+    // 找出所有具有对应语言版本的文章
+    var targetLangPosts = document.querySelectorAll('.home-post-item[data-lang="' + targetLang + '"]');
+
+    // 显示目标语言的文章
+    targetLangPosts.forEach(function(post) {
+      post.style.display = 'block';
+    });
   });
   </script>
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
