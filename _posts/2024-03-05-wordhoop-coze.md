@@ -2,7 +2,7 @@
 layout: post
 title: "用 coze 解决 WordHoop"
 description: "尝试用 coze 来完 WordHoop 游戏，和 ai 对话的过程也很有趣"
-category: ai
+category: coze
 comments: true
 tags: [GPT, AI, Puzzle]
 ---

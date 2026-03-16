@@ -2,7 +2,7 @@
 layout: post
 title: "Airflow Quick Start Guide"
 description: ""
-category: tech
+category: airflow
 comments: true
 tags: [tech, airflow, pip, python]
 ---

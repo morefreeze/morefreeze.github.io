@@ -2,7 +2,7 @@
 layout: post
 title: "airflow 进阶"
 description: ""
-category: data-engineering
+category: airflow
 comments: true
 tags: [data-engineering, airflow, python, workflow, etl]
 ---

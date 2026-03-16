@@ -2,7 +2,7 @@
 layout: post
 title: "Best Practices for Bilingual Static Site Support - Chinese/English Example"
 description: "Sharing technical details and best practices for implementing Chinese/English bilingual support in Jekyll static sites"
-category: devops
+category: fe
 comments: true
 tags: [devops, jekyll, static-site, bilingual, i18n]
 ---

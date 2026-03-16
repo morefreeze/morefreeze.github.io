@@ -2,7 +2,7 @@
 layout: post
 title: "如何优雅地从总统竞选中套利"
 description: ""
-category: knowledge
+category: polymarket
 comments: true
 tags: [probability, thinking, solution]
 ---

@@ -2,7 +2,7 @@
 layout: post
 title: "《挑战24个正则表达式难题》读后感"
 description: "虽然《挑战24个正则表达式难题》这本书关于ChatGPT的部分只是噱头，但一些有趣的正则谜题还是值得拿出来玩味地"
-category: technology
+category: coze
 comments: true
 tags: [正则, GPT, AI, Puzzle]
 ---

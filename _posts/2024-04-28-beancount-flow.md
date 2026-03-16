@@ -2,7 +2,7 @@
 layout: post
 title: "精通Beancount：我的财务管理工作流"
 description: "近几年使用beancount的一个总结"
-category: note
+category: beancount
 comments: true
 tags: [beancount, double-entry]
 ---

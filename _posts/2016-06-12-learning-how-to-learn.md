@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Learning how to learn"
+title: "学会如何学习"
 description: ""
 category: note
 comments: true
@@ -8,151 +8,106 @@ tags: [note, learning]
 ---
 {% include JB/setup %}
 
-Last month I have study a course on Coursera, it is called
-_[Learning how to learn](https://www.coursera.org/learn/learning-how-to-learn)_.
-It is a course that teach you how to learn efficiently. I made some notes about it
-and share here.
-(I just list each view point which I think is important, but I think I can figure out
-better way to show next time)
+上个月我在Coursera上学了一门课程，叫做 **_学会如何学习_** (Learning how to learn)。这门课教你如何高效学习，我做了一些笔记，在这里分享给大家。
+
+> **说明：** 本文是从英文翻译而来，原文请见：[Learning how to learn]({% post_url 2016-06-12-learning-how-to-learn_en %})
+
+（我只是列出我认为重要的观点，下次我会想办法用更好的方式呈现）
 <!--more-->
 
-## Week 1 Two mode of your brain
-1. Your brain has two mode: focus mode, diffuse mode.
-1. Focus mode has tight spacing for the rubber bumpers.
-1. Diffuse mode has more widely spaced bumpers.
-1. If you need figure out a multiply problem you use your focus mode.
-1. If you go for a walk, take a shower or drift off to sleep you go into diffuse mode.
-1. Your memory is very important to learning.
-1. There are four slots in your working memory. Working memory is like a not very good blackboard.
-1. Long term memory is like a storage warehouse.
-1. If you repeat and practice enough to change working memory to long term memory.
-1. Don't repeat many times in one day.
-1. Sleeping is very important for learning. When you sleep, it will wash away the toxins in your brain.
-1. Exercise is surprisingly valuable in helping improve both our memory and our ability of learn.
+## 第一周 大脑的两种模式
 
-## Week 2 Facts of brain
-1. ***Chunk*** can be form through: focus, understanding basic idea or concept. It will
-occupy one of **four** memory slots.
-1. **Practice** to help you gain mastery and a sense of the big-picture context.
-1. After reading, ***recall*** what was read can help remember material easily. I mean
-recall without any pages of book or hints.
-1. Change your physical environment to recall is helpful too.
-1. If you just open book or Google and answer is front of you, notice this is a
-***illusion of competence*** in learning. You see the answer, that doesn't stand for
-you have learned.
-1. Testing yourself is a good way to check what you learn.
-1. Don't fill color whole page. That is, you should use your highlighting pen carefully.
-1. Make mistake is welcome, only if it won't occur in your exam.
-1. Three neuromodulators (神经递质) are: *acetylcholine* (乙酰胆碱), *dopamine* (多巴胺),
-*serotonin* (血清素).
-1. Acetylcholine helps you build your long term memory when you focus.
-1. Dopamine can affect your decision. It will fool your brain something wonderful
-has just happen. But you can give yourself some award to motivate to finish something.
-Loss of dopamine will result in slowness, rigidity, this is called Parkinson's disease.
-1. Serotonin will strongly affects your social life. Low serotonin will lead more
-risk actions.
-1. Visit [brainfacts.org](http://www.brainfacts.org/) to fetch more facts of brain.
-1. Building chunk can help you transfer some specific concept to other concept.
-1. Even if you need learn much concept of a chapter, you still need do your best.
-Because you remember first concept once, you will remember next concept easily,
-as same as the third and so on.
-1. You should do some exercise but don't do it if it has been easy. This is ***overlearning***.
-1. You can move your focus to more difficult material. This is called ***Deliberate
-Practice*** (刻意练习). Do you think of 10000 hours theory?
-1. If your spinball (This is a analogy of your mind) always go from same initial
-place, you can't let your ball arrive more bottom where your solution is.
-This is ***Einstellung*** (思维定势, from German word "Mindset").
-1. Learning new subject means learning not only the basic chunk, but also select
-and use different chunks. You may jump different chapters even different subject,
-that will lead you to new idea. This is ***interlearning***.
-1. Law of Serendipity: ***Lady Luck favors the one who tries***.
+1.  你的大脑有两种模式：专注模式和发散模式。
+1.  专注模式就像间距紧凑的橡胶缓冲器。
+1.  发散模式则有着更宽松间隔的缓冲器。
+1.  当你需要解决乘法问题时，你使用专注模式。
+1.  当你散步、洗澡或者即将入睡时，你会进入发散模式。
+1.  记忆对学习来说非常重要。
+1.  工作记忆有四个槽位，它就像一块不太好用的黑板。
+1.  长期记忆则像一个存储仓库。
+1.  通过足够的重复和练习，你可以将工作记忆转化为长期记忆。
+1.  不要在一天之内重复太多次。
+1.  睡眠对学习非常重要。当你睡觉时，大脑会冲走毒素。
+1.  运动对提升记忆力和学习能力有着惊人的帮助。
 
-## Week 3 Memory
-1. Chunking is related to habit. Habit can **save our energy**. Because when you
-going to zombie mode (habit), your brain won't focus on these instead of other
-key information.
-1. Make a habit need 4 steps:
-    1. The cue. This is trigger that launches you into zombie mode.
-    1. The routine. This is what you do when you receive a cue. It is useful or harmful.
-    1. The reward. You can give yourself a little pleasure after you have done
-    the routine. Finding ways to reward good study habits is important for escaping
-    procrastination (拖延症).
-    1. The brief. You should change your bad underlying brief.
-1. Quit wasting time and if you start you will feel better.
-1. Don't focus on product instead of ***process***.
-1. Put your focus on 25 minutes ***Pomodoro***, not on completing a task.
-1. There are four categories of cue, these will trigger your routine:
-    1. Location
-    1. Time
-    1. How you feel (like smell)
-    1. Reaction
-1. Choose a quiet spot and **without any internet access** will help you improve
-productive effects.
-1. Don't use your **willpower** to make a habit.
-1. You need rewiring your bad habit, like your brain will feel better when you
-move your focus on some painless thing (YouTube, text message). The key to rewiring
-is to **have a plan**. Developing a **ritual** can be helpful (like putting on a
-study hat).
-1. You can give yourself some award:
-    - an evening of mindless television
-    - web surfing without guilt
-1. The belief can help you back to your good habit when you feel hard. You can go
-to find some classmate, friends on the internet or family to help you remember
-the values that, in moments of weakness.
-1. Try to write daily to-do in **evening before**.
-1. Mixing other tasks up with your learning seems make everything more enjoyable
-and prevent from you sitting too long. (like you can fill some table task after you
-have done a hard problem)
-1. You can write down how long the task cost to help you improve your gauging.
-1. Set a little deadline everyday at same time. Like 5 p.m.
-1. You should do the hard task in morning, this will let you take easy whole day.
-"***Eat your frog first.***"
-1. We have outstanding visual memory. It can help us to form long-term memory.
-1. You can use a very memorable visual image representing one key item you want
-to remember. Like "Flying mule ass" == "f = ma"
-1. Repetition is important. But you don't need repetition many times in one day
-instead of several days.
-1. Also you can use ***index card*** to help building long-term memory. Write a brief
-text or only a sign on one side, and then write more information on the other hand.
-Testing yourself before sleep. Extend the period if you remember well.
-1. The *hippocampus* (海马体) hold your long-term memory.
-1. Memory Palace Technique is a particularly powerful way to grouping things you
-want to remember.
-1. (Memory Palace)It can hook the things you want to remember to the fix route 
-which is you are very familiar.
-1. You can convert English word to remember grouping things with their abbreviation.
-1. You can use some related things to remember a number. Like 11.0 is a time of
-100 metre race.
+## 第二周 大脑的真相
 
-## Week 4 More Tips about learning
-1. Do the exercise to help building your new neurons.
-1. When you go through a hard period, you will find your knowledge has been
-improved greatly.
-To build a analogy or metaphor can help you understand concepts easily, even if
-it won't suitable this at this time. You can fix it after you learning deeply.
-(e.g.: Think electrical as water flow. Some place/country as a funny things.)
-1. If you can remember many things, you won't be a creative person. Vice versa.
-1. **Imposter syndrome** involves frequent feelings of inadequacy. That is, you
-know you will fail even if you pass test this time because it is luck. So you
-are afraid you are exposed as a fraud.
-1. You need do more exercises to make your skill better, so your brain can complete
-it easily and it also make more other think.
-1. Make your eyes open. When you learn a subject you can find more video and talk
-to other people to learn what they think about this.
-1. Find a learning team can help you learn effective. Also teammate may find your
-blind point.
-1. But you should quit the team if your team change to a social team like they
-often wandering off the topic or be later.
-1. A **Test** is better for your learning. It will help you focus. Here is a checklist
-before you prepare your test:
-    1. [ ] Did you make a serious effort to understand the text?
-    1. [ ] Did you work with classmates on home work problems? Or check your solutions.
-    1. [ ] Did you attempt to outline every homework problem solution? Skip the
-    hard work (calculation).
-    1. [ ] Did you participate **actively** in home work group discussions?
-    1. [ ] Did you find the answer in your teach or instructor?
-    1. [ ] Did you get a reasonable night's **sleep** before the test?
-1. Hard start-jump to easy. You can skim all problems after get the test paper.
-Start from the hard problem, but if you stuck in 1 or 2 minutes, jump to the easy
-one, Because the diffuse mode will help you solve the hard one.
-1. Deep (Abdominal) breathe.
+1. **组块（Chunk）** 可以通过专注和理解基本概念来形成。它会占据四个记忆槽位中的一个。
+1. **练习** 能帮助你掌握技巧，并获得对整体背景的感知。
+1. 阅读之后，**回忆** 读过的内容能帮助你更容易记住材料。我的意思是不看书、不看提示地回忆。
+1. 改变物理环境对回忆也有帮助。
+1. 如果你只是打开书或谷歌，答案就在你眼前，要注意这是学习中的 **能力错觉（illusion of competence）**。你看到了答案，并不代表你已经学会了。
+1. 测试自己是检查学习成果的好方法。
+1. 不要整页整页地划重点。使用荧光笔时一定要谨慎。
+1. 犯错是受欢迎的，只要不在考试中再犯就行。
+1. 三种神经递质分别是：*乙酰胆碱*（acetylcholine）、*多巴胺*（dopamine）、*血清素*（serotonin）。
+1. 乙酰胆碱在你专注时帮助你建立长期记忆。
+1. 多巴胺会影响你的决策。它会欺骗你的大脑，让你觉得有好事刚刚发生。但你也可以通过给自己一些奖励来激励自己完成任务。多巴胺缺乏会导致行动迟缓、僵硬，这就是帕金森病。
+1. 血清素对社交生活有很大影响。血清素水平低会导致更多风险行为。
+1. 访问 [brainfacts.org](http://www.brainfacts.org/) 获取更多关于大脑的知识。
+1. 建立组块能帮助你将特定概念迁移到其他概念上。
+1. 即使一章有很多概念需要学习，你仍然需要尽全力。因为你记住了第一个概念，下一个就会更容易记，第三个也一样，以此类推。
+1. 你应该做些练习，但不要一直停留在已经学会的简单内容上，这叫做**过度学习（overlearning）**。
+1. 你可以把注意力转移到更难的材料上。这就是**刻意练习（Deliberate Practice）**。你听说过1万小时理论吗？
+1. 如果你的弹珠（这是对思维的类比）总是从同一个起点出发，你就无法让球到达更深处找到解决方案。这就是**思维定势（Einstellung）**。
+1. 学习新学科不仅意味着学习基本组块，还要学会选择和使用不同的组块。你可以跳跃不同章节甚至不同学科，这会给你带来新想法。这就是**交叉学习（interlearning）**。
+1. 幸运女神偏爱那些勇于尝试的人。（Law of Serendipity）
+
+## 第三周 记忆
+
+1. 组块化与习惯相关。习惯可以**节省我们的能量**。因为当你进入僵尸模式（习惯）时，你的大脑不会在这些事情上集中注意力，而是可以关注其他关键信息。
+1. 养成习惯需要四步：
+    1. 提示（Cue）。这是触发你进入僵尸模式的信号。
+    1. 程序（Routine）。这是你收到提示后所做的事情，可能有用也可能有害。
+    1. 奖励（Reward）。做完程序后，你可以给自己一点小快乐。找到奖励好学习习惯的方法对摆脱拖延症很重要。
+    1. 信念（The brief）。你需要改变不好的潜在信念。
+1. 别再浪费时间了，一旦开始你会感觉更好。
+1. 不要聚焦于结果，而要聚焦于**过程**。
+1. 把注意力放在25分钟的**番茄工作法**上，而不是完成任务。
+1. 提示有四类，它们会触发你的习惯：
+    1. 地点
+    1. 时间
+    1. 你的感觉（比如气味）
+    1. 反应
+1. 选择一个安静的地方，**不联网** 学习能帮助你提高效率。
+1. 不要用**意志力**来养成习惯。
+1. 你需要重新连接坏习惯，比如当你的大脑将注意力转移到一些轻松的事情上（YouTube、短信）时，你会感觉更好。重新连接的关键是**制定计划**。养成固定**仪式**会有帮助（比如戴上学习帽）。
+1. 你可以给自己这些奖励：
+    - 一晚上不用动脑地看电视
+    - 毫无愧疚感地上网冲浪
+1. 信念能帮助你在困难时回到好习惯。你可以找同学、网上的朋友或者家人来帮助你记住价值观，尤其是在软弱的时候。
+1. 试着在**前一天晚上**写下第二天的待办事项。
+1. 把其他任务和学习混合起来似乎能让一切更愉快，还能避免久坐。（比如你解决完一个难题后，可以做一些表格工作）
+1. 你可以写下任务花了多长时间，帮助你更好地预估时间。
+1. 每天在同一时间设定一个小截止时间，比如下午5点。
+1. 你应该在早上做困难的任务，这样一整天都会很轻松。**"先吃青蛙"**。
+1. 我们有出色的视觉记忆。它能帮助我们形成长期记忆。
+1. 你可以用一个非常难忘的视觉图像来代表你想要记住的关键项目。比如 "飞驴屁股" == "f = ma"。
+1. 重复很重要。但你不需要在一天内重复很多次，而是分散到几天中重复。
+1. 你也可以用**索引卡**来帮助建立长期记忆。在一面写简短内容或者只有符号，另一面写更多信息。睡前测试自己，如果你记得住就延长复习周期。
+1. **海马体** 储存着你的长期记忆。
+1. 记忆宫殿技巧是一种特别强大的方法，可以对想要记住的东西进行分组。
+1. （记忆宫殿）它能把你想要记住的东西挂在你非常熟悉的固定路线上。
+1. 你可以把英文单词转换一下，用缩写来分组记忆。
+1. 你可以用相关的事物来帮助记住数字。比如11.0就是100米赛跑的时间。
+
+## 第四周 更多学习技巧
+
+1. 运动帮助你建立新的神经元。
+1. 当你经历一段困难时期后，你会发现你的知识进步神速。
+1. 建立类比或隐喻能帮助你更容易理解概念，即使一开始不合适，当你学得更深之后可以再调整。（例如：把电想象成水流，把某个国家/地区想象成一件有趣的事情）
+1. 如果你能记住很多东西，你不一定会成为有创造力的人。反之亦然。
+1. **冒名顶替综合征（Imposter syndrome）** 指你经常会觉得自己不够格。也就是说，即使你这次考试通过了，你也知道你其实会不及格，只是运气好。所以你害怕自己被揭穿是个骗子。
+1. 你需要多练习让你的技能变得更好，这样你的大脑就能轻松应对，也能产生更多其他想法。
+1. 放开眼界。学习一个主题时，你可以找更多视频，和其他人交流，了解他们的想法。
+1. 找一个学习小组能帮助你更有效地学习。队友也能发现你的盲点。
+1. 但如果你的小组变成了社交小组，比如经常跑题或者迟到，你就应该离开。
+1. **考试** 对你的学习更有帮助。它能帮助你集中注意力。准备考试前，可以对照这个清单检查：
+    1. [ ] 你是否认真努力去理解课文了？
+    1. [ ] 你是否和同学一起做课后题？或者检查过你的答案？
+    1. [ ] 你是否尝试勾勒出每道课后题的解题框架？跳过了难的计算部分吗？
+    1. [ ] 你是否**积极**参与了小组讨论？
+    1. [ ] 你是否向老师或讲师寻求过答案？
+    1. [ ] 考试前你是否获得了充足的睡眠？
+1. 先难后易法。拿到试卷后，可以先浏览一遍所有题目。从难题开始，但如果你卡住1-2分钟，就跳到容易的题目，因为发散模式会帮助你解决难题。
+1. 深呼吸（腹式呼吸）。

@@ -2,7 +2,7 @@
 layout: post
 title: "静态网站多语言支持最佳实践 - 以中英双语为例"
 description: "分享在Jekyll静态网站中实现中英双语支持的技术细节和最佳实践"
-category: devops
+category: fe
 comments: true
 tags: [devops, jekyll, static-site, bilingual, i18n]
 ---

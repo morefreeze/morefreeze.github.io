@@ -2,7 +2,7 @@
 layout: post
 title: "airflow priority_weight 计算方法"
 description: ""
-category: data-engineering
+category: airflow
 comments: true
 tags: [data-engineering, airflow, python, workflow, scheduling]
 ---

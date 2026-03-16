@@ -2,7 +2,7 @@
 layout: post
 title: "beancount 起步"
 description: ""
-category: note
+category: beancount
 comments: true
 tags: [beancount, double-entry]
 ---
