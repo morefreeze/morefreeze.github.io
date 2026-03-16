@@ -15,7 +15,6 @@ layout: default
       var zhUrl = post.getAttribute('data-zh-url');
       var enUrl = post.getAttribute('data-en-url');
       var zhTitle = post.getAttribute('data-title');
-      var zhExcerpt = post.getAttribute('data-excerpt');
 
       if (preferredLanguage === 'en') {
         // 用户偏好英文，检查是否存在对应的英文版本
@@ -39,13 +38,23 @@ layout: default
               enTitle = titleTag.textContent;
             }
 
-            // 提取摘要
-            let enExcerpt = zhExcerpt;
-            const excerptTag = doc.querySelector('article');
-            if (excerptTag) {
-              // 移除所有 HTML 标签，保留纯文本，截断到 150 字符
-              const rawText = excerptTag.textContent.replace(/\s+/g, ' ').trim();
-              enExcerpt = rawText.length > 150 ? rawText.substring(0, 150) + '...' : rawText;
+            // 提取摘要：找到 #read-more 锚点，只取前面部分
+            // Jekyll 在完整页面渲染时会将 <!--more--> 替换为 <a class="anchor" id="read-more"></a>
+            let enExcerpt = '';
+            const article = doc.querySelector('article');
+            if (article) {
+              const articleHtml = article.innerHTML;
+              // 查找 read-more 锚点
+              const moreIndex = articleHtml.indexOf('id="read-more"');
+              if (moreIndex > 0) {
+                // 找到锚点，取前面部分，但需要找到完整标签结束
+                // 找到锚点所在标签的结束 >
+                const endTagIndex = articleHtml.indexOf('>', moreIndex);
+                enExcerpt = articleHtml.substring(0, endTagIndex + 1);
+              } else {
+                // 没有找到，使用全部内容
+                enExcerpt = article.innerHTML;
+              }
             }
 
             // 更新链接、标题、摘要
@@ -57,13 +66,13 @@ layout: default
             // 英文版本不存在或获取失败，保持中文
             updatePostLink(post, zhUrl);
             updatePostTitle(post, zhTitle);
-            updatePostExcerpt(post, zhExcerpt);
+            // 摘要已经在服务端渲染好了，不需要修改
           });
       } else {
         // 用户偏好中文，保持原样
         updatePostLink(post, zhUrl);
         updatePostTitle(post, zhTitle);
-        updatePostExcerpt(post, zhExcerpt);
+        // 摘要已经在服务端渲染好了，不需要修改
       }
 
       // 始终显示文章
@@ -87,15 +96,17 @@ layout: default
       }
     }
 
-    function updatePostExcerpt(post, excerpt) {
+    function updatePostExcerpt(post, excerptHtml) {
       var excerptTag = post.querySelector('.post-content');
-      if (excerptTag) {
-        // 保留 "Read more" 链接
+      if (excerptTag && excerptHtml) {
+        // 获取 "Read more" 链接
         const readMoreLink = excerptTag.querySelector('a[href$="#read-more"]');
-        if (readMoreLink) {
-          excerptTag.innerHTML = excerpt + '<p>' + readMoreLink.outerHTML + '</p>';
-        } else {
-          excerptTag.textContent = excerpt;
+        // 更新整个 article HTML
+        excerptTag.innerHTML = excerptHtml;
+        // 如果原文没有 Read more，添加它
+        if (readMoreLink && !excerptTag.querySelector('a[href$="#read-more"]')) {
+          excerptTag.appendChild(document.createElement('hr'));
+          excerptTag.innerHTML += '<p>' + readMoreLink.outerHTML + '</p>';
         }
       }
     }
@@ -103,10 +114,18 @@ layout: default
   </script>
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
 
-    {% for post in paginator.posts %}
-      {% if post.url contains '_en.html' %}
-        {% continue %}
-      {% endif %}
+    {% comment %} 自定义分页逻辑：先过滤掉英文文章 {% endcomment %}
+    {% assign filtered_posts = '' | split: ' ' %}
+    {% for post in site.posts %}
+      {% unless post.url contains '_en.html' %}
+        {% assign filtered_posts = filtered_posts | push: post %}
+      {% endunless %}
+    {% endfor %}
+
+    {% comment %} 只显示 paginate 配置数量的文章 {% endcomment %}
+    {% assign current_page_posts = filtered_posts | slice: 0, site.paginate %}
+
+    {% for post in current_page_posts %}
       {% assign zh_url = post.url %}
       {% assign en_url = post.url | replace: '.html', '_en.html' %}
 
