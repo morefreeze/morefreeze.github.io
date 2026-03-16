@@ -7,38 +7,45 @@ layout: default
   document.addEventListener('DOMContentLoaded', function() {
     var preferredLanguage = localStorage.getItem('preferredLanguage');
 
-    // 确定当前应该显示的语言（默认中文）
-    var targetLang = preferredLanguage === 'en' ? 'en' : 'zh';
-
-    // 获取所有文章
+    // 默认显示中文文章
     var allPosts = document.querySelectorAll('.home-post-item');
-
-    // 先隐藏所有文章
     allPosts.forEach(function(post) {
-      post.style.display = 'none';
-    });
-
-    // 找出所有具有对应语言版本的文章
-    var targetLangPosts = document.querySelectorAll('.home-post-item[data-lang="' + targetLang + '"]');
-
-    // 显示目标语言的文章
-    targetLangPosts.forEach(function(post) {
       post.style.display = 'block';
     });
+
+    // 如果偏好英文，检查每篇文章是否有英文版本，如果有则跳转
+    if (preferredLanguage === 'en') {
+      var hasAnyEnglish = false;
+      allPosts.forEach(function(post) {
+        var enUrl = post.getAttribute('data-en-url');
+        // Check if this post has an English version by making a HEAD request
+        fetch(enUrl, { method: 'HEAD' })
+          .then(response => {
+            if (response.ok) {
+              // If it's the first post with English version and we're on homepage, redirect
+              if (!hasAnyEnglish) {
+                window.location.href = enUrl;
+              }
+              hasAnyEnglish = true;
+            }
+          })
+          .catch(error => {
+            // Ignore errors
+          });
+      });
+    }
   });
   </script>
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
 
     {% for post in paginator.posts %}
       {% if post.url contains '_en.html' %}
-        {% assign zh_url = post.url | replace: '_en.html', '.html' %}
-        {% assign lang = 'en' %}
-      {% else %}
-        {% assign zh_url = post.url %}
-        {% assign lang = 'zh' %}
+        {% continue %}
       {% endif %}
+      {% assign zh_url = post.url %}
+      {% assign lang = 'zh' %}
 
-    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{% if lang == 'en' %}{{ post.url }}{% else %}{{ post.url | replace: '.html', '_en.html' }}{% endif %}">
+    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{{ post.url | replace: '.html', '_en.html' }}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
