@@ -7,32 +7,97 @@ layout: default
   document.addEventListener('DOMContentLoaded', function() {
     var preferredLanguage = localStorage.getItem('preferredLanguage');
 
-    // 默认显示中文文章
+    // 获取所有文章（服务端只输出中文文章，分页是正确的）
     var allPosts = document.querySelectorAll('.home-post-item');
+
+    // 始终显示所有文章，更新内容和链接
     allPosts.forEach(function(post) {
+      var zhUrl = post.getAttribute('data-zh-url');
+      var enUrl = post.getAttribute('data-en-url');
+      var zhTitle = post.getAttribute('data-title');
+      var zhExcerpt = post.getAttribute('data-excerpt');
+
+      if (preferredLanguage === 'en') {
+        // 用户偏好英文，检查是否存在对应的英文版本
+        fetch(enUrl, { method: 'GET' })
+          .then(response => {
+            if (response.ok) {
+              return response.text();
+            } else {
+              throw new Error('No English version');
+            }
+          })
+          .then(html => {
+            // 从 HTML 中提取英文标题和摘要
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // 提取标题
+            let enTitle = zhTitle;
+            const titleTag = doc.querySelector('title');
+            if (titleTag) {
+              enTitle = titleTag.textContent;
+            }
+
+            // 提取摘要
+            let enExcerpt = zhExcerpt;
+            const excerptTag = doc.querySelector('article');
+            if (excerptTag) {
+              // 移除所有 HTML 标签，保留纯文本，截断到 150 字符
+              const rawText = excerptTag.textContent.replace(/\s+/g, ' ').trim();
+              enExcerpt = rawText.length > 150 ? rawText.substring(0, 150) + '...' : rawText;
+            }
+
+            // 更新链接、标题、摘要
+            updatePostLink(post, enUrl);
+            updatePostTitle(post, enTitle);
+            updatePostExcerpt(post, enExcerpt);
+          })
+          .catch(error => {
+            // 英文版本不存在或获取失败，保持中文
+            updatePostLink(post, zhUrl);
+            updatePostTitle(post, zhTitle);
+            updatePostExcerpt(post, zhExcerpt);
+          });
+      } else {
+        // 用户偏好中文，保持原样
+        updatePostLink(post, zhUrl);
+        updatePostTitle(post, zhTitle);
+        updatePostExcerpt(post, zhExcerpt);
+      }
+
+      // 始终显示文章
       post.style.display = 'block';
     });
 
-    // 如果偏好英文，检查每篇文章是否有英文版本，如果有则跳转
-    if (preferredLanguage === 'en') {
-      var hasAnyEnglish = false;
-      allPosts.forEach(function(post) {
-        var enUrl = post.getAttribute('data-en-url');
-        // Check if this post has an English version by making a HEAD request
-        fetch(enUrl, { method: 'HEAD' })
-          .then(response => {
-            if (response.ok) {
-              // If it's the first post with English version and we're on homepage, redirect
-              if (!hasAnyEnglish) {
-                window.location.href = enUrl;
-              }
-              hasAnyEnglish = true;
-            }
-          })
-          .catch(error => {
-            // Ignore errors
-          });
-      });
+    function updatePostLink(post, url) {
+      var link = post.querySelector('.post-link');
+      if (link) {
+        link.href = url;
+      }
+    }
+
+    function updatePostTitle(post, title) {
+      var titleTag = post.querySelector('.post-title');
+      if (titleTag) {
+        var link = titleTag.querySelector('.post-link');
+        if (link) {
+          link.textContent = title;
+        }
+      }
+    }
+
+    function updatePostExcerpt(post, excerpt) {
+      var excerptTag = post.querySelector('.post-content');
+      if (excerptTag) {
+        // 保留 "Read more" 链接
+        const readMoreLink = excerptTag.querySelector('a[href$="#read-more"]');
+        if (readMoreLink) {
+          excerptTag.innerHTML = excerpt + '<p>' + readMoreLink.outerHTML + '</p>';
+        } else {
+          excerptTag.textContent = excerpt;
+        }
+      }
     }
   });
   </script>
@@ -43,9 +108,9 @@ layout: default
         {% continue %}
       {% endif %}
       {% assign zh_url = post.url %}
-      {% assign lang = 'zh' %}
+      {% assign en_url = post.url | replace: '.html', '_en.html' %}
 
-    <div class="home-post-item" data-lang="{{ lang }}" data-zh-url="{{ zh_url }}" data-en-url="{{ post.url | replace: '.html', '_en.html' }}">
+    <div class="home-post-item" data-zh-url="{{ zh_url }}" data-en-url="{{ en_url }}" data-title="{{ post.title }}" data-excerpt="{{ post.excerpt | strip_html }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-categories="{{ post.categories | join: ',' }}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
