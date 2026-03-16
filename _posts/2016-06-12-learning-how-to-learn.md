@@ -10,8 +10,6 @@ tags: [note, learning]
 
 上个月我在Coursera上学了一门课程，叫做 **_学会如何学习_** (Learning how to learn)。这门课教你如何高效学习，我做了一些笔记，在这里分享给大家。
 
-> **说明：** 本文是从英文翻译而来，原文请见：[Learning how to learn]({% post_url 2016-06-12-learning-how-to-learn_en %})
-
 （我只是列出我认为重要的观点，下次我会想办法用更好的方式呈现）
 <!--more-->
 

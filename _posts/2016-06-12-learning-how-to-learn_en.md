@@ -13,8 +13,6 @@ _[Learning how to learn](https://www.coursera.org/learn/learning-how-to-learn)_.
 It is a course that teach you how to learn efficiently. I made some notes about it
 and share here.
 
-> **Note:** A **Chinese version** of this article has been added recently. You can read it here: [学会如何学习]({% post_url 2016-06-12-learning-how-to-learn %})
-
 (I just list each view point which I think is important, but I think I can figure out
 better way to show next time)
 <!--more-->
