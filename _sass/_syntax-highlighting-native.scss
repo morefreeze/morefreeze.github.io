@@ -1,72 +1,86 @@
+// GitHub Light Default — VS Code featured theme
 .highlight {
+  background: #f6f8fa;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  overflow: auto;
 
-.hll { background-color: #404040 }
-.c { color: #999999; font-style: italic } /* Comment */
-.err { color: #a61717; background-color: #e3d2d2 } /* Error */
-.g { color: #3d3d3d } /* Generic */
-.k { color: #6ab825; font-weight: bold } /* Keyword */
-.l { color: #3d3d3d } /* Literal */
-.n { color: #3d3d3d } /* Name */
-.o { color: #3d3d3d } /* Operator */
-.x { color: #3d3d3d } /* Other */
-.p { color: #3d3d3d } /* Punctuation */
-.cm { color: #999999; font-style: italic } /* Comment.Multiline */
-.cp { color: #cd2828; font-weight: bold } /* Comment.Preproc */
-.c1 { color: #999999; font-style: italic } /* Comment.Single */
-.cs { color: #e50808; font-weight: bold; background-color: #520000 } /* Comment.Special */
-.gd { color: #d22323 } /* Generic.Deleted */
-.ge { color: #3d3d3d; font-style: italic } /* Generic.Emph */
-.gr { color: #d22323 } /* Generic.Error */
-.gh { color: #ffffff; font-weight: bold } /* Generic.Heading */
-.gi { color: #589819 } /* Generic.Inserted */
-.go { color: #cccccc } /* Generic.Output */
-.gp { color: #aaaaaa } /* Generic.Prompt */
-.gs { color: #3d3d3d; font-weight: bold } /* Generic.Strong */
-.gu { color: #ffffff; text-decoration: underline } /* Generic.Subheading */
-.gt { color: #d22323 } /* Generic.Traceback */
-.kc { color: #6ab825; font-weight: bold } /* Keyword.Constant */
-.kd { color: #6ab825; font-weight: bold } /* Keyword.Declaration */
-.kn { color: #6ab825; font-weight: bold } /* Keyword.Namespace */
-.kp { color: #6ab825 } /* Keyword.Pseudo */
-.kr { color: #6ab825; font-weight: bold } /* Keyword.Reserved */
-.kt { color: #6ab825; font-weight: bold } /* Keyword.Type */
-.ld { color: #3d3d3d } /* Literal.Date */
-.m { color: #3677a9 } /* Literal.Number */
-.s { color: #ed9d13 } /* Literal.String */
-.na { color: #bbbbbb } /* Name.Attribute */
-.nb { color: #24909d } /* Name.Builtin */
-.nc { color: #447fcf; text-decoration: underline } /* Name.Class */
-.no { color: #40ffff } /* Name.Constant */
-.nd { color: #ffa500 } /* Name.Decorator */
-.ni { color: #3d3d3d } /* Name.Entity */
-.ne { color: #bbbbbb } /* Name.Exception */
-.nf { color: #447fcf } /* Name.Function */
-.nl { color: #3d3d3d } /* Name.Label */
-.nn { color: #447fcf; text-decoration: underline } /* Name.Namespace */
-.nx { color: #3d3d3d } /* Name.Other */
-.py { color: #3d3d3d } /* Name.Property */
-.nt { color: #6ab825; font-weight: bold } /* Name.Tag */
-.nv { color: #40ffff } /* Name.Variable */
-.ow { color: #6ab825; font-weight: bold } /* Operator.Word */
-.w { color: #666666 } /* Text.Whitespace */
-.mf { color: #3677a9 } /* Literal.Number.Float */
-.mh { color: #3677a9 } /* Literal.Number.Hex */
-.mi { color: #3677a9 } /* Literal.Number.Integer */
-.mo { color: #3677a9 } /* Literal.Number.Oct */
-.sb { color: #ed9d13 } /* Literal.String.Backtick */
-.sc { color: #ed9d13 } /* Literal.String.Char */
-.sd { color: #ed9d13 } /* Literal.String.Doc */
-.s2 { color: #ed9d13 } /* Literal.String.Double */
-.se { color: #ed9d13 } /* Literal.String.Escape */
-.sh { color: #ed9d13 } /* Literal.String.Heredoc */
-.si { color: #ed9d13 } /* Literal.String.Interpol */
-.sx { color: #ffa500 } /* Literal.String.Other */
-.sr { color: #ed9d13 } /* Literal.String.Regex */
-.s1 { color: #ed9d13 } /* Literal.String.Single */
-.ss { color: #ed9d13 } /* Literal.String.Symbol */
-.bp { color: #24909d } /* Name.Builtin.Pseudo */
-.vc { color: #40ffff } /* Name.Variable.Class */
-.vg { color: #40ffff } /* Name.Variable.Global */
-.vi { color: #40ffff } /* Name.Variable.Instance */
-.il { color: #3677a9 } /* Literal.Number.Integer.Long */
+  // Flatten the double-box: pre inside highlight is transparent
+  pre {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
+    margin: 0;
+    padding: 1em 1.2em;
+    overflow: visible;
+  }
+
+  // line-number table layout (rouge --line-numbers)
+  .rouge-table {
+    border: none;
+    margin: 0;
+    width: 100%;
+
+    td { border: none; padding: 0; }
+
+    .gutter {
+      width: 3em;
+      padding: 1em 0.6em 1em 1em;
+      text-align: right;
+      user-select: none;
+      -webkit-user-select: none;
+      pre { padding: 0; color: #9ea7b3; }
+    }
+
+    .code {
+      padding: 0;
+      pre { padding: 1em 1.2em 1em 0.6em; }
+    }
+  }
+
+  code {
+    background: transparent !important;
+    border: none !important;
+    padding: 0;
+    color: #24292f;
+    font-size: 13px;
+  }
+
+  // ── Token colours — GitHub Light Default ──────────────────
+  .hll { background-color: #fffbdd }
+  .c,  .cm, .c1, .cs { color: #6e7781; font-style: italic }   // Comments
+  .cp  { color: #953800 }                                       // Preprocessor
+  .err { color: #82071e; background-color: #FFEBE9 }
+  .k,  .kc, .kd, .kn,
+  .kp, .kr, .kt  { color: #cf222e; font-weight: bold }         // Keywords
+  .ld  { color: #24292f }
+  .m,  .mf, .mh, .mi,
+  .mo, .il   { color: #0550ae }                                 // Numbers
+  .s,  .s1, .s2, .sb, .sc,
+  .sd, .se, .sh, .si,
+  .sx, .sr, .ss  { color: #0a3069 }                            // Strings
+  .na  { color: #116329 }                                       // Attr
+  .nb, .bp   { color: #0550ae }                                 // Builtins
+  .nc  { color: #953800; font-weight: bold }                    // Class
+  .nd  { color: #8250df }                                       // Decorator
+  .ne  { color: #cf222e; font-weight: bold }                    // Exception
+  .nf  { color: #8250df }                                       // Function
+  .ni  { color: #24292f }
+  .nl  { color: #24292f }
+  .nn  { color: #953800 }                                       // Namespace
+  .no  { color: #0550ae }                                       // Constant
+  .nt  { color: #116329; font-weight: bold }                    // Tag
+  .nv, .vc, .vg, .vi { color: #0550ae }                        // Variables
+  .o,  .ow   { color: #cf222e }                                 // Operators
+  .p   { color: #24292f }
+  .w   { color: #6e7781 }
+  .gd  { color: #82071e; background-color: #FFEBE9 }
+  .ge  { font-style: italic }
+  .gi  { color: #116329; background-color: #dafbe1 }
+  .go  { color: #6e7781 }
+  .gp  { color: #6e7781 }
+  .gs  { font-weight: bold }
+  .gh  { color: #24292f; font-weight: bold }
+  .gu  { color: #8250df }
 }

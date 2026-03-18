@@ -1,0 +1,32 @@
+<div class="corner-controls">
+  {% if page.url contains '_en.html' %}
+    <a href="{{ page.url | replace: '_en.html', '.html' }}" class="corner-btn corner-lang-btn" id="corner-language-switcher">中文</a>
+  {% else %}
+    {% assign english_url = page.url | replace: '.html', '_en.html' %}
+    {% for post in site.posts %}
+      {% if post.url == english_url %}
+        <a href="{{ english_url }}" class="corner-btn corner-lang-btn" id="corner-language-switcher">EN</a>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+    {% for p in site.pages %}
+      {% if p.url == english_url %}
+        <a href="{{ english_url }}" class="corner-btn corner-lang-btn" id="corner-language-switcher">EN</a>
+        {% break %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <button id="dark-mode-toggle" class="corner-btn dark-mode-toggle" title="切换暗色模式">☾</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var langBtn = document.getElementById('corner-language-switcher');
+    if (langBtn) {
+      langBtn.addEventListener('click', function() {
+        var isEnglish = window.location.pathname.endsWith('_en.html');
+        localStorage.setItem('preferredLanguage', isEnglish ? 'zh' : 'en');
+      });
+    }
+  });
+</script>

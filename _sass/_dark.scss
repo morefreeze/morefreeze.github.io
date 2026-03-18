@@ -82,13 +82,54 @@
   // inline code (not inside pre)
   code {
     background-color: #2a2a2a;
-    color: #d0d0d0;
+    color: #e6edf3;
   }
 
-  // pre already has dark syntax theme, just keep consistent
-  pre {
-    background-color: #1a1a1a;
-    code { background-color: transparent; }
+  // Code blocks — GitHub Dark Default
+  .highlight {
+    background: #161b22;
+    border-color: #30363d;
+
+    pre { background: transparent !important; }
+
+    .gutter pre { color: #484f58; }
+
+    code { color: #e6edf3; }
+
+    .hll { background-color: #2d2f31 }
+    .c,  .cm, .c1, .cs { color: #8b949e; font-style: italic }
+    .cp  { color: #ff7b72 }
+    .err { color: #f85149 }
+    .k,  .kc, .kd, .kn,
+    .kp, .kr, .kt  { color: #ff7b72; font-weight: bold }
+    .m,  .mf, .mh, .mi,
+    .mo, .il   { color: #79c0ff }
+    .s,  .s1, .s2, .sb, .sc,
+    .sd, .se, .sh, .si,
+    .sx, .sr, .ss  { color: #a5d6ff }
+    .na  { color: #7ee787 }
+    .nb, .bp   { color: #79c0ff }
+    .nc  { color: #ffa657; font-weight: bold }
+    .nd  { color: #d2a8ff }
+    .ne  { color: #ff7b72; font-weight: bold }
+    .nf  { color: #d2a8ff }
+    .ni  { color: #e6edf3 }
+    .nl  { color: #e6edf3 }
+    .nn  { color: #ffa657 }
+    .no  { color: #79c0ff }
+    .nt  { color: #7ee787; font-weight: bold }
+    .nv, .vc, .vg, .vi { color: #79c0ff }
+    .o,  .ow   { color: #ff7b72 }
+    .p   { color: #e6edf3 }
+    .w   { color: #6e7681 }
+    .gd  { color: #ffdcd7; background-color: #67060c }
+    .ge  { font-style: italic }
+    .gi  { color: #aff5b4; background-color: #033a16 }
+    .go  { color: #8b949e }
+    .gp  { color: #8b949e }
+    .gs  { font-weight: bold }
+    .gh  { color: #e6edf3; font-weight: bold }
+    .gu  { color: #d2a8ff }
   }
 
   // ── Table ─────────────────────────────────────────────
