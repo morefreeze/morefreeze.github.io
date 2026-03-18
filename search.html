@@ -1,0 +1,17 @@
+---
+layout: default
+title: Search
+---
+
+<div class="search-page">
+  <div class="search-header">
+    <div class="search-input-wrap">
+      <input type="text" id="search-input" placeholder="搜索文章..." autofocus autocomplete="off" />
+      <span class="search-icon">&#128269;</span>
+    </div>
+  </div>
+  <div id="search-results"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+<script src="{{ "/assets/js/search.js" | prepend: site.baseurl }}"></script>
