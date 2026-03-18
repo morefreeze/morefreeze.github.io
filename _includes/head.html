@@ -70,6 +70,10 @@
 
   gtag('config', 'AW-688213545');
 </script>
+<!-- Inline dark mode: apply before render to prevent flash -->
+<script>
+  (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+</script>
 </head>
 
 

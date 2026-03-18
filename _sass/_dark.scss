@@ -1,0 +1,157 @@
+[data-theme="dark"] {
+  // ── Core ──────────────────────────────────────────────
+  background-color: #111;
+  color: #d0d0d0;
+
+  body {
+    background-color: #111;
+    color: #d0d0d0;
+  }
+
+  .container {
+    background-color: #1e1e1e;
+    box-shadow: 1px 1px 10px #000;
+  }
+
+  // ── Typography ────────────────────────────────────────
+  h1, h2, h3, h4, h5, h6 {
+    color: #e0e0e0;
+  }
+
+  a {
+    color: #5daef5;
+    &:visited { color: #9ab8e0; }
+    &:hover   { color: #88ccff; }
+  }
+
+  .post-content a {
+    color: #5daef5;
+    &:visited { color: #9ab8e0; }
+    &:hover   { color: #88ccff; }
+  }
+
+  // ── Header / Nav ──────────────────────────────────────
+  .site-title a,
+  .site-title a:visited {
+    color: #4aa8d0;
+  }
+
+  .site-meta {
+    color: #888;
+  }
+
+  .site-nav {
+    border-top-color: #333;
+    border-bottom-color: #333;
+
+    .page-link { color: #aaa; }
+
+    a:hover { color: #d0d0d0; }
+
+    @media screen and (max-width: 768px) {
+      background-color: #1e1e1e;
+      border-color: #333;
+    }
+  }
+
+  // ── Sidebar ───────────────────────────────────────────
+  .sidebar-module {
+    h4 { color: #ccc; }
+    a  { color: #5daef5; }
+  }
+
+  // ── Footer ────────────────────────────────────────────
+  .site-footer {
+    background-color: #161616;
+    border-top-color: #333;
+    color: #777;
+    a { color: #5daef5; }
+  }
+
+  // ── Post meta ─────────────────────────────────────────
+  .post-meta { color: #888; }
+
+  // ── Blockquote ────────────────────────────────────────
+  blockquote {
+    background: #252525;
+    border-color: #3a5a50;
+    color: #aaa;
+  }
+
+  // ── Code ──────────────────────────────────────────────
+  // inline code (not inside pre)
+  code {
+    background-color: #2a2a2a;
+    color: #d0d0d0;
+  }
+
+  // pre already has dark syntax theme, just keep consistent
+  pre {
+    background-color: #1a1a1a;
+    code { background-color: transparent; }
+  }
+
+  // ── Table ─────────────────────────────────────────────
+  table tr {
+    background-color: #1e1e1e;
+    border-top-color: #333;
+  }
+  table tr:nth-child(2n) { background-color: #252525; }
+  table tr th,
+  table tr td {
+    border-color: #333;
+    color: #ccc;
+  }
+
+  // ── HR ────────────────────────────────────────────────
+  hr { border-bottom-color: #333; }
+
+  // ── Floating TOC ──────────────────────────────────────
+  .floating-toc {
+    background: linear-gradient(135deg, #1e1e1e 0%, #252525 100%);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 4px 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .floating-toc-header {
+    border-bottom-color: rgba(255,255,255,0.06);
+  }
+
+  .floating-toc-list a {
+    color: #aaa;
+    &:hover  { background: rgba(93,174,245,0.1); color: #5daef5; }
+    &.active { background: rgba(93,174,245,0.15); color: #4aa8d0; }
+  }
+
+  .floating-toc-close {
+    background: rgba(255,255,255,0.06);
+    color: #999;
+    &:hover { background: rgba(255,255,255,0.12); color: #ccc; }
+  }
+
+  .floating-toc-hint {
+    background: rgba(93,174,245,0.12);
+    &:hover { background: rgba(93,174,245,0.25); }
+  }
+
+  .floating-toc-hint-icon { color: rgba(93,174,245,0.7); }
+
+  // ── Search ────────────────────────────────────────────
+  .search-input-wrap input#search-input {
+    background: #252525;
+    border-color: #444;
+    color: #d0d0d0;
+    &:focus { border-color: #5daef5; }
+  }
+
+  .search-result-title { color: #5daef5; }
+  .search-result-meta  { color: #666; }
+  .search-result-excerpt { color: #999; mark { background: #4a3f00; color: #ffe; } }
+  .search-result-item  { border-bottom-color: #2a2a2a; }
+
+  // ── Dark mode toggle button ────────────────────────────
+  .dark-mode-toggle {
+    color: #aaa;
+    &:hover { color: #fff; }
+  }
+}
