@@ -2,7 +2,7 @@
   position: fixed;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateX(-100%) translateY(-50%);
   width: 260px;
   max-height: 70vh;
   background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -13,7 +13,6 @@
   z-index: 9999;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-100%) translateY(-50%);
   transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
               visibility 0.3s;
@@ -65,7 +64,8 @@
   align-items: center;
   justify-content: center;
   color: #666;
-  font-size: 14px;
+  font-size: 16px;
+  line-height: 1;
   transition: all 0.2s ease;
 }
 
@@ -148,30 +148,39 @@
   color: #888;
 }
 
+/* hint tab：固定在左侧中部 */
 .floating-toc-hint {
   position: fixed;
   left: 0;
   top: 50%;
   transform: translateY(-50%);
-  width: 8px;
-  height: 80px;
-  background: linear-gradient(90deg, rgba(37, 131, 173, 0.15) 0%, transparent 100%);
-  border-radius: 0 4px 4px 0;
+  width: 20px;
+  height: 60vh;
+  background: rgba(37, 131, 173, 0.12);
+  border-radius: 0 8px 8px 0;
   cursor: pointer;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 9998;
-}
-
-.floating-toc-hint.visible {
-  opacity: 1;
-  visibility: visible;
+  transition: background 0.2s ease, width 0.2s ease, opacity 0.2s ease;
 }
 
 .floating-toc-hint:hover {
-  width: 12px;
-  background: linear-gradient(90deg, rgba(37, 131, 173, 0.35) 0%, transparent 100%);
+  width: 28px;
+  background: rgba(37, 131, 173, 0.25);
+}
+
+.floating-toc-hint.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-toc-hint-icon {
+  font-size: 16px;
+  color: rgba(37, 131, 173, 0.7);
+  line-height: 1;
+  user-select: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -183,17 +192,4 @@
   .floating-toc-hint {
     display: none;
   }
-}
-
-@keyframes tocPulse {
-  0%, 100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.floating-toc-hint.has-toc {
-  animation: tocPulse 2s ease-in-out infinite;
 }

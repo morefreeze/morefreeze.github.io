@@ -2,9 +2,7 @@
   'use strict';
 
   const TOC_CONFIG = {
-    triggerZoneWidth: 0.1,
     hideDelay: 300,
-    scrollThreshold: 50,
     tocSelector: '.floating-toc',
     hintSelector: '.floating-toc-hint'
   };
@@ -16,7 +14,6 @@
       this.tocList = null;
       this.isVisible = false;
       this.hideTimeout = null;
-      this.lastScrollY = 0;
       this.isScrolling = false;
       this.headings = [];
       this.activeHeadingId = null;
@@ -43,9 +40,7 @@
     hasFloatTOCTag() {
       const content = document.querySelector('.post-content, .content, article');
       if (!content) return false;
-
-      const headings = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      return headings.length >= 2;
+      return content.querySelectorAll('h1, h2, h3, h4, h5, h6').length >= 2;
     }
 
     createTOC() {
@@ -57,7 +52,9 @@
 
       const tocWrapper = document.createElement('div');
       tocWrapper.innerHTML = `
-        <div class="floating-toc-hint ${html ? 'has-toc' : ''}" title="显示目录"></div>
+        <div class="floating-toc-hint" title="展开目录">
+          <span class="floating-toc-hint-icon">≡</span>
+        </div>
         <div class="floating-toc">
           <div class="floating-toc-header">
             <span class="floating-toc-title">目录</span>
@@ -81,24 +78,18 @@
 
       const elements = content.querySelectorAll('h1, h2, h3, h4, h5, h6');
       const headings = [];
-
       elements.forEach((el, index) => {
-        if (!el.id) {
-          el.id = 'heading-' + index;
-        }
+        if (!el.id) el.id = 'heading-' + index;
         headings.push({
           id: el.id,
           text: el.textContent.trim(),
           level: parseInt(el.tagName.charAt(1))
         });
       });
-
       return headings;
     }
 
     generateTOCHTML(headings) {
-      if (headings.length === 0) return '';
-
       return headings.map(h => {
         const levelClass = `toc-h${h.level}`;
         return `<li><a href="#${h.id}" class="${levelClass}" data-id="${h.id}">${this.escapeHTML(h.text)}</a></li>`;
@@ -112,70 +103,58 @@
     }
 
     bindEvents() {
-      let mouseInTriggerZone = false;
-      let mouseInTOC = false;
+      // 悬停 hint tab 展开
+      this.hint.addEventListener('mouseenter', () => this.showTOC());
 
-      // 获取导航栏高度（Bootstrap navbar 通常至少 50px 高）
-      const getNavbarHeight = () => {
-        const navbar = document.querySelector('.site-nav');
-        if (navbar) {
-          return navbar.offsetHeight;
-        }
-        return 50; // 默认 50px 作为导航栏高度
-      };
+      // TOC 鼠标进入，取消延迟收起
+      this.toc.addEventListener('mouseenter', () => this.cancelHide());
 
-      const navbarHeight = getNavbarHeight();
+      // TOC 鼠标离开，延迟收起
+      this.toc.addEventListener('mouseleave', () => this.scheduleHide());
 
-      document.addEventListener('mousemove', (e) => {
-        const inTriggerZone = e.clientX <= window.innerWidth * TOC_CONFIG.triggerZoneWidth && e.clientY > navbarHeight;
-        const inTOC = this.toc && this.toc.contains(e.relatedTarget);
+      // × 按钮点击关闭
+      this.toc.querySelector('.floating-toc-close').addEventListener('click', () => this.hideTOC());
 
-        if (inTriggerZone && !mouseInTriggerZone) {
-          mouseInTriggerZone = true;
-          this.showTOC();
-        } else if (!inTriggerZone && !inTOC && mouseInTriggerZone) {
-          mouseInTriggerZone = false;
-          this.scheduleHideTOC();
-        }
-
-        if (inTOC) mouseInTOC = true;
-      });
-
-      this.toc.addEventListener('mouseenter', () => {
-        mouseInTOC = true;
-        this.cancelHideTOC();
-      });
-
-      this.toc.addEventListener('mouseleave', () => {
-        mouseInTOC = false;
-        this.scheduleHideTOC();
-      });
-
-      const closeBtn = this.toc.querySelector('.floating-toc-close');
-      closeBtn.addEventListener('click', () => this.hideTOC());
-
+      // TOC 列表点击跳转
       this.tocList.addEventListener('click', (e) => {
         e.preventDefault();
         const link = e.target.closest('a');
         if (link) {
-          const id = link.dataset.id;
-          const target = document.getElementById(id);
+          const target = document.getElementById(link.dataset.id);
           if (target) {
-            const headerOffset = 80;
-            const elementPosition = target.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-
+            const offsetPosition = target.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
             this.hideTOC();
           }
         }
       });
 
       window.addEventListener('scroll', () => this.handleScroll());
+    }
+
+    showTOC() {
+      this.cancelHide();
+      this.toc.classList.add('visible');
+      this.hint.classList.add('hidden');
+      this.isVisible = true;
+    }
+
+    hideTOC() {
+      this.toc.classList.remove('visible');
+      this.hint.classList.remove('hidden');
+      this.isVisible = false;
+    }
+
+    scheduleHide() {
+      this.cancelHide();
+      this.hideTimeout = setTimeout(() => this.hideTOC(), TOC_CONFIG.hideDelay);
+    }
+
+    cancelHide() {
+      if (this.hideTimeout) {
+        clearTimeout(this.hideTimeout);
+        this.hideTimeout = null;
+      }
     }
 
     handleScroll() {
@@ -190,10 +169,8 @@
 
     updateActiveHeading() {
       if (this.headings.length === 0) return;
-
       const scrollY = window.scrollY;
       let activeId = null;
-
       for (let i = this.headings.length - 1; i >= 0; i--) {
         const heading = document.getElementById(this.headings[i].id);
         if (heading && heading.offsetTop <= scrollY + 100) {
@@ -201,7 +178,6 @@
           break;
         }
       }
-
       if (activeId !== this.activeHeadingId) {
         this.activeHeadingId = activeId;
         this.updateActiveLink();
@@ -209,18 +185,13 @@
     }
 
     updateActiveLink() {
-      const links = this.tocList.querySelectorAll('a');
-      links.forEach(link => {
-        link.classList.remove('active');
-        if (link.dataset.id === this.activeHeadingId) {
-          link.classList.add('active');
-        }
+      this.tocList.querySelectorAll('a').forEach(link => {
+        link.classList.toggle('active', link.dataset.id === this.activeHeadingId);
       });
     }
 
     buildIntersectionObserver() {
       if (!('IntersectionObserver' in window)) return;
-
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -234,36 +205,6 @@
         const el = document.getElementById(h.id);
         if (el) observer.observe(el);
       });
-    }
-
-    showTOC() {
-      if (this.hideTimeout) {
-        clearTimeout(this.hideTimeout);
-        this.hideTimeout = null;
-      }
-      this.toc.classList.add('visible');
-      this.hint.classList.remove('visible');
-      this.isVisible = true;
-    }
-
-    hideTOC() {
-      this.toc.classList.remove('visible');
-      this.hint.classList.add('visible');
-      this.isVisible = false;
-    }
-
-    scheduleHideTOC() {
-      this.cancelHideTOC();
-      this.hideTimeout = setTimeout(() => {
-        this.hideTOC();
-      }, TOC_CONFIG.hideDelay);
-    }
-
-    cancelHideTOC() {
-      if (this.hideTimeout) {
-        clearTimeout(this.hideTimeout);
-        this.hideTimeout = null;
-      }
     }
   }
 
