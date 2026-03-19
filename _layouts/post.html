@@ -4,17 +4,35 @@ layout: default
 <div class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 itemprop="name" class="post-title">
+    <h1 itemprop="name headline" class="post-title">
       {{ page.title }}
       {% include language_switcher.html %}
     </h1>
     <meta itemprop="keywords" content="{{ page.tags | join: ',' }}" />
+    <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="{{ site.author }}" />
+      <meta itemprop="url" content="{{ site.url }}" />
+    </span>
+    <span itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="{{ site.title }}" />
+      <span itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+        <meta itemprop="url" content="{{ site.url }}{{ site.favicon }}" />
+      </span>
+    </span>
+    {% if page.image %}
+    <meta itemprop="image" content="{{ page.image | prepend: site.url }}" />
+    {% else %}
+    <meta itemprop="image" content="{{ site.url }}/images/default-cover.svg" />
+    {% endif %}
+    <meta itemprop="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}" />
+    <meta itemprop="dateModified" content="{{ page.date | date: '%Y-%m-%d' }}" />
+    <meta itemprop="mainEntityOfPage" content="{{ page.url | prepend: site.url }}" />
     {% include language_switcher_script.html %}
     <p class="post-meta">
     {{ site.locales[site.default_locale].PostedInCategories }}
     {% for cat in page.categories %}
     <a href="{{site.baseurl}}/categories/#{{ cat }}">{{ cat }}</a>&nbsp;
-    {% endfor %} 
+    {% endfor %}
     {% if page.tags != empty %}
     {{ site.locales[site.default_locale].Taggedwith }}
     {% for tag in page.tags %}
@@ -33,6 +51,7 @@ layout: default
   <hr />
 </div>
 
+{% include recommend_posts.html %}
 
 {% include page_pagination.html%}
 

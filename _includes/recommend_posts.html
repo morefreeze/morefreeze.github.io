@@ -1,0 +1,52 @@
+<div class="recommend-post" id="recommend-post" style="display:none">
+  <h3>推荐阅读</h3>
+  <ul id="recommend-list"></ul>
+</div>
+
+<script>
+(function() {
+  var currentUrl = "{{ page.url }}";
+  var currentTags = {{ page.tags | jsonify }};
+  var currentCats = {{ page.categories | jsonify }};
+  var MAX = 5;
+
+  fetch("{{ site.baseurl }}/posts.json")
+    .then(function(r) { return r.json(); })
+    .then(function(posts) {
+      var primary = [];
+      var fallback = [];
+
+      posts.forEach(function(p) {
+        if (p.url === currentUrl) return;
+        if (p.url.indexOf('_en') !== -1) return;
+
+        var sameCat = p.categories.some(function(c) {
+          return currentCats.indexOf(c) !== -1;
+        });
+        if (!sameCat) return;
+
+        var sameTag = p.tags.some(function(t) {
+          return currentTags.indexOf(t) !== -1;
+        });
+        if (sameTag) {
+          primary.push(p);
+        } else {
+          fallback.push(p);
+        }
+      });
+
+      var list = primary.concat(fallback).slice(0, MAX);
+      if (list.length === 0) return;
+
+      var ul = document.getElementById("recommend-list");
+      list.forEach(function(p) {
+        var li = document.createElement("li");
+        var excerpt = p.excerpt ? '<p class="recommend-excerpt">' + p.excerpt + '</p>' : '';
+        li.innerHTML = '<a href="' + p.url + '">' + p.title + '</a>' +
+          '<span class="recommend-date">' + p.date + '</span>' + excerpt;
+        ul.appendChild(li);
+      });
+      document.getElementById("recommend-post").style.display = "";
+    });
+})();
+</script>

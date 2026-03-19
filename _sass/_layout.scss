@@ -299,3 +299,53 @@ q:after {
   font-weight:bold;
 }
 
+/**
+ * Hide Disqus recommendations
+ */
+#disqus_recommendations {
+  display: none !important;
+}
+
+/**
+ * Recommend posts
+ */
+.recommend-post {
+  margin: 20px 0;
+  padding: 15px 20px;
+  background: #f8f8f8;
+  border-left: 3px solid $brand-color;
+  border-radius: 4px;
+
+  h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    padding: 4px 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .recommend-date {
+    color: #999;
+    font-size: 13px;
+    margin-left: 8px;
+  }
+
+  .recommend-excerpt {
+    color: #666;
+    font-size: 13px;
+    margin: 2px 0 0;
+    line-height: 1.4;
+  }
+}
+

@@ -16,6 +16,9 @@
 <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 <meta name="twitter:url" content="{{ page.url | replace:'index.html','' | prepend: site.url }}">
+<meta property="og:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ '/images/default-cover.svg' | prepend: site.url }}{% endif %}" />
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
+<meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ '/images/default-cover.svg' | prepend: site.url }}{% endif %}" />
 
 <meta name="keywords" content="{{ site.keywords }}">
 
@@ -60,7 +63,7 @@
   }
 </style>
 
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-YSYLBZSPC7"></script>
 <script>
