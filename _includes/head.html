@@ -4,37 +4,40 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width initial-scale=1">
 
-<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-<title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-<meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.url }}">
+{% assign page_title = page.title | default: site.title %}
+{% assign page_desc = page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 %}
+{% assign page_image = page.image | default: '/images/default-cover.svg' | prepend: site.url %}
+{% assign page_url = page.url | replace:'index.html','' | prepend: site.url %}
+
+<title>{{ page_title }}</title>
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_desc }}">
+<meta property="og:url" content="{{ page_url }}">
 <meta property="og:site_name" content="{{ site.title }}">
 <meta property="og:locale" content="{{ site.locale }}">
+<meta property="og:image" content="{{ page_image }}" />
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@{{ site.twitter_username }}">
 <meta name="twitter:creator" content="@{{ site.twitter_username }}">
-<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
-<meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-<meta name="twitter:url" content="{{ page.url | replace:'index.html','' | prepend: site.url }}">
-<meta property="og:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ '/images/default-cover.svg' | prepend: site.url }}{% endif %}" />
-<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
-<meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.url }}{% else %}{{ '/images/default-cover.svg' | prepend: site.url }}{% endif %}" />
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ page_desc }}">
+<meta name="twitter:url" content="{{ page_url }}">
+<meta name="twitter:image" content="{{ page_image }}" />
 
 <meta name="keywords" content="{{ site.keywords }}">
 
-<link rel="icon" href="{{site.favicon| prepend:site.baseurl}}">
+<link rel="icon" href="{{ site.favicon | prepend: site.baseurl }}">
 <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 <link rel="stylesheet" href="{{ "/assets/css/floating-toc.css" | prepend: site.baseurl }}">
-<link rel="canonical" href="{{ page.url | replace:'index.html','' |  prepend: site.url }}">
+<link rel="canonical" href="{{ page_url }}">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.url }}" />
 
-<!-- SEO alternate language links (simplified) -->
+<!-- SEO alternate language links -->
 {% if page.url contains '_en.html' %}
-  <!-- English page - link to Chinese version -->
   <link rel="alternate" hreflang="zh" href="{{ page.url | replace:'_en.html','.html' | prepend: site.url }}" />
   <link rel="alternate" hreflang="en" href="{{ site.url }}{{ page.url }}" />
-{% elsif page.title contains 'Polymarket' %}
-  <!-- Specific case for Polymarket posts since we know they have English versions -->
+{% elsif page.lang_pair %}
   <link rel="alternate" hreflang="zh" href="{{ site.url }}{{ page.url }}" />
   <link rel="alternate" hreflang="en" href="{{ page.url | replace:'.html','_en.html' | prepend: site.url }}" />
 {% endif %}
@@ -79,5 +82,3 @@
   (function(){var t=localStorage.getItem('theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
 </script>
 </head>
-
-
