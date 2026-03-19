@@ -5,6 +5,7 @@ excerpt: "Just about everything you'll need to style in the theme: headings, par
 category: writing
 comments: true
 tags: [writing, markdown, jekyll, formatting, sample-content]
+image: https://i.imgur.com/Mdc4szJl.jpg
 ---
 
 

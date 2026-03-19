@@ -5,6 +5,7 @@ description: "介绍如何通过暴力搜索和回溯算法来构建无逗号码
 category: algorithm
 comments: true
 tags: [algorithm, knuth, code]
+image: /images/commafree-sparse_set.png
 ---
 
 {% include JB/setup %}

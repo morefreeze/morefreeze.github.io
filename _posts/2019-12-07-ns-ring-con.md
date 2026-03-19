@@ -6,6 +6,7 @@ category: game
 comments: true
 rating: 7
 tags: [game, workout, ns]
+image: /images/my_ring_con.jpg
 ---
 {% include JB/setup %}
 

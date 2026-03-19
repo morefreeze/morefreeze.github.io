@@ -5,6 +5,7 @@ description: ""
 category: beancount
 comments: true
 tags: [beancount, double-entry]
+image: /images/shutup.jpg
 ---
 {% include JB/setup %}
 

@@ -10,6 +10,10 @@
     var disqus_config = function () {
         this.page.url = "{{ page.url | prepend: site.absurl }}";  // Replace PAGE_URL with your page's canonical URL variable
         this.page.identifier = "{{ page.url | prepend: site.absurl }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.callbacks.onReady = [function() {
+            var rec = document.getElementById('disqus_recommendations');
+            if (rec) rec.style.display = 'none';
+        }];
     };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');

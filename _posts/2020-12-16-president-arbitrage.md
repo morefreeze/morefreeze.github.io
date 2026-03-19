@@ -5,6 +5,7 @@ description: ""
 category: polymarket
 comments: true
 tags: [probability, thinking, solution]
+image: /images/predictit-221120.png
 ---
 
 {% include JB/setup %}

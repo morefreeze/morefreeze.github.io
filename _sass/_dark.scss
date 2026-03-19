@@ -190,6 +190,15 @@
   .search-result-excerpt { color: #999; mark { background: #4a3f00; color: #ffe; } }
   .search-result-item  { border-bottom-color: #2a2a2a; }
 
+  // ── Recommend posts ──────────────────────────────────
+  .recommend-post {
+    background: #252525;
+    border-left-color: #5daef5;
+
+    h3 { color: #e0e0e0; }
+    .recommend-date { color: #666; }
+  }
+
   // ── Dark mode toggle button ────────────────────────────
   .dark-mode-toggle {
     color: #aaa;

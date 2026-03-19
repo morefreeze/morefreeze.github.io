@@ -5,6 +5,7 @@ description: ""
 category: algorithm
 comments: true
 tags: [link, sudoku, pentomino]
+image: /images/dancing_shapes.png
 ---
 
 {% include JB/setup %}

@@ -5,6 +5,7 @@ description: ""
 category: howto
 comments: true
 tags: [hard, solution, howto]
+image: /images/split_cake.jpeg
 ---
 {% include JB/setup %}
 

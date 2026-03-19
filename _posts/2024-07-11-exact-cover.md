@@ -5,6 +5,7 @@ description: ""
 category: algorithm
 comments: true
 tags: [link, puzzle, sudoku]
+image: /images/doubly_link.png
 ---
 
 {% include JB/setup %}

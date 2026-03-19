@@ -5,6 +5,7 @@ description: ""
 category: algorithm
 comments: true
 tags: [algorithm, knuth, floorplan, combinatorics, programming]
+image: /images/floorplan-basic.drawio.svg
 ---
 {% include JB/setup %}
 
