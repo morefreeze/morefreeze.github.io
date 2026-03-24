@@ -67,7 +67,7 @@ permalink: /:year/:month/:title.html
 markdown: kramdown
 highlighter: rouge
 plugins: [jekyll-paginate, jekyll-sitemap, jekyll-feed]
-url: "https://morefreeze.github.io"
+url: "https://blog.morefreeze.top"
 paginate: 5
 paginate_path: /page:num
 

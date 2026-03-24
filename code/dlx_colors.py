@@ -1,14 +1,28 @@
 """
 Algorithm C: Exact Cover with Secondary Items and Colors
-(Knuth, TAOCP Vol. 4B)
+(Knuth, TAOCP Vol. 4B, Section 7.2.2.1)
 
 Extends standard DLX (Algorithm X) with:
   - Secondary items: covered at most once (optional)
   - Colored secondary items: can be covered multiple times if all
     coverings agree on the same color
 
-Key operation added: purify / unpurify (instead of cover / uncover)
-for colored secondary items.
+Key operations:
+  - cover / uncover: for primary items and uncolored secondary items
+  - commit / uncommit: composite operations for secondary items
+  - purify / unpurify: for colored secondary items
+
+The implementation follows TAOCP Algorithm C faithfully, including the
+COLOR=-1 (COMMITTED) optimization:
+  - When purify commits a secondary item to color c, nodes in the same
+    column that already have color c are marked as COMMITTED (-1).
+  - COMMITTED nodes are skipped by hide'() so they're never double-hidden
+    by a nested cover or purify.
+  - commit() skips nodes whose color is already COMMITTED (handled above).
+
+This ensures correctness when multiple primary items share a colored
+secondary item (e.g., word search puzzle creation where two words may
+share the same grid cell with the same letter).
 
 Demos:
   1. N-Queens (secondary items for diagonals)
@@ -17,6 +31,11 @@ Demos:
 
 from __future__ import annotations
 from typing import Any, Generator, List, Optional, Tuple
+
+
+# Sentinel: node has been committed to the correct color by an outer purify.
+# Matches TAOCP's COLOR(x) = -1.
+_COMMITTED = object()
 
 
 # ---------------------------------------------------------------------------
@@ -112,92 +131,131 @@ class DLX_C:
                 prev_node = node
 
     # ------------------------------------------------------------------
-    # Cover / Uncover (primary items and uncolored secondary items)
+    # hide' / unhide'  (skip COMMITTED nodes, cf. TAOCP formulas 51, 53)
     # ------------------------------------------------------------------
 
     @staticmethod
-    def _cover(col: _Node):
+    def _hide(row_node: _Node):
+        """hide'(p): remove row_node's row siblings from their columns.
+        Skips siblings whose color is COMMITTED."""
+        j = row_node.R
+        while j is not row_node:
+            if j.color is not _COMMITTED:
+                j.D.U = j.U
+                j.U.D = j.D
+                j.C.S -= 1
+            j = j.R
+
+    @staticmethod
+    def _unhide(row_node: _Node):
+        """unhide'(p): restore row_node's row siblings.
+        Skips siblings whose color is COMMITTED."""
+        j = row_node.L
+        while j is not row_node:
+            if j.color is not _COMMITTED:
+                j.C.S += 1
+                j.D.U = j
+                j.U.D = j
+            j = j.L
+
+    # ------------------------------------------------------------------
+    # cover' / uncover'  (use hide' / unhide', cf. TAOCP formulas 50, 52)
+    # ------------------------------------------------------------------
+
+    def _cover(self, col: _Node):
+        """cover'(i): remove col from header chain; hide' each row in col."""
         col.R.L = col.L
         col.L.R = col.R
         i = col.D
         while i is not col:
-            j = i.R
-            while j is not i:
-                j.D.U = j.U
-                j.U.D = j.D
-                j.C.S -= 1
-                j = j.R
+            self._hide(i)
             i = i.D
 
-    @staticmethod
-    def _uncover(col: _Node):
+    def _uncover(self, col: _Node):
+        """uncover'(i): reverse of cover'."""
         i = col.U
         while i is not col:
-            j = i.L
-            while j is not i:
-                j.C.S += 1
-                j.D.U = j
-                j.U.D = j
-                j = j.L
+            self._unhide(i)
             i = i.U
         col.R.L = col
         col.L.R = col
 
     # ------------------------------------------------------------------
-    # Purify / Unpurify (colored secondary items)
+    # purify / unpurify  (cf. TAOCP formulas 55, 57)
     # ------------------------------------------------------------------
 
-    @staticmethod
-    def _purify(node: _Node):
+    def _purify(self, node: _Node):
         """
-        For colored secondary item node.C, hide the ROW SIBLINGS of every
-        row in the column whose color differs from node.color.
+        purify(p): commit secondary item node.C to color node.color.
 
-        Critically: different-color nodes are NOT removed from the column
-        chain itself — only their siblings in other columns are hidden.
-        This keeps them reachable during _unpurify.
+        - Nodes in the column with the SAME color are marked COMMITTED
+          (so they won't be double-hidden by nested cover or purify).
+        - Nodes with a DIFFERENT color have their row siblings hidden
+          via hide'() (which itself skips COMMITTED siblings).
+
+        Note: node itself is NOT in node.C's column at call time
+        (it was removed by cover'(primary)), so its color is unchanged,
+        allowing uncommit to find node.color > 0 and call unpurify.
         """
         col = node.C
         color = node.color
         i = col.D
         while i is not col:
-            if i.color != color:
-                # Hide siblings of row i from their respective columns,
-                # but leave i itself in col's chain.
-                j = i.R
-                while j is not i:
-                    j.D.U = j.U
-                    j.U.D = j.D
-                    j.C.S -= 1
-                    j = j.R
+            if i.color == color:
+                i.color = _COMMITTED  # mark: already at correct color
+            else:
+                self._hide(i)         # hide conflicting row via hide'
             i = i.D
 
-    @staticmethod
-    def _unpurify(node: _Node):
+    def _unpurify(self, node: _Node):
         """
-        Reverse of _purify: walk column backward, restore siblings of
-        different-color rows (same-color rows were untouched, skip them).
+        unpurify(p): reverse of purify.
+
+        - COMMITTED nodes have their color restored to node.color.
+        - Other nodes (conflicting, were hidden) have their row siblings
+          restored via unhide'().
         """
         col = node.C
         color = node.color
-        i = col.U
+        i = col.U                     # walk backward (reverse of purify)
         while i is not col:
-            if i.color != color:
-                # Restore siblings of row i (reverse order).
-                j = i.L
-                while j is not i:
-                    j.C.S += 1
-                    j.D.U = j
-                    j.U.D = j
-                    j = j.L
+            if i.color is _COMMITTED:
+                i.color = color       # restore color
+            else:
+                self._unhide(i)       # restore conflicting row
             i = i.U
 
     # ------------------------------------------------------------------
-    # Algorithm C search
+    # commit / uncommit  (cf. TAOCP formulas 54, 56)
+    # ------------------------------------------------------------------
+
+    def _commit(self, node: _Node):
+        """
+        commit(p, j) where j = node.C:
+          - Uncolored secondary (color=None): cover' the column.
+          - Colored secondary (color is a real value): purify.
+          - COMMITTED (already handled by outer purify): do nothing.
+        """
+        c = node.color
+        if c is None:
+            self._cover(node.C)       # uncolored secondary: cover
+        elif c is not _COMMITTED:
+            self._purify(node)        # colored secondary: purify
+
+    def _uncommit(self, node: _Node):
+        """Reverse of _commit."""
+        c = node.color
+        if c is None:
+            self._uncover(node.C)
+        elif c is not _COMMITTED:
+            self._unpurify(node)
+
+    # ------------------------------------------------------------------
+    # Column selection (MRV heuristic over primary items)
     # ------------------------------------------------------------------
 
     def _choose_column(self) -> Optional[_Node]:
-        """Choose the primary item with minimum size."""
+        """Choose the primary item with minimum size (MRV)."""
         best = None
         j = self._root.R
         while j is not self._root:
@@ -209,6 +267,10 @@ class DLX_C:
                     break
             j = j.R
         return best
+
+    # ------------------------------------------------------------------
+    # Algorithm C search
+    # ------------------------------------------------------------------
 
     def solve(self) -> Generator[List[int], None, None]:
         """Yield each solution as a list of option row indices."""
@@ -227,27 +289,27 @@ class DLX_C:
         r = col.D
         while r is not col:
             solution.append(r.row_id)
+
+            # Commit each secondary item in the selected option.
             j = r.R
             while j is not r:
                 if j.C.name < self.num_primary:
-                    self._cover(j.C)            # primary item
-                elif j.color is not None:
-                    self._purify(j)             # colored secondary item
+                    self._cover(j.C)   # primary item
                 else:
-                    self._cover(j.C)            # uncolored secondary item
+                    self._commit(j)    # secondary item (colored or not)
                 j = j.R
 
             yield from self._search(solution)
 
+            # Uncommit in reverse order.
             j = r.L
             while j is not r:
                 if j.C.name < self.num_primary:
                     self._uncover(j.C)
-                elif j.color is not None:
-                    self._unpurify(j)
                 else:
-                    self._uncover(j.C)
+                    self._uncommit(j)
                 j = j.L
+
             solution.pop()
             r = r.D
         self._uncover(col)
