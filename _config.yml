@@ -1,21 +1,21 @@
 ### Site info:
 mode: production
 title: MoreFreeze's Sanctuary
-tagline: MoreFreeze's blog
+tagline: 算法 · Go · Vibe Coding
 author : More Freeze
 github_username : morefreeze
 twitter_username : ""
 weibo_username : ""
 email: morefreeze@gmail.com
-description: "morefreeze's blog" # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
-keywords: "Jekyll, theme, Freshman21"
+description: "后端工程师的技术博客，专注组合算法（TAOCP）、Go 语言开发、分布式系统与 Vibe Coding 实践"
+keywords: "算法, TAOCP, Knuth, Go, Golang, 分布式系统, Vibe Coding, 后端开发, 组合算法, Dancing Links"
 locale: en_US
 baseurl: 
 absurl: "https://morefreeze.github.io"
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
-aboutme: Hi, this is More Freeze. I am a backend engineer / video game player (specially ACT, PUZ) / board gamer in Beijing. I am good at Golang, Python, C++ deveploping. # these are shown on aboutme-sidebar.
+aboutme: "后端研发工程师 @ 字节跳动 | Go 语言深度用户 | TAOCP 算法爱好者 | Vibe Coding 实践者 | ACT/PUZ 玩家 & 桌游爱好者"
 aboutme_photo: 'http://www.gravatar.com/avatar/23062310363b8606a0fe803539367d58?s=200'
 
 

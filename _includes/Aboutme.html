@@ -18,8 +18,9 @@
   <a href="https://twitter.com/{{site.twitter_username}}" title="TwitterID: {{site.twitter_username}}">Twitter</a> /
   {% endif %}
   {% if site.github_username != empty %}
-  <a href="https://github.com/{{site.github_username}}" title="GithubID: {{site.github_username}}">Github</a>
+  <a href="https://github.com/{{site.github_username}}" title="GithubID: {{site.github_username}}">Github</a> /
   {% endif %}
+  <a href="{{ "/feed.xml" | prepend: site.url }}" title="RSS Feed"><i class="fa fa-rss"></i> RSS</a>
 
   {% endif %}
 

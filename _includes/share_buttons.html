@@ -1,0 +1,41 @@
+<div class="share-buttons">
+  <span class="share-label">分享到：</span>
+  <a class="share-btn share-twitter" href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | prepend: site.url | uri_escape }}" target="_blank" rel="noopener noreferrer" title="分享到 Twitter">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="share-btn share-weibo" href="https://service.weibo.com/share/share.php?title={{ page.title | uri_escape }}&url={{ page.url | prepend: site.url | uri_escape }}" target="_blank" rel="noopener noreferrer" title="分享到微博">
+    <i class="fa fa-weibo"></i>
+  </a>
+  <a class="share-btn share-linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | prepend: site.url | uri_escape }}" target="_blank" rel="noopener noreferrer" title="分享到 LinkedIn">
+    <i class="fa fa-linkedin"></i>
+  </a>
+  <a class="share-btn share-wechat" href="javascript:void(0);" title="微信扫码分享" onclick="toggleQrcode(this)">
+    <i class="fa fa-wechat"></i>
+  </a>
+  <div class="wechat-qrcode" style="display:none;">
+    <p>微信扫一扫分享</p>
+    <div id="share-qrcode"></div>
+  </div>
+</div>
+<script>
+function toggleQrcode(el) {
+  var container = el.parentNode.querySelector('.wechat-qrcode');
+  if (container.style.display === 'none') {
+    container.style.display = 'block';
+    if (!container.querySelector('canvas')) {
+      var qrDiv = container.querySelector('#share-qrcode');
+      var size = 140;
+      var url = '{{ page.url | prepend: site.url }}';
+      // Simple QR code via external API image
+      var img = document.createElement('img');
+      img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size + '&data=' + encodeURIComponent(url);
+      img.alt = 'QR Code';
+      img.width = size;
+      img.height = size;
+      qrDiv.appendChild(img);
+    }
+  } else {
+    container.style.display = 'none';
+  }
+}
+</script>
