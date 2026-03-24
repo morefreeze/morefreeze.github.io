@@ -84,5 +84,15 @@ kramdown:
   hard_wrap:      false
   footnote_nr:    1
 
+### Exclude files from build
+exclude:
+  - CLAUDE.md
+  - docs/
+  - tasks/
+  - substack_drafts/
+  - node_modules/
+  - log/
+  - papers/
+
 ### Read More link
 excerpt_separator: <!--more-->

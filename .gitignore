@@ -12,3 +12,9 @@ __pycache__
 .claude
 CLAUDE.md
 docs/
+substack_drafts/
+_substack_drafts/
+.playwright-mcp/
+.DS_Store
+log/
+papers/
