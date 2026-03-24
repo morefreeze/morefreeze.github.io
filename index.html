@@ -114,18 +114,8 @@ layout: default
   </script>
   <div class="post" itemscope itemtype="http://schema.org/BlogPosting" >
 
-    {% comment %} 自定义分页逻辑：先过滤掉英文文章 {% endcomment %}
-    {% assign filtered_posts = '' | split: ' ' %}
-    {% for post in site.posts %}
+    {% for post in paginator.posts %}
       {% unless post.url contains '_en.html' %}
-        {% assign filtered_posts = filtered_posts | push: post %}
-      {% endunless %}
-    {% endfor %}
-
-    {% comment %} 只显示 paginate 配置数量的文章 {% endcomment %}
-    {% assign current_page_posts = filtered_posts | slice: 0, site.paginate %}
-
-    {% for post in current_page_posts %}
       {% assign zh_url = post.url %}
       {% assign en_url = post.url | replace: '.html', '_en.html' %}
 
@@ -166,6 +156,7 @@ layout: default
         {% endif %}
     </article> <hr />
     </div>
+      {% endunless %}
     {% endfor %}
 
   </div>
