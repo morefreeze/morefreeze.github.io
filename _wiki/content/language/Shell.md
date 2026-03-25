@@ -24,7 +24,7 @@ I have tried `sed '1i'` but in Mac it need a newline after `i`, like:
 
 But Makefile couldn't input the newline, even if I have read
 [this](https://www.gnu.org/software/make/manual/html_node/Splitting-Recipe-Lines.html).
-If someone know please let [me](http://morefreeze.github.io/b_about.html) know.
+If someone know please let [me](https://blog.morefreeze.top/b_about.html) know.
 
 ## sed
 

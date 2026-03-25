@@ -11,7 +11,7 @@ description: "后端工程师的技术博客，专注组合算法（TAOCP）、G
 keywords: "算法, TAOCP, Knuth, Go, Golang, 分布式系统, Vibe Coding, 后端开发, 组合算法, Dancing Links"
 locale: en_US
 baseurl: 
-absurl: "https://morefreeze.github.io"
+absurl: "https://blog.morefreeze.top"
 
 ### Personal info and site tools info:
 favicon:     "/images/favicon.ico"
@@ -57,7 +57,7 @@ locales:
 
 Blogroll:
     - name: MoreFreeze
-      href: https://morefreeze.github.io
+      href: https://blog.morefreeze.top
       title: MoreFreeze's Sanctuary
 
 ### Outputting

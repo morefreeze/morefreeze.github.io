@@ -11,10 +11,11 @@ What this script does:
   1. Prove 7x7 has 0 closed tours via bipartite argument (no DLX needed)
   2. Count 8x8 closed tours for a fixed time, report rate & projected total
 """
+import os
 import sys
 import time
 
-sys.path.insert(0, '/Users/bytedance/mygit/morefreeze.github.io/code')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from knight_tour import build_closed_tour, DLX, reconstruct_circuit
 
 KNOWN_8x8_DIRECTED = 26_534_728_821_064  # directed Hamiltonian circuits on 8x8
