@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Knight's Tours: Fitting Hamiltonian Circuits into Exact Cover"
-description: ""
+description: "Encoding knight's tours (Hamiltonian circuits) as exact cover using in/out items"
 category: algorithm
 comments: true
 tags: [knuth, exact-cover, dancing-links, hamilton, TAOCP]
@@ -26,7 +26,7 @@ In chess, a knight moves in an "L" shape. The knight's tour problem asks: **can 
 
 In graph theory terms: make each square a node, connect two nodes with an edge if a knight can move between them in one step — this is the **knight's graph**. A knight's tour is a Hamiltonian path on this graph (a closed tour is a Hamiltonian circuit).
 
-On an 8×8 board, the number of closed tours is approximately 26 billion. Even on a smaller 6×6 board, there are tens of thousands of distinct closed tours (after removing symmetries).
+On an 8×8 board, the number of directed closed tours is 26,534,728,821,064 (about 26.5 trillion); undirected is half that. Even on a smaller 6×6 board, there are 9,862 undirected closed tours.
 
 ## The Naive Encoding Doesn't Work
 
@@ -48,7 +48,7 @@ So we define:
 - **Items**: $$out[cell]$$ and $$in[cell]$$, for $$2n^2$$ items total, each covered exactly once
 - **Options**: each legal knight move $$(r_1, c_1) \to (r_2, c_2)$$ on the board, covering $$out[r_1 \cdot n + c_1]$$ and $$in[r_2 \cdot n + c_2]$$
 
-Selecting a set of moves such that every square has exactly one in and one out is an exact cover. The code is clean:
+Selecting a set of moves such that every square has exactly one in and one out is an exact cover. The code is clean (`knight_moves` returns all legal knight-move targets from a given square; full implementation at the [code link][code] below):
 
 {% highlight python linenos %}
 def build_closed_tour(n):
@@ -76,7 +76,7 @@ Is the encoding above correct? Almost.
 
 Exact cover guarantees each square has exactly one outgoing and one incoming move — meaning the selected moves form a **permutation**: a set of disjoint directed cycles covering all squares. But this isn't necessarily **one** Hamiltonian circuit; it could be a combination of several short cycles.
 
-For example, on a 6×6 board, the vast majority (~99.98%) of valid exact cover solutions found by DLX are multi-cycle solutions; only a small fraction are true Hamiltonian circuits. So you must verify after reconstruction:
+For example, on a 6×6 board, the vast majority (over 99.9%) of valid exact cover solutions found by DLX are multi-cycle solutions; only a small fraction are true Hamiltonian circuits. So you must verify after reconstruction:
 
 {% highlight python linenos %}
 def reconstruct_circuit(solution, labels, n):
@@ -140,7 +140,7 @@ def build_open_tour(n):
     return num_items, options, labels
 {% endhighlight %}
 
-On a 5×5 board, items become 52 ($$2 \times 26$$) and options are 146 (100 real moves + 25 virtual outgoing + 25 virtual incoming).
+On a 5×5 board, items become 52 ($$2 \times 26$$) and options are 146 (96 real moves + 25 virtual outgoing + 25 virtual incoming).
 
 One solution looks like this:
 
@@ -171,7 +171,7 @@ The board has 8 symmetry operations, forming the **dihedral group $$D_4$$**:
 | 6 | Flip diagonal | $$(c, r)$$ |
 | 7 | Flip antidiagonal | $$(n{-}1{-}c,\ n{-}1{-}r)$$ |
 
-**Two closed tours count as the same** if one can be transformed into the other by a symmetry operation, a change of starting point, or reversal of direction. To check if a tour is invariant under 180° rotation:
+**Two closed tours count as the same** if one can be transformed into the other by a symmetry operation, a change of starting point, or reversal of direction. To check if a tour is invariant under 180° rotation (`apply_symmetry` applies a symmetry transformation to each square in the path; full implementation at the [code link][code] below):
 
 {% highlight python linenos %}
 def has_sym(path, sym, n):
