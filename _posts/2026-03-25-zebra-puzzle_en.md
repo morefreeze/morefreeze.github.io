@@ -159,6 +159,8 @@ See [zebra_puzzle.py][code_zebra] for the complete implementation. Running it pr
 
 **The Japanese owns the zebra, the Norwegian drinks water.**
 
+![Zebra Puzzle Solution]({{ "/images/zebra-puzzle-solution.svg" | relative_url }})
+
 ---
 
 ## Reversing It: Automatic Puzzle Generation

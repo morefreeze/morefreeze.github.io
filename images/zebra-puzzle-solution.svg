@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 320">
+<style>
+  .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; text-anchor: middle; }
+  .house-num { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+  .attr-text { font-family: Arial, sans-serif; font-size: 13px; text-anchor: middle; }
+  .attr-text-highlight { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; text-anchor: middle; }
+  .color-text { font-family: Arial, sans-serif; font-size: 11px; font-style: italic; text-anchor: middle; }
+  .highlight-label { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; fill: #E74C3C; }
+  .house-box { stroke: #333; stroke-width: 2; rx: 8; ry: 8; }
+  .house-box-highlight { stroke: #E74C3C; stroke-width: 4; rx: 8; ry: 8; }
+  .attr-box { fill: white; opacity: 0.85; rx: 4; ry: 4; }
+  .highlight-box { fill: #E74C3C; opacity: 0.2; rx: 4; ry: 4; stroke: #E74C3C; stroke-width: 2; }
+</style>
+
+<!-- Background -->
+<rect width="900" height="320" fill="white"/>
+
+<!-- Title -->
+<text x="450" y="35" class="title">Who Owns the Zebra? — The Solution</text>
+
+<!-- House 1 -->
+<rect x="35" y="60" width="160" height="140" fill="#F4D03F" class="house-box-highlight"/>
+
+<!-- House number -->
+<text x="115" y="52" class="house-num">House 1</text>
+
+<rect x="43" y="71" width="144" height="24" class="attr-box"/>
+<text x="115" y="89" class="attr-text">Norwegian</text>
+<rect x="43" y="103" width="144" height="24" class="attr-box"/>
+<text x="115" y="121" class="attr-text">Diplomat</text>
+<rect x="43" y="135" width="144" height="24" class="attr-box"/>
+<text x="115" y="153" class="attr-text">Fox</text>
+<rect x="41" y="166" width="148" height="26" class="highlight-box"/>
+<text x="115" y="186" class="attr-text-highlight">Water</text>
+<text x="115" y="212" class="color-text" fill="#555">Yellow</text>
+
+<text x="115" y="228" class="highlight-label">← drinks WATER</text>
+
+<!-- House 2 -->
+<rect x="210" y="60" width="160" height="140" fill="#3498DB" class="house-box"/>
+
+<!-- House number -->
+<text x="290" y="52" class="house-num">House 2</text>
+
+<rect x="218" y="71" width="144" height="24" class="attr-box"/>
+<text x="290" y="89" class="attr-text">Ukrainian</text>
+<rect x="218" y="103" width="144" height="24" class="attr-box"/>
+<text x="290" y="121" class="attr-text">Nurse</text>
+<rect x="218" y="135" width="144" height="24" class="attr-box"/>
+<text x="290" y="153" class="attr-text">Horse</text>
+<rect x="218" y="167" width="144" height="24" class="attr-box"/>
+<text x="290" y="185" class="attr-text">Tea</text>
+<text x="290" y="212" class="color-text" fill="#555">Blue</text>
+
+<!-- House 3 -->
+<rect x="385" y="60" width="160" height="140" fill="#E74C3C" class="house-box"/>
+
+<!-- House number -->
+<text x="465" y="52" class="house-num">House 3</text>
+
+<rect x="393" y="71" width="144" height="24" class="attr-box"/>
+<text x="465" y="89" class="attr-text">English</text>
+<rect x="393" y="103" width="144" height="24" class="attr-box"/>
+<text x="465" y="121" class="attr-text">Sculptor</text>
+<rect x="393" y="135" width="144" height="24" class="attr-box"/>
+<text x="465" y="153" class="attr-text">Snails</text>
+<rect x="393" y="167" width="144" height="24" class="attr-box"/>
+<text x="465" y="185" class="attr-text">Milk</text>
+<text x="465" y="212" class="color-text" fill="#555">Red</text>
+
+<!-- House 4 -->
+<rect x="560" y="60" width="160" height="140" fill="#ECF0F1" class="house-box"/>
+
+<!-- House number -->
+<text x="640" y="52" class="house-num">House 4</text>
+
+<rect x="568" y="71" width="144" height="24" class="attr-box"/>
+<text x="640" y="89" class="attr-text">Spanish</text>
+<rect x="568" y="103" width="144" height="24" class="attr-box"/>
+<text x="640" y="121" class="attr-text">Violinist</text>
+<rect x="568" y="135" width="144" height="24" class="attr-box"/>
+<text x="640" y="153" class="attr-text">Dog</text>
+<rect x="568" y="167" width="144" height="24" class="attr-box"/>
+<text x="640" y="185" class="attr-text">Orange Juice</text>
+<text x="640" y="212" class="color-text" fill="#555">White</text>
+
+<!-- House 5 -->
+<rect x="735" y="60" width="160" height="140" fill="#2ECC71" class="house-box-highlight"/>
+
+<!-- House number -->
+<text x="815" y="52" class="house-num">House 5</text>
+
+<rect x="743" y="71" width="144" height="24" class="attr-box"/>
+<text x="815" y="89" class="attr-text">Japanese</text>
+<rect x="743" y="103" width="144" height="24" class="attr-box"/>
+<text x="815" y="121" class="attr-text">Painter</text>
+<rect x="741" y="134" width="148" height="26" class="highlight-box"/>
+<text x="815" y="154" class="attr-text-highlight">ZEBRA</text>
+<rect x="743" y="167" width="144" height="24" class="attr-box"/>
+<text x="815" y="185" class="attr-text">Coffee</text>
+<text x="815" y="212" class="color-text" fill="#555">Green</text>
+
+<text x="815" y="228" class="highlight-label">← owns ZEBRA</text>
+
+</svg>

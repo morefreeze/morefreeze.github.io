@@ -159,6 +159,8 @@ for i in range(4):
 
 **日本人养斑马，挪威人喝水。**
 
+![Zebra Puzzle Solution]({{ "/images/zebra-puzzle-solution.svg" | relative_url }})
+
 ---
 
 ## 反过来：自动出题
