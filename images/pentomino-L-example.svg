@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 150">
+  <style>
+    .grid { fill: none; stroke: #e2e8f0; stroke-width: 1; }
+    .cell { fill: #ed8936; stroke: #dd6b20; stroke-width: 2; rx: 3; }
+    .coord { font-family: monospace; font-size: 10px; fill: #718096; }
+    .label { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #2d3748; }
+  </style>
+
+  <!-- Grid background -->
+  <g transform="translate(10, 10)">
+    <!-- Vertical grid lines -->
+    <line x1="0" y1="0" x2="0" y2="120" class="grid"/>
+    <line x1="30" y1="0" x2="30" y2="120" class="grid"/>
+    <line x1="60" y1="0" x2="60" y2="120" class="grid"/>
+    <line x1="90" y1="0" x2="90" y2="120" class="grid"/>
+    <line x1="120" y1="0" x2="120" y2="120" class="grid"/>
+
+    <!-- Horizontal grid lines -->
+    <line x1="0" y1="0" x2="120" y2="0" class="grid"/>
+    <line x1="0" y1="30" x2="120" y2="30" class="grid"/>
+    <line x1="0" y1="60" x2="120" y2="60" class="grid"/>
+    <line x1="0" y1="90" x2="120" y2="90" class="grid"/>
+    <line x1="0" y1="120" x2="120" y2="120" class="grid"/>
+  </g>
+
+  <!-- L pentomino at position (0,0) -->
+  <g transform="translate(10, 10)">
+    <!-- (0,0) -->
+    <rect x="0" y="0" width="30" height="30" class="cell"/>
+    <!-- (1,0) -->
+    <rect x="30" y="0" width="30" height="30" class="cell"/>
+    <!-- (2,0) -->
+    <rect x="60" y="0" width="30" height="30" class="cell"/>
+    <!-- (3,0) -->
+    <rect x="90" y="0" width="30" height="30" class="cell"/>
+    <!-- (3,1) -->
+    <rect x="90" y="30" width="30" height="30" class="cell"/>
+  </g>
+
+  <!-- Labels -->
+  <text x="70" y="145" class="label" text-anchor="middle">L 型五格骨牌 at (0,0)</text>
+
+  <!-- Coordinate labels -->
+  <text x="-5" y="20" class="coord" text-anchor="end">0</text>
+  <text x="-5" y="50" class="coord" text-anchor="end">1</text>
+  <text x="-5" y="80" class="coord" text-anchor="end">2</text>
+  <text x="-5" y="110" class="coord" text-anchor="end">3</text>
+
+  <text x="5" y="-3" class="coord">0</text>
+  <text x="35" y="-3" class="coord">1</text>
+  <text x="65" y="-3" class="coord">2</text>
+  <text x="95" y="-3" class="coord">3</text>
+</svg>

@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 400">
+  <style>
+    .cell { stroke: #fff; stroke-width: 2; }
+    .label { font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #fff; text-anchor: middle; dominant-baseline: central; }
+    .title { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2d3748; text-anchor: middle; }
+    .dim { font-family: Arial, sans-serif; font-size: 10px; fill: #a0aec0; text-anchor: middle; }
+  </style>
+
+  <!-- Title -->
+  <text x="120" y="14" class="title">6 x 10 Pentomino Tiling</text>
+
+  <!-- Board -->
+  <g transform="translate(0, 22)">
+    <!-- Row 0 -->
+    <rect x="0"   y="0"   width="40" height="38" class="cell" style="fill:#ed8936"/>
+    <text x="20"  y="19" class="label">L</text>
+    <rect x="40"  y="0"   width="40" height="38" class="cell" style="fill:#ed8936"/>
+    <text x="60"  y="19" class="label">L</text>
+    <rect x="80"  y="0"   width="40" height="38" class="cell" style="fill:#68d391"/>
+    <text x="100" y="19" class="label">X</text>
+    <rect x="120" y="0"   width="40" height="38" class="cell" style="fill:#9f7aea"/>
+    <text x="140" y="19" class="label">P</text>
+    <rect x="160" y="0"   width="40" height="38" class="cell" style="fill:#9f7aea"/>
+    <text x="180" y="19" class="label">P</text>
+    <rect x="200" y="0"   width="40" height="38" class="cell" style="fill:#9f7aea"/>
+    <text x="220" y="19" class="label">P</text>
+
+    <!-- Row 1 -->
+    <rect x="0"   y="38"  width="40" height="38" class="cell" style="fill:#ed8936"/>
+    <text x="20"  y="57" class="label">L</text>
+    <rect x="40"  y="38"  width="40" height="38" class="cell" style="fill:#68d391"/>
+    <text x="60"  y="57" class="label">X</text>
+    <rect x="80"  y="38"  width="40" height="38" class="cell" style="fill:#68d391"/>
+    <text x="100" y="57" class="label">X</text>
+    <rect x="120" y="38"  width="40" height="38" class="cell" style="fill:#68d391"/>
+    <text x="140" y="57" class="label">X</text>
+    <rect x="160" y="38"  width="40" height="38" class="cell" style="fill:#9f7aea"/>
+    <text x="180" y="57" class="label">P</text>
+    <rect x="200" y="38"  width="40" height="38" class="cell" style="fill:#9f7aea"/>
+    <text x="220" y="57" class="label">P</text>
+
+    <!-- Row 2 -->
+    <rect x="0"   y="76"  width="40" height="38" class="cell" style="fill:#ed8936"/>
+    <text x="20"  y="95" class="label">L</text>
+    <rect x="40"  y="76"  width="40" height="38" class="cell" style="fill:#b794f4"/>
+    <text x="60"  y="95" class="label">Y</text>
+    <rect x="80"  y="76"  width="40" height="38" class="cell" style="fill:#68d391"/>
+    <text x="100" y="95" class="label">X</text>
+    <rect x="120" y="76"  width="40" height="38" class="cell" style="fill:#e53e3e"/>
+    <text x="140" y="95" class="label">F</text>
+    <rect x="160" y="76"  width="40" height="38" class="cell" style="fill:#e53e3e"/>
+    <text x="180" y="95" class="label">F</text>
+    <rect x="200" y="76"  width="40" height="38" class="cell" style="fill:#f687b3"/>
+    <text x="220" y="95" class="label">W</text>
+
+    <!-- Row 3 -->
+    <rect x="0"   y="114" width="40" height="38" class="cell" style="fill:#ed8936"/>
+    <text x="20"  y="133" class="label">L</text>
+    <rect x="40"  y="114" width="40" height="38" class="cell" style="fill:#b794f4"/>
+    <text x="60"  y="133" class="label">Y</text>
+    <rect x="80"  y="114" width="40" height="38" class="cell" style="fill:#e53e3e"/>
+    <text x="100" y="133" class="label">F</text>
+    <rect x="120" y="114" width="40" height="38" class="cell" style="fill:#e53e3e"/>
+    <text x="140" y="133" class="label">F</text>
+    <rect x="160" y="114" width="40" height="38" class="cell" style="fill:#f687b3"/>
+    <text x="180" y="133" class="label">W</text>
+    <rect x="200" y="114" width="40" height="38" class="cell" style="fill:#f687b3"/>
+    <text x="220" y="133" class="label">W</text>
+
+    <!-- Row 4 -->
+    <rect x="0"   y="152" width="40" height="38" class="cell" style="fill:#38b2ac"/>
+    <text x="20"  y="171" class="label">N</text>
+    <rect x="40"  y="152" width="40" height="38" class="cell" style="fill:#b794f4"/>
+    <text x="60"  y="171" class="label">Y</text>
+    <rect x="80"  y="152" width="40" height="38" class="cell" style="fill:#e53e3e"/>
+    <text x="100" y="171" class="label">F</text>
+    <rect x="120" y="152" width="40" height="38" class="cell" style="fill:#f687b3"/>
+    <text x="140" y="171" class="label">W</text>
+    <rect x="160" y="152" width="40" height="38" class="cell" style="fill:#f687b3"/>
+    <text x="180" y="171" class="label">W</text>
+    <rect x="200" y="152" width="40" height="38" class="cell" style="fill:#4299e1"/>
+    <text x="220" y="171" class="label">Z</text>
+
+    <!-- Row 5 -->
+    <rect x="0"   y="190" width="40" height="38" class="cell" style="fill:#38b2ac"/>
+    <text x="20"  y="209" class="label">N</text>
+    <rect x="40"  y="190" width="40" height="38" class="cell" style="fill:#b794f4"/>
+    <text x="60"  y="209" class="label">Y</text>
+    <rect x="80"  y="190" width="40" height="38" class="cell" style="fill:#fc8181"/>
+    <text x="100" y="209" class="label">U</text>
+    <rect x="120" y="190" width="40" height="38" class="cell" style="fill:#fc8181"/>
+    <text x="140" y="209" class="label">U</text>
+    <rect x="160" y="190" width="40" height="38" class="cell" style="fill:#4299e1"/>
+    <text x="180" y="209" class="label">Z</text>
+    <rect x="200" y="190" width="40" height="38" class="cell" style="fill:#4299e1"/>
+    <text x="220" y="209" class="label">Z</text>
+
+    <!-- Row 6 -->
+    <rect x="0"   y="228" width="40" height="38" class="cell" style="fill:#38b2ac"/>
+    <text x="20"  y="247" class="label">N</text>
+    <rect x="40"  y="228" width="40" height="38" class="cell" style="fill:#38b2ac"/>
+    <text x="60"  y="247" class="label">N</text>
+    <rect x="80"  y="228" width="40" height="38" class="cell" style="fill:#b794f4"/>
+    <text x="100" y="247" class="label">Y</text>
+    <rect x="120" y="228" width="40" height="38" class="cell" style="fill:#fc8181"/>
+    <text x="140" y="247" class="label">U</text>
+    <rect x="160" y="228" width="40" height="38" class="cell" style="fill:#4299e1"/>
+    <text x="180" y="247" class="label">Z</text>
+    <rect x="200" y="228" width="40" height="38" class="cell" style="fill:#63b3ed"/>
+    <text x="220" y="247" class="label">V</text>
+
+    <!-- Row 7 -->
+    <rect x="0"   y="266" width="40" height="38" class="cell" style="fill:#ecc94b"/>
+    <text x="20"  y="285" class="label">T</text>
+    <rect x="40"  y="266" width="40" height="38" class="cell" style="fill:#38b2ac"/>
+    <text x="60"  y="285" class="label">N</text>
+    <rect x="80"  y="266" width="40" height="38" class="cell" style="fill:#fc8181"/>
+    <text x="100" y="285" class="label">U</text>
+    <rect x="120" y="266" width="40" height="38" class="cell" style="fill:#fc8181"/>
+    <text x="140" y="285" class="label">U</text>
+    <rect x="160" y="266" width="40" height="38" class="cell" style="fill:#4299e1"/>
+    <text x="180" y="285" class="label">Z</text>
+    <rect x="200" y="266" width="40" height="38" class="cell" style="fill:#63b3ed"/>
+    <text x="220" y="285" class="label">V</text>
+
+    <!-- Row 8 -->
+    <rect x="0"   y="304" width="40" height="38" class="cell" style="fill:#ecc94b"/>
+    <text x="20"  y="323" class="label">T</text>
+    <rect x="40"  y="304" width="40" height="38" class="cell" style="fill:#ecc94b"/>
+    <text x="60"  y="323" class="label">T</text>
+    <rect x="80"  y="304" width="40" height="38" class="cell" style="fill:#ecc94b"/>
+    <text x="100" y="323" class="label">T</text>
+    <rect x="120" y="304" width="40" height="38" class="cell" style="fill:#63b3ed"/>
+    <text x="140" y="323" class="label">V</text>
+    <rect x="160" y="304" width="40" height="38" class="cell" style="fill:#63b3ed"/>
+    <text x="180" y="323" class="label">V</text>
+    <rect x="200" y="304" width="40" height="38" class="cell" style="fill:#63b3ed"/>
+    <text x="220" y="323" class="label">V</text>
+
+    <!-- Row 9 -->
+    <rect x="0"   y="342" width="40" height="38" class="cell" style="fill:#ecc94b"/>
+    <text x="20"  y="361" class="label">T</text>
+    <rect x="40"  y="342" width="40" height="38" class="cell" style="fill:#48bb78"/>
+    <text x="60"  y="361" class="label">I</text>
+    <rect x="80"  y="342" width="40" height="38" class="cell" style="fill:#48bb78"/>
+    <text x="100" y="361" class="label">I</text>
+    <rect x="120" y="342" width="40" height="38" class="cell" style="fill:#48bb78"/>
+    <text x="140" y="361" class="label">I</text>
+    <rect x="160" y="342" width="40" height="38" class="cell" style="fill:#48bb78"/>
+    <text x="180" y="361" class="label">I</text>
+    <rect x="200" y="342" width="40" height="38" class="cell" style="fill:#48bb78"/>
+    <text x="220" y="361" class="label">I</text>
+  </g>
+</svg>
