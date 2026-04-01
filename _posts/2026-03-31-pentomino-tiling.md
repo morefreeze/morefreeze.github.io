@@ -25,6 +25,8 @@ Donald Knuth 在《The Art of Computer Programming》Volume 4B 中提出了 Danc
 - 4×15 矩形
 - 3×20 矩形
 
+<!--more-->
+
 ## 转化为精确覆盖问题
 
 Dancing Links 算法解决的是**精确覆盖问题**：
