@@ -2,6 +2,8 @@
 
 The key optimization of DLX—**always choose the column with the fewest options**—maximizes pruning.
 
+<!--more-->
+
 ## Core Implementation
 
 The heart of DLX lies in the `cover` and `uncover` operations, which use doubly-linked lists for efficient backtracking:
