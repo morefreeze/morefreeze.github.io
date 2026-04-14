@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 240">
+  <style>
+    .cell-center { fill: #fc8181; stroke: #fff; stroke-width: 2; }
+    .label { font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #fff; text-anchor: middle; dominant-baseline: central; }
+    .heading { font-family: Arial, sans-serif; font-size: 13px; font-weight: bold; fill: #2d3748; text-anchor: middle; }
+    .neighbor-edge { fill: #fed7d7; stroke: #fc8181; stroke-width: 1.5; }
+    .neighbor-corner { fill: #e2e8f0; stroke: #a0aec0; stroke-width: 1.5; stroke-dasharray: 4,3; }
+    .neighbor-active { fill: #c6f6d5; stroke: #38a169; stroke-width: 1.5; }
+    .caption { font-family: Arial, sans-serif; font-size: 11px; fill: #718096; text-anchor: middle; }
+    .caption-key { font-family: Arial, sans-serif; font-size: 8px; fill: #4a5568; text-anchor: middle; }
+    .count { font-family: Arial, sans-serif; font-size: 12px; font-weight: bold; text-anchor: middle; }
+  </style>
+
+  <!-- ===== 4-连通 ===== -->
+  <text x="120" y="16" class="heading">4-连通（普通染色）</text>
+  <text x="120" y="32" class="caption">共享边才算相邻</text>
+
+  <g transform="translate(20, 44)">
+    <!-- 3x3 grid: center=A, edge neighbors highlighted -->
+    <!-- Row 0 -->
+    <rect x="0"   y="0"   width="60" height="60" class="neighbor-corner"/>
+    <rect x="60"  y="0"   width="60" height="60" class="neighbor-edge"/>
+    <rect x="120" y="0"   width="60" height="60" class="neighbor-corner"/>
+    <!-- Row 1 -->
+    <rect x="0"   y="60"  width="60" height="60" class="neighbor-edge"/>
+    <rect x="60"  y="60"  width="60" height="60" class="cell-center"/>
+    <text x="90"  y="90"  class="label">A</text>
+    <rect x="120" y="60"  width="60" height="60" class="neighbor-edge"/>
+    <!-- Row 2 -->
+    <rect x="0"   y="120" width="60" height="60" class="neighbor-corner"/>
+    <rect x="60"  y="120" width="60" height="60" class="neighbor-edge"/>
+    <rect x="120" y="120" width="60" height="60" class="neighbor-corner"/>
+
+    <!-- Count -->
+    <text x="90" y="158" class="count" style="fill:#e53e3e">4 个邻居</text>
+  </g>
+
+
+  <!-- Divider -->
+  <line x1="240" y1="10" x2="240" y2="230" stroke="#e2e8f0" stroke-width="2" stroke-dasharray="6,4"/>
+
+  <!-- ===== 8-连通 ===== -->
+  <text x="360" y="16" class="heading">8-连通（强染色）</text>
+  <text x="360" y="32" class="caption">共享边或角都算相邻</text>
+
+  <g transform="translate(260, 44)">
+    <!-- 3x3 grid: ALL 8 neighbors highlighted -->
+    <!-- Row 0 -->
+    <rect x="0"   y="0"   width="60" height="60" class="neighbor-active"/>
+    <rect x="60"  y="0"   width="60" height="60" class="neighbor-active"/>
+    <rect x="120" y="0"   width="60" height="60" class="neighbor-active"/>
+    <!-- Row 1 -->
+    <rect x="0"   y="60"  width="60" height="60" class="neighbor-active"/>
+    <rect x="60"  y="60"  width="60" height="60" class="cell-center"/>
+    <text x="90"  y="90"  class="label">A</text>
+    <rect x="120" y="60"  width="60" height="60" class="neighbor-active"/>
+    <!-- Row 2 -->
+    <rect x="0"   y="120" width="60" height="60" class="neighbor-active"/>
+    <rect x="60"  y="120" width="60" height="60" class="neighbor-active"/>
+    <rect x="120" y="120" width="60" height="60" class="neighbor-active"/>
+
+    <!-- Count -->
+    <text x="90" y="158" class="count" style="fill:#38a169">8 个邻居</text>
+  </g>
+
+  <!-- Legend (top-right, vertical) -->
+  <g transform="translate(450, 52)">
+    <rect x="-5" y="-5" width="100" height="82" rx="5" style="fill:#f7fafc; stroke:#e2e8f0; stroke-width:1.5"/>
+    <rect x="4" y="2" width="14" height="14" class="neighbor-edge"/>
+    <text x="26" y="12" class="caption-key">边相邻</text>
+    <rect x="4" y="24" width="14" height="14" class="neighbor-corner"/>
+    <text x="26" y="34" class="caption-key">角相邻</text>
+    <rect x="4" y="46" width="14" height="14" class="neighbor-active"/>
+    <text x="26" y="56" class="caption-key">全相邻</text>
+  </g>
+</svg>
