@@ -5,7 +5,7 @@ const { JSDOM } = require('jsdom');
 const source = fs.readFileSync('assets/js/ga-events.js', 'utf8');
 const post = '<div class="post" data-article-id="/2026/03/example.html" data-article-language="zh"><article data-article-content></article><a id="language-switcher" href="/2026/03/example_en.html">EN</a></div>';
 const list = '<div class="home-post-item" data-article-id="/2026/03/example.html" data-article-language="zh"><header class="post-header"><a class="post-link" href="/2026/03/example.html">Example</a></header><a class="read-more" href="/2026/03/example.html#read-more">Read more</a></div>';
-function setup(html = post, analytics = true) {
+function setup(html = post, analytics = true, height = 2000) {
   const dom = new JSDOM(html, { url: 'https://blog.morefreeze.top/2026/03/example.html', runScripts: 'outside-only' });
   const w = dom.window, events = [], observers = [], jobs = new Map();
   let now = 0, seq = 0, visible = true, focused = true;
@@ -24,7 +24,7 @@ function setup(html = post, analytics = true) {
   if (analytics) w.gtag = (...args) => events.push(args);
   const body = w.document.querySelector('[data-article-content]');
   let top = 0;
-  if (body) body.getBoundingClientRect = () => ({ top, bottom: top + 2000, height: 2000 });
+  if (body) body.getBoundingClientRect = () => ({ top, bottom: top + height, height });
   w.document.addEventListener('click', event => event.preventDefault());
   w.eval(source);
   w.document.dispatchEvent(new w.Event('DOMContentLoaded'));
@@ -44,7 +44,8 @@ function setup(html = post, analytics = true) {
     },
     visibility(value) { visible = value; w.document.dispatchEvent(new w.Event('visibilitychange')); },
     focus(value) { focused = value; w.dispatchEvent(new w.Event(value ? 'focus' : 'blur')); },
-    progress(value) { top = w.innerHeight - 2000 * value / 100; w.dispatchEvent(new w.Event('scroll')); },
+    progress(value) { top = w.innerHeight - height * value / 100; w.dispatchEvent(new w.Event('scroll')); },
+    resize(value) { height = value; w.dispatchEvent(new w.Event('resize')); },
     intersect(value) { for (const o of observers) o.fn([{ target: o.elements[0], isIntersecting: value, intersectionRatio: value ? 0.7 : 0 }]); }
   };
 }
@@ -107,4 +108,12 @@ test('recommendation clicks include their one-based position and target language
   assert.equal(event.article_id, '/2026/03/other.html');
   assert.equal(event.article_language, 'en');
   assert.equal(event.link_position, 2);
+});
+
+test('late images and math reflow cannot qualify an unread expanded article', () => {
+  const s = setup(post, true, 200);
+  s.resize(3000); s.tick(30000);
+  assert.equal(s.named('article_read').length, 0);
+  s.progress(75);
+  assert.equal(s.named('article_read').length, 1);
 });

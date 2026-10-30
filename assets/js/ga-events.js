@@ -97,7 +97,7 @@
 
     var article = post && post.querySelector('[data-article-content]');
     if (!article) return;
-    var elapsed = 0, previous = Date.now(), maxProgress = 0, read = false;
+    var elapsed = 0, previous = Date.now(), maxProgress = 0, furthestReadBottom = 0, read = false;
     var scrollFired = {};
     var wasActive = document.visibilityState === 'visible' && document.hasFocus();
 
@@ -114,14 +114,16 @@
       if (wasActive && active()) elapsed += Math.min(now - previous, 1500);
       previous = now;
       wasActive = active();
-      qualify();
+      progress();
     }
     function progress() {
       if (!active()) return;
       var rect = article.getBoundingClientRect();
-      if (rect.height <= 0 || rect.top >= window.innerHeight) return;
-      var percent = Math.min(100, Math.max(0, Math.floor((window.innerHeight - rect.top) / rect.height * 100)));
-      maxProgress = Math.max(maxProgress, percent);
+      if (rect.height <= 0) return;
+      // Retain the furthest visible body coordinate, then use the CURRENT height.
+      // Late images, MathJax, and responsive reflow must not retain a stale 100%.
+      furthestReadBottom = Math.max(furthestReadBottom, Math.min(rect.height, window.innerHeight - rect.top));
+      maxProgress = Math.min(100, Math.max(0, Math.floor(furthestReadBottom / rect.height * 100)));
       [25, 50, 75, 100].forEach(function (mark) {
         if (maxProgress >= mark && !scrollFired[mark]) {
           scrollFired[mark] = true;
