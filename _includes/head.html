@@ -79,6 +79,7 @@
     content_group: {% if page.layout == 'post' %}{{ page.categories | first | default: 'articles' | jsonify }}{% else %}'navigation'{% endif %},
     page_type: {% if page.layout == 'post' %}'article'{% elsif page.url == '/' or page.url contains '/page' %}'article_list'{% else %}'page'{% endif %}{% if page.layout == 'post' %},
     article_id: {{ page.url | replace: '_en.html', '.html' | jsonify }},
+    article_title: {{ page.title | jsonify }},
     article_language: {% if page.url contains '_en.html' %}'en'{% else %}'zh'{% endif %}{% endif %}
   });
   gtag('config', 'AW-688213545');

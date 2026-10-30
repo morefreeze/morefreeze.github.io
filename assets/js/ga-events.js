@@ -5,6 +5,7 @@
   function identity(element) {
     return element ? {
       article_id: element.getAttribute('data-article-id'),
+      article_title: element.getAttribute('data-article-title') || '',
       article_language: element.getAttribute('data-article-language') || 'zh'
     } : {};
   }
@@ -70,6 +71,7 @@
         var target = new URL(link.href);
         var targetContext = {
           article_id: target.pathname.replace(/_en\.html$/, '.html'),
+          article_title: link.textContent.trim(),
           article_language: target.pathname.endsWith('_en.html') ? 'en' : 'zh',
           link_source: 'recommend', target_url: link.href,
           link_position: Array.from(link.closest('#recommend-list').querySelectorAll('a')).indexOf(link) + 1

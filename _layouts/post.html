@@ -2,7 +2,7 @@
 layout: default
 ---
 {% assign article_id = page.url | replace: '_en.html', '.html' %}
-<div class="post" data-article-id="{{ article_id | escape }}" data-article-language="{% if page.url contains '_en.html' %}en{% else %}zh{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="post" data-article-id="{{ article_id | escape }}" data-article-title="{{ page.title | escape }}" data-article-language="{% if page.url contains '_en.html' %}en{% else %}zh{% endif %}" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
     <h1 itemprop="name headline" class="post-title">

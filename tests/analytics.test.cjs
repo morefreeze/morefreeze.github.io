@@ -3,8 +3,8 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { JSDOM } = require('jsdom');
 const source = fs.readFileSync('assets/js/ga-events.js', 'utf8');
-const post = '<div class="post" data-article-id="/2026/03/example.html" data-article-language="zh"><article data-article-content></article><a id="language-switcher" href="/2026/03/example_en.html">EN</a></div>';
-const list = '<div class="home-post-item" data-article-id="/2026/03/example.html" data-article-language="zh"><header class="post-header"><a class="post-link" href="/2026/03/example.html">Example</a></header><a class="read-more" href="/2026/03/example.html#read-more">Read more</a></div>';
+const post = '<div class="post" data-article-id="/2026/03/example.html" data-article-language="zh" data-article-title="Example article"><article data-article-content></article><a id="language-switcher" href="/2026/03/example_en.html">EN</a></div>';
+const list = '<div class="home-post-item" data-article-id="/2026/03/example.html" data-article-language="zh" data-article-title="Example article"><header class="post-header"><a class="post-link" href="/2026/03/example.html">Example</a></header><a class="read-more" href="/2026/03/example.html#read-more">Read more</a></div>';
 function setup(html = post, analytics = true, height = 2000) {
   const dom = new JSDOM(html, { url: 'https://blog.morefreeze.top/2026/03/example.html', runScripts: 'outside-only' });
   const w = dom.window, events = [], observers = [], jobs = new Map();
@@ -56,6 +56,7 @@ test('article impressions require continuous visible exposure and are deduplicat
   s.intersect(true); s.tick(1000); s.intersect(false); s.intersect(true); s.tick(1500);
   assert.equal(s.named('article_impression').length, 1);
   assert.equal(s.named('article_impression')[0][2].article_id, '/2026/03/example.html');
+  assert.equal(s.named('article_impression')[0][2].article_title, 'Example article');
 });
 test('background impressions are not counted', () => {
   const s = setup(list); s.intersect(true); s.tick(600); s.visibility(false); s.tick(2000);
@@ -68,11 +69,13 @@ test('article clicks use the target identity and preserve the real homepage URL'
   assert.equal(event[2].article_id, '/2026/03/example.html');
   assert.equal(event[2].send_to, 'G-YSYLBZSPC7');
   assert.equal(event[2].link_position, 1);
+  assert.equal(event[2].article_title, 'Example article');
   assert.equal(s.named('page_view').length, 0);
 });
 test('qualified reads require BOTH 30 foreground seconds and 75 percent of the article', () => {
   const s = setup(); s.tick(30000); assert.equal(s.named('article_read').length, 0);
   s.progress(75); assert.equal(s.named('article_read').length, 1);
+  assert.equal(s.named('article_read')[0][2].article_title, 'Example article');
   s.progress(100); s.tick(30000); assert.equal(s.named('article_read').length, 1);
 });
 test('background or unfocused time does not qualify a read', () => {
@@ -108,6 +111,7 @@ test('recommendation clicks include their one-based position and target language
   assert.equal(event.article_id, '/2026/03/other.html');
   assert.equal(event.article_language, 'en');
   assert.equal(event.link_position, 2);
+  assert.equal(event.article_title, 'Other');
 });
 
 test('late images and math reflow cannot qualify an unread expanded article', () => {

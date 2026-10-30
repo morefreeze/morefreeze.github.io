@@ -80,6 +80,7 @@ layout: default
     }
 
     function updatePostTitle(post, title) {
+      post.setAttribute('data-article-title', title);
       var titleTag = post.querySelector('.post-title');
       if (titleTag) {
         var link = titleTag.querySelector('.post-link');
@@ -112,7 +113,7 @@ layout: default
       {% assign zh_url = post.url %}
       {% assign en_url = post.url | replace: '.html', '_en.html' %}
 
-    <div class="home-post-item" data-article-id="{{ zh_url | escape }}" data-article-language="zh" data-zh-url="{{ zh_url }}" data-en-url="{{ en_url }}" data-title="{{ post.title | escape }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-categories="{{ post.categories | join: ',' }}">
+    <div class="home-post-item" data-article-id="{{ zh_url | escape }}" data-article-title="{{ post.title | escape }}" data-article-language="zh" data-zh-url="{{ zh_url }}" data-en-url="{{ en_url }}" data-title="{{ post.title | escape }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-categories="{{ post.categories | join: ',' }}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
