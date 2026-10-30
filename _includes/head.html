@@ -10,6 +10,7 @@
 {% assign page_url = page.url | replace:'index.html','' | prepend: site.url %}
 
 <title>{{ page_title }}</title>
+<meta name="blog-excerpt" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 320 | escape }}">
 <meta property="og:title" content="{{ page_title }}">
 <meta property="og:description" content="{{ page_desc }}">
 <meta property="og:url" content="{{ page_url }}">
@@ -74,7 +75,12 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YSYLBZSPC7');
+  gtag('config', 'G-YSYLBZSPC7', {
+    content_group: {% if page.layout == 'post' %}{{ page.categories | first | default: 'articles' | jsonify }}{% else %}'navigation'{% endif %},
+    page_type: {% if page.layout == 'post' %}'article'{% elsif page.url == '/' or page.url contains '/page' %}'article_list'{% else %}'page'{% endif %}{% if page.layout == 'post' %},
+    article_id: {{ page.url | replace: '_en.html', '.html' | jsonify }},
+    article_language: {% if page.url contains '_en.html' %}'en'{% else %}'zh'{% endif %}{% endif %}
+  });
   gtag('config', 'AW-688213545');
 </script>
 <!-- Inline dark mode: apply before render to prevent flash -->

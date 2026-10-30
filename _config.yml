@@ -91,6 +91,9 @@ exclude:
   - tasks/
   - substack_drafts/
   - node_modules/
+  - tests/
+  - package.json
+  - package-lock.json
   - log/
   - papers/
 

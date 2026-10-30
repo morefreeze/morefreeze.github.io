@@ -23,6 +23,12 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Add deployment health marker

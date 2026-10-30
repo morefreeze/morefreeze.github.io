@@ -18,3 +18,5 @@ _substack_drafts/
 .DS_Store
 log/
 papers/
+
+node_modules/

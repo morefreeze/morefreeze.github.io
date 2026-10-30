@@ -38,24 +38,12 @@ layout: default
               enTitle = titleTag.textContent;
             }
 
-            // 提取摘要：找到 #read-more 锚点，只取前面部分
-            // Jekyll 在完整页面渲染时会将 <!--more--> 替换为 <a class="anchor" id="read-more"></a>
-            let enExcerpt = '';
-            const article = doc.querySelector('article');
-            if (article) {
-              const articleHtml = article.innerHTML;
-              // 查找 read-more 锚点
-              const moreIndex = articleHtml.indexOf('id="read-more"');
-              if (moreIndex > 0) {
-                // 找到锚点，取前面部分，但需要找到完整标签结束
-                // 找到锚点所在标签的结束 >
-                const endTagIndex = articleHtml.indexOf('>', moreIndex);
-                enExcerpt = articleHtml.substring(0, endTagIndex + 1);
-              } else {
-                // 没有找到，使用全部内容
-                enExcerpt = article.innerHTML;
-              }
-            }
+            // The detail page provides the same bounded preview as the homepage.
+            const summary = doc.querySelector('meta[name="blog-excerpt"]');
+            var summaryElement = document.createElement('p');
+            summaryElement.textContent = summary ? summary.content : '';
+            var enExcerpt = summaryElement.outerHTML;
+            post.setAttribute('data-article-language', 'en');
 
             // 更新链接、标题、摘要
             updatePostLink(post, enUrl);
@@ -84,6 +72,11 @@ layout: default
       if (link) {
         link.href = url;
       }
+      var readMore = post.querySelector('.read-more');
+      if (readMore) {
+        readMore.href = url;
+        readMore.textContent = url.endsWith('_en.html') ? 'Read more' : '阅读全文';
+      }
     }
 
     function updatePostTitle(post, title) {
@@ -100,11 +93,11 @@ layout: default
       var excerptTag = post.querySelector('.post-content');
       if (excerptTag && excerptHtml) {
         // 获取 "Read more" 链接
-        const readMoreLink = excerptTag.querySelector('a[href$="#read-more"]');
+        const readMoreLink = excerptTag.querySelector('.read-more');
         // 更新整个 article HTML
         excerptTag.innerHTML = excerptHtml;
         // 如果原文没有 Read more，添加它
-        if (readMoreLink && !excerptTag.querySelector('a[href$="#read-more"]')) {
+        if (readMoreLink && !excerptTag.querySelector('.read-more')) {
           excerptTag.appendChild(document.createElement('hr'));
           excerptTag.innerHTML += '<p>' + readMoreLink.outerHTML + '</p>';
         }
@@ -119,7 +112,7 @@ layout: default
       {% assign zh_url = post.url %}
       {% assign en_url = post.url | replace: '.html', '_en.html' %}
 
-    <div class="home-post-item" data-zh-url="{{ zh_url }}" data-en-url="{{ en_url }}" data-title="{{ post.title }}" data-excerpt="{{ post.excerpt | strip_html }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-categories="{{ post.categories | join: ',' }}">
+    <div class="home-post-item" data-article-id="{{ zh_url | escape }}" data-article-language="zh" data-zh-url="{{ zh_url }}" data-en-url="{{ en_url }}" data-title="{{ post.title | escape }}" data-date="{{ post.date | date: '%Y-%m-%d' }}" data-categories="{{ post.categories | join: ',' }}">
     <header class="post-header">
       <h1 itemprop="name" class="post-title">
         <a itemprop="url" class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
@@ -143,17 +136,8 @@ layout: default
     </header>
 
     <article class="post-content" itemprop="articleBody">
-        {{ post.excerpt }}
-        {% capture content_words %}
-          {{ post.content | number_of_words }}
-        {% endcapture %}
-        {% capture excerpt_words %}
-          {{ post.excerpt | number_of_words }}
-        {% endcapture %}
-
-        {% if content_words != excerpt_words  %}
-        <p><a href="{{ post.url }}#read-more">Read more</a></p>
-        {% endif %}
+        {% include post_excerpt.html post=post %}
+        <p><a class="read-more" href="{{ post.url }}">阅读全文</a></p>
     </article> <hr />
     </div>
       {% endunless %}

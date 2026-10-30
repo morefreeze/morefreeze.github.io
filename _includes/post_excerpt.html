@@ -1,0 +1,6 @@
+{% assign preview_text = include.post.excerpt | strip_html | strip_newlines | strip %}
+{% if preview_text.size > 320 %}
+<p>{{ preview_text | truncate: 320 | escape }}</p>
+{% else %}
+{{ include.post.excerpt }}
+{% endif %}
