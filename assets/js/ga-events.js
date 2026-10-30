@@ -71,7 +71,8 @@
         var targetContext = {
           article_id: target.pathname.replace(/_en\.html$/, '.html'),
           article_language: target.pathname.endsWith('_en.html') ? 'en' : 'zh',
-          link_source: 'recommend', target_url: link.href
+          link_source: 'recommend', target_url: link.href,
+          link_position: Array.from(link.closest('#recommend-list').querySelectorAll('a')).indexOf(link) + 1
         };
         send('article_click', targetContext);
         send('recommend_click', Object.assign({}, context, { target_url: link.href, target_title: link.textContent }));

@@ -100,3 +100,11 @@ test('analytics being blocked does not break clicks, scrolling, or timers', () =
   const s = setup(post, false); s.progress(100); s.tick(40000);
   assert.equal(s.events.length, 0);
 });
+test('recommendation clicks include their one-based position and target language', () => {
+  const s = setup(post + '<ul id="recommend-list"><li><a href="/2026/03/first.html">First</a></li><li><a href="/2026/03/other_en.html">Other</a></li></ul>');
+  s.w.document.querySelectorAll('#recommend-list a')[1].click();
+  const event = s.named('article_click')[0][2];
+  assert.equal(event.article_id, '/2026/03/other.html');
+  assert.equal(event.article_language, 'en');
+  assert.equal(event.link_position, 2);
+});
