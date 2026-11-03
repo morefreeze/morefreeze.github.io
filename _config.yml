@@ -71,6 +71,14 @@ url: "https://blog.morefreeze.top"
 paginate: 5
 paginate_path: /page:num
 
+# Exclude translations before pagination; their detail pages remain published.
+defaults:
+  - scope:
+      path: "_posts/*_en.*"
+      type: posts
+    values:
+      hidden: true
+
 layout: default
 comments: true
 

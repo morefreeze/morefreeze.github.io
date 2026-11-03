@@ -1,5 +1,7 @@
 <div class="sidebar-module">
-  <h4>{{ site.locales[site.default_locale].Archives }}</h4>
+  <details>
+  <summary>{{ site.locales[site.default_locale].Archives }}</summary>
+  <ul class="sidebar-links">
 
   {% for post in site.posts %}
   {% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
@@ -11,5 +13,7 @@
   {% endunless %}
   {% endfor %}
 
+  </ul>
+  </details>
 </div>
 
