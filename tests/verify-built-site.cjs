@@ -57,3 +57,21 @@ test('English articles remain published with a working Chinese counterpart link'
     dom.window.close();
   }
 });
+
+test('the mobile sidebar starts collapsed without enclosing the footer widget', () => {
+  for (const n of [1, 2]) {
+    const dom = readPage(n);
+    const document = dom.window.document;
+    const sidebar = document.querySelector('details.site-sidebar');
+    assert.ok(sidebar, 'whole sidebar has a native disclosure control');
+    assert.equal(sidebar.open, false, 'mobile is collapsed even before scripts run');
+    assert.equal(sidebar.querySelectorAll('.sidebar-module').length, 8, 'all sidebar modules remain accessible');
+    const widget = document.querySelector('footer #foreverblog-today');
+    assert.ok(widget, 'daily reading widget remains in the footer');
+    assert.equal(widget.closest('details'), null, 'closing navigation cannot hide the widget');
+    const script = document.querySelector('script[src$="/assets/js/sidebar.js"]');
+    assert.ok(script, 'responsive sidebar behavior is loaded');
+    assert.ok(fs.existsSync(path.join(root, script.getAttribute('src').replace(/^\//, ''))));
+    dom.window.close();
+  }
+});

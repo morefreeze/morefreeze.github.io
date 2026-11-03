@@ -108,6 +108,26 @@
  * Sidebar
  */
 
+.sidebar-toggle {
+  padding: 15px 0;
+  cursor: pointer;
+  font-size: $base-font-size;
+  font-weight: bold;
+  color: $grey-color-dark;
+}
+
+.sidebar-toggle:focus-visible,
+.sidebar-module summary:focus-visible {
+  outline: 2px solid $brand-color;
+  outline-offset: 4px;
+}
+
+@media screen and (min-width: $on-palm) {
+  .site-sidebar[open] > .sidebar-toggle {
+    display: none;
+  }
+}
+
 .sidebar-module {
   padding: 15px;
   margin: 0 -15px 15px;
@@ -122,10 +142,6 @@
     font-size: $base-font-size;
     font-weight: bold;
     color: $grey-color-dark;
-  }
-  summary:focus-visible {
-    outline: 2px solid $brand-color;
-    outline-offset: 4px;
   }
   .sidebar-links,
   .sidebar-tags {

@@ -1,4 +1,6 @@
-<div class="col-sm-2">
+<details class="site-sidebar col-sm-2">
+<summary class="sidebar-toggle">博客信息与导航</summary>
+<div class="sidebar-content">
 {% include Aboutme.html %}
 {% include Newsletter.html %}
 {% include Recent_Posts.html %}
@@ -8,4 +10,6 @@
 {% include Archives.html %}
 {% include Copyright_Notice.html %}
 </div>
+</details>
+<script src="{{ '/assets/js/sidebar.js' | prepend: site.baseurl }}"></script>
 
