@@ -4,8 +4,8 @@
   var sidebar = document.querySelector('.site-sidebar');
   if (!sidebar) return;
 
-  // Match the existing two-column layout breakpoint in _sass/_base.scss.
-  var desktop = window.matchMedia('(min-width: 600px)');
+  // Match $sidebar-breakpoint in css/main.scss and the two-column CSS rules.
+  var desktop = window.matchMedia('(min-width: 768px)');
   function syncLayout() {
     sidebar.open = desktop.matches;
   }

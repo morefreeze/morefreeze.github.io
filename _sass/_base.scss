@@ -109,7 +109,7 @@ $on-laptop: 1024px !default;
 }
 
 
-@media screen and (min-width : $on-palm) {
+@media screen and (min-width: $sidebar-breakpoint) {
   .col-sm-8 {
     float:left;
     width:65%;
