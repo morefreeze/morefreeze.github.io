@@ -171,18 +171,63 @@
 
 .foreverblog-widget {
   padding: 0 15px;
-  margin-bottom: $spacing-unit;
+  max-width: 1100px;
+  margin: 0 auto 24px;
+  text-align: left;
+}
 
-  iframe {
-    display: block;
-    width: 100%;
-    max-width: 360px;
-    height: 260px;
-    margin: 0 auto;
-    border: 0;
+.foreverblog-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
   }
 }
 
+.foreverblog-articles {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 20px 32px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li:nth-child(n + 3) { display: none; }
+}
+
+.foreverblog-article {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.foreverblog-meta {
+  display: block;
+  margin-top: 6px;
+  color: $grey-color-dark;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.foreverblog-wormhole { margin: 20px 0 0; }
+
+@media screen and (min-width: $sidebar-breakpoint) {
+  .foreverblog-articles {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    li:nth-child(n + 3) { display: list-item; }
+  }
+}
 
 
 /**

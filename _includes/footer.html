@@ -1,12 +1,20 @@
 <footer class="site-footer">
 
-  <div class="foreverblog-widget">
-    <iframe id="foreverblog-today"
-      src="https://www.foreverblog.cn/widget/today.html?theme=light"
-      loading="lazy"
-      title="十年之约 · 今天读什么"
-      sandbox="allow-popups allow-popups-to-escape-sandbox"></iframe>
-  </div>
+  <section id="foreverblog-today" class="foreverblog-widget" aria-labelledby="foreverblog-heading">
+    <div class="foreverblog-heading">
+      <h2 id="foreverblog-heading">十年之约 · 今天读什么</h2>
+      <a href="https://www.foreverblog.cn/daily.html" target="_blank" rel="noopener">查看全部 →</a>
+    </div>
+    <ul class="foreverblog-articles">
+      {% for article in site.data.foreverblog.items limit:3 %}
+      <li>
+        <a class="foreverblog-article" href="{{ article.url | escape }}" target="_blank" rel="noopener">{{ article.title | escape }}</a>
+        <span class="foreverblog-meta">{{ article.blog | escape }} · <time datetime="{{ article.date | escape }}">{{ article.date | date: '%m-%d' }}</time></span>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="foreverblog-wormhole"><a href="https://www.foreverblog.cn/go.html" target="_blank" rel="noopener">随机去一个十年之约的博客 →</a></p>
+  </section>
 
   <p>Copyright &copy; <a href="{{ site.baseurl }}/">{{site.title}}</a></p>
   <p>Powered by <a href="https://github.com/jekyll/jekyll">Jekyll</a> 

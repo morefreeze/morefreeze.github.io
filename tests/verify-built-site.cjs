@@ -69,6 +69,17 @@ test('the mobile sidebar starts collapsed without enclosing the footer widget', 
     const widget = document.querySelector('footer #foreverblog-today');
     assert.ok(widget, 'daily reading widget remains in the footer');
     assert.equal(widget.closest('details'), null, 'closing navigation cannot hide the widget');
+    assert.equal(widget.tagName, 'SECTION', 'recommendations render directly in the page');
+    const articles = [...widget.querySelectorAll('.foreverblog-article')];
+    assert.equal(articles.length, 3, 'wide screens have three recommendations');
+    assert.equal(new Set(articles.map(a => a.href)).size, 3, 'recommendations are distinct');
+    for (const article of articles) {
+      assert.ok(article.textContent.trim(), 'article has a visible title');
+      assert.ok(article.href.startsWith('https://www.foreverblog.cn/daily/read/'), 'article uses the official feed link');
+      assert.equal(article.target, '_blank');
+      assert.ok(article.relList.contains('noopener'));
+      assert.match(article.parentElement.querySelector('time').dateTime, /^\d{4}-\d{2}-\d{2}$/);
+    }
     const script = document.querySelector('script[src$="/assets/js/sidebar.js"]');
     assert.ok(script, 'responsive sidebar behavior is loaded');
     assert.ok(fs.existsSync(path.join(root, script.getAttribute('src').replace(/^\//, ''))));

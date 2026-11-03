@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const { JSDOM } = require('jsdom');
 const source = fs.readFileSync('assets/js/dark-mode.js', 'utf8');
-const widget = '<iframe id="foreverblog-today" src="https://www.foreverblog.cn/widget/today.html?theme=light"></iframe>';
+const widget = '<section id="foreverblog-today"><a href="https://www.foreverblog.cn/daily.html">今天读什么</a></section>';
 
 function setup({ storedTheme, systemDark = false, withWidget = true } = {}) {
   const dom = new JSDOM('<button id="dark-mode-toggle"></button>' + (withWidget ? widget : ''), {
@@ -17,7 +17,7 @@ function setup({ storedTheme, systemDark = false, withWidget = true } = {}) {
   return w;
 }
 
-test('the footer widget follows the initial saved or system theme', () => {
+test('the page and native footer share the initial saved or system theme', () => {
   for (const [options, expected] of [
     [{}, 'light'],
     [{ systemDark: true }, 'dark'],
@@ -25,20 +25,20 @@ test('the footer widget follows the initial saved or system theme', () => {
     [{ storedTheme: 'light', systemDark: true }, 'light']
   ]) {
     const w = setup(options);
-    const url = new URL(w.document.querySelector('iframe').src);
-    assert.equal(url.searchParams.get('theme'), expected);
     assert.equal(w.document.documentElement.dataset.theme, expected);
+    assert.equal(w.document.querySelector('#foreverblog-today').hasAttribute('src'), false);
     w.close();
   }
 });
 
-test('the theme button changes the widget in both directions', () => {
+test('the theme button changes the page in both directions without rewriting native footer links', () => {
   const w = setup();
   const button = w.document.querySelector('button');
   button.click();
-  assert.equal(new URL(w.document.querySelector('iframe').src).searchParams.get('theme'), 'dark');
+  assert.equal(w.document.documentElement.dataset.theme, 'dark');
   button.click();
-  assert.equal(new URL(w.document.querySelector('iframe').src).searchParams.get('theme'), 'light');
+  assert.equal(w.document.documentElement.dataset.theme, 'light');
+  assert.equal(w.document.querySelector('#foreverblog-today a').href, 'https://www.foreverblog.cn/daily.html');
   w.close();
 });
 

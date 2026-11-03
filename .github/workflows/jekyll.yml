@@ -3,6 +3,8 @@ name: Build and deploy Pages
 on:
   push:
     branches: [master]
+  schedule:
+    - cron: '23 18 * * *' # Daily at 02:23 Asia/Shanghai, after the RSS update.
   workflow_dispatch:
     inputs:
       deploy:
@@ -29,6 +31,8 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm test
+      - name: Refresh ForeverBlog recommendations
+        run: node _scripts/refresh-foreverblog.cjs
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Add deployment health marker
@@ -43,7 +47,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
   deploy:
-    if: github.event_name == 'push' || inputs.deploy
+    if: github.event_name == 'push' || github.event_name == 'schedule' || inputs.deploy
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
