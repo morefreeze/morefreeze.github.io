@@ -14,6 +14,12 @@
     root.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
     updateButton(theme);
+
+    var widget = document.getElementById('foreverblog-today');
+    if (widget) {
+      var src = 'https://www.foreverblog.cn/widget/today.html?theme=' + theme;
+      if (widget.getAttribute('src') !== src) widget.setAttribute('src', src);
+    }
   }
 
   function updateButton(theme) {

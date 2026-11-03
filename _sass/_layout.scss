@@ -138,6 +138,20 @@
   font-size: 14px;
 }
 
+.foreverblog-widget {
+  padding: 0 15px;
+  margin-bottom: $spacing-unit;
+
+  iframe {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: 260px;
+    margin: 0 auto;
+    border: 0;
+  }
+}
+
 
 
 /**
